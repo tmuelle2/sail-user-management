@@ -41,7 +41,7 @@
 } 
 </style>
 <form accept-charset="UTF-8" action="';
-$o .= esc_url( admin_url('admin-post.php') 
+$o .= esc_url(admin_url('admin-post.php'));
 $o .= '" id="user_reg" autocomplete="on" method="post" target="_blank">
     <input type="hidden" name="action" value="sail-user-registration">
 	<div class="flex-container">
