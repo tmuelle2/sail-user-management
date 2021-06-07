@@ -7,7 +7,7 @@
  */
 
 function sail_register_post_types() {
-    register_post_types('user-register', ['public' => true])
+    register_post_types('user-register', ['public' => true]);
 }
 
 /**
