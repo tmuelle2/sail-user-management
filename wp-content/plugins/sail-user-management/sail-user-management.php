@@ -191,6 +191,7 @@ function sail_plugin_init() {
 
 function sail_user_register() {
     include('./user-registration.php');
+    wp_rediect("https://google.com");
 }
 
 add_action('admin_post_nopriv_sail_user_registration', 'sail_user_register');

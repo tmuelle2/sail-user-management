@@ -51,8 +51,8 @@ if ( !username_exists($email) && !email_exists($email)) {
     );
 
     // Success redirect
-    header("Location: https://media.giphy.com/media/Q81NcsY6YxK7jxnr4v/giphy.gif");
+    wp_rediect("https://media.giphy.com/media/Q81NcsY6YxK7jxnr4v/giphy.gif");
 } else {
     // Fail redirect
-    header("Location: https://media.giphy.com/media/d2W7eZX5z62ziqdi/giphy.gif");
+    wp_rediect("https://media.giphy.com/media/d2W7eZX5z62ziqdi/giphy.gif");
 }
