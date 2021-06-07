@@ -1,3 +1,4 @@
+<?php
 /**
  * Plugin Name: SAIL User Management
  * Plugin URI: https://github.com/tmuelle2/sail-user-management
