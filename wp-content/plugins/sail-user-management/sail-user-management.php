@@ -45,85 +45,118 @@ $o .= esc_url(admin_url('admin-post.php'));
 $o .= '" id="user_reg" autocomplete="on" method="post" target="_blank">
     <input type="hidden" name="action" value="sail_user_registration">
 	<div class="flex-container">
-    	<div class="flex-child">
-          <h5 class="field-label required-field">First Name</h5>
-          <input name="firstName" type="text" class="text-input-field" required /> <br /> 
-          <h5 class="field-label required-field">Last Name</h5>
-          <input name="lastName" type="text" class="text-input-field" required /> <br /> 
-          <h5 class="field-label required-field">Phone Number</h5>
-          <input name="phoneNumber" type="tel" class="text-input-field" placeholder="3215556789" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" maxlength="10"  title="Ten digit phone number" required/>
-          <h5 class="field-label required-field">Email</h5>
-          <input name="email" type="email" class="text-input-field" required /> <br /> 
+      <div class="flex-child">
+        <h5 class="field-label required-field">First Name</h5>
+        <input name="firstName" type="text" class="text-input-field" required /> <br /> 
+      </div>
+      <div class="flex-child">
+        <h5 class="field-label required-field">First Name</h5>
+        <input name="firstName" type="text" class="text-input-field" required /> <br /> 
+      </div>
+    </div>
+    <div class="flex-container">
+      <div class="flex-child">
+        <h5 class="field-label required-field">Email</h5>
+        <input name="email" type="email" class="text-input-field" required /> <br /> 
+      </div>
+      <div class="flex-child">
+        <h5 class="field-label required-field">Phone Number</h5>
+        <input name="phoneNumber" type="tel" class="text-input-field" placeholder="3215556789" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" maxlength="10"  title="Ten digit phone number" required/>
+      </div>
+    </div>  
+    <div class="flex-container">
+      <div class="flex-child">
           <h5 class="field-label required-field">Password</h5>
           <input name="password" type="password" class="text-input-field" required /> <br /> 
+      </div>
+      <div class="flex-child">
+          <!--blank-->
+      </div>
+    </div>
+    <div class="flex-container">
+      <div class="flex-child">
+        <h5 class="field-label required-field">Address Line 1</h5>
+        <input name="addrLine1" type="text" class="text-input-field" required /> <br />
+      </div>
+      <div class="flex-child">
+        <h5 class="field-label">Address Line 2</h5>
+        <input name="addrLine2" type="text" class="text-input-field" /> <br />
+      </div>
+    </div>
+    <div class="flex-container">
+      <div class="flex-child">
+        <h5 class="field-label required-field">City</h5>
+        <input name="city" type="text" class="text-input-field" required /> <br />
+      </div>
+      <div class="flex-child">
+        <h5 class="field-label required-field">State</h5>
+          <select name="state" required class="select-field" style="width: 100%">
+            <option value="AL">Alabama</option>
+            <option value="AK">Alaska</option>
+            <option value="AZ">Arizona</option>
+            <option value="AR">Arkansas</option>
+            <option value="CA">California</option>
+            <option value="CO">Colorado</option>
+            <option value="CT">Connecticut</option>
+            <option value="DE">Delaware</option>
+            <option value="DC">District Of Columbia</option>
+            <option value="FL">Florida</option>
+            <option value="GA">Georgia</option>
+            <option value="HI">Hawaii</option>
+            <option value="ID">Idaho</option>
+            <option value="IL">Illinois</option>
+            <option value="IN">Indiana</option>
+            <option value="IA">Iowa</option>
+            <option value="KS">Kansas</option>
+            <option value="KY">Kentucky</option>
+            <option value="LA">Louisiana</option>
+            <option value="ME">Maine</option>
+            <option value="MD">Maryland</option>
+            <option value="MA">Massachusetts</option>
+            <option value="MI">Michigan</option>
+            <option value="MN">Minnesota</option>
+            <option value="MS">Mississippi</option>
+            <option value="MO">Missouri</option>
+            <option value="MT">Montana</option>
+            <option value="NE">Nebraska</option>
+            <option value="NV">Nevada</option>
+            <option value="NH">New Hampshire</option>
+            <option value="NJ">New Jersey</option>
+            <option value="NM">New Mexico</option>
+            <option value="NY">New York</option>
+            <option value="NC">North Carolina</option>
+            <option value="ND">North Dakota</option>
+            <option value="OH">Ohio</option>
+            <option value="OK">Oklahoma</option>
+            <option value="OR">Oregon</option>
+            <option value="PA">Pennsylvania</option>
+            <option value="RI">Rhode Island</option>
+            <option value="SC">South Carolina</option>
+            <option value="SD">South Dakota</option>
+            <option value="TN">Tennessee</option>
+            <option value="TX">Texas</option>
+            <option value="UT">Utah</option>
+            <option value="VT">Vermont</option>
+            <option value="VA">Virginia</option>
+            <option value="WA">Washington</option>
+            <option value="WV">West Virginia</option>
+            <option value="WI">Wisconsin</option>
+            <option value="WY">Wyoming</option>
+          </select> <br />
+      </div>
+    </div>
+	<div class="flex-container">
+    	<div class="flex-child">
+          <h5 class="field-label required-field">Zip Code</h5>
+          <input name="zipCode" type="number" maxlength="5" required style="	min-height: 26px;
+          font-size: 16px;" /> <br />   
       	</div>  
         <div class="flex-child">
-          <h5 class="field-label required-field">Address Line 1</h5>
-    <input name="addrLine1" type="text" class="text-input-field" required /> <br />
-    <h5 class="field-label">Address Line 2</h5>
-    <input name="addrLine2" type="text" class="text-input-field" /> <br />
-  	<h5 class="field-label required-field">City</h5>
-    <input name="city" type="text" class="text-input-field" required /> <br />
-  	<h5 class="field-label required-field">State</h5>
-	<select name="state" required class="select-field" style="width: 100%">
-      <option value="AL">Alabama</option>
-      <option value="AK">Alaska</option>
-      <option value="AZ">Arizona</option>
-      <option value="AR">Arkansas</option>
-      <option value="CA">California</option>
-      <option value="CO">Colorado</option>
-      <option value="CT">Connecticut</option>
-      <option value="DE">Delaware</option>
-      <option value="DC">District Of Columbia</option>
-      <option value="FL">Florida</option>
-      <option value="GA">Georgia</option>
-      <option value="HI">Hawaii</option>
-      <option value="ID">Idaho</option>
-      <option value="IL">Illinois</option>
-      <option value="IN">Indiana</option>
-      <option value="IA">Iowa</option>
-      <option value="KS">Kansas</option>
-      <option value="KY">Kentucky</option>
-      <option value="LA">Louisiana</option>
-      <option value="ME">Maine</option>
-      <option value="MD">Maryland</option>
-      <option value="MA">Massachusetts</option>
-      <option value="MI">Michigan</option>
-      <option value="MN">Minnesota</option>
-      <option value="MS">Mississippi</option>
-      <option value="MO">Missouri</option>
-      <option value="MT">Montana</option>
-      <option value="NE">Nebraska</option>
-      <option value="NV">Nevada</option>
-      <option value="NH">New Hampshire</option>
-      <option value="NJ">New Jersey</option>
-      <option value="NM">New Mexico</option>
-      <option value="NY">New York</option>
-      <option value="NC">North Carolina</option>
-      <option value="ND">North Dakota</option>
-      <option value="OH">Ohio</option>
-      <option value="OK">Oklahoma</option>
-      <option value="OR">Oregon</option>
-      <option value="PA">Pennsylvania</option>
-      <option value="RI">Rhode Island</option>
-      <option value="SC">South Carolina</option>
-      <option value="SD">South Dakota</option>
-      <option value="TN">Tennessee</option>
-      <option value="TX">Texas</option>
-      <option value="UT">Utah</option>
-      <option value="VT">Vermont</option>
-      <option value="VA">Virginia</option>
-      <option value="WA">Washington</option>
-      <option value="WV">West Virginia</option>
-      <option value="WI">Wisconsin</option>
-      <option value="WY">Wyoming</option>
-	</select> <br />
-    <h5 class="field-label required-field">Zip Code</h5>
-    <input name="zipCode" type="number" maxlength="5" required style="	min-height: 26px;
-  	font-size: 16px;" /> <br />
+          <!--blank-->
       	</div>  
   	</div>
-	   
+    <h5 class="field-label">Profile Picture</h5>
+    <input type="file" id="profilePicture" name="profilePicture">	   
   	<h5 class="field-label required-field">Gender</h5>
 	<select name="gender" class="select-field" required>
       <option value="Male">Male</option>
