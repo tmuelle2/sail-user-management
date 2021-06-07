@@ -6,26 +6,6 @@
  * Version: 0.1
  */
 
-function sail_register_post_types() {
-    register_post_types('user-register', ['public' => true]);
-}
-
-/**
- * Runs on plugin activation.
- */
-function sail_plugin_activate() {
-    register_post_types();
-    flush_rewrite_rules();
-}
-
-/**
- * Runs on plugin deactivate.
- */
-function sail_plugin_deactivate() {
-    unregister_post_type('user-register');
-    flush_rewrite_rules();
-}
-
 /**
  * Adds the html form required to capture all user account info.
  */
@@ -153,6 +133,4 @@ function shortcodes_init() {
     add_shortcode( 'userregistration', 'user_reg_shortcode' );
 } 
 
-register_activation_hook(__FILE__, 'sail_plugin_activate');
-register_deactivation_hook(__FILE__, 'sail_plugin_deactivate');
 add_action( 'init', 'shortcodes_init' );
