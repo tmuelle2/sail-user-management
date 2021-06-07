@@ -12,7 +12,7 @@
  function user_reg_shortcode($atts = [], $content = null, $tag = '' ) {
  	$o = '<style>
 .required-field:after {
-	content: ' *';
+	content: " *";
   	color: red;
 }
 .field-label {
