@@ -1,3 +1,4 @@
+<?php
 /**
  * Plugin Name: SAIL User Management
  * Plugin URI: https://github.com/tmuelle2/sail-user-management
@@ -5,14 +6,14 @@
  * Version: 0.1
  */
 
-function register_post_types() {
-    register_post_types('user-register', ['public' => true])
+function sail_register_post_types() {
+    register_post_types('user-register', ['public' => true]);
 }
 
 /**
  * Runs on plugin activation.
  */
-function plugin_activate() {
+function sail_plugin_activate() {
     register_post_types();
     flush_rewrite_rules();
 }
@@ -20,7 +21,7 @@ function plugin_activate() {
 /**
  * Runs on plugin deactivate.
  */
-function plugin_deactivate() {
+function sail_plugin_deactivate() {
     unregister_post_type('user-register');
     flush_rewrite_rules();
 }
@@ -40,6 +41,6 @@ function shortcodes_init() {
     add_shortcode( 'userregistration', 'user_reg_shortcode' );
 } 
 
-register_activation_hook(__FILE__, 'plugin_activate');
-register_deactivation_hook(__FILE__, 'plugin_deactivate');
+register_activation_hook(__FILE__, 'sail_plugin_activate');
+register_deactivation_hook(__FILE__, 'sail_plugin_deactivate');
 add_action( 'init', 'shortcodes_init' );
