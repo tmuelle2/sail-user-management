@@ -1,5 +1,6 @@
 <?php
 
+// Mapping of form element to database format
 $formElements = array(
     'firstName' => '%s',
     'lastName' => '%s', 
@@ -28,6 +29,7 @@ $formElements = array(
 
 global $wpdb;
 
+// Extract form and format data
 $data = array()
 $formats = array()
 foreach($formElements as $element => $format) {
@@ -35,6 +37,22 @@ foreach($formElements as $element => $format) {
     $formats[] = $format;
 }
 
-$wpdb->insert('sail_users', $data, $formats);
+// Insert into SAIL users db table
+//$wpdb->insert('sail_users', $data, $formats);
 
-header("Location: https://media.giphy.com/media/Q81NcsY6YxK7jxnr4v/giphy.gif");
+// Create Wordpress user
+$email = $_POST['email'];
+$password = $_POST['password'];
+if ( !username_exists($email) && !email_exists($email)) {
+    $user_id = wp_create_user(
+        $email,
+        $password,
+        $email
+    );
+
+    // Success redirect
+    header("Location: https://media.giphy.com/media/Q81NcsY6YxK7jxnr4v/giphy.gif");
+} else {
+    // Fail redirect
+    header("Location: https://media.giphy.com/media/d2W7eZX5z62ziqdi/giphy.gif");
+}

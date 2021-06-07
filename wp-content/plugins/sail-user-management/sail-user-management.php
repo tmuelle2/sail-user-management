@@ -182,8 +182,11 @@
 /**
  * Central location to create all shortcodes. Runs on init action.
  */
-function shortcodes_init() {
+function sail-plugin-init() {
     add_shortcode( 'userregistration', 'user_reg_shortcode' );
+    if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'sail-user-registration') {
+        include('./user-registration.php');
+    }
 } 
 
-add_action( 'init', 'shortcodes_init' );
+add_action( 'init', 'sail-plugin-init' );
