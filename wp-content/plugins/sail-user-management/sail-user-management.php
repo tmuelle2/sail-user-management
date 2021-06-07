@@ -40,7 +40,7 @@
     margin-right: 20px;
 } 
 </style>
-<form accept-charset="UTF-8" action="./user-registration.php" id="user_reg" autocomplete="off" method="post" target="_blank">
+<form accept-charset="UTF-8" action="sail-user-registration" id="user_reg" autocomplete="off" method="post" target="_blank">
 	<div class="flex-container">
     	<div class="flex-child">
           <h5 class="field-label required-field">First Name</h5>
