@@ -40,7 +40,8 @@
     margin-right: 20px;
 } 
 </style>
-<form accept-charset="UTF-8" action="sail-user-registration" id="user_reg" autocomplete="off" method="post" target="_blank">
+<form accept-charset="UTF-8" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>" id="user_reg" autocomplete="on" method="post" target="_blank">
+    <input type="hidden" name="action" value="sail-user-registration">
 	<div class="flex-container">
     	<div class="flex-child">
           <h5 class="field-label required-field">First Name</h5>
@@ -180,13 +181,16 @@
 }
 
 /**
- * Central location to create all shortcodes. Runs on init action.
+ * Central location to create all shortcodes. Runs on init hook.
  */
 function sail_plugin_init() {
     add_shortcode( 'userregistration', 'user_reg_shortcode' );
-    if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'sail-user-registration') {
-        include('./user-registration.php');
-    }
 } 
 
-add_action( 'init', 'sail_plugin_init' );
+function sail_user_register() {
+    include('./user-registration.php');
+}
+
+add_action('admin_post_nopriv_sail_user_registration', 'sail_user_register');
+add_action('admin_post_sail_user_registration', 'sail_user_register');
+add_action('init', 'sail_plugin_init' );
