@@ -23,7 +23,23 @@ function plugin_activate() {
 function plugin_deactivate() {
     unregister_post_type('user-register');
     flush_rewrite_rules();
+}
+
+/**
+ * Adds the html form required to capture all user account info.
+ */
+ function user_reg_shortcode($atts = [], $content = null, $tag = '' ) {
+ 	$o = '<h1>hello shortcode</h1>';
+ 	return $o;
+}
+
+/**
+ * Central location to create all shortcodes. Runs on init action.
+ */
+function shortcodes_init() {
+    add_shortcode( 'userregistration', 'user_reg_shortcode' );
 } 
 
 register_activation_hook(__FILE__, 'plugin_activate');
 register_deactivation_hook(__FILE__, 'plugin_deactivate');
+add_action( 'init', 'shortcodes_init' );
