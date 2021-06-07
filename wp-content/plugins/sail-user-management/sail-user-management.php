@@ -12,17 +12,17 @@
  function user_reg_shortcode($atts = [], $content = null, $tag = '' ) {
  	$o = '<form accept-charset="UTF-8" action="./user-registration.php" id="user_reg" autocomplete="off" method="post" target="_blank">
 	<h5>First Name</h5>
-  	<input name="firstname" type="text" required /> <br /> 
+  	<input name="firstName" type="text" required /> <br /> 
     <h5>Last Name</h5>
-    <input name="lastname" type="text" required /> <br /> 
+    <input name="lastName" type="text" required /> <br /> 
   	<h5>Email</h5>
     <input name="email" type="email" required /> <br /> 
   	<h5>Password</h5>
     <input name="password" type="password" required /> <br /> 
     <h5>Address Line 1</h5>
-    <input name="addrline1" type="text" required /> <br />
+    <input name="addrLine1" type="text" required /> <br />
     <h5>Address Line 2</h5>
-    <input name="addrline2" type="text" /> <br />
+    <input name="addrLine2" type="text" /> <br />
   	<h5>City</h5>
     <input name="city" type="text" required /> <br />
   	<h5>State</h5>
@@ -80,9 +80,9 @@
       <option value="WY">Wyoming</option>
 	</select> <br />
     <h5>Zip Code</h5>
-    <input name="zipcode" type="number" maxlength="5" required /> <br />
+    <input name="zipCode" type="number" maxlength="5" required /> <br />
    	<h5>Phone Number</h5>
-  	<input type="tel" name="phonenumber" placeholder="3215556789" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" maxlength="10"  title="Ten digit phone number" required/>
+  	<input type="tel" name="phoneNumber" placeholder="3215556789" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" maxlength="10"  title="Ten digit phone number" required/>
   	<h5>Gender</h5>
 	<select name="gender" required>
       <option value="Male">Male</option>
@@ -93,10 +93,10 @@
   	<h5>Date of Birth</h5>
   	<input type="date" name="dob"><br />
   	<h5>Can we contact you via Email?</h5>
-	<input checked="checked" name="contactviaemail" type="radio" value="1" />Yes<br /> 
+	<input checked="checked" name="contactViaEmail" type="radio" value="1" /> Yes<br /> 
 	<input name="contactviaemail" type="radio" value="0" /> No <br />  
     <h5>Can we contact you via Text?</h5>
-	<input checked="checked" name="contactviatext" type="radio" value="1" />Yes<br /> 
+	<input checked="checked" name="contactViaText" type="radio" value="1" /> Yes<br /> 
 	<input name="contactviatext" type="radio" value="0" /> No <br /> 
   	<h5>Which Role best describes you?</h5>
   	<select name="role" required>
@@ -122,7 +122,22 @@
   	</select><br/>
     <h5>Any Additional Information?</h5>
 	<textarea cols="30" rows="2"></textarea><br /> 
-</form>';
+  	<h5>Are you interested in joining a SAIL port?</h5>
+	<input checked="checked" name="portInterest" type="radio" value="1" /> Yes<br /> 
+  	<input name="portInterest" type="radio" value="0" /> No<br /> 
+  	<h5>Are you interested in joining a particular SAIL port?</h5>
+  	<select name="portInterestParticular" required>
+      <option value="Troy">Troy</option>
+      <option value="Rochester">Rochester</option>
+  	</select><br/>
+    <h5>Are you willing to complete a background check?</h5>
+	<input checked="checked" name="backgroundCheck" type="radio" value="1" /> Yes<br /> 
+  	<input name="backgroundCheck" type="radio" value="0" /> No<br /> 
+     <h5>Would you like to receive the SAIL Newsletter?</h5>
+	<input checked="checked" name="newsletter" type="radio" value="1" /> Yes<br /> 
+  	<input name="newsletter" type="radio" value="0" /> No<br /> 
+</form>
+<button type="submit" form="user_reg" value="Submit">Submit</button>';
  	return $o;
 }
 
