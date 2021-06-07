@@ -40,7 +40,7 @@
     margin-right: 20px;
 } 
 </style>
-<form accept-charset="UTF-8" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>" id="user_reg" autocomplete="on" method="post" target="_blank">
+<form accept-charset="UTF-8" action="' . esc_url( admin_url('admin-post.php') . '" id="user_reg" autocomplete="on" method="post" target="_blank">
     <input type="hidden" name="action" value="sail-user-registration">
 	<div class="flex-container">
     	<div class="flex-child">
