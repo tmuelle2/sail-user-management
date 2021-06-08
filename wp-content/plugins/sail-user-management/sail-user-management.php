@@ -257,7 +257,7 @@ $o .= '" id="user_signon" autocomplete="on" method="post" target="_blank">
     <input name="email" type="email" class="text-input-field" required /> <br /> 
     <h5 class="field-label required-field">Password</h5>
     <input name="password" type="password" class="text-input-field" required /> <br /> 
-    <input name="remember" type="checkbox" /> Yes<br /> 
+    <input name="remember" type="checkbox" />
     <label for="remember"> Remember me</label><br>
 </form>
 <button type="submit" form="user_signon" value="Submit">Login</button>';
