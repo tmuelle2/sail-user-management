@@ -272,13 +272,10 @@ function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
   $user = wp_get_current_user();
 
   global $wpdb;
+  $query = "SELECT * FROM $wpdb->sail_users WHERE userId = ";
+  $query .= $user->ID;
 
-  $sail_user = $wpdb->get_row(
-      $wpdb->prepare( 
-          "SELECT * FROM $wpdb->sail_users WHERE userId = %d",
-          $user->ID
-      )
-  );
+  $sail_user = $wpdb->get_row($query);
 
   echo $sail_user;
 
