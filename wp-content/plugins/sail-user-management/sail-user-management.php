@@ -42,7 +42,7 @@
 </style>
 <form accept-charset="UTF-8" action="';
 $o .= esc_url(admin_url('admin-post.php'));
-$o .= '" id="user_reg" autocomplete="on" method="post" target="_blank">
+$o .= '" id="user_reg" autocomplete="on" method="post">
     <input type="hidden" name="action" value="sail_user_registration">
 	<div class="flex-container">
       <div class="flex-child">
@@ -251,7 +251,7 @@ $o .= '" id="user_reg" autocomplete="on" method="post" target="_blank">
 </style>
 <form accept-charset="UTF-8" action="';
 $o .= esc_url(admin_url('admin-post.php'));
-$o .= '" id="user_signon" autocomplete="on" method="post" target="_blank">
+$o .= '" id="user_signon" autocomplete="on" method="post">
     <input type="hidden" name="action" value="sail_user_signon">
     <h5 class="field-label required-field">Email</h5>
     <input name="email" type="email" class="text-input-field" required /> <br /> 

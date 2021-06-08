@@ -23,7 +23,7 @@ if ( username_exists($email) && email_exists($email)) {
     else {
         // Success redirect
         nocache_headers();
-        wp_redirect('https://sailhousingsolutions.org/?page_id=249');
+        wp_safe_redirect('https://sailhousingsolutions.org/?page_id=249');
         exit;
     }    
 }else {
