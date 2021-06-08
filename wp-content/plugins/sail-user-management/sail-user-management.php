@@ -223,9 +223,8 @@ function sail_plugin_init() {
 } 
 
 function sail_user_register() {
-    $home_dir = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/'
-    include($home_dir . 'user-registration.php');
-    wp_rediect("https://google.com");
+    $home_dir = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
+    include_once($home_dir . 'user-registration.php');
 }
 
 add_action('admin_post_nopriv_sail_user_registration', 'sail_user_register');

@@ -49,11 +49,11 @@ if ( !username_exists($email) && !email_exists($email)) {
     $data['userId'] = $user_id;
 
     // Insert into SAIL users db table
-    wpdb->insert('sail_users', $data, $formats);
+    $wpdb->insert('sail_users', $data, $formats);
 
     // Success redirect
-    wp_rediect("https://media.giphy.com/media/Q81NcsY6YxK7jxnr4v/giphy.gif");
+    header('Location: https://media.giphy.com/media/Q81NcsY6YxK7jxnr4v/giphy.gif');
 } else {
     // Fail redirect
-    wp_rediect("https://media.giphy.com/media/d2W7eZX5z62ziqdi/giphy.gif");
+    header('Location: https://media.giphy.com/media/d2W7eZX5z62ziqdi/giphy.gif');
 }
