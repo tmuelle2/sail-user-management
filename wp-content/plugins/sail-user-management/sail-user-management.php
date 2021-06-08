@@ -270,8 +270,22 @@ $o .= '" id="user_signon" autocomplete="on" method="post">
  */
 function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
   $user = wp_get_current_user();
+
+  global $wpdb;
+
+  $sail_user = $wpdb->get_row(
+      $wpdb->prepare( 
+          "SELECT * FROM $wpdb->sail_users WHERE userId = %d",
+          $user->ID
+      )
+  );
+
+  echo $sail_user;
+
   $o = '<div>Welcome </div>';
   $o .= esc_html($user->data->user_login);
+  $o .= ' aka ';
+  $o .= esc_html($sail_user->firstName);
   $o .='!</div>';
   return $o;
 } 
