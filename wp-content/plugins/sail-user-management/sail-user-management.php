@@ -277,8 +277,6 @@ function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
 
   $sail_user = $wpdb->get_row($query);
 
-  echo $sail_user;
-
   $o = '<div>Welcome </div>';
   $o .= esc_html($user->data->user_login);
   $o .= ' aka ';
