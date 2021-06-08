@@ -4,6 +4,7 @@
 $email = $_POST['email'];
 $password = $_POST['password'];
 $remember = $_POST['remember'];
+if (!$remember) $remember = false;
 if ( username_exists($email) && email_exists($email)) {
     $creds = array(
         'user_login'    => $email,
