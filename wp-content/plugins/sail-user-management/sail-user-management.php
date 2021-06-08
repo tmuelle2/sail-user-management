@@ -219,7 +219,7 @@ $o .= '" id="user_reg" autocomplete="on" method="post" target="_blank">
  * Central location to create all shortcodes. Runs on init hook.
  */
 function sail_plugin_init() {
-    add_shortcode( 'userregistration', 'user_reg_shortcode' );
+    add_shortcode( 'userRegistration', 'user_reg_shortcode' );
 } 
 
 function sail_user_register() {
