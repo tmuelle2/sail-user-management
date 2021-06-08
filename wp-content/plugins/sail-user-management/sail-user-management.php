@@ -216,10 +216,60 @@ $o .= '" id="user_reg" autocomplete="on" method="post" target="_blank">
 }
 
 /**
+ * Adds the html form required to capture all user account info.
+ */
+ function user_signon_shortcode($atts = [], $content = null, $tag = '' ) {
+  $o = '<style>
+.required-field:after {
+  content: " *";
+    color: red;
+}
+.field-label {
+    margin-bottom: 10px;
+}
+.text-input-field {
+  min-height: 26px;
+    font-size: 16px;
+  width: 100%;  
+}
+.select-field {
+    min-height: 26px;
+    font-size: 16px;
+    margin: 1.425 0 1.425 0;
+}
+.flex-container {
+    display: flex;
+}
+
+.flex-child {
+    flex: 1;
+}  
+
+.flex-child:first-child {
+    margin-right: 20px;
+} 
+</style>
+<form accept-charset="UTF-8" action="';
+$o .= esc_url(admin_url('admin-post.php'));
+$o .= '" id="user_signon" autocomplete="on" method="post" target="_blank">
+    <input type="hidden" name="action" value="sail_user_signon">
+    <h5 class="field-label required-field">Email</h5>
+    <input name="email" type="email" class="text-input-field" required /> <br /> 
+    <h5 class="field-label required-field">Password</h5>
+    <input name="password" type="password" class="text-input-field" required /> <br /> 
+    <input name="remember" type="checkbox" /> Yes<br /> 
+    <label for="remember"> Remember me</label><br>
+</form>
+<button type="submit" form="user_signon" value="Submit">Login</button>';
+  return $o;
+}
+
+/**
  * Central location to create all shortcodes. Runs on init hook.
  */
 function sail_plugin_init() {
     add_shortcode( 'userRegistration', 'user_reg_shortcode' );
+    add_shortcode( 'userSignOn', 'user_signon_shortcode' );
 } 
 
 function sail_user_register() {
@@ -227,6 +277,13 @@ function sail_user_register() {
     include_once($home_dir . 'user-registration.php');
 }
 
+function sail_user_signon() {
+    $home_dir = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
+    include_once($home_dir . 'user-signon.php');
+}
+
 add_action('admin_post_nopriv_sail_user_registration', 'sail_user_register');
 add_action('admin_post_sail_user_registration', 'sail_user_register');
+add_action('admin_post_nopriv_sail_user_signon', 'sail_user_signon');
+add_action('admin_post_sail_user_signon', 'sail_user_signon');
 add_action('init', 'sail_plugin_init' );
