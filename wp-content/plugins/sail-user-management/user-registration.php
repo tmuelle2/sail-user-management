@@ -52,8 +52,12 @@ if ( !username_exists($email) && !email_exists($email)) {
     $wpdb->insert('sail_users', $data, $formats);
 
     // Success redirect
-    header('Location: https://media.giphy.com/media/Q81NcsY6YxK7jxnr4v/giphy.gif');
+    nocache_headers();
+    wp_safe_redirect('https://sailhousingsolutions.org/?page_id=249');
+    exit;
 } else {
-    // Fail redirect
-    header('Location: https://media.giphy.com/media/d2W7eZX5z62ziqdi/giphy.gif');
+    // Fail redirect 
+    nocache_headers();
+    wp_safe_redirect('https://sailhousingsolutions.org/?page_id=422');
+    exit;
 }

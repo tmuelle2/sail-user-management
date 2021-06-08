@@ -216,7 +216,7 @@ $o .= '" id="user_reg" autocomplete="on" method="post" target="_blank">
 }
 
 /**
- * Adds the html form required to capture all user account info.
+ * Adds the html form required to login
  */
  function user_signon_shortcode($atts = [], $content = null, $tag = '' ) {
   $o = '<style>
@@ -265,11 +265,23 @@ $o .= '" id="user_signon" autocomplete="on" method="post" target="_blank">
 }
 
 /**
+ * Adds the html to display the current users profile info
+ */
+function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
+  $user = wp_get_current_user();
+  $o = '<div>Welcome '
+  $o .= esc_html($user->data->user_login);
+  $o .='!</div>';
+  return $o;
+} 
+
+/**
  * Central location to create all shortcodes. Runs on init hook.
  */
 function sail_plugin_init() {
     add_shortcode( 'userRegistration', 'user_reg_shortcode' );
     add_shortcode( 'userSignOn', 'user_signon_shortcode' );
+    add_shortcode( 'userProfile', 'user_profile_shortcode' );
 } 
 
 function sail_user_register() {
