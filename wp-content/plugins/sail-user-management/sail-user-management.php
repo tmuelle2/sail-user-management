@@ -269,9 +269,9 @@ $o .= '" id="user_signon" autocomplete="on" method="post" target="_blank">
  */
 function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
   $user = wp_get_current_user();
-  $o = '<div>Welcome ';
-  $o .= esc_html($user->data->user_login);
-  $o .='!</div>';
+  $o = '<div>Welcome </div>';
+  //$o .= esc_html($user->data->user_login);
+  //$o .='!</div>';
   return $o;
 } 
 
