@@ -50,8 +50,8 @@ $o .= '" id="user_reg" autocomplete="on" method="post" target="_blank">
         <input name="firstName" type="text" class="text-input-field" required /> <br /> 
       </div>
       <div class="flex-child">
-        <h5 class="field-label required-field">First Name</h5>
-        <input name="firstName" type="text" class="text-input-field" required /> <br /> 
+        <h5 class="field-label required-field">Last Name</h5>
+        <input name="lastName" type="text" class="text-input-field" required /> <br /> 
       </div>
     </div>
     <div class="flex-container">
