@@ -223,7 +223,8 @@ function sail_plugin_init() {
 } 
 
 function sail_user_register() {
-    include('./user-registration.php');
+    $home_dir = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/'
+    include($home_dir . 'user-registration.php');
     wp_rediect("https://google.com");
 }
 

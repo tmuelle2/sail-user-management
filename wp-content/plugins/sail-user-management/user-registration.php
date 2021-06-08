@@ -5,7 +5,6 @@ $formElements = array(
     'firstName' => '%s',
     'lastName' => '%s', 
     'email' => '%s', 
-    'password' => '%s', 
     'addrLine1' => '%s', 
     'addrLine2' => '%s', 
     'city' => '%s', 
@@ -31,15 +30,12 @@ $formElements = array(
 global $wpdb;
 
 // Extract form and format data
-$data = array()
-$formats = array()
+$data = array();
+$formats = array();
 foreach($formElements as $element => $format) {
     $data[$element] = $_POST[$element];
     $formats[] = $format;
 }
-
-// Insert into SAIL users db table
-//$wpdb->insert('sail_users', $data, $formats);
 
 // Create Wordpress user
 $email = $_POST['email'];
@@ -50,6 +46,10 @@ if ( !username_exists($email) && !email_exists($email)) {
         $password,
         $email
     );
+    $data['userId'] = $user_id;
+
+    // Insert into SAIL users db table
+    wpdb->insert('sail_users', $data, $formats);
 
     // Success redirect
     wp_rediect("https://media.giphy.com/media/Q81NcsY6YxK7jxnr4v/giphy.gif");
