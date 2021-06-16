@@ -6,19 +6,24 @@
  * Version: 0.1
  */
 
+$HOME_DIR = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
+$PAGES_DIR = $HOME_DIR . 'pages/'
+
 /**
  * Adds the html form required to capture all user account info.
  */
  function user_reg_shortcode($atts = [], $content = null, $tag = '' ) {
-   return get_page('./pages/registration.html');
+   global $PAGES_DIR;
+   return get_sail_page($PAGES_DIR . 'registration.html');
  } 
 
 /**
  * Adds the html form required to login
  */
- function user_signon_shortcode($atts = [], $content = null, $tag = '' ) {
-   return get_page('./pages/signon.html');
-  }
+function user_signon_shortcode($atts = [], $content = null, $tag = '' ) {
+  global $PAGES_DIR;
+  return get_sail_page($PAGES_DIR . 'signon.html');
+}
 
 /**
  * Adds the html to display the current users profile info
@@ -41,17 +46,18 @@ function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
 } 
 
 function user_update_profile_shortcode($atts = [], $content = null, $tag = '' ) {
-   return get_page('./pages/update_profile.html');
+  global $PAGES_DIR;
+  return get_sail_page($PAGES_DIR . 'update_profile.html');
 }
 /**
   * Loads an html page as string replacing admin post url if present.
   * Also, injects the ./pages/common.css file as a <style> block.
   */
-function get_page($path) {
+function get_sail_page($path) {
   return '<style>' . file_get_contents('./pages/common.css', true) . '</style>' .
     str_replace(
       '<?php esc_url(admin_url(\'admin-post.php\')); ?>', 
-      esc_url(admin_url('admin-post.php'), 
+      esc_url(admin_url('admin-post.php')), 
       file_get_contents(path, true)
     );
 }
@@ -84,19 +90,19 @@ register_activation_hook( __FILE__, 'sail_plugin_activate' );
  * be invoked when an unautheticated user posts.
  ***********************************************************************/
 function sail_user_register() {
-    $home_dir = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
-    include_once($home_dir . 'user-registration.php');
+  global $HOME_DIR;
+  include_once($HOME_DIR . 'user-registration.php');
 }
 add_action('admin_post_nopriv_sail_user_registration', 'sail_user_register');
 
 function sail_user_signon() {
-    $home_dir = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
-    include_once($home_dir . 'user-signon.php');
+  global $HOME_DIR;
+  include_once($HOME_DIR . 'user-signon.php');
 }
 add_action('admin_post_nopriv_sail_user_signon', 'sail_user_signon');
 
 function sail_user_update() {
-    $home_dir = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
-    include_once($home_dir . 'user-update.php');
+  global $HOME_DIR;
+  include_once($HOME_DIR . 'user-update.php');
 }
 add_action('admin_post_sail_user_update', 'sail_user_update');
