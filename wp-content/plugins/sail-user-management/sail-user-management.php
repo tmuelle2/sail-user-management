@@ -54,6 +54,7 @@ function user_update_profile_shortcode($atts = [], $content = null, $tag = '' ) 
   * Also, injects the ./pages/common.css file as a <style> block.
   */
 function get_sail_page($path) {
+  global $PAGES_DIR;
   return '<style>' . file_get_contents($PAGES_DIR . 'common.css', true) . '</style>' .
     str_replace(
       '<?php esc_url(admin_url(\'admin-post.php\')); ?>', 
