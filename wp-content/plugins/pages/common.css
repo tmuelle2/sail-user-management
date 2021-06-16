@@ -1,0 +1,28 @@
+.required-field:after {
+	content: " *";
+  	color: red;
+}
+.field-label {
+  	margin-bottom: 10px;
+}
+.text-input-field {
+	min-height: 26px;
+  	font-size: 16px;
+	width: 100%;  
+}
+.select-field {
+  	min-height: 26px;
+  	font-size: 16px;
+  	margin: 1.425 0 1.425 0;
+}
+.flex-container {
+    display: flex;
+}
+
+.flex-child {
+    flex: 1;
+}  
+
+.flex-child:first-child {
+    margin-right: 20px;
+} 
