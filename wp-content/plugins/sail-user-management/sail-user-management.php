@@ -26,7 +26,8 @@ function user_signon_shortcode($atts = [], $content = null, $tag = '' ) {
 }
 
 /**
- * Adds the html to display the current users profile info
+ * Returns the html to display the current users profile info if the user is logged in
+ * otherwise redirects to the registration page.
  */
 function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
   if (is_user_logged_in()) {
@@ -53,7 +54,7 @@ function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
 
 function user_update_profile_shortcode($atts = [], $content = null, $tag = '' ) {
   global $PAGES_DIR;
-  return get_sail_page($PAGES_DIR . 'update_profile.html');
+  return get_sail_page($PAGES_DIR . 'update-profile.html');
 }
 /**
   * Loads an html page as string replacing admin post url if present.
