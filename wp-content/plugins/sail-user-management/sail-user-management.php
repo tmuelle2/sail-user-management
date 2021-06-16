@@ -29,20 +29,26 @@ function user_signon_shortcode($atts = [], $content = null, $tag = '' ) {
  * Adds the html to display the current users profile info
  */
 function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
-  $user = wp_get_current_user();
+  if (is_user_logged_in()) {
+    $user = wp_get_current_user();
 
-  global $wpdb;
-  $query = "SELECT * FROM `sail_users` WHERE userId = ";
-  $query .= $user->ID;
+    global $wpdb;
+    $query = "SELECT * FROM `sail_users` WHERE userId = ";
+    $query .= $user->ID;
 
-  $sail_user = $wpdb->get_row($query);
+    $sail_user = $wpdb->get_row($query);
 
-  $o = '<div>Welcome </div>';
-  $o .= esc_html($user->data->user_login);
-  $o .= ' aka ';
-  $o .= esc_html($sail_user->firstName);
-  $o .='!</div>';
-  return $o;
+    $o = '<div>Welcome </div>';
+    $o .= esc_html($user->data->user_login);
+    $o .= ' aka ';
+    $o .= esc_html($sail_user->firstName);
+    $o .='!</div>';
+    return $o;
+  } else {
+    nocache_headers();
+    wp_safe_redirect('https://sailhousingsolutions.org/register');
+    exit;
+  }
 } 
 
 function user_update_profile_shortcode($atts = [], $content = null, $tag = '' ) {
@@ -59,7 +65,7 @@ function get_sail_page($path) {
     str_replace(
       '<?php esc_url(admin_url(\'admin-post.php\')); ?>', 
       esc_url(admin_url('admin-post.php')), 
-      file_get_contents(path, true)
+      file_get_contents($path, true)
     );
 }
 
