@@ -50,7 +50,7 @@ function user_update_profile_shortcode($atts = [], $content = null, $tag = '' ) 
 function get_page($path) {
   return '<style>' . file_get_contents('./pages/common.css', true) . '</style>' .
     str_replace(
-      '<?php esc_url(admin_url('admin-post.php')); ?>', 
+      '<?php esc_url(admin_url(\'admin-post.php\')); ?>', 
       esc_url(admin_url('admin-post.php'), 
       file_get_contents(path, true)
     );
