@@ -7,7 +7,7 @@
  */
 
 $HOME_DIR = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
-$PAGES_DIR = $HOME_DIR . 'pages/'
+$PAGES_DIR = $HOME_DIR . 'pages/';
 
 /**
  * Adds the html form required to capture all user account info.
