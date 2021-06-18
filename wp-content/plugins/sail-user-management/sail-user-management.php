@@ -6,8 +6,8 @@
  * Version: 0.1
  */
 
-$HOME_DIR = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
-$PAGES_DIR = $HOME_DIR . 'pages/';
+$HOME_DIR = '/_home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
+include($HOME_DIR . 'constants.php');
 
 /**
  * Adds the html form required to capture all user account info.
@@ -31,13 +31,7 @@ function user_signon_shortcode($atts = [], $content = null, $tag = '' ) {
  */
 function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
   if (is_user_logged_in()) {
-    $user = wp_get_current_user();
-
-    global $wpdb;
-    $query = "SELECT * FROM `sail_users` WHERE userId = ";
-    $query .= $user->ID;
-
-    $sail_user = $wpdb->get_row($query);
+    $sail_user = get_sail_user();
 
     $o = '<div>Welcome </div>';
     $o .= esc_html($user->data->user_login);
@@ -47,15 +41,57 @@ function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
     return $o;
   } else {
     nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org/register');
+    wp_safe_redirect('https://sailhousingsolutions.org/login');
     exit;
   }
 } 
 
 function user_update_profile_shortcode($atts = [], $content = null, $tag = '' ) {
-  global $PAGES_DIR;
-  return get_sail_page($PAGES_DIR . 'update-profile.html');
+  if (is_user_logged_in()) {
+    global $PAGES_DIR;
+    global $USER_DB_FIELDS;
+
+    $sail_user = get_sail_user();
+    $html = parse_html(get_sail_page($PAGES_DIR . 'update-profile.html'));
+    populate_inputs($html, $USER_DB_FIELDS, $sail_user);
+    return $html;
+  } else {
+    nocache_headers();
+    wp_safe_redirect('https://sailhousingsolutions.org/login');
+    exit;
+  }    
 }
+
+function get_sail_user() {
+    global $wpdb;
+    $user = wp_get_current_user();
+    $query = "SELECT * FROM `sail_users` WHERE userId = ";
+    $query .= $user->ID;
+    return $wpdb->get_row($query);
+}
+
+function populate_inputs($dom_doc, $db_fields, $db_obj) {
+  // Get input elements
+  $input_list = $dom_doc ->getElementsByTagName("input");
+
+  // Build name to node associative array
+  $inputs = array();
+  foreach($input_list as $input) {
+    $inputs[$input->nodeName] = $input;
+  }
+
+  // Populate inputes
+  foreach($db_fields as $element => $format) {
+    $inputs[$element]->setAttribute('value', $db_obj[$element]);
+  }
+}
+
+function parse_html($str) {
+  $doc = new DOMDocument();
+  $doc->loadHTML($str);
+  return $doc;
+}
+
 /**
   * Loads an html page as string replacing admin post url if present.
   * Also, injects the ./pages/common.css file as a <style> block.
@@ -92,6 +128,7 @@ register_activation_hook( __FILE__, 'sail_plugin_activate' );
  * Below are post callbacks. To wire up a new callback
  * include a hidden input with a target value, like:
  *  <input type="hidden" name="action" value="your_target_value">
+ * 
  * Then implement a function(s) to handle the post and add and action(s)
  * for it.  admin_post_your_target_value will be invoked when an 
  * authenticated user posts and admin_post_nopriv_your_target_value will

@@ -1,38 +1,15 @@
 <?php
 
-// Mapping of form element to database format
-$formElements = array(
-    'firstName' => '%s',
-    'lastName' => '%s', 
-    'email' => '%s', 
-    'addrLine1' => '%s', 
-    'addrLine2' => '%s', 
-    'city' => '%s', 
-    'state' => '%s', 
-    'zipCode' => '%d', 
-    'phoneNumber' => '%s',
-    'profilePicture' => '%s', 
-    'gender' => '%s', 
-    'dob' => '%s', 
-    'contactViaEmail' => '%s', 
-    'contactViaText' => '%s', 
-    'role' => '%s', 
-    'situation' => '%s', 
-    'reference' => '%s',
-    'timeframe' => '%s',
-    'portInterest' => '%s',
-    'portInterestParticular' => '%s',
-    'backgroundCheck' => '%s',
-    'newsletter' => '%s',
-    'additionalInfo' => '%s'
-);
+$HOME_DIR = '/_home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
+include($HOME_DIR . 'constants.php');
+global $USER_DB_FIELDS;
 
 global $wpdb;
 
 // Extract form and format data
 $data = array();
 $formats = array();
-foreach($formElements as $element => $format) {
+foreach($USER_DB_FIELDS as $element => $format) {
     $data[$element] = $_POST[$element];
     $formats[] = $format;
 }
