@@ -6,7 +6,7 @@
  * Version: 0.1
  */
 
-$HOME_DIR = '/_home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
+$HOME_DIR = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
 include($HOME_DIR . 'constants.php');
 
 /**
@@ -33,11 +33,9 @@ function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
   if (is_user_logged_in()) {
     $sail_user = get_sail_user();
 
-    $o = '<div>Welcome </div>';
-    $o .= esc_html($user->data->user_login);
-    $o .= ' aka ';
+    $o = '<div><p>Welcome';
     $o .= esc_html($sail_user->firstName);
-    $o .='!</div>';
+    $o .='!</p></div>';
     return $o;
   } else {
     nocache_headers();
