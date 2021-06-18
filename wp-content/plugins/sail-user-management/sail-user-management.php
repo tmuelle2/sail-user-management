@@ -33,7 +33,7 @@ function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
   if (is_user_logged_in()) {
     $sail_user = get_sail_user();
 
-    $o = '<div><p>Welcome';
+    $o = '<div><p>Welcome ';
     $o .= esc_html($sail_user->firstName);
     $o .='!</p></div>';
     return $o;
@@ -80,7 +80,9 @@ function populate_inputs($dom_doc, $db_fields, $db_obj) {
 
   // Populate inputes
   foreach($db_fields as $element => $format) {
-    $inputs[$element]->setAttribute('value', $db_obj[$element]);
+    if (isset($inputs[$element]) && isset($db_obj[$element])) {
+      $inputs[$element]->setAttribute('value', $db_obj[$element]);
+    }
   }
 }
 
