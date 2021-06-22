@@ -90,7 +90,10 @@ function populate_inputs($dom_doc, $db_fields, $db_obj) {
 
 function parse_html($str) {
   $doc = new DOMDocument();
+  libxml_use_internal_errors(true);
   $doc->loadHTML($str);
+  libxml_clear_errors();
+  libxml_use_internal_errors(false);
   return $doc;
 }
 
