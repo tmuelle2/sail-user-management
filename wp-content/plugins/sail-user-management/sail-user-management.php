@@ -54,7 +54,7 @@ function user_update_profile_shortcode($atts = [], $content = null, $tag = '' ) 
     $sail_user = get_sail_user();
     $html = parse_html(get_sail_page($PAGES_DIR . 'update-profile.html'));
     populate_inputs($html, $USER_DB_FIELDS, $sail_user);
-    return $html->nodeValue;
+    return $html;
   } else {
     nocache_headers();
     wp_safe_redirect('https://sailhousingsolutions.org/login');
