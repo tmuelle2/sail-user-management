@@ -33,9 +33,18 @@ function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
   if (is_user_logged_in()) {
     $sail_user = get_sail_user();
 
-    $o = '<div><p>Welcome ';
+    $o = '<div class="flex-container"><p>Welcome ';
     $o .= esc_html($sail_user->firstName);
     $o .='!</p></div>';
+
+    $o .= 'Your Info:<br /><br />';
+    $o .= 'First and Last Name: ';
+    $o .= esc_html($sail_user->firstName);
+    $o .= ' ';
+    $o .= esc_html($sail_user->lastName);
+
+    $o .= '<br/>Email: '
+    $o .= esc_html($sail_user->email);
     return $o;
   } else {
     nocache_headers();
