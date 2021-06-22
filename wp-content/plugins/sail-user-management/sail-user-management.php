@@ -43,7 +43,7 @@ function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
     $o .= ' ';
     $o .= esc_html($sail_user->lastName);
 
-    $o .= '<br/>Email: '
+    $o .= '<br/>Email: ';
     $o .= esc_html($sail_user->email);
     return $o;
   } else {
