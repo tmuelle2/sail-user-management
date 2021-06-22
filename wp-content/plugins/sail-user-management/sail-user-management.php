@@ -41,6 +41,7 @@ function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
   } else {
     nocache_headers();
     wp_safe_redirect('https://sailhousingsolutions.org/login');
+    
     exit;
   }
 } 
