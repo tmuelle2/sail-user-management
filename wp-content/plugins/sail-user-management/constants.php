@@ -28,3 +28,11 @@ $USER_DB_FIELDS = array(
     'newsletter' => '%s',
     'additionalInfo' => '%s'
 );
+
+// Mapping of form element to database format for ports
+$PORT_DB_FIELDS = array(
+    'currentSituation' => '%s',
+    'idealSituation' => '%s',
+    'typicalDay' => '%s',
+    'makesChildHappy' => '%s'
+);

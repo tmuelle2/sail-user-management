@@ -11,10 +11,18 @@ include($HOME_DIR . 'constants.php');
 
 /**
  * Adds the html form required to capture all user account info.
+ * If the user is already logged in redirect to profile page.
  */
  function user_reg_shortcode($atts = [], $content = null, $tag = '' ) {
-   global $PAGES_DIR;
-   return get_sail_page($PAGES_DIR . 'registration.html');
+   if (is_user_logged_in()) {
+    nocache_headers();
+    wp_safe_redirect('https://sailhousingsolutions.org/user');
+    exit;
+   }
+   else {   
+    global $PAGES_DIR;
+    return get_sail_page($PAGES_DIR . 'registration.html');
+   }
  } 
 
 /**
@@ -41,7 +49,6 @@ function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
   } else {
     nocache_headers();
     wp_safe_redirect('https://sailhousingsolutions.org/login');
-
     exit;
   }
 } 
@@ -60,6 +67,17 @@ function user_update_profile_shortcode($atts = [], $content = null, $tag = '' ) 
     wp_safe_redirect('https://sailhousingsolutions.org/login');
     exit;
   }    
+}
+
+function user_join_port_shortcode($atts = [], $content = null, $tag = '' ) {
+  if (is_user_logged_in()) {
+    global $PAGES_DIR;
+    return get_sail_page($PAGES_DIR . 'join-port.html');
+  } else {
+    nocache_headers();
+    wp_safe_redirect('https://sailhousingsolutions.org/register');
+    exit;
+  } 
 }
 
 function get_sail_user() {
@@ -119,6 +137,7 @@ function sail_plugin_init() {
     add_shortcode( 'userSignOn', 'user_signon_shortcode' );
     add_shortcode( 'userProfile', 'user_profile_shortcode' );
     add_shortcode( 'userUpdateProfile', 'user_update_profile_shortcode' );
+    add_shortcode( 'userJoinPort', 'user_join_port_shortcode');
 } 
 add_action('init', 'sail_plugin_init' );
 
@@ -156,3 +175,9 @@ function sail_user_update() {
   include_once($HOME_DIR . 'user-update.php');
 }
 add_action('admin_post_sail_user_update', 'sail_user_update');
+
+function join_port() {
+  global $HOME_DIR;
+  include_once($HOME_DIR . 'join-port.php');
+}
+add_action('admin_post_join_port', 'join_port');
