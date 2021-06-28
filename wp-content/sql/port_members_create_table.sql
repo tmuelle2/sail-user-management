@@ -1,0 +1,1 @@
+CREATE TABLE `sailhou1_WPRAL`.`port_members` ( `userId` BIGINT NOT NULL , `currentSituation` TEXT NOT NULL , `idealSituation` TEXT NOT NULL , `typicalDay` TEXT NOT NULL , `makesChildHappy` TEXT NOT NULL , UNIQUE `userId` (`userId`)) ENGINE = InnoDB; 
