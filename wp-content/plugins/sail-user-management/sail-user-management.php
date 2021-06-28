@@ -14,15 +14,8 @@ include($HOME_DIR . 'constants.php');
  * If the user is already logged in redirect to profile page.
  */
  function user_reg_shortcode($atts = [], $content = null, $tag = '' ) {
-   if (is_user_logged_in()) {
-    nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org/user');
-    exit;
-   }
-   else {   
-    global $PAGES_DIR;
-    return get_sail_page($PAGES_DIR . 'registration.html');
-   }
+  global $PAGES_DIR;
+  return get_sail_page($PAGES_DIR . 'registration.html');
  } 
 
 /**
