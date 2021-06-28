@@ -1,8 +1,16 @@
 <?php
 
-$HOME_DIR = '/_home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
-include($HOME_DIR . 'constants.php');
-global $PORT_DB_FIELDS;
+// idk why but this was causing an error but the row was being added to the db
+//$HOME_DIR = '/_home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
+//include($HOME_DIR . 'constants.php');
+//global $PORT_DB_FIELDS;
+$PORT_DB_FIELDS = array(
+    'currentSituation' => '%s',
+    'idealSituation' => '%s',
+    'typicalDay' => '%s',
+    'makesChildHappy' => '%s'
+);
+
 
 global $wpdb;
 
