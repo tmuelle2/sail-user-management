@@ -46,6 +46,7 @@ function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
     $html = str_ireplace("{{city}}", esc_html($sail_user->city), $html);
     $html = str_ireplace("{{state}}", esc_html($sail_user->state), $html);
     $html = str_ireplace("{{zipCode}}", esc_html($sail_user->zipCode), $html);
+    $html = str_ireplace("{{profilePicture}}", esc_html($sail_user->profilePicture), $html);
 
     return $html;
   } else {
