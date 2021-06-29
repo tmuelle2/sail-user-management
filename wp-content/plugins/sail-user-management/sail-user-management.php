@@ -93,7 +93,17 @@ function get_sail_user() {
   $user = wp_get_current_user();
   $query = "SELECT * FROM `sail_users` WHERE userId = ";
   $query .= $user->ID;
-  return $wpdb->get_row($query);
+
+  // fetch sail_user
+  $result = $wpdb->get_row($query);
+
+  // fetch the image blob seperately so it actually works?
+  $image = $wpdb->get_var( 
+    $wpdb->prepare("SELECT profilePicture FROM `sail_users` WHERE userId = %d", $user->ID)  
+  );
+  $result->profilePicture = $image;
+
+  return $results;
 }
 
 function get_port_member() {
