@@ -29,6 +29,7 @@ if ( !username_exists($email) && !email_exists($email)) {
     $wpdb->insert('sail_users', $data, $formats);
 
     // Signon user
+    $creds = array('user_login' -> $email, 'user_password' -> $password);
     $user = wp_signon( $creds, is_ssl() );
 
     // Success redirect

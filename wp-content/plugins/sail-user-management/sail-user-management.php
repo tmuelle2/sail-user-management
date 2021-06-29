@@ -141,26 +141,6 @@ function populate_inputs($dom_doc, $db_fields, $db_obj) {
   }
 }
 
-// Returns the value of a DOMAttr item in an DOMNamedNodeMap with a given name, null otherwise
-function attributes_get_value($attrs, $name) {
-  for ($i = 0; $i < $attrs->length; ++$i) {
-    if ($attrs-item($i)->name == $name) {
-      return $attrs-item($i)->value;
-    }
-  }
-  return null;
-}
-
-// Returns true if a DOMNamedNodeMap contains an attribute with a given name 
-function attributes_contains($attrs, $name) {
-  for ($i = 0; $i < $attrs->length; ++$i) {
-    if ($attrs-item($i)->name == $name) {
-      return true;
-    }
-  }
-  return false;
-}
-
 // Uses PHP's DOMDocument to parse an html string 
 function parse_html($str) {
   $doc = new DOMDocument();
