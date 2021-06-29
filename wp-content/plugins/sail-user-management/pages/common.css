@@ -27,6 +27,7 @@
 } 
 .flex-start {
     justify-content: flex-start;
+    display: flex;
 }
 .pfp {
     width:200px; 
