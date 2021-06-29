@@ -92,7 +92,7 @@ function user_join_port_shortcode($atts = [], $content = null, $tag = '' ) {
 }
 
 /**
- * Returns html to update the user's port info for the logged in user
+ * Returns html to update the user's port info for the logged in user, if they do not have port info returns an empty strings
  * otherwise redirects to register page.
  */
 function user_update_port_shortcode($atts = [], $content = null, $tag = '' ) {
@@ -101,9 +101,16 @@ function user_update_port_shortcode($atts = [], $content = null, $tag = '' ) {
     global $PORT_DB_FIELDS;
 
     $port_member = get_port_member();
-    $html = parse_html(get_sail_page($PAGES_DIR . 'update-port.html'));
-    populate_inputs($html, $PORT_DB_FIELDS, $port_member);
-    return $html->saveHTML();
+
+    if (isset($port_member, $port_member->userId)) {
+      $html = parse_html(get_sail_page($PAGES_DIR . 'update-port.html'));
+      populate_inputs($html, $PORT_DB_FIELDS, $port_member);
+      return $html->saveHTML();
+    }
+    else {
+      return "";
+    }
+
   } else {
     nocache_headers();
     wp_safe_redirect('https://sailhousingsolutions.org/register');
