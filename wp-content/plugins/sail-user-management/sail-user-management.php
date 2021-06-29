@@ -28,7 +28,7 @@ function user_signon_shortcode($atts = [], $content = null, $tag = '' ) {
 
 /**
  * Returns the html to display the current users profile info if the user is logged in
- * otherwise redirects to the registration page.
+ * otherwise redirects to the login page.
  */
 function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
   if (is_user_logged_in()) {
@@ -55,6 +55,10 @@ function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
   }
 } 
 
+/**
+ * Returns html to update the user's profile information for the logged in user 
+ * otherwise redirects to login page.
+ */
 function user_update_profile_shortcode($atts = [], $content = null, $tag = '' ) {
   if (is_user_logged_in()) {
     global $PAGES_DIR;
@@ -82,6 +86,7 @@ function user_join_port_shortcode($atts = [], $content = null, $tag = '' ) {
   } 
 }
 
+// Returns the SAIL DB user row for the currently logged in user
 function get_sail_user() {
   global $wpdb;
   $user = wp_get_current_user();
@@ -98,6 +103,10 @@ function get_port_member() {
     return $wpdb->get_row($query);
 }
 
+/**
+ * Attempts to update an html form's inputs with the values of a database object using
+ * the field names and input tag names to populate fields.
+ */
 function populate_inputs($dom_doc, $db_fields, $db_obj) {
   // Get input elements
   $input_list = $dom_doc ->getElementsByTagName("input");
@@ -106,6 +115,10 @@ function populate_inputs($dom_doc, $db_fields, $db_obj) {
   $inputs = array();
   foreach($input_list as $input) {
     $inputs[$input->nodeName] = $input;
+    $attr = $input->attributes;
+    for ($i = 0; $i < $attr->length; ++$i) {
+      error_log(print_r($attr->item($i), true)); 
+    }
   }
 
   // Populate inputes
@@ -116,6 +129,7 @@ function populate_inputs($dom_doc, $db_fields, $db_obj) {
   }
 }
 
+// Uses PHP's DOMDocument to parse an html string 
 function parse_html($str) {
   $doc = new DOMDocument();
   libxml_use_internal_errors(true);
