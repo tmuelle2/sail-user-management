@@ -33,12 +33,21 @@ function user_signon_shortcode($atts = [], $content = null, $tag = '' ) {
 function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
   if (is_user_logged_in()) {
     $sail_user = get_sail_user();
+    global $PAGES_DIR;
 
-    $o = '<div class="flex-container"><p>Welcome ';
-    $o .= esc_html($sail_user->firstName);
-    $o .='!</p></div>';
+    $html = get_sail_page($PAGES_DIR . 'profile.html');
 
-    return $o;
+    $html = str_ireplace("{{firstName}}", esc_html($sail_user->firstName), $html);
+    $html = str_ireplace("{{lastName}}", esc_html($sail_user->lastName), $html);
+    $html = str_ireplace("{{email}}", esc_html($sail_user->email), $html);
+    $html = str_ireplace("{{phoneNumber}}", esc_html($sail_user->phoneNumber), $html);
+    $html = str_ireplace("{{addrLine1}}", esc_html($sail_user->addrLine1), $html);
+    $html = str_ireplace("{{addrLine2}}", esc_html($sail_user->addrLine2), $html);
+    $html = str_ireplace("{{city}}", esc_html($sail_user->city), $html);
+    $html = str_ireplace("{{state}}", esc_html($sail_user->state), $html);
+    $html = str_ireplace("{{zipCode}}", esc_html($sail_user->zipCode), $html);
+
+    return $html;
   } else {
     nocache_headers();
     wp_safe_redirect('https://sailhousingsolutions.org/login');
@@ -74,9 +83,17 @@ function user_join_port_shortcode($atts = [], $content = null, $tag = '' ) {
 }
 
 function get_sail_user() {
+  global $wpdb;
+  $user = wp_get_current_user();
+  $query = "SELECT * FROM `sail_users` WHERE userId = ";
+  $query .= $user->ID;
+  return $wpdb->get_row($query);
+}
+
+function get_port_member() {
     global $wpdb;
     $user = wp_get_current_user();
-    $query = "SELECT * FROM `sail_users` WHERE userId = ";
+    $query = "SELECT * FROM `port_members` WHERE userId = ";
     $query .= $user->ID;
     return $wpdb->get_row($query);
 }
