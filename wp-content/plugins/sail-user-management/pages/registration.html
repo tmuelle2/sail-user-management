@@ -1,4 +1,4 @@
-<form accept-charset="UTF-8" action="<?php esc_url(admin_url('admin-post.php')); ?>" id="user_reg" autocomplete="on" method="post">
+<form accept-charset="UTF-8" action="<?php esc_url(admin_url('admin-post.php')); ?>" id="user_reg" autocomplete="on" enctype="multipart/form-data" method="post">
   <input type="hidden" name="action" value="sail_user_registration">
 	<div class="flex-container">
       <div class="flex-child">
@@ -112,7 +112,7 @@
       	</div>  
   	</div>
     <h5 class="field-label">Profile Picture</h5>
-    <input type="file" id="profilePicture" name="profilePicture">	   
+    <input type="file" id="profilePicture" name="profilePicture" multiple="false" />	   
   	<h5 class="field-label required-field">Gender</h5>
 	<select name="gender" class="select-field" required>
       <option value="Male">Male</option>
