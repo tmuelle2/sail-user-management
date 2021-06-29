@@ -26,7 +26,8 @@ $USER_DB_FIELDS = array(
     'portInterestParticular' => '%s',
     'backgroundCheck' => '%s',
     'newsletter' => '%s',
-    'additionalInfo' => '%s'
+    'additionalInfo' => '%s',
+    'profilePictureId' => '%s'
 );
 
 // Mapping of form element to database format for ports
