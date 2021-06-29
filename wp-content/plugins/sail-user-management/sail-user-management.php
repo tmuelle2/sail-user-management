@@ -155,6 +155,7 @@ function populate_inputs($dom_doc, $db_fields, $db_obj) {
   // Get elements
   $input_list = $dom_doc->getElementsByTagName("input");
   $select_list = $dom_doc->getElementsByTagName("select");
+  $textarea_list = $dom_doc->getElementsByTagName("textarea");
 
   // Build name to node associative array
   $inputs = array();
@@ -171,6 +172,13 @@ function populate_inputs($dom_doc, $db_fields, $db_obj) {
       $selects[$select_name->nodeValue] = $select;
     }
   }
+  $textareas = array();
+  foreach($textarea_list as $textarea) {
+    $textarea_name = $textarea->attributes->getNamedItem('name');
+    if ($textarea_name != null) {
+      $textareas[$textarea_name->nodeValue] = $textarea;
+    }
+  }
 
   $db_arr = get_object_vars($db_obj); 
 
@@ -180,6 +188,8 @@ function populate_inputs($dom_doc, $db_fields, $db_obj) {
       $inputs[$element]->setAttribute('value', $db_arr[$element]);
     } elseif (isset($selects[$element]) && isset($db_arr[$element])) {
       $selects[$element]->setAttribute('value', $db_arr[$element]);
+    } elseif (isset($textareas[$element]) && isset($db_arr[$element])) {
+      $textareas[$element]->setAttribute('value', $db_arr[$element]);
     }
   }
 }
