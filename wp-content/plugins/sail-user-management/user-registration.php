@@ -1,9 +1,6 @@
 <?php
 
-$HOME_DIR = '/_home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
-include($HOME_DIR . 'constants.php');
 global $USER_DB_FIELDS;
-
 global $wpdb;
 
 // Extract form and format data
