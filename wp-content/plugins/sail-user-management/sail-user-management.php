@@ -125,9 +125,9 @@ function populate_inputs($dom_doc, $db_fields, $db_obj) {
   // Build name to node associative array
   $inputs = array();
   foreach($input_list as $input) {
-    $attr = $input->attributes;
-    if (attributes_contains($attr, 'name')) {
-      $inputs[attributes_get_value($attr, 'name')] = $input;
+    $input_name = $input->attributes->getNamedItem('name');
+    if ($input_name != null) {
+      $inputs[$input_name->nodeValue] = $input;
     }
   }
 
@@ -139,7 +139,7 @@ function populate_inputs($dom_doc, $db_fields, $db_obj) {
   }
 }
 
-// Returns the value of a DOMAttr item in an array with a given name, null otherwise
+// Returns the value of a DOMAttr item in an DOMNamedNodeMap with a given name, null otherwise
 function attributes_get_value($attrs, $name) {
   for ($i = 0; $i < $attrs->length; ++$i) {
     if ($attrs-item($i)->name == $name) {
@@ -149,7 +149,7 @@ function attributes_get_value($attrs, $name) {
   return null;
 }
 
-// Returns true if a DOMAttr array contains an attribute with a given name 
+// Returns true if a DOMNamedNodeMap contains an attribute with a given name 
 function attributes_contains($attrs, $name) {
   for ($i = 0; $i < $attrs->length; ++$i) {
     if ($attrs-item($i)->name == $name) {
