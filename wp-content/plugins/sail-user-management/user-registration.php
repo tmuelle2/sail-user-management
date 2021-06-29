@@ -47,7 +47,14 @@ if ( !username_exists($email) && !email_exists($email)) {
     $name_file = $_FILES['profilePicture']['name'];
     $tmp_name = $_FILES['profilePicture']['tmp_name'];
     if(isset($_FILES['profilePicture'])){
-            wp_upload_bits($_FILES['profilePicture']['name'], null, file_get_contents($_FILES['profilePicture']['tmp_name']));
+        $upload = wp_upload_bits($_FILES['profilePicture']['name'], null, file_get_contents($_FILES['profilePicture']['tmp_name']));
+
+        if(!$upload['error']) {
+            $data['profilePicture'] = $upload['url'];
+        }
+        else {
+
+        }
         
     }
     /**
