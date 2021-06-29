@@ -103,7 +103,7 @@ function get_sail_user() {
   );
   $result->profilePicture = $image;
 
-  return $results;
+  return $result;
 }
 
 function get_port_member() {
