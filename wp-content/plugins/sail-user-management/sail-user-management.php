@@ -76,6 +76,10 @@ function user_update_profile_shortcode($atts = [], $content = null, $tag = '' ) 
   }    
 }
 
+/**
+ * Returns the html form to join a port if logged in,
+ * otherwise redirects to register page.
+ */
 function user_join_port_shortcode($atts = [], $content = null, $tag = '' ) {
   if (is_user_logged_in()) {
     global $PAGES_DIR;
@@ -85,6 +89,26 @@ function user_join_port_shortcode($atts = [], $content = null, $tag = '' ) {
     wp_safe_redirect('https://sailhousingsolutions.org/register');
     exit;
   } 
+}
+
+/**
+ * Returns html to update the user's port info for the logged in user
+ * otherwise redirects to register page.
+ */
+function user_update_port_shortcode($atts = [], $content = null, $tag = '' ) {
+  if (is_user_logged_in()) {
+    global $PAGES_DIR;
+    global $PORT_DB_FIELDS;
+
+    $port_member = get_port_member();
+    $html = parse_html(get_sail_page($PAGES_DIR . 'update-port.html'));
+    populate_inputs($html, $PORT_DB_FIELDS, $port_member);
+    return $html->saveHTML();
+  } else {
+    nocache_headers();
+    wp_safe_redirect('https://sailhousingsolutions.org/register');
+    exit;
+  }    
 }
 
 // Returns the SAIL DB user row for the currently logged in user
@@ -98,6 +122,7 @@ function get_sail_user() {
   $result = $wpdb->get_row($query);
 
   // fetch the image blob seperately so it actually works?
+  // NOTE: probably don't need this code anymore since we save the url now instead of a blob
   $image = $wpdb->get_var( 
     $wpdb->prepare("SELECT profilePicture FROM `sail_users` WHERE userId = %d", $user->ID)  
   );
@@ -106,6 +131,7 @@ function get_sail_user() {
   return $result;
 }
 
+// Returns the port member info of the currently logged in user if it exists
 function get_port_member() {
     global $wpdb;
     $user = wp_get_current_user();
@@ -193,6 +219,7 @@ function sail_plugin_init() {
     add_shortcode( 'userProfile', 'user_profile_shortcode' );
     add_shortcode( 'userUpdateProfile', 'user_update_profile_shortcode' );
     add_shortcode( 'userJoinPort', 'user_join_port_shortcode');
+    add_shortcode( 'userUpdatePort', 'user_update_port_shortcode');
 } 
 add_action('init', 'sail_plugin_init' );
 
@@ -236,3 +263,9 @@ function join_port() {
   include_once($HOME_DIR . 'join-port.php');
 }
 add_action('admin_post_join_port', 'join_port');
+
+function update_port() {
+  global $HOME_DIR;
+  include_once($HOME_DIR . 'update-port.php');
+}
+add_action('admin_post_update_port', 'update_port');
