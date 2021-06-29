@@ -26,3 +26,8 @@
 .flex-child:first-child {
     margin-right: 20px;
 } 
+
+.pfp {
+    width:200px; 
+    border-radius: 50%;
+}
