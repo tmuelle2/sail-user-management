@@ -130,9 +130,9 @@ function populate_inputs($dom_doc, $db_fields, $db_obj) {
 
 // Returns the value of a DOMAttr item in an array with a given name, null otherwise
 function attributes_get_value($attrs, $name) {
-  for ($i = 0; $i < $attr->length; ++$i) {
-    if ($attr-item($i)->name == $name) {
-      return $attr-item($i)->value;
+  for ($i = 0; $i < $attrs->length; ++$i) {
+    if ($attrs-item($i)->name == $name) {
+      return $attrs-item($i)->value;
     }
   }
   return null;
@@ -140,8 +140,8 @@ function attributes_get_value($attrs, $name) {
 
 // Returns true if a DOMAttr array contains an attribute with a given name 
 function attributes_contains($attrs, $name) {
-  for ($i = 0; $i < $attr->length; ++$i) {
-    if ($attr-item($i)->name == $name) {
+  for ($i = 0; $i < $attrs->length; ++$i) {
+    if ($attrs-item($i)->name == $name) {
       return true;
     }
   }
