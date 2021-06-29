@@ -43,13 +43,18 @@ if ( !username_exists($email) && !email_exists($email)) {
         }
     } */
 
-    $target = 'uploads/' . basename($_FILES['profilePicture']['name']);
+    $target_dir_location = '/_home2/sailhou1/public_html/wp-content/uploads/profilePictures/';
+    $name_file = $_FILES['profilePicture']['name'];
+    $tmp_name = $_FILES['profilePicture']['tmp_name'];
 
-    if(move_uploaded_file($_FILES['profilePicture']['tmp_name'], $target)) {
-        $fp = fopen($target, "r");
+    if( move_uploaded_file( $tmp_name, $target_dir_location.$name_file )) {
+        // success upload pfp
+        $data['profilePicture'] = $target_dir_location.$name_file;
+    }
+    else {
+        // fail upload pfp
     }
 
-    $data['profilePicture'] = $target;
 
     // Insert into SAIL users db table
     $wpdb->insert('sail_users', $data, $formats);
