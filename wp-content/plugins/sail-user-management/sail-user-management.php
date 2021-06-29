@@ -120,7 +120,7 @@ function get_port_member() {
  */
 function populate_inputs($dom_doc, $db_fields, $db_obj) {
   // Get input elements
-  $input_list = $dom_doc ->getElementsByTagName("input");
+  $input_list = $dom_doc->getElementsByTagName("input");
 
   // Build name to node associative array
   $inputs = array();
@@ -131,10 +131,12 @@ function populate_inputs($dom_doc, $db_fields, $db_obj) {
     }
   }
 
+  $db_arr = get_object_vars($db_obj); 
+
   // Populate inputs
   foreach($db_fields as $element => $format) {
-    if (isset($inputs[$element]) && isset($db_obj[$element])) {
-      $inputs[$element]->setAttribute('value', $db_obj[$element]);
+    if (isset($inputs[$element]) && isset($db_arr[$element])) {
+      $inputs[$element]->setAttribute('value', $db_arr[$element]);
     }
   }
 }
