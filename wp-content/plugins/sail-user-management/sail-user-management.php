@@ -98,7 +98,7 @@ function populate_inputs($dom_doc, $db_fields, $db_obj) {
   $inputs = array();
   foreach($input_list as $input) {
     $inputs[$input->nodeName] = $input;
-    error_log(print_r( $input, true )); 
+    error_log(print_r($input->attributes, true)); 
   }
 
   // Populate inputes
@@ -109,6 +109,7 @@ function populate_inputs($dom_doc, $db_fields, $db_obj) {
   }
 }
 
+// Uses PHP's DOMDocument to parse an html string 
 function parse_html($str) {
   $doc = new DOMDocument();
   libxml_use_internal_errors(true);
