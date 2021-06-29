@@ -119,8 +119,9 @@ function get_port_member() {
  * the field names and input tag names to populate fields.
  */
 function populate_inputs($dom_doc, $db_fields, $db_obj) {
-  // Get input elements
+  // Get elements
   $input_list = $dom_doc->getElementsByTagName("input");
+  $select_list = $dom_doc->getElementsByTagName("select");
 
   // Build name to node associative array
   $inputs = array();
@@ -130,13 +131,31 @@ function populate_inputs($dom_doc, $db_fields, $db_obj) {
       $inputs[$input_name->nodeValue] = $input;
     }
   }
+  $selects = array();
+  foreach($select_list as $select) {
+    $select_name = $select->attributes->getNamedItem('name');
+    if ($select_name != null) {
+      $select[$select_name->nodeValue] = $select;
+    }
+  }
 
   $db_arr = get_object_vars($db_obj); 
 
-  // Populate inputs
+  // Populate elements 
   foreach($db_fields as $element => $format) {
     if (isset($inputs[$element]) && isset($db_arr[$element])) {
       $inputs[$element]->setAttribute('value', $db_arr[$element]);
+    } elseif (isset($selects[$element]) && isset($db_arr[$element])) {
+      $selects[$element]->setAttribute('value', $db_arr[$element]);
+    }
+  }
+}
+
+function populate_select($dom_select, $option) {
+  $children = $dom_select->childNodes;
+  for ($i = 0; $i < $children->length; ++$i) {
+    if ($children->item($i)->nodeValue == $option) {
+      $children->item($i)->set_attribute('selected', '');
     }
   }
 }
