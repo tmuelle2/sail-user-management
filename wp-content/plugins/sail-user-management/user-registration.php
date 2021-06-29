@@ -24,23 +24,20 @@ if ( !username_exists($email) && !email_exists($email)) {
     $data['userId'] = $user_id;
 
     // Profile Picture stuff
-    // ensure nonce is valid
-    if(isset( $_POST['profilePicture_nonce']) && wp_verify_nonce( $_POST['profilePicture_nonce'], 'profilePicture' )) {
+    // These files need to be included as dependencies when on the front end.
+    require_once( $HOME_DIR . 'wp-admin/includes/image.php' );
+    require_once( $HOME_DIR . 'wp-admin/includes/file.php' );
+    require_once( $HOME_DIR . 'wp-admin/includes/media.php' );
 
-        // These files need to be included as dependencies when on the front end.
-        require_once( $HOME_DIR . 'wp-admin/includes/image.php' );
-        require_once( $HOME_DIR . 'wp-admin/includes/file.php' );
-        require_once( $HOME_DIR . 'wp-admin/includes/media.php' );
+    $attachment_id = media_handle_upload( 'profilePicture', 0);
 
-        $attachment_id = media_handle_upload( 'profilePicture', 0);
-
-        if ( is_wp_error( $attachment_id ) ) {
-            // There was an error uploading the image.
-        } else {
-            // The image was uploaded successfully!
-            $data['profilePictureId'] = $attachment_id;
-        }
+    if ( is_wp_error( $attachment_id ) ) {
+        // There was an error uploading the image.
+    } else {
+        // The image was uploaded successfully!
+        $data['profilePictureId'] = $attachment_id;
     }
+    
 
     // Insert into SAIL users db table
     $wpdb->insert('sail_users', $data, $formats);
