@@ -114,19 +114,53 @@ function populate_inputs($dom_doc, $db_fields, $db_obj) {
   // Build name to node associative array
   $inputs = array();
   foreach($input_list as $input) {
-    $inputs[$input->nodeName] = $input;
     $attr = $input->attributes;
-    for ($i = 0; $i < $attr->length; ++$i) {
-      error_log(print_r($attr->item($i), true)); 
+    if (attributes_contains($attr, 'name')) {
+      $inputs[attributes_get_value($attr, 'name')] = $input;
     }
   }
 
-  // Populate inputes
+  // Populate inputs
   foreach($db_fields as $element => $format) {
     if (isset($inputs[$element]) && isset($db_obj[$element])) {
       $inputs[$element]->setAttribute('value', $db_obj[$element]);
     }
   }
+}
+
+// Returns the value of a DOMAttr item in an array with a given name, null otherwise
+function attributes_get_value($attrs, $name) {
+  for ($i = 0; $i < $attr->length; ++$i) {
+    if ($attr-item($i)->name == $name) {
+      return $attr-item($i)->value;
+    }
+  }
+  return null;
+}
+
+// Returns true if a DOMAttr array contains an attribute with a given name 
+function attributes_contains($attrs, $name) {
+  for ($i = 0; $i < $attr->length; ++$i) {
+    if ($attr-item($i)->name == $name) {
+      return true;
+    }
+  }
+  return false;
+}
+
+// Returns true if a DOMAttr array contains a name attribute with a given value
+function attributes_name_contains($attrs, $value) {
+  return attributes_contains($attrs, 'name', $value);
+}
+
+// Returns true if a DOMAttr array contains an attribute with a given name and value
+function attributes_contains($attrs, $name, $value) {
+  for ($i = 0; $i < $attr->length; ++$i) {
+    if ($attr-item($i)->name == $name && $attr-item($i)->$value == $value) {
+      return true;
+    }
+  }
+  return false;
 }
 
 // Uses PHP's DOMDocument to parse an html string 
