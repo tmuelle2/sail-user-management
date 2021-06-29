@@ -1,9 +1,6 @@
 <?php
 
-$HOME_DIR = '/_home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
-include($HOME_DIR . 'constants.php');
 global $USER_DB_FIELDS;
-
 global $wpdb;
 
 // Extract form and format data
@@ -29,6 +26,7 @@ if ( !username_exists($email) && !email_exists($email)) {
     $wpdb->insert('sail_users', $data, $formats);
 
     // Signon user
+    $creds = array('user_login' => $email, 'user_password' => $password);
     $user = wp_signon( $creds, is_ssl() );
 
     // Success redirect

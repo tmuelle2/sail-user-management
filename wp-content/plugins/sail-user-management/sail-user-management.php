@@ -120,43 +120,25 @@ function get_port_member() {
  */
 function populate_inputs($dom_doc, $db_fields, $db_obj) {
   // Get input elements
-  $input_list = $dom_doc ->getElementsByTagName("input");
+  $input_list = $dom_doc->getElementsByTagName("input");
 
   // Build name to node associative array
   $inputs = array();
   foreach($input_list as $input) {
-    $attr = $input->attributes;
-    if (attributes_contains($attr, 'name')) {
-      $inputs[attributes_get_value($attr, 'name')] = $input;
+    $input_name = $input->attributes->getNamedItem('name');
+    if ($input_name != null) {
+      $inputs[$input_name->nodeValue] = $input;
     }
   }
+
+  $db_arr = get_object_vars($db_obj); 
 
   // Populate inputs
   foreach($db_fields as $element => $format) {
-    if (isset($inputs[$element]) && isset($db_obj[$element])) {
-      $inputs[$element]->setAttribute('value', $db_obj[$element]);
+    if (isset($inputs[$element]) && isset($db_arr[$element])) {
+      $inputs[$element]->setAttribute('value', $db_arr[$element]);
     }
   }
-}
-
-// Returns the value of a DOMAttr item in an array with a given name, null otherwise
-function attributes_get_value($attrs, $name) {
-  for ($i = 0; $i < $attrs->length; ++$i) {
-    if ($attrs-item($i)->name == $name) {
-      return $attrs-item($i)->value;
-    }
-  }
-  return null;
-}
-
-// Returns true if a DOMAttr array contains an attribute with a given name 
-function attributes_contains($attrs, $name) {
-  for ($i = 0; $i < $attrs->length; ++$i) {
-    if ($attrs-item($i)->name == $name) {
-      return true;
-    }
-  }
-  return false;
 }
 
 // Uses PHP's DOMDocument to parse an html string 
