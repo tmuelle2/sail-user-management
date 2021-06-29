@@ -47,7 +47,7 @@ if ( !username_exists($email) && !email_exists($email)) {
     $name_file = $_FILES['profilePicture']['name'];
     $tmp_name = $_FILES['profilePicture']['tmp_name'];
 
-    if( move_uploaded_file( $tmp_name, $target_dir_location.$name_file )) {
+    if(move_uploaded_file($tmp_name, $target_dir_location.$name_file)) {
         // success upload pfp
         $data['profilePicture'] = $target_dir_location.$name_file;
     }
