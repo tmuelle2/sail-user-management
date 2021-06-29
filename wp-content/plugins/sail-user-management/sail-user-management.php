@@ -135,7 +135,7 @@ function populate_inputs($dom_doc, $db_fields, $db_obj) {
   foreach($select_list as $select) {
     $select_name = $select->attributes->getNamedItem('name');
     if ($select_name != null) {
-      $select[$select_name->nodeValue] = $select;
+      $selects[$select_name->nodeValue] = $select;
     }
   }
 
