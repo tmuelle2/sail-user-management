@@ -98,7 +98,10 @@ function populate_inputs($dom_doc, $db_fields, $db_obj) {
   $inputs = array();
   foreach($input_list as $input) {
     $inputs[$input->nodeName] = $input;
-    error_log(print_r($input->attributes, true)); 
+    $attr = $input->attributes;
+    for ($i = 0; $i < $attr->length; ++$i) {
+      error_log(print_r($attr->item($i), true)); 
+    }
   }
 
   // Populate inputes
