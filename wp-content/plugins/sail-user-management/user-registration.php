@@ -25,6 +25,7 @@ if ( !username_exists($email) && !email_exists($email)) {
 
     // Profile Picture stuff
     // ensure nonce is valid
+    /**
     if(isset( $_POST['profilePicture_nonce']) && wp_verify_nonce( $_POST['profilePicture_nonce'], 'profilePicture' )) {
 
         // These files need to be included as dependencies when on the front end.
@@ -40,7 +41,15 @@ if ( !username_exists($email) && !email_exists($email)) {
             // The image was uploaded successfully!
             $data['profilePictureId'] = $attachment_id;
         }
+    } */
+
+    $target = 'uploads/' . basename($_FILES['profilePicture']['name']);
+
+    if(move_uploaded_file($_FILES['profilePicture']['tmp_name'], $target)) {
+        $fp = fopen($target, "r");
     }
+
+    $data['profilePicture'] = $target;
 
     // Insert into SAIL users db table
     $wpdb->insert('sail_users', $data, $formats);
