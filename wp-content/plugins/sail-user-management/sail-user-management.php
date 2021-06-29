@@ -189,7 +189,7 @@ function populate_inputs($dom_doc, $db_fields, $db_obj) {
     } elseif (isset($selects[$element]) && isset($db_arr[$element])) {
       $selects[$element]->setAttribute('value', $db_arr[$element]);
     } elseif (isset($textareas[$element]) && isset($db_arr[$element])) {
-      $textareas[$element]->innerHTML = $db_arr[$element];
+      $textareas[$element]->nodeValue = $db_arr[$element];
     }
   }
 }
