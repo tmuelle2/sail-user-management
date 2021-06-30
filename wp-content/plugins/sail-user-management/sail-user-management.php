@@ -157,28 +157,10 @@ function populate_inputs($dom_doc, $db_fields, $db_obj) {
   $select_list = $dom_doc->getElementsByTagName("select");
   $textarea_list = $dom_doc->getElementsByTagName("textarea");
 
-  // Build name to node associative array
-  $inputs = array();
-  foreach($input_list as $input) {
-    $input_name = $input->attributes->getNamedItem('name');
-    if ($input_name != null) {
-      $inputs[$input_name->nodeValue] = $input;
-    }
-  }
-  $selects = array();
-  foreach($select_list as $select) {
-    $select_name = $select->attributes->getNamedItem('name');
-    if ($select_name != null) {
-      $selects[$select_name->nodeValue] = $select;
-    }
-  }
-  $textareas = array();
-  foreach($textarea_list as $textarea) {
-    $textarea_name = $textarea->attributes->getNamedItem('name');
-    if ($textarea_name != null) {
-      $textareas[$textarea_name->nodeValue] = $textarea;
-    }
-  }
+  // Build name to node associative arrays
+  $inputs = name_to_node_array($input_list);
+  $selects = name_to_node_array($select_list);
+  $textareas = name_to_node_array($textarea_list); 
 
   $db_arr = get_object_vars($db_obj); 
 
@@ -192,6 +174,17 @@ function populate_inputs($dom_doc, $db_fields, $db_obj) {
       $textareas[$element]->nodeValue = $db_arr[$element];
     }
   }
+}
+
+function name_to_node_array($nodes) {
+  $arr = array();
+  foreach($nodes as $node) {
+    $node_name = $node->attributes->getNamedItem('name');
+    if ($node_name != null) {
+      $arr[$node_name->nodeValue] = $node;
+    }
+  }
+  return $arr;
 }
 
 function populate_select($dom_select, $option) {
