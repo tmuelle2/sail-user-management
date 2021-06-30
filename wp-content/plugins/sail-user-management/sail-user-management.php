@@ -67,7 +67,7 @@ function user_update_profile_shortcode($atts = [], $content = null, $tag = '' ) 
 
     $sail_user = get_sail_user();
     $html = parse_html(get_sail_page($PAGES_DIR . 'update-profile.html'));
-    populate_inputs($html, $USER_DB_FIELDS, $sail_user);
+    populate_form_elements($html, $USER_DB_FIELDS, $sail_user);
     return $html->saveHTML();
   } else {
     nocache_headers();
@@ -104,7 +104,7 @@ function user_update_port_shortcode($atts = [], $content = null, $tag = '' ) {
 
     if (isset($port_member, $port_member->userId)) {
       $html = parse_html(get_sail_page($PAGES_DIR . 'update-port.html'));
-      populate_inputs($html, $PORT_DB_FIELDS, $port_member);
+      populate_form_elements($html, $PORT_DB_FIELDS, $port_member);
       return $html->saveHTML();
     }
     else {
@@ -151,7 +151,7 @@ function get_port_member() {
  * Attempts to update an html form's inputs with the values of a database object using
  * the field names and input tag names to populate fields.
  */
-function populate_inputs($dom_doc, $db_fields, $db_obj) {
+function populate_form_elements($dom_doc, $db_fields, $db_obj) {
   // Get elements
   $input_list = $dom_doc->getElementsByTagName("input");
   $select_list = $dom_doc->getElementsByTagName("select");
@@ -167,7 +167,7 @@ function populate_inputs($dom_doc, $db_fields, $db_obj) {
   // Populate elements 
   foreach($db_fields as $element => $format) {
     if (isset($inputs[$element]) && isset($db_arr[$element])) {
-      $inputs[$element]->setAttribute('value', $db_arr[$element]);
+      populate_input($inputs[$element], $db_arr[$element]);
     } elseif (isset($selects[$element]) && isset($db_arr[$element])) {
       populate_select($selects[$element], $db_arr[$element]);
     } elseif (isset($textareas[$element]) && isset($db_arr[$element])) {
@@ -176,6 +176,7 @@ function populate_inputs($dom_doc, $db_fields, $db_obj) {
   }
 }
 
+// Returns a mapping a list of DOM nodes' name attribute value to the node
 function name_to_node_array($nodes) {
   $arr = array();
   foreach($nodes as $node) {
@@ -187,6 +188,16 @@ function name_to_node_array($nodes) {
   return $arr;
 }
 
+// Populates vanilla (text, data, etc.) and radio input elements with value
+function populate_input($dom_input, $value) {
+    if ($dom_input->attributes->getNamedItem('type') != 'radio') {
+      $dom_input[$element]->setAttribute('value', $value);
+    } elseif ($dom_input[$element]->nodeValue == $value) {
+      $dom_input[$element]->setAttribute('checked', '');
+    }
+}
+
+// Populates a DOM select element with the correct option selected if it exists
 function populate_select($dom_select, $option) {
   $children = $dom_select->childNodes;
   for ($i = 0; $i < $children->length; ++$i) {
