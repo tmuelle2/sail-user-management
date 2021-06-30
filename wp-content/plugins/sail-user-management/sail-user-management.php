@@ -187,7 +187,7 @@ function populate_inputs($dom_doc, $db_fields, $db_obj) {
     if (isset($inputs[$element]) && isset($db_arr[$element])) {
       $inputs[$element]->setAttribute('value', $db_arr[$element]);
     } elseif (isset($selects[$element]) && isset($db_arr[$element])) {
-      $selects[$element]->setAttribute('value', $db_arr[$element]);
+      populate_select($selects[$element], $db_arr[$element]);
     } elseif (isset($textareas[$element]) && isset($db_arr[$element])) {
       $textareas[$element]->nodeValue = $db_arr[$element];
     }
@@ -197,8 +197,10 @@ function populate_inputs($dom_doc, $db_fields, $db_obj) {
 function populate_select($dom_select, $option) {
   $children = $dom_select->childNodes;
   for ($i = 0; $i < $children->length; ++$i) {
-    if ($children->item($i)->nodeValue == $option) {
-      $children->item($i)->set_attribute('selected', '');
+    if ($children->item($i)->attributes != null 
+        && $children->item($i)->attributes->getNamedItem('value') != null 
+        && $children->item($i)->attributes->getNamedItem('value')->nodeValue == $option) {
+      $children->item($i)->setAttribute('selected', '');
     }
   }
 }
