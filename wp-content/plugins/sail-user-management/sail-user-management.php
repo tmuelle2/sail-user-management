@@ -191,9 +191,9 @@ function name_to_node_array($nodes) {
 // Populates vanilla (text, data, etc.) and radio input elements with value
 function populate_input($dom_input, $value) {
     if ($dom_input->attributes->getNamedItem('type') != 'radio') {
-      $dom_input[$element]->setAttribute('value', $value);
-    } elseif ($dom_input[$element]->nodeValue == $value) {
-      $dom_input[$element]->setAttribute('checked', '');
+      $dom_input->setAttribute('value', $value);
+    } elseif ($dom_input->nodeValue == $value) {
+      $dom_input->setAttribute('checked', '');
     }
 }
 
