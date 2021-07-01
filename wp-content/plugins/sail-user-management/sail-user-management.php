@@ -158,9 +158,9 @@ function populate_form_elements($dom_doc, $db_fields, $db_obj) {
   $textarea_list = $dom_doc->getElementsByTagName("textarea");
 
   // Build name to node associative arrays
-  $inputs = name_to_node_array($input_list);
-  $selects = name_to_node_array($select_list);
-  $textareas = name_to_node_array($textarea_list); 
+  $inputs = name_to_node_map($input_list);
+  $selects = name_to_node_map($select_list);
+  $textareas = name_to_node_map($textarea_list); 
 
   $db_arr = get_object_vars($db_obj); 
 
@@ -171,18 +171,22 @@ function populate_form_elements($dom_doc, $db_fields, $db_obj) {
     } elseif (isset($selects[$element]) && isset($db_arr[$element])) {
       populate_select($selects[$element], $db_arr[$element]);
     } elseif (isset($textareas[$element]) && isset($db_arr[$element])) {
-      $textareas[$element]->nodeValue = $db_arr[$element];
+      populate_element($textareas[$element], $db_arr[$element]);
     }
   }
 }
 
-// Returns a mapping a list of DOM nodes' name attribute value to the node
-function name_to_node_array($nodes) {
+// Returns a mapping a list of DOM nodes' name attribute value to the node(s) with that name
+function name_to_node_map($nodes) {
   $arr = array();
   foreach($nodes as $node) {
     $node_name = $node->attributes->getNamedItem('name');
     if ($node_name != null) {
-      $arr[$node_name->nodeValue] = $node;
+      if (isset($arr[$node_name])) {
+        array_push($arr, $node);
+      } else {
+        $arr[$node_name->nodeValue] = array($node);
+      }
     }
   }
   return $arr;
@@ -190,16 +194,24 @@ function name_to_node_array($nodes) {
 
 // Populates vanilla (text, data, etc.) and radio input elements with value
 function populate_input($dom_input, $value) {
-    if ($dom_input->attributes->getNamedItem('type') != 'radio') {
-      $dom_input->setAttribute('value', $value);
-    } elseif ($dom_input->nodeValue == $value) {
-      $dom_input->setAttribute('checked', '');
+  $count = count($dom_input);
+  if ($count > 0 && $dom_input[0]->attributes->getNamedItem('type') == 'radio') {
+    foreach($i = 0; $i < $count; $i++) {
+      if ($dom_input[i]->nodeValue == $value) {
+        $dom_input->setAttribute('checked', '');
+      }
     }
+  } elseif ($count == 1) {
+    $dom_input[0]->setAttribute('value', $value);
+  }
 }
 
 // Populates a DOM select element with the correct option selected if it exists
 function populate_select($dom_select, $option) {
-  $children = $dom_select->childNodes;
+  if (count($dom_select) > 0) {
+    return;
+  }
+  $children = $dom_select[0]->childNodes;
   for ($i = 0; $i < $children->length; ++$i) {
     if ($children->item($i)->attributes != null 
         && $children->item($i)->attributes->getNamedItem('value') != null 
@@ -207,6 +219,13 @@ function populate_select($dom_select, $option) {
       $children->item($i)->setAttribute('selected', '');
     }
   }
+}
+
+function populate_element($dom_element, $value) {
+  if (count($dom_element) > 0) {
+    return;
+  }
+  $dom_element[0]->nodeValue = $value;
 }
 
 // Uses PHP's DOMDocument to parse an html string 
