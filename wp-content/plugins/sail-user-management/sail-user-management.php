@@ -198,9 +198,9 @@ function populate_input($dom_input, $value) {
   if ($count > 1 && $dom_input[0]->attributes->getNamedItem('type')->nodeValue == 'radio') {
     for($i = 0; $i < $count; $i++) {
       if ($dom_input[$i]->nodeValue == $value) {
-        $dom_input->setAttribute('checked', '');
+        $dom_input[$i]->setAttribute('checked', '');
       } else {
-        $dom_input->removeAttribute('checked');
+        $dom_input[$i]->removeAttribute('checked');
       }
     }
   } elseif ($count == 1) {
