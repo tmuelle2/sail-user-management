@@ -182,7 +182,7 @@ function name_to_node_map($nodes) {
   foreach($nodes as $node) {
     $node_name = $node->attributes->getNamedItem('name');
     if ($node_name != null) {
-      if (isset($arr[$node_name])) {
+      if (isset($arr[$node_name->nodeValue])) {
         array_push($arr, $node);
       } else {
         $arr[$node_name->nodeValue] = array($node);
