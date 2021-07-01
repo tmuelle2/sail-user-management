@@ -197,15 +197,15 @@ function populate_input($dom_input, $value) {
   $count = count($dom_input);
   if ($count > 1 && $dom_input[0]->attributes->getNamedItem('type') == 'radio') {
     for($i = 0; $i < $count; $i++) {
-      error_log("Looking for {$value} in {$dom_input[i]->nodeValue}");
-      if ($dom_input[i]->nodeValue == $value) {
+      error_log("Looking for {$value} in {$dom_input[$i]->nodeValue}");
+      if ($dom_input[$i]->nodeValue == $value) {
         $dom_input->setAttribute('checked', '');
       }
     }
   } elseif ($count == 1) {
     $dom_input[0]->setAttribute('value', $value);
   } else {
-    $attrs = dom_named_node_map_to_string($dom_input[i]->attributes);
+    $attrs = dom_named_node_map_to_string($dom_input[0]->attributes);
     error_log("Unsupported input element(s). There are $count elements, the first element's attributes are: $attrs");
   }
 }
