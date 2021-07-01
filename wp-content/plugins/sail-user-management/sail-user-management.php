@@ -197,6 +197,7 @@ function populate_input($dom_input, $value) {
   $count = count($dom_input);
   if ($count > 0 && $dom_input[0]->attributes->getNamedItem('type') == 'radio') {
     for($i = 0; $i < $count; $i++) {
+      error_log("Looking for {$value} in {$dom_input[i]->nodeValue}");
       if ($dom_input[i]->nodeValue == $value) {
         $dom_input->setAttribute('checked', '');
       }
@@ -204,6 +205,7 @@ function populate_input($dom_input, $value) {
   } elseif ($count == 1) {
     $dom_input[0]->setAttribute('value', $value);
   }
+  error_log('Unsupported input element:' . print_r($dom_input));
 }
 
 // Populates a DOM select element with the correct option selected if it exists
