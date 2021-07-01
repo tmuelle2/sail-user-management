@@ -205,7 +205,8 @@ function populate_input($dom_input, $value) {
   } elseif ($count == 1) {
     $dom_input[0]->setAttribute('value', $value);
   } else {
-    error_log('Unsupported input element:' . print_r($dom_input, true));
+    $attrs = dom_named_node_map_to_string($dom_input[i]);
+    error_log("Unsupported input element(s).  There are $count elements, the first element's attributes are: $attrs");
   }
 }
 
@@ -239,6 +240,15 @@ function parse_html($str) {
   libxml_clear_errors();
   libxml_use_internal_errors(false);
   return $doc;
+}
+
+function dom_named_node_map_to_string($map) {
+  $count = $map->count();
+  $str = "";
+  for($i = 0; $i < $count; i++) {
+    $str .= print_r($map-item($0), true);
+  }
+  return $str;
 }
 
 /**
