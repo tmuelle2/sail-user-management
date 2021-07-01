@@ -197,7 +197,7 @@ function populate_input($dom_input, $value) {
   $count = count($dom_input);
   if ($count > 1 && $dom_input[0]->attributes->getNamedItem('type')->nodeValue == 'radio') {
     for($i = 0; $i < $count; $i++) {
-      error_log("Looking for $value in " . print_r($dom_input[$i]));
+      error_log("Looking for $value in " . print_r($dom_input[$i], true));
       if ($dom_input[$i]->nodeValue == $value) {
         $dom_input[$i]->setAttribute('checked', '');
       } else {
