@@ -196,7 +196,7 @@ function name_to_node_map($nodes) {
 function populate_input($dom_input, $value) {
   $count = count($dom_input);
   if ($count > 0 && $dom_input[0]->attributes->getNamedItem('type') == 'radio') {
-    foreach($i = 0; $i < $count; $i++) {
+    for($i = 0; $i < $count; $i++) {
       if ($dom_input[i]->nodeValue == $value) {
         $dom_input->setAttribute('checked', '');
       }
