@@ -246,7 +246,7 @@ function dom_named_node_map_to_string($map) {
   $count = $map->count();
   $str = "";
   for($i = 0; $i < $count; ++$i) {
-    $str .= print_r($map-item($0), true);
+    $str .= print_r($map-item($i), true);
   }
   return $str;
 }
