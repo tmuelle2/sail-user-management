@@ -195,6 +195,7 @@ function name_to_node_map($nodes) {
 // Populates vanilla (text, data, etc.) and radio input elements with value
 function populate_input($dom_input, $value) {
   $count = count($dom_input);
+  error_log(print_r($dom_input));
   if ($count > 0 && $dom_input[0]->attributes->getNamedItem('type') == 'radio') {
     for($i = 0; $i < $count; $i++) {
       error_log("Looking for {$value} in {$dom_input[i]->nodeValue}");
