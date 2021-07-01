@@ -197,6 +197,7 @@ function populate_input($dom_input, $value) {
   $count = count($dom_input);
   if ($count > 1 && $dom_input[0]->attributes->getNamedItem('type')->nodeValue == 'radio') {
     for($i = 0; $i < $count; $i++) {
+      error_log("Looking for $value in " . print_r($dom_input[$i]));
       if ($dom_input[$i]->nodeValue == $value) {
         $dom_input[$i]->setAttribute('checked', '');
       } else {
@@ -213,7 +214,7 @@ function populate_input($dom_input, $value) {
 
 // Populates a DOM select element with the correct option selected if it exists
 function populate_select($dom_select, $option) {
-  if (count($dom_select) > 0) {
+  if (count($dom_select) > 1) {
     return;
   }
   $children = $dom_select[0]->childNodes;
@@ -227,7 +228,7 @@ function populate_select($dom_select, $option) {
 }
 
 function populate_element($dom_element, $value) {
-  if (count($dom_element) > 0) {
+  if (count($dom_element) > 1) {
     return;
   }
   $dom_element[0]->nodeValue = $value;
