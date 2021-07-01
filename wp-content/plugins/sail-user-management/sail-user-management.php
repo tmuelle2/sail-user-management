@@ -195,11 +195,12 @@ function name_to_node_map($nodes) {
 // Populates vanilla (text, data, etc.) and radio input elements with value
 function populate_input($dom_input, $value) {
   $count = count($dom_input);
-  if ($count > 1 && $dom_input[0]->attributes->getNamedItem('type') == 'radio') {
+  if ($count > 1 && $dom_input[0]->attributes->getNamedItem('type')->nodeValue == 'radio') {
     for($i = 0; $i < $count; $i++) {
-      error_log("Looking for {$value} in {$dom_input[$i]->nodeValue}");
       if ($dom_input[$i]->nodeValue == $value) {
         $dom_input->setAttribute('checked', '');
+      } else {
+        $dom_input->removeAttribute('checked');
       }
     }
   } elseif ($count == 1) {
