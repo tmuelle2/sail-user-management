@@ -195,8 +195,8 @@ function name_to_node_map($nodes) {
 // Populates vanilla (text, data, etc.) and radio input elements with value
 function populate_input($dom_input, $value) {
   $count = count($dom_input);
-  error_log(print_r($dom_input));
-  if ($count > 0 && $dom_input[0]->attributes->getNamedItem('type') == 'radio') {
+  error_log(print_r($dom_input, true));
+  if ($count > 1 && $dom_input[0]->attributes->getNamedItem('type') == 'radio') {
     for($i = 0; $i < $count; $i++) {
       error_log("Looking for {$value} in {$dom_input[i]->nodeValue}");
       if ($dom_input[i]->nodeValue == $value) {
@@ -205,8 +205,9 @@ function populate_input($dom_input, $value) {
     }
   } elseif ($count == 1) {
     $dom_input[0]->setAttribute('value', $value);
+  } else {
+    error_log('Unsupported input element:' . print_r($dom_input, true));
   }
-  error_log('Unsupported input element:' . print_r($dom_input));
 }
 
 // Populates a DOM select element with the correct option selected if it exists
