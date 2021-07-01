@@ -205,7 +205,7 @@ function populate_input($dom_input, $value) {
   } elseif ($count == 1) {
     $dom_input[0]->setAttribute('value', $value);
   } else {
-    $attrs = dom_named_node_map_to_string($dom_input[i]);
+    $attrs = dom_named_node_map_to_string($dom_input[i]->attributes);
     error_log("Unsupported input element(s). There are $count elements, the first element's attributes are: $attrs");
   }
 }
@@ -245,7 +245,7 @@ function parse_html($str) {
 function dom_named_node_map_to_string($map) {
   $count = $map->count();
   $str = "";
-  for($i = 0; $i < $count; ++$i) {
+  for ($i = 0; $i < $count; ++$i) {
     $str .= print_r($map-item($i), true);
   }
   return $str;
