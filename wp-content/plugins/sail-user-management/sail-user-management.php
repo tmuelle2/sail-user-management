@@ -333,6 +333,12 @@ function sail_user_logout() {
 }
 add_action('admin_post_sail_user_logout', 'sail_user_logout');
 
+function sail_user_forgot_password() {
+  global $HOME_DIR;
+  include_once($HOME_DIR . 'user-forgot-password.php');
+}
+add_action('admin_post_nopriv_sail_user_signon', 'sail_user_forgot_password');
+
 function sail_user_update() {
   global $HOME_DIR;
   include_once($HOME_DIR . 'user-update.php');
