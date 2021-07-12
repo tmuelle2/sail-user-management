@@ -1,7 +1,7 @@
 <?php
 
 $email = $_POST['email']
-$user = get_user_by( 'login', $email );
+$user = get_user_by( 'email', $email );
 if ( username_exists($email) && email_exists($email) && !is_wp_error( $user )) {
 
     $reset_key = get_password_reset_key($user);
