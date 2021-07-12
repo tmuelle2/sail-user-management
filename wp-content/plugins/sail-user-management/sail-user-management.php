@@ -337,7 +337,7 @@ function sail_user_forgot_password() {
   global $HOME_DIR;
   include_once($HOME_DIR . 'user-forgot-password.php');
 }
-add_action('admin_post_nopriv_sail_user_signon', 'sail_user_forgot_password');
+add_action('admin_post_nopriv_sail_user_forgot_password', 'sail_user_forgot_password');
 
 function sail_user_update() {
   global $HOME_DIR;
