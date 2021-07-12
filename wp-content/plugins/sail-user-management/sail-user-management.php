@@ -282,7 +282,7 @@ function get_sail_page($path) {
 function sail_plugin_init() {
     add_shortcode( 'userRegistration', 'user_reg_shortcode' );
     add_shortcode( 'userSignOn', 'user_signon_shortcode' );
-    add_shortcode( 'userLogout', 'user_logout_shortcode')
+    add_shortcode( 'userLogout', 'user_logout_shortcode');
     add_shortcode( 'userProfile', 'user_profile_shortcode' );
     add_shortcode( 'userUpdateProfile', 'user_update_profile_shortcode' );
     add_shortcode( 'userJoinPort', 'user_join_port_shortcode');
