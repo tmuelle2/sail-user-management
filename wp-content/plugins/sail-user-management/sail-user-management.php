@@ -34,6 +34,13 @@ function user_logout_shortcode($atts = [], $content = null, $tag = '' ) {
   return get_sail_page($PAGES_DIR . 'logout.html');
 }
 
+/**
+ * Adds the html form required for when a user forgets their password
+ */
+function user_forgot_password_shortcode($atts = [], $content = null, $tag = '' ) {
+  global $PAGES_DIR;
+  return get_sail_page($PAGES_DIR . 'forgot-password.html');
+}
 
 /**
  * Returns the html to display the current users profile info if the user is logged in
@@ -283,6 +290,7 @@ function sail_plugin_init() {
     add_shortcode( 'userRegistration', 'user_reg_shortcode' );
     add_shortcode( 'userSignOn', 'user_signon_shortcode' );
     add_shortcode( 'userLogout', 'user_logout_shortcode');
+    add_shortcode( 'userForgotPassword', 'user_forgot_password_shortcode');
     add_shortcode( 'userProfile', 'user_profile_shortcode' );
     add_shortcode( 'userUpdateProfile', 'user_update_profile_shortcode' );
     add_shortcode( 'userJoinPort', 'user_join_port_shortcode');
