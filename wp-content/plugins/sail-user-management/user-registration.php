@@ -43,12 +43,13 @@ if ( !username_exists($email) && !email_exists($email)) {
         }
     } */
 
-    $target_dir_location = '/_home2/sailhou1/public_html/wp-content/uploads/profilePictures/';
-    var_dump($_FILES, true);
-    var_dump($_FILES['profilePicture'], true);
-    $name_file = $_FILES['profilePicture']['name'];
-    $tmp_name = $_FILES['profilePicture']['tmp_name'];
-    if(isset($_FILES['profilePicture'])){
+    // TODO: make profile pics live here
+    // $target_dir_location = '/_home2/sailhou1/public_html/wp-content/uploads/profilePictures/';
+    if (isset($_FILES['profilePicture']) && isset($_FILES['profilePicture']['name']) && isset($_FILES['profilePicture']['name'])
+        && !empty($_FILES['profilePicture']['name']) && !empty($_FILES['profilePicture']['name'])
+    ) {
+        $name_file = $_FILES['profilePicture']['name'];
+        $tmp_name = $_FILES['profilePicture']['tmp_name'];
         $upload = wp_upload_bits($_FILES['profilePicture']['name'], null, file_get_contents($_FILES['profilePicture']['tmp_name']));
 
         if(!$upload['error']) {
