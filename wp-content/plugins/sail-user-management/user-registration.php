@@ -44,6 +44,7 @@ if ( !username_exists($email) && !email_exists($email)) {
     } */
 
     $target_dir_location = '/_home2/sailhou1/public_html/wp-content/uploads/profilePictures/';
+    print_r($_FILES['profilePicture'], true);
     $name_file = $_FILES['profilePicture']['name'];
     $tmp_name = $_FILES['profilePicture']['tmp_name'];
     if(isset($_FILES['profilePicture'])){
