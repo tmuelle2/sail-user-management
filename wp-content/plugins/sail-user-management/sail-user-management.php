@@ -168,26 +168,34 @@ function get_port_member() {
  * the field names and input tag names to populate fields.
  */
 function populate_form_elements($dom_doc, $db_fields, $db_obj) {
-  // Get elements
-  $input_list = $dom_doc->getElementsByTagName("input");
-  $select_list = $dom_doc->getElementsByTagName("select");
-  $textarea_list = $dom_doc->getElementsByTagName("textarea");
-
-  // Build name to node associative arrays
-  $inputs = name_to_node_map($input_list);
-  $selects = name_to_node_map($select_list);
-  $textareas = name_to_node_map($textarea_list); 
+  $tags = array('input', 'select', 'textarea', 'date');
+  $element_map = array();
+  foreach ($tags as $tag) {
+    // Get elements 
+    $element_list = $dom_doc->getElementsByTagName($tag);
+    // Build tag to name to node associative arrays
+    $element_map[$tag] = name_to_node_map($element_list);
+  }
 
   $db_arr = get_object_vars($db_obj); 
 
   // Populate elements 
   foreach($db_fields as $element => $format) {
-    if (isset($inputs[$element]) && isset($db_arr[$element])) {
-      populate_input($inputs[$element], $db_arr[$element]);
-    } elseif (isset($selects[$element]) && isset($db_arr[$element])) {
-      populate_select($selects[$element], $db_arr[$element]);
-    } elseif (isset($textareas[$element]) && isset($db_arr[$element])) {
-      populate_element($textareas[$element], $db_arr[$element]);
+    foreach ($tags as $tag) {
+      if (isset($element_map[$tag][$element]) && isset($db_arr[$element])) {
+        switch ($tag) {
+          case 'input':
+            populate_input($element_map[$tag][$element], $db_arr[$element]);
+            break;
+          case 'select':
+            populate_select($element_map[$tag][$element], $db_arr[$element]);
+            break;
+          default:
+            populate_element($element_map[$tag][$element], $db_arr[$element]);
+            break;
+        }  
+        continue;
+      }
     }
   }
 }

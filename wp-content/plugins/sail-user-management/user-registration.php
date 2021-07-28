@@ -16,13 +16,6 @@ foreach($USER_DB_FIELDS as $element => $format) {
 $email = $_POST['email'];
 $password = $_POST['password'];
 if ( !username_exists($email) && !email_exists($email)) {
-    $user_id = wp_create_user(
-        $email,
-        $password,
-        $email
-    );
-    $data['userId'] = $user_id;
-
     // Profile Picture stuff
     // ensure nonce is valid
     /**
@@ -43,7 +36,7 @@ if ( !username_exists($email) && !email_exists($email)) {
         }
     } */
 
-    // TODO: make profile pics live here
+    // TODO: make profile pics live here:
     // $target_dir_location = '/_home2/sailhou1/public_html/wp-content/uploads/profilePictures/';
     if (isset($_FILES['profilePicture']) && isset($_FILES['profilePicture']['name']) && isset($_FILES['profilePicture']['name'])
         && !empty($_FILES['profilePicture']['name']) && !empty($_FILES['profilePicture']['name'])
@@ -70,6 +63,12 @@ if ( !username_exists($email) && !email_exists($email)) {
     }
     */
 
+    $user_id = wp_create_user(
+        $email,
+        $password,
+        $email
+    );
+    $data['userId'] = $user_id;
 
     // Insert into SAIL users db table
     $wpdb->insert('sail_users', $data, $formats);

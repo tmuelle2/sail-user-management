@@ -13,7 +13,7 @@ $USER_DB_FIELDS = array(
     'state' => '%s', 
     'zipCode' => '%d', 
     'phoneNumber' => '%s',
-    //'profilePicture' => '%s', 
+    'profilePicture' => '%s', 
     'gender' => '%s', 
     'dob' => '%s', 
     'contactViaEmail' => '%s', 
@@ -23,8 +23,7 @@ $USER_DB_FIELDS = array(
     'reference' => '%s',
     'timeframe' => '%s',
     'newsletter' => '%s',
-    'additionalInfo' => '%s',
-    'profilePictureId' => '%s'
+    'additionalInfo' => '%s'
 );
 
 // Mapping of form element to database format for ports
