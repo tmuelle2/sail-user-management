@@ -230,10 +230,11 @@ function populate_input($dom_input, $value) {
     }
   } elseif ($count == 1) { 
     if ($dom_input[0]->attributes->getNamedItem('type')->nodeValue == 'date') {
-      $dom_element[0]->nodeValue = $value;
-    } else {
       $attrs = dom_named_node_map_to_string($dom_input[0]->attributes);
       error_log("There are $count elements, the first element's attributes are: $attrs");
+      error_log($value);
+      $dom_element[0]->nodeValue = $value;
+    } else {
       $dom_input[0]->setAttribute('value', $value);
     }
   } else {
