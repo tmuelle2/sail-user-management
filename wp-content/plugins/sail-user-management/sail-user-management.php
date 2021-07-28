@@ -168,7 +168,7 @@ function get_port_member() {
  * the field names and input tag names to populate fields.
  */
 function populate_form_elements($dom_doc, $db_fields, $db_obj) {
-  $tags = array('input', 'select', 'textarea', 'date');
+  $tags = array('input', 'select', 'textarea');
   $element_map = array();
   foreach ($tags as $tag) {
     // Get elements 
@@ -229,6 +229,10 @@ function populate_input($dom_input, $value) {
       }
     }
   } elseif ($count == 1) {
+    if ($dom_input[0]->attributes->getNamedItem('type')->nodeValue == 'date') {
+      $attrs = dom_named_node_map_to_string($dom_input[0]->attributes);
+      error_log($attrs);
+    }
     $dom_input[0]->setAttribute('value', $value);
   } else {
     $attrs = dom_named_node_map_to_string($dom_input[0]->attributes);
@@ -252,11 +256,9 @@ function populate_select($dom_select, $option) {
 }
 
 function populate_element($dom_element, $value) {
-  print_r($dom_element, true);
   if (count($dom_element) > 1) {
     return;
   }
-  dom_named_node_map_to_string($dom_element[0]);
   $dom_element[0]->nodeValue = $value;
 }
 
