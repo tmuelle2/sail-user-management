@@ -30,7 +30,7 @@ if (is_user_logged_in()) {
 
         }
     } else {
-        $data['profilePicture'] = $cur_user['profilePicture'];
+        $data['profilePicture'] = $cur_user->profilePicture;
     }
 
     // Update SAIL users db table

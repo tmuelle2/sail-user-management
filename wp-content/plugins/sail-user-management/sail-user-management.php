@@ -252,6 +252,7 @@ function populate_select($dom_select, $option) {
 }
 
 function populate_element($dom_element, $value) {
+  dom_named_node_map_to_string($dom_element);
   if (count($dom_element) > 1) {
     return;
   }
