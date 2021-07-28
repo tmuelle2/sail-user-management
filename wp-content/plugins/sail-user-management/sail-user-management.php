@@ -219,8 +219,6 @@ function name_to_node_map($nodes) {
 // Populates vanilla (text, data, etc.) and radio input elements with value
 function populate_input($dom_input, $value) {
   $count = count($dom_input);
-  $attrs = dom_named_node_map_to_string($dom_input[0]->attributes);
-  error_log("There are $count elements, the first element's attributes are: $attrs");
   if ($count > 1 && $dom_input[0]->attributes->getNamedItem('type')->nodeValue == 'radio') {
     for($i = 0; $i < $count; $i++) {
       error_log("Looking for $value in " . print_r($dom_input[$i]->attributes->getNamedItem('value'), true));
@@ -231,7 +229,13 @@ function populate_input($dom_input, $value) {
       }
     }
   } elseif ($count == 1) { 
-    $dom_input[0]->setAttribute('value', $value);
+    if ($dom_input[0]->attributes->getNamedItem('type')->nodeValue == 'date') {
+      $dom_element[0]->nodeValue = $value;
+    } else {
+      $attrs = dom_named_node_map_to_string($dom_input[0]->attributes);
+      error_log("There are $count elements, the first element's attributes are: $attrs");
+      $dom_input[0]->setAttribute('value', $value);
+    }
   } else {
     $attrs = dom_named_node_map_to_string($dom_input[0]->attributes);
     error_log("Unsupported input element(s). There are $count elements, the first element's attributes are: $attrs");
