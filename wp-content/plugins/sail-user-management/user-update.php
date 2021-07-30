@@ -34,7 +34,7 @@ if (is_user_logged_in()) {
     }
 
     // Update SAIL users db table
-    $wpdb->update('sail_users', $data, $formats);
+    $wpdb->update('sail_users', $data, array('userId', $cur_user->userId), $formats);
 
     // Success redirect
     nocache_headers();
