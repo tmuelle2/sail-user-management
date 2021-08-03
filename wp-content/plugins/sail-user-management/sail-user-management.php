@@ -380,3 +380,12 @@ function update_port() {
   include_once($HOME_DIR . 'update-port.php');
 }
 add_action('admin_post_update_port', 'update_port');
+
+
+// Makes it so we can access query params from urls (like when a user clicks a password reset link)
+function add_custom_query_params( $qvars ) {
+    $qvars[] = 'key';
+    $qvars[] = 'login';
+    return $qvars;
+}
+add_filter( 'query_vars', 'add_custom_query_params' );
