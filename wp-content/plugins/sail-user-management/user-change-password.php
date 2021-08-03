@@ -42,6 +42,9 @@ else {
     else {
         // url is missing the key for password reset
         error_log("[user-change-password.php] ERROR: User is not logged in and trying to reset their password without a key/email parameter in the url.");
+        print_r($_GET['login'], true);
+        print_r($_GET['key'], true);
+        print_r($_GET, true);
         nocache_headers();
         wp_safe_redirect('https://sailhousingsolutions.org/error');
         exit;
