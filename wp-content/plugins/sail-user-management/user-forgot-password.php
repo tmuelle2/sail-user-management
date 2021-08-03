@@ -7,7 +7,16 @@ if ( username_exists($email) && email_exists($email) && !is_wp_error( $user )) {
     $reset_key = get_password_reset_key($user);
     $user_login = $user->user_login;
     $url = esc_url_raw( "https://sailhousingsolutions.org/change-password" . "?action=change_password&key=$reset_key&login=$user_login" );
-    $message = $url;
+    
+    $message = "Hello ";
+    $message .= $email;
+    $message .= "!<br/><br/>";
+    $message .= "Someone has requested a link to reset your password, and you can do this through the link below:<br/><br/>";
+    $message .= $url;
+    $message .= "<br/><br/>If you didn't request this, please ignore this email.";
+    $message .= "<br/><br/>Your password won't change until you access the link above and create a new one.";
+
+    $url;
 
     wp_mail( $user_login, "SAIL Password Reset Link", $message );
     
