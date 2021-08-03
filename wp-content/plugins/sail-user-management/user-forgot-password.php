@@ -10,11 +10,11 @@ if ( username_exists($email) && email_exists($email) && !is_wp_error( $user )) {
     
     $message = "Hello ";
     $message .= $email;
-    $message .= "!\r\n";
-    $message .= "Someone has requested a link to reset your password, and you can do this through the link below:\r\n";
+    $message .= "!\r\n\r\n";
+    $message .= "Someone has requested a link to reset your password, and you can do this through the link below:\r\n\r\n";
     $message .= $url;
-    $message .= "\r\nIf you didn't request this, please ignore this email.";
-    $message .= "\r\nYour password won't change until you access the link above and create a new one.";
+    $message .= "\r\n\r\nIf you didn't request this, please ignore this email.";
+    $message .= "\r\n\r\nYour password won't change until you access the link above and create a new one.";
 
     $url;
 
