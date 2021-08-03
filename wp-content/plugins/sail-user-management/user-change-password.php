@@ -21,6 +21,8 @@ if (is_user_logged_in()) {
 else {
     $key = get_query_var('key', '');
     $email = get_query_var('login', '');
+    global $wp;
+    $url = add_query_arg( $_SERVER['QUERY_STRING'], '', home_url( $wp->request ) );
 
     if (strlen($key) != 0 || strlen($email) != 0) {
 
@@ -45,6 +47,7 @@ else {
         error_log("[user-change-password.php] ERROR: User is not logged in and trying to reset their password without a key/email parameter in the url.");
         print_r($key, true);
         print_r($email, true);
+        print_r($url, true);
         nocache_headers();
         wp_safe_redirect('https://sailhousingsolutions.org/error');
         exit;
