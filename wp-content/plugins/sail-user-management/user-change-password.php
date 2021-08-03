@@ -19,9 +19,10 @@ if (is_user_logged_in()) {
     exit;
 }
 else {
-    if (isset($_GET['key']) && isset($_GET['login']) ) {
-        $key = $_GET['key'];
-        $email = $_GET['login'];
+    $key = get_query_var('key', '');
+    $email = get_query_var('login', '');
+
+    if (strlen($key) != 0 || strlen($email) != 0) {
 
         $user = check_password_reset_key($key, $email);
 
