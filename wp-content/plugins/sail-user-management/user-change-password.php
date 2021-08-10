@@ -19,10 +19,8 @@ if (is_user_logged_in()) {
     exit;
 }
 else {
-    $key = get_query_var('key', '');
-    $email = get_query_var('login', '');
-    global $wp;
-    $url = add_query_arg( $_SERVER['QUERY_STRING'], '', home_url( $wp->request ) );
+    $key = get_query_var('pw_reset_key', '');
+    $email = get_query_var('user_email', '');
 
     if (strlen($key) != 0 || strlen($email) != 0) {
 
