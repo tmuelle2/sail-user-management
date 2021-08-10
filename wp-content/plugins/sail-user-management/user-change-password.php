@@ -56,7 +56,7 @@ else {
     else {
         // url is missing the key for password reset
         error_log("[user-change-password.php] ERROR: User is not logged in and trying to reset their password without a key/email parameter in the url.");
-        error_log("Now Pringting debug vars: ")
+        error_log("Now Pringting debug vars: ");
         print_r($key, true);
         print_r($email, true);
         print_r($key2, true);
