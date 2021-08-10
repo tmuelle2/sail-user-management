@@ -109,10 +109,11 @@ function fc_landing_shortcode($atts = [], $content = null, $tag = '' ) {
     global $USER_DB_FIELDS;
 
     $sail_user = get_sail_user();
-
-    return '<p>SAIL believes in connecting people to people, so we developed Friendship Connect to help you. Whether you are looking to find friends or looking for a roommate, Friendship Connect is a way to start your journey and find your crew.</p><br/><br/><a class="wp-block-button__link has-background" href="https://sailhousingsolutions.org/join-friendship-connect/">Join Friendship Connect</a>';
+    
+    return get_sail_page($PAGES_DIR . 'fc-landing-login.html');
   } else {
-    return '<p>SAIL believes in connecting people to people, so we developed Friendship Connect to help you. Whether you are looking to find friends or looking for a roommate, Friendship Connect is a way to start your journey and find your crew.</p><br/><br/><p>In order to sign up for Friendship Connect you will need to become a SAIL member first. Please follow this link to <a href="https://sailhousingsolutions.org/register/">Join SAIL</a>. If you are already a SAIL member please follow this link to <a href="https://sailhousingsolutions.org/login/">Login</a>.</p>';
+    global $PAGES_DIR;
+    return get_sail_page($PAGES_DIR . 'fc-landing-nologin.html');
   }    
 }
 
