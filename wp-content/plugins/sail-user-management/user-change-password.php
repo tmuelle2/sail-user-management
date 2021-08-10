@@ -1,5 +1,15 @@
 <?php
 
+function get_request_parameter( $key, $default = '' ) {
+    // If not request set
+    if ( ! isset( $_REQUEST[ $key ] ) || empty( $_REQUEST[ $key ] ) ) {
+        return $default;
+    }
+
+    // Set so process it
+    return strip_tags( (string) wp_unslash( $_REQUEST[ $key ] ) );
+}
+
 $password = $_POST['password'];
 $confirmPassword = $_POST['confirmPassword'];
 
@@ -22,6 +32,9 @@ else {
     $key = get_query_var('pw_reset_key', '');
     $email = get_query_var('user_email', '');
 
+    $key2 = get_request_parameter('pw_reset_key', '');
+    $email2 = get_request_parameter('user_email', '');
+
     if (strlen($key) != 0 || strlen($email) != 0) {
 
         $user = check_password_reset_key($key, $email);
@@ -43,8 +56,11 @@ else {
     else {
         // url is missing the key for password reset
         error_log("[user-change-password.php] ERROR: User is not logged in and trying to reset their password without a key/email parameter in the url.");
+        error_log("Now Pringting debug vars: ")
         print_r($key, true);
         print_r($email, true);
+        print_r($key2, true);
+        print_r($email2, true);
         nocache_headers();
         wp_safe_redirect('https://sailhousingsolutions.org/error');
         exit;
