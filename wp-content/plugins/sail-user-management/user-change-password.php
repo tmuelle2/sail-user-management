@@ -12,6 +12,8 @@ function get_request_parameter( $key, $default = '' ) {
 
 $password = $_POST['password'];
 $confirmPassword = $_POST['confirmPassword'];
+$key = $_POST['pw_reset_key'];
+$email = $_POST['user_email'];
 
 if ($password != $confirmPassword) {
     // url is missing the key for password reset
@@ -29,12 +31,7 @@ if (is_user_logged_in()) {
     exit;
 }
 else {
-    $key = get_query_var('pw_reset_key', '');
-    $email = get_query_var('user_email', '');
-
-    $key2 = get_request_parameter('pw_reset_key', '');
-    $email2 = get_request_parameter('user_email', '');
-
+    
     if (strlen($key) != 0 || strlen($email) != 0) {
 
         $user = check_password_reset_key($key, $email);
