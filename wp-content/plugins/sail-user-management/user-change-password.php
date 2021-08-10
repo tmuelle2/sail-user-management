@@ -31,7 +31,7 @@ if (is_user_logged_in()) {
     exit;
 }
 else {
-    
+
     if (strlen($key) != 0 || strlen($email) != 0) {
 
         $user = check_password_reset_key($key, $email);
@@ -56,8 +56,6 @@ else {
         error_log("Now Pringting debug vars: ");
         print_r($key, true);
         print_r($email, true);
-        print_r($key2, true);
-        print_r($email2, true);
         nocache_headers();
         wp_safe_redirect('https://sailhousingsolutions.org/error');
         exit;

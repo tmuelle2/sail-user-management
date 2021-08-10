@@ -101,9 +101,28 @@ function user_update_profile_shortcode($atts = [], $content = null, $tag = '' ) 
 }
 
 /**
+ * Returns html for friendship connect landing page
+ */
+function fc_landing_shortcode($atts = [], $content = null, $tag = '' ) {
+  if (is_user_logged_in()) {
+    global $PAGES_DIR;
+    global $USER_DB_FIELDS;
+
+    $sail_user = get_sail_user();
+
+    return '<p>SAIL believes in connecting people to people, so we developed Friendship Connect to help you. Whether you are looking to find friends or looking for a roommate, Friendship Connect is a way to start your journey and find your crew.</p><br/><br/><a class="wp-block-button__link has-background" href="https://sailhousingsolutions.org/join-friendship-connect/">Join Friendship Connect</a>';
+  } else {
+    return '<p>SAIL believes in connecting people to people, so we developed Friendship Connect to help you. Whether you are looking to find friends or looking for a roommate, Friendship Connect is a way to start your journey and find your crew.</p><br/><br/><p>In order to sign up for Friendship Connect you will need to become a SAIL member first. Please follow this link to <a href="https://sailhousingsolutions.org/register/">Join SAIL</a>. If you are already a SAIL member please follow this link to <a href="https://sailhousingsolutions.org/login/">Login</a>.</p>';
+  }    
+}
+
+
+
+/**
  * Returns the html form to join a port if logged in,
  * otherwise redirects to register page.
  */
+// OBSOLETE
 function user_join_port_shortcode($atts = [], $content = null, $tag = '' ) {
   if (is_user_logged_in()) {
     global $PAGES_DIR;
@@ -119,6 +138,7 @@ function user_join_port_shortcode($atts = [], $content = null, $tag = '' ) {
  * Returns html to update the user's port info for the logged in user, if they do not have port info returns an empty strings
  * otherwise redirects to register page.
  */
+// OBSOLETE
 function user_update_port_shortcode($atts = [], $content = null, $tag = '' ) {
   if (is_user_logged_in()) {
     global $PAGES_DIR;
@@ -163,6 +183,7 @@ function get_sail_user() {
 }
 
 // Returns the port member info of the currently logged in user if it exists
+// OBSOLETE
 function get_port_member() {
     global $wpdb;
     $user = wp_get_current_user();
@@ -312,6 +333,7 @@ function sail_plugin_init() {
     add_shortcode( 'userUpdateProfile', 'user_update_profile_shortcode' );
     add_shortcode( 'userJoinPort', 'user_join_port_shortcode');
     add_shortcode( 'userUpdatePort', 'user_update_port_shortcode');
+    add_shortcode( 'userFCLanding', 'fc_landing_shortcode');
 } 
 add_action('init', 'sail_plugin_init' );
 
