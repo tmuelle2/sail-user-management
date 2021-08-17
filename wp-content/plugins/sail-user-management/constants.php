@@ -26,6 +26,21 @@ $USER_DB_FIELDS = array(
     'additionalInfo' => '%s'
 );
 
+// Mapping of form element to database format
+$FC_DB_FIELDS = array(
+    'authorized' => '%s',
+    'consent' => '%s', 
+    'namePreference' => '%s', 
+    'nickname' => '%s', 
+    'activities' => '%s', 
+    'hobbies' => '%s', 
+    'typicalDay' => '%s', 
+    'strengths' => '%d', 
+    'makesYouHappy' => '%s',
+    'lifesVision' => '%s', 
+    'supportRequirements' => '%s'
+);
+
 // Mapping of form element to database format for ports
 $PORT_DB_FIELDS = array(
     'currentSituation' => '%s',

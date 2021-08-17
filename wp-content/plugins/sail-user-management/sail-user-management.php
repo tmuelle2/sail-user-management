@@ -117,7 +117,23 @@ function fc_landing_shortcode($atts = [], $content = null, $tag = '' ) {
   }    
 }
 
+/**
+ * Returns html for friendship connect reg page
+ */
+function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
+  if (is_user_logged_in()) {
+    global $PAGES_DIR;
+    global $USER_DB_FIELDS;
 
+    $sail_user = get_sail_user();
+    
+    return get_sail_page($PAGES_DIR . 'fc-registration.html');
+  } else {
+    nocache_headers();
+    wp_safe_redirect('https://sailhousingsolutions.org/login');
+    exit;
+  }    
+}
 
 /**
  * Returns the html form to join a port if logged in,
@@ -335,6 +351,7 @@ function sail_plugin_init() {
     add_shortcode( 'userJoinPort', 'user_join_port_shortcode');
     add_shortcode( 'userUpdatePort', 'user_update_port_shortcode');
     add_shortcode( 'userFCLanding', 'fc_landing_shortcode');
+    add_shortcode( 'userFCRegistration', 'fc_reg_shortcode');
 } 
 add_action('init', 'sail_plugin_init' );
 
@@ -391,6 +408,12 @@ function sail_user_update() {
   include_once($HOME_DIR . 'user-update.php');
 }
 add_action('admin_post_sail_user_update', 'sail_user_update');
+
+function fc_register() {
+  global $HOME_DIR;
+  include_once($HOME_DIR . 'fc-registration.php');
+}
+add_action('admin_post_fc_registration', 'fc_register');
 
 function join_port() {
   global $HOME_DIR;
