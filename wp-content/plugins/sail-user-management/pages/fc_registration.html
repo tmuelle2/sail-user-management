@@ -1,0 +1,33 @@
+<form accept-charset="UTF-8" action="<?php esc_url(admin_url('admin-post.php')); ?>" id="fc_registration" autocomplete="on" enctype="multipart/form-data" method="post">
+  <input type="hidden" name="action" value="fc_registration">
+  <h5 class="field-label required-field">Are you legally authorized to complete this form (either on behalf of yourself or a dependent)?</h5>
+  <input name="authorized" type="radio" value="1" /> Yes<br /> 
+  <input name="authorized" type="radio" value="0" /> No<br />
+  <h5 class="field-label required-field">Do you consent to filling out this form and allowing the information to be shared with other users within Friendship Connect?</h5>
+  <input name="consent" type="radio" value="1" /> Yes<br /> 
+  <input name="consent" type="radio" value="0" /> No<br />
+  <h5 class="field-label required-field">How do you want your Name to appear to others in Friendship connect?</h5>
+  <select name="namePreference" class="select-field" required>
+    <option value="First Name Only">First Name Only</option>
+    <option value="First and Last Name">First and Last Name</option>
+    <option value="Initials Only">Initials Only</option>
+    <option value="Nickname">Nickname</option>
+  </select> <br /> 
+  <h5 class="field-label">Nickname</h5>
+  <input name="nickname" type="text" class="text-input-field" required /> <br /> 
+  <h5 class="field-label required-field">Activities You Enjoy</h5>
+  <textarea name="activities" class="text-input-field" cols="30" rows="2" required></textarea><br /> 
+  <h5 class="field-label required-field">Hobbies</h5>
+  <textarea name="hobbies" class="text-input-field" cols="30" rows="2" required></textarea><br /> 
+  <h5 class="field-label required-field">Describe Your Typical Day</h5>
+  <textarea name="typicalDay" class="text-input-field" cols="30" rows="2" required></textarea><br /> 
+  <h5 class="field-label required-field">Strengths</h5>
+  <textarea name="strengths" class="text-input-field" cols="30" rows="2" required></textarea><br /> 
+  <h5 class="field-label required-field">Describe What Makes Your Happy</h5>
+  <textarea name="makesYouHappy" class="text-input-field" cols="30" rows="2" required></textarea><br /> 
+  <h5 class="field-label required-field">Life's Vision</h5>
+  <textarea name="lifesVision" class="text-input-field" cols="30" rows="2" required></textarea><br /> 
+  <h5 class="field-label">Support Requirements or Dietary Restrictions</h5>
+  <textarea name="supportRequirements" class="text-input-field" cols="30" rows="2"></textarea><br /> 
+</form>
+<button type="submit" form="user_reg" value="Submit">Submit</button>
