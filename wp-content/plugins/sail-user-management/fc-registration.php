@@ -12,16 +12,32 @@ foreach($FC_DB_FIELDS as $element => $format) {
     $formats[] = $format;
 }
 
-if (false) {
-    $data['userId'] = $user_id;
+if (is_user_logged_in()) {
+    $user = wp_get_current_user();
+    $query = "SELECT * FROM `fc_members` WHERE userId = ";
+    $query .= $user->ID;
 
-    // Insert into SAIL users db table
-    $wpdb->insert('fc_members', $data, $formats);
+    // check if fc profile already exists for this user
+    $result = $wpdb->get_results($query);
 
-    // Success redirect
-    nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org/user');
-    exit;
+    // Create a port member
+    if (count($result) == 0) {
+        $data['userId'] = $user->ID;
+
+        // Insert the database row
+        $wpdb->insert('fc_members', $data, $formats);
+
+        // Success redirect
+        nocache_headers();
+        wp_safe_redirect('https://sailhousingsolutions.org/user');
+        exit;
+    }
+    else {
+        // Fail redirect 
+        nocache_headers();
+        wp_safe_redirect('https://sailhousingsolutions.org/error');
+        exit;
+    }
 } else {
     // Fail redirect 
     nocache_headers();

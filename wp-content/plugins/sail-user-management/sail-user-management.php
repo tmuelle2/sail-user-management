@@ -126,8 +126,20 @@ function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
     global $USER_DB_FIELDS;
 
     $sail_user = get_sail_user();
+
+    $firstAndLastName = $sail_user->firstName;
+    $firstAndLastName .= " ";
+    $firstAndLastName .= $sail_user->lastName;
+    $initials = $sail_user->firstName[0];
+    $initials .= $sail_user->lastName[0];
+
+    $html = get_sail_page($PAGES_DIR . 'fc-registration.html');
+
+    $html = str_ireplace("{{firstName}}", esc_html($sail_user->firstName), $html);
+    $html = str_ireplace("{{firstAndLastName}}", esc_html($firstAndLastName), $html);
+    $html = str_ireplace("{{initials}}", esc_html($initials), $html);
     
-    return get_sail_page($PAGES_DIR . 'fc-registration.html');
+    return $html;
   } else {
     nocache_headers();
     wp_safe_redirect('https://sailhousingsolutions.org/login');

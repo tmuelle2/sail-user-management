@@ -38,7 +38,10 @@ $FC_DB_FIELDS = array(
     'strengths' => '%d', 
     'makesYouHappy' => '%s',
     'lifesVision' => '%s', 
-    'supportRequirements' => '%s'
+    'supportRequirements' => '%s',
+    'referenceName' => '%s',
+    'referencePhoneNumber' => '%s',
+    'referenceEmail' => '%s'
 );
 
 // Mapping of form element to database format for ports
