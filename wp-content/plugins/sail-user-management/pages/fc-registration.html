@@ -29,56 +29,59 @@
 <form accept-charset="UTF-8" action="<?php esc_url(admin_url('admin-post.php')); ?>" id="fc_registration" autocomplete="on" enctype="multipart/form-data" method="post">
   <input type="hidden" name="action" value="fc_registration">
   <div class="flex-container">
-    <h5 class="field-label required-field">Are you legally authorized to complete this form (either on behalf of yourself or a dependent)?</h5>
-    <input name="authorized" type="radio" value="1" /> Yes<br /> 
-    <input name="authorized" type="radio" value="0" /> No<br />
-    <h5 class="field-label required-field">Do you consent to filling out this form and allowing the information to be shared with other users within Friendship Connect?</h5>
-    <input name="consent" type="radio" value="1" /> Yes<br /> 
-    <input name="consent" type="radio" value="0" /> No<br />
-    <h5 class="field-label required-field">How do you want your Name to appear to others in Friendship connect?</h5>
-    <select name="namePreference" id="namePreference" class="select-field" onchange="onNamePrefChange(this)" required>
-      <option value="First Name Only">First Name Only</option>
-      <option value="First and Last Name">First and Last Name</option>
-      <option value="Initials Only">Initials Only</option>
-      <option value="Nickname">Nickname</option>
-    </select> <br /> 
-    <h5 class="field-label">Nickname</h5>
-    <input name="nickname" type="text" class="text-input-field" id="nickname" oninput="onTextFieldChange(this.value)" /> <br /> 
-    <h5 class="field-label required-field">Activities You Enjoy</h5>
-    <textarea name="activities" class="text-input-field" cols="30" rows="2" required oninput="onTextFieldChange(this.value, 'activities')"></textarea><br /> 
-    <h5 class="field-label required-field">Hobbies</h5>
-    <textarea name="hobbies" class="text-input-field" cols="30" rows="2" required oninput="onTextFieldChange(this.value, 'hobbies')"></textarea><br /> 
-    <h5 class="field-label required-field">Describe Your Typical Day</h5>
-    <textarea name="typicalDay" class="text-input-field" cols="30" rows="2" required oninput="onTextFieldChange(this.value, 'typicalDay')"></textarea><br /> 
-    <h5 class="field-label required-field">Strengths</h5>
-    <textarea name="strengths" class="text-input-field" cols="30" rows="2" required oninput="onTextFieldChange(this.value, 'strengths')"></textarea><br /> 
-    <h5 class="field-label required-field">Describe What Makes You Happy</h5>
-    <textarea name="makesYouHappy" class="text-input-field" cols="30" rows="2" required oninput="onTextFieldChange(this.value, 'makesYouHappy')"></textarea><br /> 
-    <h5 class="field-label required-field">Life's Vision</h5>
-    <textarea name="lifesVision" class="text-input-field" cols="30" rows="2" required oninput="onTextFieldChange(this.value, 'lifesVision')"></textarea><br /> 
-    <h5 class="field-label">Support Requirements or Dietary Restrictions</h5>
-    <textarea name="supportRequirements" class="text-input-field" cols="30" rows="2" oninput="onTextFieldChange(this.value, 'supportRequirements')"></textarea><br /> 
-    <h5 class="field-label required-field">What is your Reference's First and Last Name?</h5>
-    <input name="referenceName" type="text" class="text-input-field" required /> <br /> 
-    <h5 class="field-label required-field">What is your Reference's Phone Number?</h5>
-    <input name="referencePhoneNumber" type="text" class="text-input-field" required /> <br />
-    <h5 class="field-label required-field">What is your Reference's Email?</h5>
-    <input name="referenceEmail" type="text" class="text-input-field" required /> <br />
-  </div>
-  <div class="flex-child">
-    <div class="flex-start">
-      <div style="margin: 8px 8px 8px 8px;"> 
-        <img class="pfp" alt="Profile Picture" src="{{profilePicture}}" />
-      </div>
-      <div style="margin-left: 32px;">
-        <div class="flex-container"><h2 id="displayName">{{displayName}}</h2></div>
-        <div class="flex-container"><strong>Activities:&nbsp;</strong><span id="activities"></span></div>
-        <div class="flex-container"><strong>Hobbies:&nbsp;</strong><span id="hobbies"></span></div>
-        <div class="flex-container"><strong>Typical Day:&nbsp;</strong><span id="typicalDay"></span></div>
-        <div class="flex-container"><strong>Strengths:&nbsp;</strong><span id="strengths"></span></div>
-        <div class="flex-container"><strong>What Makes Me Happy:&nbsp;</strong><span id="makesYouHappy"></span></div>
-        <div class="flex-container"><strong>Life's Vision:&nbsp;</strong><span id="lifesVision"></span></div>
-        <div class="flex-container"><strong>Support Requirements:&nbsp;</strong><span id="supportRequirements"></span></div>
+    <div class="flex-child">
+      <h5 class="field-label required-field">Are you legally authorized to complete this form (either on behalf of yourself or a dependent)?</h5>
+      <input name="authorized" type="radio" value="1" /> Yes<br /> 
+      <input name="authorized" type="radio" value="0" /> No<br />
+      <h5 class="field-label required-field">Do you consent to filling out this form and allowing the information to be shared with other users within Friendship Connect?</h5>
+      <input name="consent" type="radio" value="1" /> Yes<br /> 
+      <input name="consent" type="radio" value="0" /> No<br />
+      <h5 class="field-label required-field">How do you want your Name to appear to others in Friendship connect?</h5>
+      <select name="namePreference" id="namePreference" class="select-field" onchange="onNamePrefChange(this)" required>
+        <option value="First Name Only">First Name Only</option>
+        <option value="First and Last Name">First and Last Name</option>
+        <option value="Initials Only">Initials Only</option>
+        <option value="Nickname">Nickname</option>
+      </select> <br /> 
+      <h5 class="field-label">Nickname</h5>
+      <input name="nickname" type="text" class="text-input-field" id="nickname" oninput="onTextFieldChange(this.value)" /> <br /> 
+      <h5 class="field-label required-field">Activities You Enjoy</h5>
+      <textarea name="activities" class="text-input-field" cols="30" rows="2" required oninput="onTextFieldChange(this.value, 'activities')"></textarea><br /> 
+      <h5 class="field-label required-field">Hobbies</h5>
+      <textarea name="hobbies" class="text-input-field" cols="30" rows="2" required oninput="onTextFieldChange(this.value, 'hobbies')"></textarea><br /> 
+      <h5 class="field-label required-field">Describe Your Typical Day</h5>
+      <textarea name="typicalDay" class="text-input-field" cols="30" rows="2" required oninput="onTextFieldChange(this.value, 'typicalDay')"></textarea><br /> 
+      <h5 class="field-label required-field">Strengths</h5>
+      <textarea name="strengths" class="text-input-field" cols="30" rows="2" required oninput="onTextFieldChange(this.value, 'strengths')"></textarea><br /> 
+      <h5 class="field-label required-field">Describe What Makes You Happy</h5>
+      <textarea name="makesYouHappy" class="text-input-field" cols="30" rows="2" required oninput="onTextFieldChange(this.value, 'makesYouHappy')"></textarea><br /> 
+      <h5 class="field-label required-field">Life's Vision</h5>
+      <textarea name="lifesVision" class="text-input-field" cols="30" rows="2" required oninput="onTextFieldChange(this.value, 'lifesVision')"></textarea><br /> 
+      <h5 class="field-label">Support Requirements or Dietary Restrictions</h5>
+      <textarea name="supportRequirements" class="text-input-field" cols="30" rows="2" oninput="onTextFieldChange(this.value, 'supportRequirements')"></textarea><br /> 
+      <h5 class="field-label required-field">What is your Reference's First and Last Name?</h5>
+      <input name="referenceName" type="text" class="text-input-field" required /> <br /> 
+      <h5 class="field-label required-field">What is your Reference's Phone Number?</h5>
+      <input name="referencePhoneNumber" type="text" class="text-input-field" required /> <br />
+      <h5 class="field-label required-field">What is your Reference's Email?</h5>
+      <input name="referenceEmail" type="text" class="text-input-field" required /> <br />
+    </div>
+  
+    <div class="flex-child">
+      <div class="flex-start">
+        <div style="margin: 8px 8px 8px 8px;"> 
+          <img class="pfp" alt="Profile Picture" src="{{profilePicture}}" />
+        </div>
+        <div style="margin-left: 32px;">
+          <div class="flex-container"><h2 id="displayName">{{displayName}}</h2></div>
+          <div class="flex-container"><strong>Activities:&nbsp;</strong><span id="activities"></span></div>
+          <div class="flex-container"><strong>Hobbies:&nbsp;</strong><span id="hobbies"></span></div>
+          <div class="flex-container"><strong>Typical Day:&nbsp;</strong><span id="typicalDay"></span></div>
+          <div class="flex-container"><strong>Strengths:&nbsp;</strong><span id="strengths"></span></div>
+          <div class="flex-container"><strong>What Makes Me Happy:&nbsp;</strong><span id="makesYouHappy"></span></div>
+          <div class="flex-container"><strong>Life's Vision:&nbsp;</strong><span id="lifesVision"></span></div>
+          <div class="flex-container"><strong>Support Requirements:&nbsp;</strong><span id="supportRequirements"></span></div>
+        </div>
       </div>
     </div>
   </div>
