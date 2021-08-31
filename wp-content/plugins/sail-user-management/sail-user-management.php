@@ -168,6 +168,74 @@ function fc_example_profile_shortcode($atts = [], $content = null, $tag = '' ) {
     return get_sail_page($PAGES_DIR . 'fc-example-profile.html');
 }
 
+function fc_search_shortcode($atts = [], $content = null, $tag = '' ) {
+  if (is_user_logged_in()) {
+    global $PAGES_DIR;
+    global $wpdb;
+
+    $sail_user = get_sail_user();
+    $fc_member = get_fc_member();
+
+    // user has a fc profile and is approved
+    if (isset($fc_member) && $fc_member->referenceApproved) {
+      $query = "SELECT * FROM `fc_members`";
+      $results = $wpdb->get_results($query);
+
+      $html = '<style>' . file_get_contents($PAGES_DIR . 'common.css', true) . '</style>';
+
+      foreach($results as $fc_profile) {
+        $user_query = "SELECT * FROM `sail_users` WHERE userId = ";
+        $user_query .= $fc_profile->userId;
+
+        // TODO: grab all sail profiles in one call above instead of in this loop
+        $sail_profile = $wpdb->get_row($query);
+
+        // Random vars used below
+        $firstAndLastName = $sail_profile->firstName;
+        $firstAndLastName .= " ";
+        $firstAndLastName .= $sail_profile->lastName;
+        $initials = strtoupper($sail_profile->firstName[0]);
+        $initials .= ".";
+        $initials .= strtoupper($sail_profile->lastName[0]);
+        $initials .= ".";
+        $age = floor((time() - strtotime($sail_profile->dob)) / 31556926);
+        $location = $sail_profile->city . ", " . $sail_profile->state;
+
+        // Start building result summary
+        $summary = file_get_contents($PAGES_DIR . 'fc-result-summary.html', true);
+        $summary = str_ireplace("{{profilePicture}}", esc_html($sail_profile->profilePicture), $summary);
+
+        if ($fc_profile->namePreference == "First and Last Name") { $summary = str_ireplace("{{displayName}}", esc_html($firstAndLastName), $summary); }
+        else if ($fc_profile->namePreference == "Initials Only") { $summary = str_ireplace("{{displayName}}", esc_html($initials), $summary);}
+        else if ($fc_profile->namePreference == "Nickname") { $summary = str_ireplace("{{displayName}}", esc_html($fc_profile->nickname), $summary);}
+        else { $summary = str_ireplace("{{displayName}}", esc_html($sail_profile->firstName), $summary);}
+        
+        $summary = str_ireplace("{{age}}", esc_html($age), $summary);
+        $summary = str_ireplace("{{location}}", esc_html($location), $summary);
+        $summary = str_ireplace("{{activities}}", esc_html($fc_profile->activities), $summary);
+        $summary = str_ireplace("{{hobbies}}", esc_html($fc_profile->hobbies), $summary);
+
+        $html .= $summary;
+      }
+
+      return $html;
+    }
+    else if (isset($fc_member) && !$fc_member->referenceApproved) {
+      return get_sail_page($PAGES_DIR . 'fc-pending-approval.html');
+    }
+    else {
+      nocache_headers();
+      wp_safe_redirect("https://sailhousingsolutions.org/what-is-friendship-connect/");
+      exit;
+    }   
+  }
+  else {
+    nocache_headers();
+    wp_safe_redirect('https://sailhousingsolutions.org/login');
+    exit;
+  }
+}
+
 
 /**
  * Returns the html form to join a port if logged in,
@@ -233,12 +301,11 @@ function get_sail_user() {
   return $result;
 }
 
-// Returns the port member info of the currently logged in user if it exists
-// OBSOLETE
-function get_port_member() {
+// Returns the fc member info of the currently logged in user if it exists
+function get_fc_member() {
     global $wpdb;
     $user = wp_get_current_user();
-    $query = "SELECT * FROM `port_members` WHERE userId = ";
+    $query = "SELECT * FROM `fc_members` WHERE userId = ";
     $query .= $user->ID;
     return $wpdb->get_row($query);
 }
@@ -387,6 +454,7 @@ function sail_plugin_init() {
     add_shortcode( 'userFCLanding', 'fc_landing_shortcode');
     add_shortcode( 'userFCRegistration', 'fc_reg_shortcode');
     add_shortcode( 'userFCExampleProfile', 'fc_example_profile_shortcode');
+    add_shortcode( 'userFCSearch', 'fc_search_shortcode');
 } 
 add_action('init', 'sail_plugin_init' );
 
