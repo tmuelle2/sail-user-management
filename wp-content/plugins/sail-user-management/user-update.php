@@ -5,16 +5,25 @@ global $USER_DB_FIELDS;
 global $wpdb;
 
 if (is_user_logged_in()) {
+    
+    $cur_user_array = get_sail_user_array();
+
     // TODO: Refactor with user-registration
     // Extract form and format data
     $data = array();
     $formats = array();
     foreach($USER_DB_FIELDS as $element => $format) {
-        $data[$element] = $_POST[$element];
+        if (isset($_POST[$element])) {
+            $data[$element] = $_POST[$element];
+        }
+        else {
+            $data[$element] = $cur_user_array[$element];
+        }
         $formats[] = $format;
     }
 
     $cur_user = get_sail_user();
+    
     // TODO: Refactor with user-registration
     if (isset($_FILES['profilePicture']) && isset($_FILES['profilePicture']['name']) && isset($_FILES['profilePicture']['name'])
         && !empty($_FILES['profilePicture']['name']) && !empty($_FILES['profilePicture']['name']) 

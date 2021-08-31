@@ -301,6 +301,26 @@ function get_sail_user() {
   return $result;
 }
 
+// Returns the SAIL DB user row for the currently logged in user
+function get_sail_user_array() {
+  global $wpdb;
+  $user = wp_get_current_user();
+  $query = "SELECT * FROM `sail_users` WHERE userId = ";
+  $query .= $user->ID;
+
+  // fetch sail_user
+  $result = $wpdb->get_row($query, 'ARRAY_A');
+
+  // fetch the image blob seperately so it actually works?
+  // NOTE: probably don't need this code anymore since we save the url now instead of a blob
+  $image = $wpdb->get_var( 
+    $wpdb->prepare("SELECT profilePicture FROM `sail_users` WHERE userId = %d", $user->ID)  
+  );
+  $result->profilePicture = $image;
+
+  return $result;
+}
+
 // Returns the fc member info of the currently logged in user if it exists
 function get_fc_member() {
     global $wpdb;
