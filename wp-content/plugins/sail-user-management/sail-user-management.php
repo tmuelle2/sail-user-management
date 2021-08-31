@@ -136,7 +136,9 @@ function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
     $fc_member = get_fc_member();
 
     if (isset($fc_member)) {
-      return "test";
+      nocache_headers();
+      wp_safe_redirect('https://sailhousingsolutions.org');
+      exit;
     }
     else {
       $sail_user = get_sail_user();
