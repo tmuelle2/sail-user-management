@@ -16,20 +16,17 @@ if ( username_exists($email) && email_exists($email)) {
     if ( is_wp_error( $user ) ) {
         // Fail redirect
         echo $user->get_error_message();
-        nocache_headers();
         wp_safe_redirect('https://sailhousingsolutions.org/error');
         exit;
     }
     else {
         // Success redirect
         wp_set_current_user( $user->ID, $user->data->user_login );
-        nocache_headers();
         wp_safe_redirect('https://sailhousingsolutions.org/user');
         exit;
     }    
 }else {
     // Fail redirect 
-    nocache_headers();
     wp_safe_redirect('https://sailhousingsolutions.org/error');
     exit;
 }

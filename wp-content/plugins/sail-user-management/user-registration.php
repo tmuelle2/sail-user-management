@@ -14,7 +14,6 @@ foreach($USER_DB_FIELDS as $element => $format) {
     else {
         $data[$element] = null;
     }
-
     $formats[] = $format;
 }
 
@@ -23,25 +22,6 @@ $email = $_POST['email'];
 $password = $_POST['password'];
 if ( !username_exists($email) && !email_exists($email)) {
     // Profile Picture stuff
-    // ensure nonce is valid
-    /**
-    if(isset( $_POST['profilePicture_nonce']) && wp_verify_nonce( $_POST['profilePicture_nonce'], 'profilePicture' )) {
-
-        // These files need to be included as dependencies when on the front end.
-        require_once( $HOME_DIR . 'wp-admin/includes/image.php' );
-        require_once( $HOME_DIR . 'wp-admin/includes/file.php' );
-        require_once( $HOME_DIR . 'wp-admin/includes/media.php' );
-
-        $attachment_id = media_handle_upload( 'profilePicture', 0);
-
-        if ( is_wp_error( $attachment_id ) ) {
-            // There was an error uploading the image.
-        } else {
-            // The image was uploaded successfully!
-            $data['profilePictureId'] = $attachment_id;
-        }
-    } */
-
     // TODO: make profile pics live here:
     // $target_dir_location = '/_home2/sailhou1/public_html/wp-content/uploads/profilePictures/';
     if (isset($_FILES['profilePicture']) && isset($_FILES['profilePicture']['name']) && isset($_FILES['profilePicture']['name'])
@@ -59,16 +39,23 @@ if ( !username_exists($email) && !email_exists($email)) {
         }
         
     }
-    /**
-    if(move_uploaded_file($tmp_name, $target_dir_location.$name_file)) {
-        // success upload pfp
-        $data['profilePicture'] = $target_dir_location.$name_file;
-    }
-    else {
-        // fail upload pfp
-    }
-    */
+    
+    // Send verification email
+    $email_verification_key = uniqid('sail-email-verification-', true);
+    $url = esc_url_raw( "https://sailhousingsolutions.org/verify-email" . "?verification_key=$email_verification_key&email=$email" );
+    
+    $message = "Hello ";
+    $message .= $_POST['firstName'];
+    $message .= "!\r\n\r\n";
+    $message .= "Thanks for joining SAIL! In order to ensure that your email is configured correctly, please verify it by clicking this link:\r\n\r\n";
+    $message .= $url;
+    $message .= "\r\n\r\nIf you didn't sign-up for SAIL, please ignore this email.";
 
+    wp_mail( $email, "SAIL Email Verification", $message );
+    $data['emailVerificationKey'] = $email_verification_key;
+    $data['emailVerified'] = false;
+
+    // Create Wordpress user
     $user_id = wp_create_user(
         $email,
         $password,

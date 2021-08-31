@@ -1,15 +1,5 @@
 <?php
 
-function get_request_parameter( $key, $default = '' ) {
-    // If not request set
-    if ( ! isset( $_REQUEST[ $key ] ) || empty( $_REQUEST[ $key ] ) ) {
-        return $default;
-    }
-
-    // Set so process it
-    return strip_tags( (string) wp_unslash( $_REQUEST[ $key ] ) );
-}
-
 $password = $_POST['password'];
 $confirmPassword = $_POST['confirmPassword'];
 $key = $_POST['pw_reset_key'];
@@ -53,7 +43,7 @@ else {
     else {
         // url is missing the key for password reset
         error_log("[user-change-password.php] ERROR: User is not logged in and trying to reset their password without a key/email parameter in the url.");
-        error_log("Now Pringting debug vars: ");
+        error_log("Now printing debug vars: ");
         print_r($key, true);
         print_r($email, true);
         nocache_headers();

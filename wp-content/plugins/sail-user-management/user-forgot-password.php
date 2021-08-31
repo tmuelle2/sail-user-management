@@ -16,8 +16,6 @@ if ( username_exists($email) && email_exists($email) && !is_wp_error( $user )) {
     $message .= "\r\n\r\nIf you didn't request this, please ignore this email.";
     $message .= "\r\n\r\nYour password won't change until you access the link above and create a new one.";
 
-    $url;
-
     wp_mail( $user_login, "SAIL Password Reset Link", $message );
     
     if ( is_wp_error( $user ) ) {

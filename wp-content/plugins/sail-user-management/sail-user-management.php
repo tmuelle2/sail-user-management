@@ -13,10 +13,18 @@ include($HOME_DIR . 'constants.php');
  * Adds the html form required to capture all user account info.
  * If the user is already logged in redirect to profile page.
  */
- function user_reg_shortcode($atts = [], $content = null, $tag = '' ) {
-  global $PAGES_DIR;
-  return get_sail_page($PAGES_DIR . 'registration.html');
- } 
+function user_reg_shortcode($atts = [], $content = null, $tag = '' ) {
+ global $PAGES_DIR;
+ return get_sail_page($PAGES_DIR . 'registration.html');
+} 
+
+/**
+ * Adds the html page for verifying email.
+ */
+function user_email_verification_shortcode($atts = [], $content = null, $tag = '' ) {
+ global $PAGES_DIR;
+ return get_sail_page($PAGES_DIR . 'verify-email.html');
+}
 
 /**
  * Adds the html form required to login
@@ -293,7 +301,6 @@ function populate_input($dom_input, $value) {
   $count = count($dom_input);
   if ($count > 1 && $dom_input[0]->attributes->getNamedItem('type')->nodeValue == 'radio') {
     for($i = 0; $i < $count; $i++) {
-      error_log("Looking for $value in " . print_r($dom_input[$i]->attributes->getNamedItem('value'), true));
       if ($dom_input[$i]->attributes->getNamedItem('value')->nodeValue == $value) {
         $dom_input[$i]->setAttribute('checked', '');
       } else {
@@ -368,6 +375,7 @@ function get_sail_page($path) {
  */
 function sail_plugin_init() {
     add_shortcode( 'userRegistration', 'user_reg_shortcode' );
+    add_shortcode( 'userEmailVerification', 'user_email_verification_shortcode' );
     add_shortcode( 'userSignOn', 'user_signon_shortcode' );
     add_shortcode( 'userLogout', 'user_logout_shortcode');
     add_shortcode( 'userForgotPassword', 'user_forgot_password_shortcode');
@@ -453,3 +461,10 @@ function update_port() {
   include_once($HOME_DIR . 'update-port.php');
 }
 add_action('admin_post_update_port', 'update_port');
+
+function sail_user_verify_email() {
+  global $HOME_DIR;
+  include_once($HOME_DIR . 'user_verify_email.php');
+}
+// This runs on every request! Cannot error out unnecessarily!!
+add_action('wp', 'sail_user_verify_email');

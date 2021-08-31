@@ -24,7 +24,12 @@ $USER_DB_FIELDS = array(
     'timeframe' => '%s',
     'newsletter' => '%s',
     'additionalInfo' => '%s',
+<<<<<<< HEAD
     'readTermsOfService' => '%s'
+=======
+    'emailVerified' => '%s',
+    'emailVerificationKey' => '%s'
+>>>>>>> Initial impl of email verification
 );
 
 // Mapping of form element to database format
