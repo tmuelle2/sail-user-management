@@ -27,6 +27,7 @@ if (strpos($wp->request, 'verify-email') !== false) {
             $wpdb->update('sail_users', $user, array('userId' => $user->userId), $formats);
             exit;
         }
+        error_log('No user found for email ' . $email);
     }
 
     // Redirect to error page
