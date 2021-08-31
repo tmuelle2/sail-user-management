@@ -152,6 +152,17 @@ function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
 }
 
 /**
+ * Returns html for friendship connect example profile
+ */
+function fc_example_profile_shortcode($atts = [], $content = null, $tag = '' ) {
+  if (is_user_logged_in()) {
+    global $PAGES_DIR;
+    
+    return get_sail_page($PAGES_DIR . 'fc-example-profile.html');
+}
+
+
+/**
  * Returns the html form to join a port if logged in,
  * otherwise redirects to register page.
  */
@@ -368,6 +379,7 @@ function sail_plugin_init() {
     add_shortcode( 'userUpdatePort', 'user_update_port_shortcode');
     add_shortcode( 'userFCLanding', 'fc_landing_shortcode');
     add_shortcode( 'userFCRegistration', 'fc_reg_shortcode');
+    add_shortcode( 'userFCExampleProfile', 'fc_example_profile_shortcode');
 } 
 add_action('init', 'sail_plugin_init' );
 
