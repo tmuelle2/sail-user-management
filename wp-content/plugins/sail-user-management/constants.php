@@ -24,7 +24,7 @@ $USER_DB_FIELDS = array(
     'timeframe' => '%s',
     'newsletter' => '%s',
     'additionalInfo' => '%s',
-    'readTermsOfService' => '%s'
+    'readTermsOfService' => '%s',
     'emailVerified' => '%s',
     'emailVerificationKey' => '%s'
 );
