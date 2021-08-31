@@ -30,12 +30,14 @@ if (strpos($wp->request, 'verify-email') !== false) {
             $user->emailVerified = true;
             error_log(print_r($user, true));
             $wpdb->update('sail_users', $user, array('userId' => $user->userId), $formats);
+        } else {
+            // Redirect to error page
+            wp_safe_redirect('https://sailhousingsolutions.org/error');
             exit;
         }
-        error_log('No user found for email ' . $email);
+    } else {
+        // Redirect to error page
+        wp_safe_redirect('https://sailhousingsolutions.org/error');
+        exit;
     }
-
-    // Redirect to error page
-    wp_safe_redirect('https://sailhousingsolutions.org/error');
-    exit;
 }
