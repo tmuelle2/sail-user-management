@@ -322,7 +322,9 @@ function get_fc_member() {
     $user = wp_get_current_user();
     $query = "SELECT * FROM `fc_members` WHERE userId = ";
     $query .= $user->ID;
-    return $wpdb->get_row($query);
+    $result = $wpdb->get_row($query);
+
+    return $result;
 }
 
 /**
