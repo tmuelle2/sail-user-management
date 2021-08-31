@@ -1,7 +1,7 @@
 <?php
 
 // No-op if not the verify email page
-if (str_pos($wp->request, 'verify-email') !== false) {
+if (strpos($wp->request, 'verify-email') !== false) {
     $verification_key = $_GET['verification_key'];
     $email = $_GET['email'];
 
