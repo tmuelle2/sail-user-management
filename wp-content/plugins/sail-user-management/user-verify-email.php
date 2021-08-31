@@ -29,6 +29,7 @@ if (strpos($wp->request, 'verify-email') !== false) {
             error_log('Updating user');
             $user->emailVerified = true;
             error_log(print_r($user, true));
+            $wpdb->show_errors = true;
             $updated = $wpdb->update('sail_users', $user, array('userId' => $user->userId), $formats);
             error_log($updated);
         } else {
