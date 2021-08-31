@@ -130,8 +130,10 @@ function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
     $firstAndLastName = $sail_user->firstName;
     $firstAndLastName .= " ";
     $firstAndLastName .= $sail_user->lastName;
-    $initials = $sail_user->firstName[0];
-    $initials .= $sail_user->lastName[0];
+    $initials = strtoupper($sail_user->firstName[0]);
+    $initials .= ".";
+    $initials .= strtoupper($sail_user->lastName[0]);
+    $initials .= ".";
 
     $html = get_sail_page($PAGES_DIR . 'fc-registration.html');
 
