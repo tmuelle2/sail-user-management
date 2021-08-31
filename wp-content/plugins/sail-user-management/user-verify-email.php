@@ -4,9 +4,8 @@
 global $wp;
 if (strpos($wp->request, 'verify-email') !== false) {
     // Ensure query string parameters exist 
-    if ( strlen($verification_key) > 0 && strlen($email) > 0 
-        && isset($_GET['verification_key']) && isset($_GET['email']) 
-        && username_exists($_GET['email']) && email_exists($_GET['verification_key']) ) {
+    if (isset($_GET['verification_key']) && isset($_GET['email']) 
+        && username_exists($_GET['email']) && email_exists($_GET['verification_key'])) {
 
         $verification_key = $_GET['verification_key'];
         $email = $_GET['email'];
