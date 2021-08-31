@@ -26,10 +26,11 @@ if (strpos($wp->request, 'verify-email') !== false) {
                 $formats[] = $format;
             }
 
-            error_log('Updated user');
+            error_log('Updating user');
             $user->emailVerified = true;
             error_log(print_r($user, true));
             $wpdb->update('sail_users', $user, array('userId' => $user->userId), $formats);
+            error_log('Updated user');
         } else {
             // Redirect to error page
             wp_safe_redirect('https://sailhousingsolutions.org/error');
