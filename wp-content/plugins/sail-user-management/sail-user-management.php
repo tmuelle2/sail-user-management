@@ -136,9 +136,7 @@ function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
     $fc_member = get_fc_member();
 
     if (isset($fc_member)) {
-      nocache_headers();
-      wp_safe_redirect('https://sailhousingsolutions.org');
-      exit;
+      return esc_html("You have already created a Friendship Connect Profile. To edit your Friendship Connect Profile information, go to the 'My Profile' page.");
     }
     else {
       $sail_user = get_sail_user();
