@@ -3,6 +3,7 @@
 // No-op if not the verify email page
 global $wp;
 if (strpos($wp->request, 'verify-email') !== false) {
+    error_log('Attempting to verify email' . $_GET['email'] . ' with code ' . $_GET['verification_key']);
     // Ensure query string parameters exist 
     if (isset($_GET['verification_key']) && isset($_GET['email']) 
         && username_exists($_GET['email']) && email_exists($_GET['verification_key'])) {
