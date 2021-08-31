@@ -8,7 +8,13 @@ global $wpdb;
 $data = array();
 $formats = array();
 foreach($USER_DB_FIELDS as $element => $format) {
-    $data[$element] = $_POST[$element];
+    if (isset($_POST[$element])) {
+        $data[$element] = $_POST[$element];
+    }
+    else {
+        $data[$element] = null;
+    }
+
     $formats[] = $format;
 }
 
