@@ -291,13 +291,6 @@ function get_sail_user() {
   // fetch sail_user
   $result = $wpdb->get_row($query);
 
-  // fetch the image blob seperately so it actually works?
-  // NOTE: probably don't need this code anymore since we save the url now instead of a blob
-  $image = $wpdb->get_var( 
-    $wpdb->prepare("SELECT profilePicture FROM `sail_users` WHERE userId = %d", $user->ID)  
-  );
-  $result->profilePicture = $image;
-
   return $result;
 }
 
@@ -310,13 +303,6 @@ function get_sail_user_array() {
 
   // fetch sail_user
   $result = $wpdb->get_row($query, 'ARRAY_A');
-
-  // fetch the image blob seperately so it actually works?
-  // NOTE: probably don't need this code anymore since we save the url now instead of a blob
-  $image = $wpdb->get_var( 
-    $wpdb->prepare("SELECT profilePicture FROM `sail_users` WHERE userId = %d", $user->ID)  
-  );
-  $result->profilePicture = $image;
 
   return $result;
 }
