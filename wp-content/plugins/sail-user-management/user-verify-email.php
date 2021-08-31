@@ -20,6 +20,7 @@ if (strpos($wp->request, 'verify-email') !== false) {
         if (isset($user) && $user->emailVerificationKey == $verification_key) {
             // TODO: Refactor with user-registration
             // Get format data
+            global $USER_DB_FIELDS;
             $formats = array();
             foreach($USER_DB_FIELDS as $element => $format) {
                 $formats[] = $format;
