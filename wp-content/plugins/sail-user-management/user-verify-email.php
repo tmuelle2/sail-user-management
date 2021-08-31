@@ -13,7 +13,7 @@ if (strpos($wp->request, 'verify-email') !== false) {
 
         // Get sail user from DB
         global $wpdb;
-        $query = "SELECT * FROM `sail_users` WHERE email = " . $email;
+        $query = "SELECT * FROM `sail_users` WHERE email = '" . $email . "'";
         $user = $wpdb->get_row($query);
         error_log('Got user');
         print_r($user, true);
