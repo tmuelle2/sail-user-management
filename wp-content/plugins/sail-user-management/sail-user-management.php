@@ -158,7 +158,7 @@ function fc_example_profile_shortcode($atts = [], $content = null, $tag = '' ) {
     global $PAGES_DIR;
     
     return get_sail_page($PAGES_DIR . 'fc-example-profile.html');
-}
+} 
 
 
 /**
