@@ -188,7 +188,7 @@ function fc_search_shortcode($atts = [], $content = null, $tag = '' ) {
         $user_query .= $fc_profile->userId;
 
         // TODO: grab all sail profiles in one call above instead of in this loop
-        $sail_profile = $wpdb->get_row($query);
+        $sail_profile = $wpdb->get_row($user_query);
 
         // Random vars used below
         $firstAndLastName = $sail_profile->firstName;
