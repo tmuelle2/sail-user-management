@@ -24,6 +24,7 @@ if (strpos($wp->request, 'verify-email') !== false) {
             }
 
             $user->emailVerified = true;
+            print_r($user, true);
             $wpdb->update('sail_users', $user, array('userId' => $user->userId), $formats);
             exit;
         }
