@@ -6,7 +6,7 @@ if (strpos($wp->request, 'verify-email') !== false) {
     error_log('Attempting to verify email' . $_GET['email'] . ' with code ' . $_GET['verification_key']);
     // Ensure query string parameters exist 
     if (isset($_GET['verification_key']) && isset($_GET['email']) 
-        && username_exists($_GET['email']) && email_exists($_GET['email'])) {
+        && email_exists($_GET['email'])) {
 
         $verification_key = $_GET['verification_key'];
         $email = $_GET['email'];
