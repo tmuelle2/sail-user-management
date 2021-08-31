@@ -155,7 +155,6 @@ function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
  * Returns html for friendship connect example profile
  */
 function fc_example_profile_shortcode($atts = [], $content = null, $tag = '' ) {
-  if (is_user_logged_in()) {
     global $PAGES_DIR;
     
     return get_sail_page($PAGES_DIR . 'fc-example-profile.html');
