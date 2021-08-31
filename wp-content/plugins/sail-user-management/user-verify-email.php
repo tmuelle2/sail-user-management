@@ -15,6 +15,8 @@ if (strpos($wp->request, 'verify-email') !== false) {
         global $wpdb;
         $query = "SELECT * FROM `sail_users` WHERE email = " . $email;
         $user = $wpdb->get_row($query);
+        error_log('Got user');
+        print_r($user, true);
         if (isset($user) && $user->emailVerificationKey == $verification_key) {
             // TODO: Refactor with user-registration
             // Get format data
@@ -23,6 +25,7 @@ if (strpos($wp->request, 'verify-email') !== false) {
                 $formats[] = $format;
             }
 
+            error_log('Updated user');
             $user->emailVerified = true;
             print_r($user, true);
             $wpdb->update('sail_users', $user, array('userId' => $user->userId), $formats);
