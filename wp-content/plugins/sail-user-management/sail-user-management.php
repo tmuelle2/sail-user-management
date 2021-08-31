@@ -133,25 +133,34 @@ function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
     global $PAGES_DIR;
     global $USER_DB_FIELDS;
 
-    $sail_user = get_sail_user();
+    $fc_member = get_fc_member();
 
-    $firstAndLastName = $sail_user->firstName;
-    $firstAndLastName .= " ";
-    $firstAndLastName .= $sail_user->lastName;
-    $initials = strtoupper($sail_user->firstName[0]);
-    $initials .= ".";
-    $initials .= strtoupper($sail_user->lastName[0]);
-    $initials .= ".";
+    if (isset($fc_member)) {
+      nocache_headers();
+      wp_safe_redirect('https://sailhousingsolutions.org/user/');
+      exit;
+    }
+    else {
+      $sail_user = get_sail_user();
 
-    $html = get_sail_page($PAGES_DIR . 'fc-registration.html');
+      $firstAndLastName = $sail_user->firstName;
+      $firstAndLastName .= " ";
+      $firstAndLastName .= $sail_user->lastName;
+      $initials = strtoupper($sail_user->firstName[0]);
+      $initials .= ".";
+      $initials .= strtoupper($sail_user->lastName[0]);
+      $initials .= ".";
 
-    $html = str_ireplace("{{displayName}}", esc_html($sail_user->firstName), $html);
-    $html = str_ireplace("{{firstName}}", esc_html($sail_user->firstName), $html);
-    $html = str_ireplace("{{firstAndLastName}}", esc_html($firstAndLastName), $html);
-    $html = str_ireplace("{{initials}}", esc_html($initials), $html);
-    $html = str_ireplace("{{profilePicture}}", esc_html($sail_user->profilePicture), $html);
-    
-    return $html;
+      $html = get_sail_page($PAGES_DIR . 'fc-registration.html');
+
+      $html = str_ireplace("{{displayName}}", esc_html($sail_user->firstName), $html);
+      $html = str_ireplace("{{firstName}}", esc_html($sail_user->firstName), $html);
+      $html = str_ireplace("{{firstAndLastName}}", esc_html($firstAndLastName), $html);
+      $html = str_ireplace("{{initials}}", esc_html($initials), $html);
+      $html = str_ireplace("{{profilePicture}}", esc_html($sail_user->profilePicture), $html);
+      
+      return $html;
+    } 
   } else {
     nocache_headers();
     wp_safe_redirect('https://sailhousingsolutions.org/login');
@@ -225,7 +234,7 @@ function fc_search_shortcode($atts = [], $content = null, $tag = '' ) {
     }
     else {
       nocache_headers();
-      wp_safe_redirect("https://sailhousingsolutions.org/what-is-friendship-connect/");
+      wp_safe_redirect("https://sailhousingsolutions.org/join-friendship-connect");
       exit;
     }   
   }
