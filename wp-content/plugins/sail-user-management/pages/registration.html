@@ -132,8 +132,12 @@
 	<input name="contactViaText" type="radio" value="0" /> No <br /> 
   	<h5 class="field-label required-field">Which Role best describes you?</h5>
   	<select name="role" class="select-field" required>
-      <option value="iddchild">A person with an intellectual or developmental disability</option>
-      <option value="parent">A parent or legal guardian of someone with an intellectual or developmental disability</option>
+      <option value="I'm a Parent of a child with a disability">I'm a Parent of a child with a disability</option>
+      <option value="I'm a Person with a disability">I'm a Person with a disability</option>
+      <option value="I'm a brother or sister of a child with a disability">I'm a brother or sister of a child with a disability</option>
+      <option value="I'm a friend or relative of a child with a disability">I'm a friend or relative of a child with a disability</option>
+      <option value="I work as an advocate, service provider, or in the special needs service industry">I work as an advocate, service provider, or in the special needs service industry</option>
+      <option value="Other">Other</option>
   	</select><br/>
     <h5 class="field-label required-field">Which of the following best describes your situation?</h5>
   	<select name="situation" class="select-field" required>
@@ -164,5 +168,7 @@
   	<input name="newsletter" type="radio" value="0" /> No<br /> 
   	<h5 class="field-label">How can SAIL assist you?</h5>
 	<textarea name="additionalInfo" class="text-input-field" cols="30" rows="2"></textarea><br /> 
+  <input type="checkbox" id="readTermsOfService" name="readTermsOfService" required>
+  <label for="readTermsOfService">I have read and agree to the Terms of Service.</label><br/>
 </form>
 <button type="submit" form="user_reg" value="Submit">Submit</button>

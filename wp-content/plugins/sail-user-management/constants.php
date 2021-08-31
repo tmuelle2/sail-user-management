@@ -23,7 +23,8 @@ $USER_DB_FIELDS = array(
     'reference' => '%s',
     'timeframe' => '%s',
     'newsletter' => '%s',
-    'additionalInfo' => '%s'
+    'additionalInfo' => '%s',
+    'readTermsOfService' => '%s'
 );
 
 // Mapping of form element to database format
