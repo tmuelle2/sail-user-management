@@ -532,7 +532,7 @@ add_action('admin_post_update_port', 'update_port');
 
 function sail_user_verify_email() {
   global $HOME_DIR;
-  include_once($HOME_DIR . 'user_verify_email.php');
+  include_once($HOME_DIR . 'user-verify-email.php');
 }
 // This runs on every request! Cannot error out unnecessarily!!
 add_action('wp', 'sail_user_verify_email');
