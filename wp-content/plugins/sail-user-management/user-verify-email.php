@@ -1,6 +1,7 @@
 <?php
 
 // No-op if not the verify email page
+global $wp;
 if (strpos($wp->request, 'verify-email') !== false) {
     $verification_key = $_GET['verification_key'];
     $email = $_GET['email'];
@@ -9,7 +10,6 @@ if (strpos($wp->request, 'verify-email') !== false) {
     if ( strlen($verification_key) > 0 && strlen($email) > 0 && username_exists($email) && email_exists($email) ) {
         // Get sail user from DB
         global $wpdb;
-        global $wp;
         $query = "SELECT * FROM `sail_users` WHERE email = " . $email;
         $user = $wpdb->get_row($query);
         if (isset($user) && $user->emailVerificationKey == $verification_key) {
