@@ -2,7 +2,7 @@
     <details>
         <summary>Upgrade your membership</summary>
         <div style="text-align: center;">
-        <div id="paypal-button-container"></div>
+        <p><div id="paypal-button-container"></div></p>
         </div>
     </details>
 </div>
@@ -27,16 +27,14 @@ function initPayPalButton() {
     onApprove: function(data, actions) {
         return actions.order.capture().then(function(orderData) {
         
-        // Full available details
-        console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-
         // Show a success message within this page.
         const element = document.getElementById('paypal-button-container');
         element.innerHTML = '';
         element.innerHTML = "<p>Thank you for upgrading your membership! "
             + "Your dues will help to fund SAIL events and you will now have access to Friendship Connect and the full housing roadmap.</p>";
 
-        // TODO: Post membership update request
+        // Post membership update request
+        fetch('members/v1/dues', { method: 'POST', body: JSON.stringify(orderData)});
         
         });
     },

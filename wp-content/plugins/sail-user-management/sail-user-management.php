@@ -487,6 +487,20 @@ function sail_plugin_activate() {
 }
 register_activation_hook( __FILE__, 'sail_plugin_activate' );
 
+/**
+ * Initialize REST API
+ */
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'members/v1', '/dues', array(
+    'methods' => 'POST',
+    'callback' => 'pay_dues',
+  ) );
+} );
+
+function pay_dues( $request ) {
+  error_log(print_r( $request, true ));
+}
+
 /***********************************************************************
  * Below are post callbacks. To wire up a new callback
  * include a hidden input with a target value, like:
