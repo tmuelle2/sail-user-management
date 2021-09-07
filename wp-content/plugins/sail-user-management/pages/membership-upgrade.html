@@ -45,9 +45,9 @@ function initPayPalButton() {
 }
 let isPaid = {{isPaidMember}};
 if (isPaid) {
-    initPayPalButton();
-} else {
     const element = document.getElementById('paypal-button-container');
     element.innerHTML = 'Your account has access to paid member features. Your access will expire at the end of 2022';
+} else {
+    initPayPalButton();
 }
 </script>
