@@ -81,7 +81,7 @@ function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
     $html = str_ireplace("{{profilePicture}}", esc_html($sail_user->profilePicture), $html);
 
     $paymentHtml = get_sail_page_no_common_css($PAGES_DIR . 'membership-upgrade.html');
-    $paymentHtml = str_ireplace("{{isPaidMember}}", esc_html($sail_user->isPaidMamber), $paymentHtml);
+    $paymentHtml = str_ireplace("{{isPaidMember}}", $sail_user->isPaidMamber == true ? 'true' : 'false', $paymentHtml);
 
     return $html . $paymentHtml;
   } else {
@@ -158,7 +158,7 @@ function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
       $html = str_ireplace("{{firstName}}", esc_html($sail_user->firstName), $html);
       $html = str_ireplace("{{firstAndLastName}}", esc_html($firstAndLastName), $html);
       $html = str_ireplace("{{initials}}", esc_html($initials), $html);
-      $html = str_ireplace("{{profilePicture}}", $sail_user->profilePicture == true, $html);
+      $html = str_ireplace("{{profilePicture}}", esc_html($sail_user->profilePicture), $html);
  
       return $html;
     } 
