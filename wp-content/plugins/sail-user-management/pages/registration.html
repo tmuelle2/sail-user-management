@@ -113,8 +113,8 @@
 	</div>
   <h5 class="field-label">Date of Birth</h5>
   <input type="date" name="dob"><br />
-  <h5 class="field-label required-field">Which of the following best describes your situation? (Select all that apply)</h5>
-  <input type="hidden" name="situation[]" value="0" />
+  <h5 class="field-label required-field">Which of the following best describes your situation? (Check all that apply)</h5>
+  <!--<input type="hidden" name="situation[]" value="0" /> -->
   <div>
     <input type="checkbox" name="situation[]" id="sitch1" value="Need to commit to understanding steps involved in developing a housing solution.">
     <label for="sitch1">Need to commit to understanding steps involved in developing a housing solution</label>
@@ -191,5 +191,6 @@
   <input type="hidden" name="readTermsOfService" value="0" />
   <input type="checkbox" name="readTermsOfService" value="1" required>
   <label class="field-label required-field" for="readTermsOfService">I have read and agree to the <a target="_blank" href="https://sailhousingsolutions.org/privacy-policy/">Terms of Service</a>.</label><br/>
+  <input type="hidden" name="isPaidMember" value="0" />
 </form>
 <button type="submit" form="user_reg" value="Submit">Submit</button>
