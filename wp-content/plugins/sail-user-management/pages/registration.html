@@ -110,63 +110,83 @@
         <div class="flex-child">
           <!--blank-->
       	</div>  
-  	</div>
-    <h5 class="field-label">Profile Picture</h5>
-    <input type="file" id="profilePicture" name="profilePicture" multiple="false" />
-    <?php wp_nonce_field( 'profilePicture', 'profilePicture_nonce' ); ?>
-    <input type="hidden" id="profilePictureId" name="profilePictureId" value="0" />	   
-  	<h5 class="field-label required-field">Gender</h5>
+	</div>
+  <h5 class="field-label">Date of Birth</h5>
+  <input type="date" name="dob"><br />
+  <h5 class="field-label required-field">Which of the following best describes your situation? (Select all that apply)</h5>
+  <input type="hidden" name="situation[]" value="0" />
+  <div>
+    <input type="checkbox" name="situation[]" id="sitch1" value="Need to commit to understanding steps involved in developing a housing solution.">
+    <label for="sitch1">Need to commit to understanding steps involved in developing a housing solution</label>
+  </div>
+  <div>
+    <input type="checkbox" name="situation[]" id="sitch2" value="Need support to understand Government Benefits like SSI, SSDI, Medicaid, Bridge Card, etc.">
+    <label for="sitch2">Need support to understand Government Benefits like SSI, SSDI, Medicaid, Bridge Card, etc</label>
+  </div>
+  <div>
+    <input type="checkbox" name="situation[]" id="sitch3" value="Need to connect with others to develop friendships/roommates">
+    <label for="sitch3">Need to connect with others to develop friendships/roommates</label>
+  </div>
+  <div>
+    <input type="checkbox" name="situation[]" id="sitch4" value="Interested in learning about different housing models">
+    <label for="sitch4">Interested in learning about different housing models</label>
+  </div>
+  <div>
+    <input type="checkbox" name="situation[]" id="sitch5" value="Interested in developing a support model and finding staff">
+    <label for="sitch5">Interested in developing a support model and finding staff</label>
+  </div>
+  <div>
+    <input type="checkbox" name="situation[]" id="sitch6" value="Need information on how to prepare for moving into a new place">
+    <label for="sitch6">Need information on how to prepare for moving into a new place</label>
+  </div>
+  <div>
+    <input type="checkbox" name="situation[]" id="sitch7" value="Need information and resources that can help in the transition to a new place">
+    <label for="sitch7">Need information and resources that can help in the transition to a new place</label>
+  </div>
+  <div>
+    <input type="checkbox" name="situation[]" id="sitch8" value="Interested in supporting and maintaining an existing housing solution">
+    <label for="sitch8">Interested in supporting and maintaining an existing housing solution</label>
+  </div>
+  <!--<h5 class="field-label">Profile Picture</h5>
+  <input type="file" id="profilePicture" name="profilePicture" multiple="false" />
+  <?php wp_nonce_field( 'profilePicture', 'profilePicture_nonce' ); ?>
+  <input type="hidden" id="profilePictureId" name="profilePictureId" value="0" />	   
+	<h5 class="field-label required-field">Gender</h5>
 	<select name="gender" class="select-field" required>
       <option value="Male">Male</option>
       <option value="Female">Female</option>
       <option value="Other">Other</option>
       <option value="Prefer not to say">Prefer not to say</option>
-  	</select>
-  	<h5 class="field-label">Date of Birth</h5>
-  	<input type="date" name="dob"><br />
-  	<h5 class="field-label">Can we contact you via Email?</h5>
-	<input checked="checked" name="contactViaEmail" type="radio" value="1" /> Yes<br /> 
-	<input name="contactViaEmail" type="radio" value="0" /> No <br />  
-    <h5 class="field-label">Can we contact you via Text?</h5>
-	<input checked="checked" name="contactViaText" type="radio" value="1" /> Yes<br /> 
-	<input name="contactViaText" type="radio" value="0" /> No <br /> 
-  	<h5 class="field-label required-field">Which Role best describes you?</h5>
-  	<select name="role" class="select-field" required>
-      <option value="I'm a Parent of a child with a disability">I'm a Parent of a child with a disability</option>
-      <option value="I'm a Person with a disability">I'm a Person with a disability</option>
-      <option value="I'm a brother or sister of a child with a disability">I'm a brother or sister of a child with a disability</option>
-      <option value="I'm a friend or relative of a child with a disability">I'm a friend or relative of a child with a disability</option>
-      <option value="I work as an advocate, service provider, or in the special needs service industry">I work as an advocate, service provider, or in the special needs service industry</option>
-      <option value="Other">Other</option>
-  	</select><br/>
-    <h5 class="field-label required-field">Which of the following best describes your situation?</h5>
-  	<select name="situation" class="select-field" required>
-      <option value="N/A" selected="selected">N/A</option>
-      <option value="Charting Your Course">I'm just starting to think about a Housing Solution for my child.  My child's timeline for moving out probably 2 or more years away.</option>
-      <option value="Preparing to Sail">I'm working to get Government benefits, such as SSI, SSDI and Medicaid for my child.</option>
-      <option value="Find Your Mates">I'm ready to start working with other parents towards a Housing Solution for my child.  My child's timeline for moving out is less than 2 years away.</option>
-      <option value="Partner Families">I'm actively working with other Partner Families towards a Housing Solution for our children.</option>
-      <option value="Roommates Identified">The Partner Families and I have agreed that our children can live together as roommates.</option>
-      <option value="Explore Cabin Options">I'm working with my Partner Families and we are currently searching for housing accommodations</option>
-      <option value="Support Team">My Partner Families and I have secured housing accomodations and we are building the Support Team for our IDD Housing Solution</option>
-      <option value="Prepare to Launch">I've secured an IDD Housing Solution and Support Team for my child and I'm working on preparing my child for the move</option>
-      <option value="Coming Ashore">I have a move in date for my child and we're working on living guidelines with the roommates and Support Team</option>
-      <option value="Maintaining a Tight Ship">My child is living in his or her IDD Housing Solution and I'm working on refining the living guidelines</option>
-  	</select><br/>
-  	<h5 class="field-label">How did you hear about SAIL?</h5>
-    <input name="reference" type="text" class="text-input-field" /> <br /> 
-     <h5 class="field-label required-field">What is your housing solution timeframe?</h5>
-  	<select name="timeframe" class="select-field" required>
-      <option value="asap">As soon as possible</option>
-      <option value="1year">Within the next year</option>
-      <option value="3years">Within 3 years</option>
-      <option value="5years">Within 5 years</option>
-      <option value="noplans">No set plans as of now</option>
-  	</select><br/>
-    <h5 class="field-label">Would you like to receive the SAIL Newsletter?</h5>
+  	</select>-->
+	<h5 class="field-label required-field">Which Role best describes you?</h5>
+	<select name="role" class="select-field" required>
+    <option value="I'm a Parent of a child with a disability">I'm a Parent of a child with a disability</option>
+    <option value="I'm a Person with a disability">I'm a Person with a disability</option>
+    <option value="I'm a brother or sister of a child with a disability">I'm a brother or sister of a child with a disability</option>
+    <option value="I'm a friend or relative of a child with a disability">I'm a friend or relative of a child with a disability</option>
+    <option value="I work as an advocate, service provider, or in the special needs service industry">I work as an advocate, service provider, or in the special needs service industry</option>
+    <option value="Other">Other</option>
+	</select><br/>
+	<h5 class="field-label">How did you hear about SAIL?</h5>
+  <input name="reference" type="text" class="text-input-field" /> <br /> 
+  <h5 class="field-label required-field">What is your housing solution timeframe?</h5>
+	<select name="timeframe" class="select-field" required>
+    <option value="asap">As soon as possible</option>
+    <option value="1year">Within the next year</option>
+    <option value="3years">Within 3 years</option>
+    <option value="5years">Within 5 years</option>
+    <option value="noplans">No set plans as of now</option>
+	 </select><br/>
+  <h5 class="field-label">Can we contact you via Email?</h5>
+  <input checked="checked" name="contactViaEmail" type="radio" value="1" /> Yes<br /> 
+  <input name="contactViaEmail" type="radio" value="0" /> No <br />  
+  <h5 class="field-label">Can we contact you via Text?</h5>
+  <input checked="checked" name="contactViaText" type="radio" value="1" /> Yes<br /> 
+  <input name="contactViaText" type="radio" value="0" /> No <br /> 
+  <h5 class="field-label">Would you like to receive the SAIL Newsletter, get updates from SAIL, and hear about upcoming SAIL events?</h5>
 	<input checked="checked" name="newsletter" type="radio" value="1" /> Yes<br /> 
-  	<input name="newsletter" type="radio" value="0" /> No<br /> 
-  	<h5 class="field-label">How can SAIL assist you?</h5>
+	<input name="newsletter" type="radio" value="0" /> No<br /> 
+	<h5 class="field-label">How can SAIL assist you?</h5>
 	<textarea name="additionalInfo" class="text-input-field" cols="30" rows="2"></textarea><br /><br />
   <input type="hidden" name="readTermsOfService" value="0" />
   <input type="checkbox" name="readTermsOfService" value="1" required>

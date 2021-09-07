@@ -9,7 +9,21 @@ $data = array();
 $formats = array();
 foreach($USER_DB_FIELDS as $element => $format) {
     if (isset($_POST[$element])) {
-        $data[$element] = $_POST[$element];
+
+        // Special check if the data is an array for multi-select checkbox inputs
+        if (is_array($_POST[$element])) {
+            if (!empty($_POST[$element])) {
+                $combined = "";
+                foreach($_POST[$element] as $check) {
+                    $combined .= $check;
+                    $combined .= "|"; // using piped seperated string since commas are used
+                }
+                $data[$element] = substr($combined, 0, -1);
+            }
+        }
+        else {
+            $data[$element] = $_POST[$element];
+        }
     }
     else {
         $data[$element] = null;
@@ -24,6 +38,8 @@ if ( !username_exists($email) && !email_exists($email)) {
     // Profile Picture stuff
     // TODO: make profile pics live here:
     // $target_dir_location = '/_home2/sailhou1/public_html/wp-content/uploads/profilePictures/';
+    // TODO: MOVE PROFILE PICTURES TO FC SIGNUP
+    /*
     if (isset($_FILES['profilePicture']) && isset($_FILES['profilePicture']['name']) && isset($_FILES['profilePicture']['name'])
         && !empty($_FILES['profilePicture']['name']) && !empty($_FILES['profilePicture']['name'])
     ) {
@@ -38,7 +54,7 @@ if ( !username_exists($email) && !email_exists($email)) {
 
         }
         
-    }
+    }*/
     
     // Send verification email
     $email_verification_key = uniqid('sail-email-verification-', true);
