@@ -491,7 +491,7 @@ register_activation_hook( __FILE__, 'sail_plugin_activate' );
  * Initialize REST API
  */
 add_action( 'rest_api_init', function () {
-  register_rest_route( 'members/v1', '/dues', array(
+  register_rest_route( 'membership/v1', '/dues', array(
     'methods' => 'POST',
     'callback' => 'pay_dues',
   ) );
