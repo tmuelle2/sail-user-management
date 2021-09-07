@@ -3,7 +3,7 @@
  * Plugin Name: SAIL User Management
  * Plugin URI: https://github.com/tmuelle2/sail-user-management
  * Description: SAIL website user management plugin
- * Version: 0.1
+ * Version: 0.1 
  */
 
 $HOME_DIR = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
