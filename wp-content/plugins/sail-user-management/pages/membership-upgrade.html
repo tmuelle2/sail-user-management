@@ -43,7 +43,7 @@ function initPayPalButton() {
     }
     }).render('#paypal-button-container');
 }
-let isPaid = '{{isPaidMember}}';
+let isPaid = {{isPaidMember}};
 if (isPaid) {
     initPayPalButton();
 } else {
