@@ -80,6 +80,7 @@ if ( !username_exists($email) && !email_exists($email)) {
     $data['userId'] = $user_id;
 
     // Insert into SAIL users db table
+    print_r($data, true);
     $wpdb->insert('sail_users', $data, $formats);
 
     // Signon user
