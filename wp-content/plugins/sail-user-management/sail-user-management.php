@@ -81,7 +81,7 @@ function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
     $html = str_ireplace("{{profilePicture}}", esc_html($sail_user->profilePicture), $html);
 
     $paymentHtml = get_sail_page_no_common_css($PAGES_DIR . 'membership-upgrade.html');
-    $paymentHtml = str_ireplace("{{isPaidMember}}", $sail_user->isPaidMamber == true ? 'true' : 'false', $paymentHtml);
+    $paymentHtml = str_ireplace("{{isPaidMember}}", $sail_user->isPaidMember == true ? 'true' : 'false', $paymentHtml);
 
     return $html . $paymentHtml;
   } else {
