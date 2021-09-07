@@ -26,7 +26,9 @@ $USER_DB_FIELDS = array(
     'additionalInfo' => '%s',
     'readTermsOfService' => '%s',
     'emailVerified' => '%s',
-    'emailVerificationKey' => '%s'
+    'emailVerificationKey' => '%s',
+    'isPaidMember' => '%s',
+    'lastDuePaymentDate' => '%s'
 );
 
 // Mapping of form element to database format

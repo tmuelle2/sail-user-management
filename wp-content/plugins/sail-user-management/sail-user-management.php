@@ -80,7 +80,10 @@ function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
     $html = str_ireplace("{{zipCode}}", esc_html($sail_user->zipCode), $html);
     $html = str_ireplace("{{profilePicture}}", esc_html($sail_user->profilePicture), $html);
 
-    return $html;
+    $paymentHtml = get_sail_page_no_common_css($PAGES_DIR . 'membership-upgrage.html');
+    $paymentHtml = str_ireplace("{{isPaidMember}}", esc_html($sail_user->isPaidMamber), $paymentHtml);
+
+    return $html . $paymentHtml;
   } else {
     nocache_headers();
     wp_safe_redirect('https://sailhousingsolutions.org/login');
@@ -156,7 +159,7 @@ function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
       $html = str_ireplace("{{firstAndLastName}}", esc_html($firstAndLastName), $html);
       $html = str_ireplace("{{initials}}", esc_html($initials), $html);
       $html = str_ireplace("{{profilePicture}}", esc_html($sail_user->profilePicture), $html);
-      
+ 
       return $html;
     } 
   } else {
@@ -445,7 +448,11 @@ function dom_named_node_map_to_string($map) {
 function get_sail_page($path) {
   global $PAGES_DIR;
   return '<style>' . file_get_contents($PAGES_DIR . 'common.css', true) . '</style>' .
-    str_replace(
+    get_sail_page_no_common_css($path); 
+}
+
+function get_sail_page_no_common_css($path) {
+  return str_replace(
       '<?php esc_url(admin_url(\'admin-post.php\')); ?>', 
       esc_url(admin_url('admin-post.php')), 
       file_get_contents($path, true)
