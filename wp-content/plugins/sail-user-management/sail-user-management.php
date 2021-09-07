@@ -80,7 +80,7 @@ function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
     $html = str_ireplace("{{zipCode}}", esc_html($sail_user->zipCode), $html);
     $html = str_ireplace("{{profilePicture}}", esc_html($sail_user->profilePicture), $html);
 
-    $paymentHtml = get_sail_page_no_common_css($PAGES_DIR . 'membership-upgrage.html');
+    $paymentHtml = get_sail_page_no_common_css($PAGES_DIR . 'membership-upgrade.html');
     $paymentHtml = str_ireplace("{{isPaidMember}}", esc_html($sail_user->isPaidMamber), $paymentHtml);
 
     return $html . $paymentHtml;
