@@ -1,9 +1,5 @@
 <?php
 
-ini_set('error_reporting', E_ALL); // or error_reporting(E_ALL);
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-
 // In lieu of composer, load the PayPal libraries with autoload
 // TODO: This is hella inefficient, this should be moved to a static class or some other mechanism to load the file paths once and only once
 spl_autoload_register(function ($class_name) {
@@ -24,7 +20,6 @@ spl_autoload_register(function ($class_name) {
     }
 });
 
-use PayPalHttp\HttpRequest;
 use PayPalCheckoutSdk\Orders\OrdersGetRequest;
 use PayPalCheckoutSdk\Core\PayPalHttpClient;
 use PayPalCheckoutSdk\Core\SandboxEnvironment;
@@ -54,54 +49,35 @@ class PayPalClient
     }
 }
 
-class TransactionGetRequest extends HttpRequest
+class PayPalOrder
 {
-    function __construct($transactionId)
-    {
-        //parent::__construct("/v1/reporting/transactions?transaction_id={transaction_id}&fields=transaction_info,payer_info&start_date={start_date}&end_date={end_date}", "GET");
-        parent::__construct("/v1/reporting/transactions?page_size=20&fields=transaction_info,payer_info&start_date={start_date}&end_date={end_date}", "GET");
-
-        //$this->path = str_replace("{transaction_id}", urlencode($transactionId), $this->path);
-        $this->path = str_replace("{start_date}", urlencode(date(DATE_ATOM, time() - 30 * 24 * 60 * 60)), $this->path);
-        $this->path = str_replace("{end_date}", urlencode(date(DATE_ATOM)), $this->path);
-        $this->headers["Content-Type"] = "application/json";
-    }
-}
-
-class PayPalPayment
-{
-  // 2. Set up your server to receive a call from the client
   /**
    *You can use this function to retrieve an order by passing order ID as an argument.
    */
   public static function getOrder($orderId)
   {
-    // 3. Call PayPal to get the transaction details
+    // Call PayPal to get the transaction details
     $client = PayPalClient::client();
-    $response = $client->execute(new OrdersGetRequest($orderId));
-
-    /**
-     *Enable the following line to print complete response as JSON.
-     */
-    print json_encode($response->result);
-    print "Status Code: {$response->statusCode}\n";
-    print "Status: {$response->result->status}\n";
-    print "Order ID: {$response->result->id}\n";
-    print "Intent: {$response->result->intent}\n";
-    print "Links:\n";
-
-    foreach($response->result->links as $link)
-    {
-      print "\t{$link->rel}: {$link->href}\tCall Type: {$link->method}\n";
-    }
-
-    // 4. Save the transaction in your database. Implement logic to save transaction to your database for future reference.
-    print "Gross Amount: {$response->result->purchase_units[0]->amount->currency_code} {$response->result->purchase_units[0]->amount->value}\n";
-
-    // To print the whole response body, uncomment the following line
-    echo json_encode($response->result, JSON_PRETTY_PRINT);
+    return $client->execute(new OrdersGetRequest($orderId));
   }
 
+  public static function recordOrder($orderId) {
+    $response = self::getOrder($orderId);
+
+    global $USER_DB_FIELDS;
+    global $wpdb;
+
+    // TODO: Record order transaction in DB after table is created
+    // $orderRecord = array('orderId' => $orderId, 'orderJson' => json_encode($response));
+    // $wpbd->insert(`sail_payments`, $orderRecord, array('orderId' => '%s', 'orderJson' => '%s'));
+    if ($response->resutl->status == 'COMPLETED') {
+        $cur_user_array = get_sail_user_array();
+        $cur_user_array['isPaidMember'] = 1;
+        $cur_user_array['lasDuePaymentDate'] = date('Y-m-d');
+
+        $wpdb->update('sail_users', $data, array('userId' => $cur_user_array['userId']), $formats);
+    }
+  }
 }
 
 ?>

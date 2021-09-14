@@ -133,30 +133,34 @@ function fc_landing_shortcode($atts = [], $content = null, $tag = '' ) {
  */
 function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
   if (is_user_logged_in()) {
-    global $PAGES_DIR;
-    global $USER_DB_FIELDS;
+    $sail_user = get_sail_user();
+    if (is_due_paying_member($sail_user)) {
+      global $PAGES_DIR;
+      global $USER_DB_FIELDS;
 
-    $fc_member = get_fc_member();
+      $fc_member = get_fc_member();
 
-    if (isset($fc_member)) {
-      return esc_html("You have already created a Friendship Connect Profile. To edit your Friendship Connect Profile information, go to the 'My Profile' page.");
-    }
-    else {
-      $sail_user = get_sail_user();
+      if (isset($fc_member)) {
+        return esc_html("You have already created a Friendship Connect Profile. To edit your Friendship Connect Profile information, go to the 'My Profile' page.");
+      }
+      else {
 
-      $firstNameAndLastInitial = $sail_user->firstName . " " . $sail_user->lastName[0] . ".";
-      $initials = strtoupper($sail_user->firstName[0]) . "." . strtoupper($sail_user->lastName[0]) . ".";
-      $profilePicture = "http://sailhousingsolutions.org/wp-admin/identicon.php?size=200&hash=" . $sail_user->email;
+        $firstNameAndLastInitial = $sail_user->firstName . " " . $sail_user->lastName[0] . ".";
+        $initials = strtoupper($sail_user->firstName[0]) . "." . strtoupper($sail_user->lastName[0]) . ".";
+        $profilePicture = "http://sailhousingsolutions.org/wp-admin/identicon.php?size=200&hash=" . $sail_user->email;
 
-      $html = get_sail_page($PAGES_DIR . 'fc-registration.html');
+        $html = get_sail_page($PAGES_DIR . 'fc-registration.html');
 
-      $html = str_ireplace("{{displayName}}", esc_html($sail_user->firstName), $html);
-      $html = str_ireplace("{{firstName}}", esc_html($sail_user->firstName), $html);
-      $html = str_ireplace("{{firstNameAndLastInitial}}", esc_html($firstNameAndLastInitial), $html);
-      $html = str_ireplace("{{initials}}", esc_html($initials), $html);
-      $html = str_ireplace("{{profilePicture}}", esc_html($profilePicture), $html);
-  
-      return $html;
+        $html = str_ireplace("{{displayName}}", esc_html($sail_user->firstName), $html);
+        $html = str_ireplace("{{firstName}}", esc_html($sail_user->firstName), $html);
+        $html = str_ireplace("{{firstNameAndLastInitial}}", esc_html($firstNameAndLastInitial), $html);
+        $html = str_ireplace("{{initials}}", esc_html($initials), $html);
+        $html = str_ireplace("{{profilePicture}}", esc_html($profilePicture), $html);
+    
+        return $html;
+      }
+    } else {
+      return esc_html("You need to be a paying member to create a Friendship Connect Profile. To pay dues, go to the 'My Profile' page.");
     } 
   } else {
     nocache_headers();
@@ -311,6 +315,10 @@ function get_sail_user_array() {
   $result = $wpdb->get_row($query, 'ARRAY_A');
 
   return $result;
+}
+
+function is_due_paying_member($sail_user) {
+  return $sail_user->isPaidMember;
 }
 
 // Returns the fc member info of the currently logged in user if it exists
@@ -497,10 +505,11 @@ function register_apis() {
 
 function pay_dues( $request ) {
   global $HOME_DIR;
+  if( ! is_user_logged_in() ) {
+    return new WP_Error( 'rest_unauthorized', __( 'Only authenticated users can access the dues API.', 'rest_unauthorized' ), array( 'status' => 403 ) );
+  }
   include_once($HOME_DIR . 'user-payment.php');
-  error_log(print_r($request, true));
-  PayPalPayment::getOrder($request->get_json_params()['id'], true);
-  //PayPalPayment::getOrder($request->get_json_params()['purchase_units'][0]['payments']['captures'][0]['id'], true);
+  PayPalOrder::recordOrder($request->get_json_params()['id'], true);
 }
 
 /***********************************************************************

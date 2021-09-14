@@ -17,6 +17,7 @@ foreach($FC_DB_FIELDS as $element => $format) {
     $formats[] = $format;
 }
 
+// TODO: add paywall as double check
 if (is_user_logged_in()) {
     // Profile Picture stuff
     // TODO: make profile pics live here:
