@@ -70,7 +70,7 @@ class PayPalOrder
     // TODO: Record order transaction in DB after table is created
     // $orderRecord = array('orderId' => $orderId, 'orderJson' => json_encode($response));
     // $wpbd->insert(`sail_payments`, $orderRecord, array('orderId' => '%s', 'orderJson' => '%s'));
-    if ($response->resutl->status == 'COMPLETED') {
+    if ($response->result->status == 'COMPLETED') {
         $cur_user_array = get_sail_user_array();
         $cur_user_array['isPaidMember'] = 1;
         $cur_user_array['lasDuePaymentDate'] = date('Y-m-d');
