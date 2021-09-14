@@ -54,7 +54,7 @@
 
 <form accept-charset="UTF-8" action="<?php esc_url(admin_url('admin-post.php')); ?>" id="fc_registration" autocomplete="on" enctype="multipart/form-data" method="post">
   <input type="hidden" name="action" value="fc_registration">
-  <p>To see an example of what a filled out Friendship Connect Profile looks like click here:&nbsp;<a target="_blank" href="https://sailhousingsolutions.org/friendship-connect-example-profile">Example Friendship Connect Profile</a></p>
+  <!--<p>To see an example of what a filled out Friendship Connect Profile looks like click here:&nbsp;<a target="_blank" href="https://sailhousingsolutions.org/friendship-connect-example-profile">Example Friendship Connect Profile</a></p>-->
   <div class="flex-container">
     <div class="flex-child">
       <p>Please acknowledge the following by checking the box.</p>
@@ -70,7 +70,7 @@
       <h5 class="field-label required-field">How do you want your Name to appear to others in Friendship connect?</h5>
       <select name="namePreference" id="namePreference" class="select-field" onchange="onNamePrefChange(this)" required>
         <option value="First Name Only">First Name Only</option>
-        <option value="First and Last Name">First Name and Last Initial</option>
+        <option value="First Name and Last Initial">First Name and Last Initial</option>
         <!--<option value="Initials Only">Initials Only</option>-->
         <option value="Nickname">Nickname</option>
       </select> <br /> 
@@ -78,7 +78,7 @@
       <input name="nickname" type="text" class="text-input-field" id="nickname" oninput="onNickNameChange(this.value)" /> <br />
 
       <h5 class="field-label">Profile Picture</h5>
-      <input type="file" id="profilePicture" name="profilePicture" multiple="false" onchange="onPfpChange(this)" />
+      <input type="file" id="profilePicture" name="profilePicture" multiple="false" />
       <p id="status"></p>
       <h5 class="field-label required-field">Gender</h5>
       <select name="gender" class="select-field" required>
