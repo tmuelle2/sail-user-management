@@ -144,21 +144,17 @@ function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
     else {
       $sail_user = get_sail_user();
 
-      $firstAndLastName = $sail_user->firstName;
-      $firstAndLastName .= " ";
-      $firstAndLastName .= $sail_user->lastName;
-      $initials = strtoupper($sail_user->firstName[0]);
-      $initials .= ".";
-      $initials .= strtoupper($sail_user->lastName[0]);
-      $initials .= ".";
+      $firstNameAndLastInitial = $sail_user->firstName . " " . $sail_user->lastName[0];
+      $initials = strtoupper($sail_user->firstName[0]) . "." . strtoupper($sail_user->lastName[0]) . ".";
+      $profilePicture = "http://sailhousingsolutions.org/wp-admin/identicon.php?size=200&hash=" . $sail_user->email;
 
       $html = get_sail_page($PAGES_DIR . 'fc-registration.html');
 
       $html = str_ireplace("{{displayName}}", esc_html($sail_user->firstName), $html);
       $html = str_ireplace("{{firstName}}", esc_html($sail_user->firstName), $html);
-      $html = str_ireplace("{{firstAndLastName}}", esc_html($firstAndLastName), $html);
+      $html = str_ireplace("{{firstNameAndLastInitial}}", esc_html($firstNameAndLastInitial), $html);
       $html = str_ireplace("{{initials}}", esc_html($initials), $html);
-      $html = str_ireplace("{{profilePicture}}", esc_html($sail_user->profilePicture), $html);
+      $html = str_ireplace("{{profilePicture}}", esc_html($profilePicture, $html);
  
       return $html;
     } 

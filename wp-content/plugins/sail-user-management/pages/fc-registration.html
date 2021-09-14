@@ -4,12 +4,12 @@
     if (value === "First Name Only") {
       document.getElementById("displayName").innerHTML = document.getElementById("firstName").innerHTML;
     }
-    else if (value === "First and Last Name") {
-      document.getElementById("displayName").innerHTML = document.getElementById("firstAndLastName").innerHTML;
+    else if (value === "First Name and Last Initial") {
+      document.getElementById("displayName").innerHTML = document.getElementById("firstNameAndLastInitial").innerHTML;
     }
-    else if (value === "Initials Only") {
-      document.getElementById("displayName").innerHTML = document.getElementById("initials").innerHTML;
-    }
+    //else if (value === "Initials Only") {
+      //document.getElementById("displayName").innerHTML = document.getElementById("initials").innerHTML;
+    //}
     else if (value === "Nickname") {
       document.getElementById("displayName").innerHTML = document.getElementById("nickname").value;
     }
@@ -124,9 +124,6 @@
           <div style="margin: 8px 8px 8px 8px;"> 
             <img class="pfp" id="pfpPreview" alt="Profile Picture" src="{{profilePicture}}" />
           </div>
-          <div style="margin: 8px 8px 8px 8px;"> 
-            <img class="pfp" id="pfpDefault" alt="default pfp" src="http://sailhousingsolutions.org/wp-admin/identicon.php?size=48&hash=e4d909c290d0fb1ca068ffaddf22cbd0" />
-          </div>
           <div style="margin-left: 32px;">
             <div class="flex-container"><h2 id="displayName">{{displayName}}</h2></div>
             <div class="flex-container"><strong>Activities:&nbsp;</strong><span id="activities"></span></div>
@@ -142,7 +139,7 @@
     </div>
   </div>
   <div style="display: none" id="firstName">{{firstName}}</div>
-  <div style="display: none" id="firstAndLastName">{{firstAndLastName}}</div>
+  <div style="display: none" id="firstNameAndLastInitial">{{firstNameAndLastInitial}}</div>
   <div style="display: none" id="initials">{{initials}}</div>
 </form>
 <button type="submit" form="fc_registration" value="Submit">Submit</button>

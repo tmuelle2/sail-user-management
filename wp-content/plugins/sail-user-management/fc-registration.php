@@ -21,7 +21,11 @@ if (is_user_logged_in()) {
     // Profile Picture stuff
     // TODO: make profile pics live here:
     // $target_dir_location = '/_home2/sailhou1/public_html/wp-content/uploads/profilePictures/';
-    
+
+    $user = wp_get_current_user();
+    $query = "SELECT * FROM `fc_members` WHERE userId = ";
+    $query .= $user->ID;
+
     if (isset($_FILES['profilePicture']) && isset($_FILES['profilePicture']['name']) && isset($_FILES['profilePicture']['name'])
         && !empty($_FILES['profilePicture']['name']) && !empty($_FILES['profilePicture']['name'])
     ) {
@@ -33,14 +37,11 @@ if (is_user_logged_in()) {
             $data['profilePicture'] = $upload['url'];
         }
         else {
-
-        }
-        
+            $data['profilePicture'] = "http://sailhousingsolutions.org/wp-admin/identicon.php?size=200&hash=" . $user->user_login;
+        }      
+    } else {
+        $data['profilePicture'] = "http://sailhousingsolutions.org/wp-admin/identicon.php?size=200&hash=" . $user->user_login;
     }
-
-    $user = wp_get_current_user();
-    $query = "SELECT * FROM `fc_members` WHERE userId = ";
-    $query .= $user->ID;
 
     // check if fc profile already exists for this user
     $result = $wpdb->get_results($query);
