@@ -499,7 +499,8 @@ function pay_dues( $request ) {
   global $HOME_DIR;
   include_once($HOME_DIR . 'user-payment.php');
   error_log(print_r($request, true));
-  PayPalPayment::getOrder($request->get_json_params()['purchase_units'][0]['payments']['captures'][0]['id'], true);
+  PayPalPayment::getOrder($request->get_json_params()['id'], true);
+  //PayPalPayment::getOrder($request->get_json_params()['purchase_units'][0]['payments']['captures'][0]['id'], true);
 }
 
 /***********************************************************************
