@@ -48,7 +48,7 @@ class PayPalClient
     {
         // Set in the .htaccess with BluHost
         $clientId = getenv('PAYPAL_CLIENT_ID') ?: 'PAYPAL-SANDBOX-CLIENT-ID';
-        $clientSecret = getenv('PAYPAarray_key_existsL_CLIENT_SECRET') ?: 'PAYPAL-SANDBOX-CLIENT-SECRET';
+        $clientSecret = getenv('PAYPAL_CLIENT_SECRET') ?: 'PAYPAL-SANDBOX-CLIENT-SECRET';
         return new SandboxEnvironment($clientId, $clientSecret);
     }
 }
