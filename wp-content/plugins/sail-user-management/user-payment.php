@@ -24,36 +24,21 @@ foreach (glob($HOME_DIR . 'Checkout-PHP-SDK-1.0.1/lib/PayPalCheckoutSdk/* /*.php
 */
 
 // In lieu of composer, load the PayPal libraries with autoload
-class PayPalAutoloader {
-    private static $HOME_DIR = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
-    private static $PAYPAL_LIB_PATHS = array();
-    private static $PAYPAL_LIB_CLASS_MAP = array();
-
-    private static function init() {
-        if (count(self::$PAYPAL_LIB_CLASS_MAP) == 0) {
-            self::$PAYPAL_LIB_PATHS = glob(self::$HOME_DIR . 'paypalhttp_php-1.0.0/lib/PayPalHttp/Serializer/*.php');
-            self::$PAYPAL_LIB_PATHS = array_merge(self::$PAYPAL_LIB_PATHS, glob(self::$HOME_DIR . 'paypalhttp_php-1.0.0/lib/PayPalHttp/*.php'));
-            self::$PAYPAL_LIB_PATHS = array_merge(self::$PAYPAL_LIB_PATHS, glob(self::$HOME_DIR . 'Checkout-PHP-SDK-1.0.1/lib/PayPalCheckoutSdk/*/*.php'));
-            foreach ($PAYPAL_LIB_PATHS as $path) {
-                $split = explode('/', $path);
-                $justFileName = basename(end($split), '.php');
-                self::$PAYPAL_LIB_CLASS_MAP[$justFileName] = $path;
-            }
-        }
-    }
-
-    public static function paypalClassMap() {
-        self::init();
-        return self::$PAYPAL_LIB_CLASS_MAP;
-    }
-}
-
 spl_autoload_register(function ($class_name) {
+    $HOME_DIR = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
+    $PAYPAL_LIB_PATHS = glob($HOME_DIR . 'paypalhttp_php-1.0.0/lib/PayPalHttp/Serializer/*.php');
+    $PAYPAL_LIB_PATHS = array_merge($PAYPAL_LIB_PATHS, glob($HOME_DIR . 'paypalhttp_php-1.0.0/lib/PayPalHttp/*.php'));
+    $PAYPAL_LIB_PATHS = array_merge($PAYPAL_LIB_PATHS, glob($HOME_DIR . 'Checkout-PHP-SDK-1.0.1/lib/PayPalCheckoutSdk/*/*.php'));
+    $PAYPAL_LIB_CLASS_MAP = array();
+    foreach ($PAYPAL_LIB_PATHS as $path) {
+        $split = explode('/', $path);
+        $justFileName = basename(end($split), '.php');
+        $PAYPAL_LIB_CLASS_MAP[$justFileName] = $path;
+    }
     $split = explode('\\', $class_name);
     $justClassName = end($split);
     print 'Attempting autoload of ' . $justClassName;
-    print_r(PalPalAutoloader::paypalClassMap());
-    include PalPalAutoloader::paypalClassMap()[$justClassName];
+    include $PAYPAL_LIB_CLASS_MAP[$justClassName];
 });
 
 use PayPalCheckoutSdk\Orders\OrdersCaptureRequest;
