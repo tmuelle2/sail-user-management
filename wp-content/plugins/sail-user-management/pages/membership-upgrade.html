@@ -36,10 +36,13 @@ function initPayPalButton() {
                 + "Your dues will help to fund SAIL events and you will now have access to Friendship Connect and the full housing roadmap.</p>";
 
             // Post membership update request
+            // Need nonce for auth on top of cookie for Wordpress REST API
+            // https://developer.wordpress.org/rest-api/using-the-rest-api/authentication/
             fetch('/wp-json/membership/v1/dues', { 
                 method: 'POST', 
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-WP-Nonce': '{{wordpressNonce}}'
                 },
                 body: JSON.stringify(orderData)
             });
