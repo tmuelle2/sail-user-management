@@ -498,7 +498,7 @@ function register_apis() {
 function pay_dues( $request ) {
   global $HOME_DIR;
   include_once($HOME_DIR . 'user-payment.php');
-  CaptureOrder::capture($request->get_json_params()['id'], true);
+  PayPalOrder::getOrder($request->get_json_params()['id'], true);
 }
 
 /***********************************************************************

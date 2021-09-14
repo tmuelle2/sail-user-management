@@ -29,22 +29,20 @@ function initPayPalButton() {
 
     onApprove: function(data, actions) {
         return actions.order.capture().then(function(orderData) {
-        
-        // Show a success message within this page.
-        const element = document.getElementById('paypal-button-container');
-        element.innerHTML = '';
-        element.innerHTML = "<p>Thank you for upgrading your membership! "
-            + "Your dues will help to fund SAIL events and you will now have access to Friendship Connect and the full housing roadmap.</p>";
+            // Show a success message within this page.
+            const element = document.getElementById('paypal-button-container');
+            element.innerHTML = '';
+            element.innerHTML = "<p>Thank you for upgrading your membership! "
+                + "Your dues will help to fund SAIL events and you will now have access to Friendship Connect and the full housing roadmap.</p>";
 
-        // Post membership update request
-        fetch('/wp-json/membership/v1/dues', { 
-            method: 'POST', 
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(orderData)
-        });
-        
+            // Post membership update request
+            fetch('/wp-json/membership/v1/dues', { 
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderData)
+            });
         });
     },
 
