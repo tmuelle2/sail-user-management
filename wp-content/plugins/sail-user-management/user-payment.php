@@ -24,7 +24,7 @@ spl_autoload_register(function ($class_name) {
     }
 });
 
-use PayPalCheckoutSdk\Payments\CapturesGetRequest;
+use PayPalHttp\HttpRequest;
 use PayPalCheckoutSdk\Core\PayPalHttpClient;
 use PayPalCheckoutSdk\Core\SandboxEnvironment;
 
@@ -53,6 +53,16 @@ class PayPalClient
     }
 }
 
+class TransactionGetRequest extends HttpRequest
+{
+    function __construct($transactionId)
+    {
+        parent::__construct("/v1/reporting/transactions?transaction_id={transaction_id}&fields=transaction_info,payer_info", "GET");
+
+        $this->path = str_replace("{transaction_id}", urlencode($transactionId), $this->path);
+        $this->headers["Content-Type"] = "application/json";
+    }
+}
 
 class PayPalPayment
 {
@@ -64,7 +74,7 @@ class PayPalPayment
   {
     // 3. Call PayPal to get the transaction details
     $client = PayPalClient::client();
-    $response = $client->execute(new CapturesGetRequest($orderId));
+    $response = $client->execute(new TransactionGetRequest($orderId));
 
     /**
      *Enable the following line to print complete response as JSON.
