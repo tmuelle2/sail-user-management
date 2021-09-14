@@ -6,16 +6,17 @@ ini_set('display_startup_errors', '1');
 
 // In lieu of coomposer, load the PayPal library manually
 $HOME_DIR = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
+include 'paypalhttp_php-1.0.0/lib/PayPalHttp/Serializer.php';
 print 'Including from directory: ' . $HOME_DIR;
-foreach (glob($HOME_DIR . "paypalhttp_php-1.0.0/lib/PayPalHttp/Serializer/*.php") as $filename) {
+foreach (glob($HOME_DIR . 'paypalhttp_php-1.0.0/lib/PayPalHttp/Serializer/*.php') as $filename) {
     print 'Including file: ' . $filename;
     include $filename;
 }
-foreach (glob($HOME_DIR . "paypalhttp_php-1.0.0/lib/PayPalHttp/*.php") as $filename) {
+foreach (glob($HOME_DIR . 'paypalhttp_php-1.0.0/lib/PayPalHttp/*.php') as $filename) {
     print 'Including file: ' . $filename;
     include $filename;
 }
-foreach (glob($HOME_DIR . "Checkout-PHP-SDK-1.0.1/lib/PayPalCheckoutSdk/*/*.php") as $filename) {
+foreach (glob($HOME_DIR . 'Checkout-PHP-SDK-1.0.1/lib/PayPalCheckoutSdk/*/*.php') as $filename) {
     print 'Including file: ' . $filename;
     include $filename;
 }
@@ -44,8 +45,8 @@ class PayPalClient
     public static function environment()
     {
         // Set in the .htaccess with BluHost
-        $clientId = getenv("PAYPAL_CLIENT_ID") ?: "PAYPAL-SANDBOX-CLIENT-ID";
-        $clientSecret = getenv("PAYPAL_CLIENT_SECRET") ?: "PAYPAL-SANDBOX-CLIENT-SECRET";
+        $clientId = getenv('PAYPAL_CLIENT_ID') ?: 'PAYPAL-SANDBOX-CLIENT-ID';
+        $clientSecret = getenv('PAYPAL_CLIENT_SECRET') ?: 'PAYPAL-SANDBOX-CLIENT-SECRET';
         return new SandboxEnvironment($clientId, $clientSecret);
     }
 }
@@ -72,21 +73,21 @@ class CaptureOrder
     // 4. Save the capture ID to your database. Implement logic to save capture to your database for future reference.
     if ($debug)
     {
-      print "Status Code: {$response->statusCode}\n";
-      print "Status: {$response->result->status}\n";
-      print "Order ID: {$response->result->id}\n";
-      print "Links:\n";
+      print 'Status Code: {$response->statusCode}\n';
+      print 'Status: {$response->result->status}\n';
+      print 'Order ID: {$response->result->id}\n';
+      print 'Links:\n';
       foreach($response->result->links as $link)
       {
-        print "\t{$link->rel}: {$link->href}\tCall Type: {$link->method}\n";
+        print '\t{$link->rel}: {$link->href}\tCall Type: {$link->method}\n';
       }
 
-      print "Capture Ids:\n";
+      print 'Capture Ids:\n';
       foreach($response->result->purchase_units as $purchase_unit)
       {
         foreach($purchase_unit->payments->captures as $capture)
         {   
-          print "\t{$capture->id}";
+          print '\t{$capture->id}';
         }
       }
       // To print the whole response body, uncomment the following line
