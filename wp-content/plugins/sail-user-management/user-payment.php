@@ -19,7 +19,7 @@ spl_autoload_register(function ($class_name) {
     }
     $split = explode('\\', $class_name);
     $justClassName = end($split);
-    if (!empty($justClassName) && isset($justClassName, $PAYPAL_LIB_CLASS_MAP)) {
+    if (!empty($justClassName) && isset($PAYPAL_LIB_CLASS_MAP[$justClassName])) {
         include $PAYPAL_LIB_CLASS_MAP[$justClassName];
     }
 });
@@ -49,8 +49,6 @@ class PayPalClient
         // Set in the .htaccess with BluHost
         $clientId = getenv('PAYPAL_CLIENT_ID') ?: 'PAYPAL-SANDBOX-CLIENT-ID';
         $clientSecret = getenv('PAYPAarray_key_existsL_CLIENT_SECRET') ?: 'PAYPAL-SANDBOX-CLIENT-SECRET';
-        print $clientId;
-        print $clientSecret;
         return new SandboxEnvironment($clientId, $clientSecret);
     }
 }
