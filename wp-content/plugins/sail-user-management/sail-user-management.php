@@ -202,21 +202,16 @@ function fc_search_shortcode($atts = [], $content = null, $tag = '' ) {
         $sail_profile = $wpdb->get_row($user_query);
 
         // Random vars used below
-        $firstAndLastName = $sail_profile->firstName;
-        $firstAndLastName .= " ";
-        $firstAndLastName .= $sail_profile->lastName;
-        $initials = strtoupper($sail_profile->firstName[0]);
-        $initials .= ".";
-        $initials .= strtoupper($sail_profile->lastName[0]);
-        $initials .= ".";
+        $firstNameAndLastInitial = $sail_profile->firstName . " " . $sail_profile->lastName[0] . ".";
+        $initials = strtoupper($sail_profile->firstName[0]) . "." . strtoupper($sail_profile->lastName[0]) . ".";
         $age = floor((time() - strtotime($sail_profile->dob)) / 31556926);
         $location = $sail_profile->city . ", " . $sail_profile->state;
 
         // Start building result summary
         $summary = file_get_contents($PAGES_DIR . 'fc-result-summary.html', true);
-        $summary = str_ireplace("{{profilePicture}}", esc_html($sail_profile->profilePicture), $summary);
+        $summary = str_ireplace("{{profilePicture}}", esc_html($fc_profile->profilePicture), $summary);
 
-        if ($fc_profile->namePreference == "First and Last Name") { $summary = str_ireplace("{{displayName}}", esc_html($firstAndLastName), $summary); }
+        if ($fc_profile->namePreference == "First Name and Last Initial") { $summary = str_ireplace("{{displayName}}", esc_html($firstNameAndLastInitial), $summary); }
         else if ($fc_profile->namePreference == "Initials Only") { $summary = str_ireplace("{{displayName}}", esc_html($initials), $summary);}
         else if ($fc_profile->namePreference == "Nickname") { $summary = str_ireplace("{{displayName}}", esc_html($fc_profile->nickname), $summary);}
         else { $summary = str_ireplace("{{displayName}}", esc_html($sail_profile->firstName), $summary);}
