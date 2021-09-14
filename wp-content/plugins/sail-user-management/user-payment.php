@@ -4,26 +4,8 @@ ini_set('error_reporting', E_ALL); // or error_reporting(E_ALL);
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 
-// In lieu of composer, load the PayPal library manually
-/*
-$HOME_DIR = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
-include 'paypalhttp_php-1.0.0/lib/PayPalHttp/Serializer.php';
-print 'Including from directory: ' . $HOME_DIR;
-foreach (glob($HOME_DIR . 'paypalhttp_php-1.0.0/lib/PayPalHttp/Serializer/*.php') as $filename) {
-    print 'Including file: ' . $filename;
-    include $filename;
-}
-foreach (glob($HOME_DIR . 'paypalhttp_php-1.0.0/lib/PayPalHttp/*.php') as $filename) {
-    print 'Including file: ' . $filename;
-    include $filename;
-}
-foreach (glob($HOME_DIR . 'Checkout-PHP-SDK-1.0.1/lib/PayPalCheckoutSdk/* /*.php') as $filename) {
-    print 'Including file: ' . $filename;
-    include $filename;
-}
-*/
-
 // In lieu of composer, load the PayPal libraries with autoload
+// TODO: This is hella inefficient, this should be moved to a static class or some other mechanism to load the file paths once and only once
 spl_autoload_register(function ($class_name) {
     $HOME_DIR = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
     $PAYPAL_LIB_PATHS = glob($HOME_DIR . 'paypalhttp_php-1.0.0/lib/PayPalHttp/Serializer/*.php');
@@ -37,8 +19,7 @@ spl_autoload_register(function ($class_name) {
     }
     $split = explode('\\', $class_name);
     $justClassName = end($split);
-    print 'Attempting autoload of ' . $justClassName;
-    if (isset($justClassName, $PAYPAL_LIB_CLASS_MAP)) {
+    if (!empty($justClassName) && isset($justClassName, $PAYPAL_LIB_CLASS_MAP)) {
         include $PAYPAL_LIB_CLASS_MAP[$justClassName];
     }
 });
@@ -67,7 +48,9 @@ class PayPalClient
     {
         // Set in the .htaccess with BluHost
         $clientId = getenv('PAYPAL_CLIENT_ID') ?: 'PAYPAL-SANDBOX-CLIENT-ID';
-        $clientSecret = getenv('PAYPAL_CLIENT_SECRET') ?: 'PAYPAL-SANDBOX-CLIENT-SECRET';
+        $clientSecret = getenv('PAYPAarray_key_existsL_CLIENT_SECRET') ?: 'PAYPAL-SANDBOX-CLIENT-SECRET';
+        print $clientId;
+        print $clientSecret;
         return new SandboxEnvironment($clientId, $clientSecret);
     }
 }
