@@ -75,7 +75,7 @@ class PayPalOrder
         $cur_user_array['isPaidMember'] = 1;
         $cur_user_array['lasDuePaymentDate'] = date('Y-m-d');
 
-        $wpdb->update('sail_users', $data, array('userId' => $cur_user_array['userId']), $formats);
+        $wpdb->update('sail_users', $cur_user_array, array('userId' => $cur_user_array['userId']), $USER_DB_FIELDS);
     }
   }
 }
