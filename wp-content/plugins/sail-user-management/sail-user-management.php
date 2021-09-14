@@ -502,7 +502,7 @@ function register_apis() {
 function pay_dues( $request ) {
   global $HOME_DIR;
   include_once($HOME_DIR . 'user-payment.php');
-  CaptureOrder::capture($request->body->id, true);
+  CaptureOrder::capture($request['id'], true);
 }
 
 /***********************************************************************
