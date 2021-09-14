@@ -38,7 +38,9 @@ spl_autoload_register(function ($class_name) {
     $split = explode('\\', $class_name);
     $justClassName = end($split);
     print 'Attempting autoload of ' . $justClassName;
-    include $PAYPAL_LIB_CLASS_MAP[$justClassName];
+    if (isset($justClassName, $PAYPAL_LIB_CLASS_MAP)) {
+        include $PAYPAL_LIB_CLASS_MAP[$justClassName];
+    }
 });
 
 use PayPalCheckoutSdk\Orders\OrdersCaptureRequest;
