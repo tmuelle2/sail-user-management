@@ -40,6 +40,7 @@ spl_autoload_register(function ($class_name) {
     $justClassName = end($split);
     print 'Attempting autoload of ' . $justClassName;
     global $PAYPAL_LIB_CLASS_MAP;
+    print_r($PAYPAL_LIB_CLASS_MAP);
     include $PAYPAL_LIB_CLASS_MAP[$justClassName];
 });
 
