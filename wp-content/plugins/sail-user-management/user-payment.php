@@ -4,7 +4,8 @@ ini_set('error_reporting', E_ALL); // or error_reporting(E_ALL);
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 
-// In lieu of coomposer, load the PayPal library manually
+// In lieu of composer, load the PayPal library manually
+/*
 $HOME_DIR = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
 include 'paypalhttp_php-1.0.0/lib/PayPalHttp/Serializer.php';
 print 'Including from directory: ' . $HOME_DIR;
@@ -16,10 +17,25 @@ foreach (glob($HOME_DIR . 'paypalhttp_php-1.0.0/lib/PayPalHttp/*.php') as $filen
     print 'Including file: ' . $filename;
     include $filename;
 }
-foreach (glob($HOME_DIR . 'Checkout-PHP-SDK-1.0.1/lib/PayPalCheckoutSdk/*/*.php') as $filename) {
+foreach (glob($HOME_DIR . 'Checkout-PHP-SDK-1.0.1/lib/PayPalCheckoutSdk/* /*.php') as $filename) {
     print 'Including file: ' . $filename;
     include $filename;
 }
+*/
+
+// In lieu of composer, load the PayPal libraries with autoload
+$HOME_DIR = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
+$PAYPAL_LIB_PATHS = glob($HOME_DIR . 'paypalhttp_php-1.0.0/lib/PayPalHttp/Serializer/*.php');
+$PAYPAL_LIB_PATHS = $PAYPAL_LIB_PATHS . glob($HOME_DIR . 'paypalhttp_php-1.0.0/lib/PayPalHttp/*.php');
+$PAYPAL_LIB_PATHS = $PAYPAL_LIB_PATHS . glob($HOME_DIR . 'Checkout-PHP-SDK-1.0.1/lib/PayPalCheckoutSdk/*/*.php');
+$PAYPAL_LIB_CLASS_MAP = array();
+foreach ($PAYPAL_LIB_PATHS as $path) {
+    $justFileName = basename(end(explode('/', $path)), '.php');
+    $PAYPAL_LIB_CLASS_MAP[$justFileName] = $path;
+}
+spl_autoload_register(function ($class_name) {
+    include $PAYPAL_LIB_CLASS_MAP[$class_name];
+});
 
 use PayPalCheckoutSdk\Orders\OrdersCaptureRequest;
 use PayPalCheckoutSdk\Core\PayPalHttpClient;
@@ -36,7 +52,6 @@ class PayPalClient
     {
         return new PayPalHttpClient(self::environment());
     }
-
 
     /**
      * Set up and return PayPal PHP SDK environment with PayPal access credentials.
