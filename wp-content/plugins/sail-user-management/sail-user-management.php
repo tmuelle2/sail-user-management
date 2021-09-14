@@ -154,7 +154,7 @@ function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
       $html = str_ireplace("{{firstName}}", esc_html($sail_user->firstName), $html);
       $html = str_ireplace("{{firstNameAndLastInitial}}", esc_html($firstNameAndLastInitial), $html);
       $html = str_ireplace("{{initials}}", esc_html($initials), $html);
-      $html = str_ireplace("{{profilePicture}}", esc_html($profilePicture, $html);
+      $html = str_ireplace("{{profilePicture}}", esc_html($profilePicture), $html);
  
       return $html;
     } 
