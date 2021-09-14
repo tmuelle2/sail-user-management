@@ -24,7 +24,7 @@ spl_autoload_register(function ($class_name) {
     }
 });
 
-use PayPalHttp\HttpRequest;
+use PayPalHttp\Orders\OrdersGetRequest;
 use PayPalCheckoutSdk\Core\PayPalHttpClient;
 use PayPalCheckoutSdk\Core\SandboxEnvironment;
 
@@ -77,7 +77,7 @@ class PayPalPayment
   {
     // 3. Call PayPal to get the transaction details
     $client = PayPalClient::client();
-    $response = $client->execute(new TransactionGetRequest($orderId));
+    $response = $client->execute(new OrdersGetRequest($orderId));
 
     /**
      *Enable the following line to print complete response as JSON.
