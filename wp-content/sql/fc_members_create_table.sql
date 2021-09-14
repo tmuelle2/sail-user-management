@@ -15,5 +15,8 @@ CREATE TABLE `sailhou1_WPRAL`.`fc_members`(
     `referencePhoneNumber` TEXT NOT NULL,
     `referenceEmail` TEXT NOT NULL,
     `referenceApproved` BOOLEAN NOT NULL DEFAULT FALSE,
+    `profilepicture` TEXT NULL DEFAULT NULL,
+    `gender` TEXT NOT NULL,
+    `primaryContactType` TEXT NOT NULL,
     UNIQUE `userId`(`userId`)
 ) ENGINE = InnoDB;

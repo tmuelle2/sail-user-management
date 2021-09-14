@@ -26,26 +26,75 @@
   }
 </script>
 
+<!-- Profile Picture preview from https://web.dev/read-files/ -->
+<script>
+      const status = document.getElementById('status');
+      const pfpPreview = document.getElementById('pfpPreview');
+      if (window.FileList && window.File && window.FileReader) {
+        document.getElementById('profilePicture').addEventListener('change', event => {
+          pfpPreview.src = '';
+          status.textContent = '';
+          const file = event.target.files[0];
+          if (!file.type) {
+            status.textContent = 'Error: The File.type property does not appear to be supported on this browser.';
+            return;
+          }
+          if (!file.type.match('image.*')) {
+            status.textContent = 'Error: The selected file does not appear to be an image.'
+            return;
+          }
+          const reader = new FileReader();
+          reader.addEventListener('load', event => {
+            pfpPreview.src = event.target.result;
+          });
+          reader.readAsDataURL(file);
+        }); 
+      }
+</script>
+
 <form accept-charset="UTF-8" action="<?php esc_url(admin_url('admin-post.php')); ?>" id="fc_registration" autocomplete="on" enctype="multipart/form-data" method="post">
   <input type="hidden" name="action" value="fc_registration">
-  <p>Welcome to your first step in Joining Friendship Connect! Take your time to when filling out this form and know you can always go back and make changes from the "My Profile" Page. To see an example of what a filled out Friendship Connect Profile looks like click here:&nbsp;<a target="_blank" href="https://sailhousingsolutions.org/friendship-connect-example-profile">Example Friendship Connect Profile</a></p>
+  <p>To see an example of what a filled out Friendship Connect Profile looks like click here:&nbsp;<a target="_blank" href="https://sailhousingsolutions.org/friendship-connect-example-profile">Example Friendship Connect Profile</a></p>
   <div class="flex-container">
     <div class="flex-child">
-      <h5 class="field-label required-field">Are you legally authorized to complete this form (either on behalf of yourself or a dependent)?</h5>
+      <p>Please acknowledge the following by checking the box.</p>
+      <input type="hidden" name="authorized" value="0" />
+      <input type="checkbox" name="authorized" value="1" required />
+      <label class="field-label required-field" for="authorized">I am either an individual with a disability and I am my own guardian, or I am a person who is legally authorized to complete this Friendship Connect form on behalf of an individual with a disability. SAIL can publish my data and contact information on the SAIL Friendship Connect page on the SAIL website. I understand that other members of Friendship Connect may contact me directly to discuss an interest in becoming friends and/or roommates.</label>
+      <!--<h5 class="field-label required-field">Are you legally authorized to complete this form (either on behalf of yourself or a dependent)?</h5>
       <input name="authorized" type="radio" value="1" /> Yes<br /> 
       <input name="authorized" type="radio" value="0" /> No<br />
       <h5 class="field-label required-field">Do you consent to filling out this form and allowing the information to be shared with other users within Friendship Connect?</h5>
       <input name="consent" type="radio" value="1" /> Yes<br /> 
-      <input name="consent" type="radio" value="0" /> No<br />
+      <input name="consent" type="radio" value="0" /> No<br /> -->
       <h5 class="field-label required-field">How do you want your Name to appear to others in Friendship connect?</h5>
       <select name="namePreference" id="namePreference" class="select-field" onchange="onNamePrefChange(this)" required>
         <option value="First Name Only">First Name Only</option>
-        <option value="First and Last Name">First and Last Name</option>
-        <option value="Initials Only">Initials Only</option>
+        <option value="First and Last Name">First Name and Last Initial</option>
+        <!--<option value="Initials Only">Initials Only</option>-->
         <option value="Nickname">Nickname</option>
       </select> <br /> 
       <h5 class="field-label">Nickname</h5>
-      <input name="nickname" type="text" class="text-input-field" id="nickname" oninput="onNickNameChange(this.value)" /> <br /> 
+      <input name="nickname" type="text" class="text-input-field" id="nickname" oninput="onNickNameChange(this.value)" /> <br />
+
+      <h5 class="field-label">Profile Picture</h5>
+      <input type="file" id="profilePicture" name="profilePicture" multiple="false" onchange="onPfpChange(this)" />
+      <p id="status"></p>
+      <h5 class="field-label required-field">Gender</h5>
+      <select name="gender" class="select-field" required>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+        <option value="Prefer not to say">Prefer not to say</option>
+      </select>
+
+      <h5 class="field-label required-field">How do you want other Friendship Connect Users to contact you?</h5>
+      <select name="primaryContactType" id="primaryContactType" class="select-field" required>
+        <option value="Email">Email</option>
+        <option value="Phone (Text Message)">Phone (Text Message)</option>
+        <option value="Phone (Voice Call)">Phone (Voice Call)</option>
+      </select> <br /> 
+
       <h5 class="field-label required-field">Activities You Enjoy</h5>
       <textarea name="activities" class="text-input-field" cols="30" rows="2" required oninput="onTextFieldChange(this.value, 'activities')"></textarea><br /> 
       <h5 class="field-label required-field">Hobbies</h5>
@@ -73,7 +122,10 @@
         <h5>Friendship Connect Profile Preview</h5>
         <div class="flex-start">
           <div style="margin: 8px 8px 8px 8px;"> 
-            <img class="pfp" alt="Profile Picture" src="{{profilePicture}}" />
+            <img class="pfp" id="pfpPreview" alt="Profile Picture" src="{{profilePicture}}" />
+          </div>
+          <div style="margin: 8px 8px 8px 8px;"> 
+            <img class="pfp" id="pfpDefault" alt="default pfp" src="http://sailhousingsolutions.org/wp-admin/identicon.php?size=48&hash=e4d909c290d0fb1ca068ffaddf22cbd0" />
           </div>
           <div style="margin-left: 32px;">
             <div class="flex-container"><h2 id="displayName">{{displayName}}</h2></div>

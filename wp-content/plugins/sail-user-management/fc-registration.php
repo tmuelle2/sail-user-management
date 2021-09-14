@@ -8,11 +8,36 @@ global $wpdb;
 $data = array();
 $formats = array();
 foreach($FC_DB_FIELDS as $element => $format) {
-    $data[$element] = $_POST[$element];
+    if (isset($_POST[$element])) {
+        $data[$element] = $_POST[$element];
+    }
+    else {
+        $data[$element] = null;
+    }
     $formats[] = $format;
 }
 
 if (is_user_logged_in()) {
+    // Profile Picture stuff
+    // TODO: make profile pics live here:
+    // $target_dir_location = '/_home2/sailhou1/public_html/wp-content/uploads/profilePictures/';
+    
+    if (isset($_FILES['profilePicture']) && isset($_FILES['profilePicture']['name']) && isset($_FILES['profilePicture']['name'])
+        && !empty($_FILES['profilePicture']['name']) && !empty($_FILES['profilePicture']['name'])
+    ) {
+        $name_file = $_FILES['profilePicture']['name'];
+        $tmp_name = $_FILES['profilePicture']['tmp_name'];
+        $upload = wp_upload_bits($_FILES['profilePicture']['name'], null, file_get_contents($_FILES['profilePicture']['tmp_name']));
+
+        if(!$upload['error']) {
+            $data['profilePicture'] = $upload['url'];
+        }
+        else {
+
+        }
+        
+    }
+
     $user = wp_get_current_user();
     $query = "SELECT * FROM `fc_members` WHERE userId = ";
     $query .= $user->ID;
@@ -20,7 +45,7 @@ if (is_user_logged_in()) {
     // check if fc profile already exists for this user
     $result = $wpdb->get_results($query);
 
-    // Create a port member
+    // Create a fc member
     if (count($result) == 0) {
         $data['userId'] = $user->ID;
 
