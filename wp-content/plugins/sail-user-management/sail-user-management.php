@@ -488,7 +488,7 @@ function sail_plugin_activate() {
 register_activation_hook( __FILE__, 'sail_plugin_activate' );
 
 /**
- * Initialize REST API
+ * Initialize REST APIs
  */
 add_action( 'rest_api_init', function () {
   register_rest_route( 'membership/v1', '/dues', array(
@@ -498,7 +498,9 @@ add_action( 'rest_api_init', function () {
 } );
 
 function pay_dues( $request ) {
-  error_log(print_r( $request, true ));
+  global $HOME_DIR;
+  include_once($HOME_DIR . 'user-payment.php');
+  CaptureOrder::captureOrder($request->body->id, true);
 }
 
 /***********************************************************************

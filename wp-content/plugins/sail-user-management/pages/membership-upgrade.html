@@ -2,7 +2,10 @@
     <details>
         <summary>Upgrade your membership</summary>
         <div style="text-align: center;">
-        <p><div id="paypal-button-container"></div></p>
+        <p>
+            Use PayPal to pay the $30 SAIL membership due.
+            <div id="paypal-button-container"></div>
+        </p>
         </div>
     </details>
 </div>
@@ -20,7 +23,7 @@ function initPayPalButton() {
 
     createOrder: function(data, actions) {
         return actions.order.create({
-        purchase_units: [{"description":"2021-2022 SAIL Membership","amount":{"currency_code":"USD","value":1}}]
+        purchase_units: [{"description":"2021-2022 SAIL Membership","amount":{"currency_code":"USD","value":30}}]
         });
     },
 
