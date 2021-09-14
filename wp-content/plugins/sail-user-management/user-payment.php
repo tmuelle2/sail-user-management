@@ -2,6 +2,7 @@
 
 // In lieu of coomposer, load the PayPal library manually
 foreach (glob(__DIR__ . "Checkout-PHP-SDK-1.0.1/lib/PayPalCheckoutSdk/*/*.php") as $filename) {
+    print 'Including file: ' . $filename;
     include $filename;
 }
 
