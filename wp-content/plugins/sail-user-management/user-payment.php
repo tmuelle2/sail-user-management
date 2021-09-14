@@ -36,9 +36,11 @@ foreach ($PAYPAL_LIB_PATHS as $path) {
 }
 print_r($PAYPAL_LIB_CLASS_MAP);
 spl_autoload_register(function ($class_name) {
-    print 'Attempting autoload of ' . $class_name;
+    $split = explode('\\', $class_name);
+    $justClassName = end($split);
+    print 'Attempting autoload of ' . $justClassName;
     global $PAYPAL_LIB_CLASS_MAP;
-    include $PAYPAL_LIB_CLASS_MAP[$class_name];
+    include $PAYPAL_LIB_CLASS_MAP[$justClassName];
 });
 
 use PayPalCheckoutSdk\Orders\OrdersCaptureRequest;
