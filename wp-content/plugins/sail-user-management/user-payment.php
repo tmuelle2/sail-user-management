@@ -30,10 +30,12 @@ $PAYPAL_LIB_PATHS = array_merge($PAYPAL_LIB_PATHS, glob($HOME_DIR . 'paypalhttp_
 $PAYPAL_LIB_PATHS = array_merge($PAYPAL_LIB_PATHS, glob($HOME_DIR . 'Checkout-PHP-SDK-1.0.1/lib/PayPalCheckoutSdk/*/*.php'));
 $PAYPAL_LIB_CLASS_MAP = array();
 foreach ($PAYPAL_LIB_PATHS as $path) {
-    $justFileName = basename(end(explode('/', $path)), '.php');
+    $split = explode('/', $path);
+    $justFileName = basename(end($split), '.php');
     $PAYPAL_LIB_CLASS_MAP[$justFileName] = $path;
 }
 spl_autoload_register(function ($class_name) {
+    global $PAYPAL_LIB_CLASS_MAP;
     include $PAYPAL_LIB_CLASS_MAP[$class_name];
 });
 
