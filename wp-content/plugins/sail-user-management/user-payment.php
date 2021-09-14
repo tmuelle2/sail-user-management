@@ -34,7 +34,9 @@ foreach ($PAYPAL_LIB_PATHS as $path) {
     $justFileName = basename(end($split), '.php');
     $PAYPAL_LIB_CLASS_MAP[$justFileName] = $path;
 }
+print_r($PAYPAL_LIB_CLASS_MAP);
 spl_autoload_register(function ($class_name) {
+    print 'Attempting autoload of ' . $class_name;
     global $PAYPAL_LIB_CLASS_MAP;
     include $PAYPAL_LIB_CLASS_MAP[$class_name];
 });
