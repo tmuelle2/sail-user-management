@@ -1,8 +1,9 @@
 <?php
 
 // In lieu of coomposer, load the PayPal library manually
-print_r('Including from directory: ' . __DIR__);
-foreach (glob(__DIR__ . "Checkout-PHP-SDK-1.0.1/lib/PayPalCheckoutSdk/*/*.php") as $filename) {
+$HOME_DIR = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
+print_r('Including from directory: ' . $HOME_DIR);
+foreach (glob($HOME_DIR . "Checkout-PHP-SDK-1.0.1/lib/PayPalCheckoutSdk/*/*.php") as $filename) {
     print_r('Including file: ' . $filename, true);
     include $filename;
 }
