@@ -73,7 +73,7 @@ class PayPalOrder
     if ($response->result->status == 'COMPLETED') {
         $cur_user_array = get_sail_user_array();
         $cur_user_array['isPaidMember'] = 1;
-        $cur_user_array['lasDuePaymentDate'] = date('Y-m-d');
+        $cur_user_array['lastDuePaymentDate'] = date('Y-m-d');
 
         $wpdb->update('sail_users', $cur_user_array, array('userId' => $cur_user_array['userId']), $USER_DB_FIELDS);
     }
