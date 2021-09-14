@@ -24,6 +24,7 @@ spl_autoload_register(function ($class_name) {
     }
 });
 
+use PayPalHttp\HttpRequest;
 use PayPalHttp\Orders\OrdersGetRequest;
 use PayPalCheckoutSdk\Core\PayPalHttpClient;
 use PayPalCheckoutSdk\Core\SandboxEnvironment;
