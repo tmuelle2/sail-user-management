@@ -57,9 +57,10 @@ class TransactionGetRequest extends HttpRequest
 {
     function __construct($transactionId)
     {
-        parent::__construct("/v1/reporting/transactions?transaction_id={transaction_id}&fields=transaction_info,payer_info&start_date={start_date}&end_date={end_date}", "GET");
+        //parent::__construct("/v1/reporting/transactions?transaction_id={transaction_id}&fields=transaction_info,payer_info&start_date={start_date}&end_date={end_date}", "GET");
+        parent::__construct("/v1/reporting/transactions?page_size=20&fields=transaction_info,payer_info&start_date={start_date}&end_date={end_date}", "GET");
 
-        $this->path = str_replace("{transaction_id}", urlencode($transactionId), $this->path);
+        //$this->path = str_replace("{transaction_id}", urlencode($transactionId), $this->path);
         $this->path = str_replace("{start_date}", urlencode(date(DATE_ATOM, time() - 30 * 24 * 60 * 60)), $this->path);
         $this->path = str_replace("{end_date}", urlencode(date(DATE_ATOM)), $this->path);
         $this->headers["Content-Type"] = "application/json";
