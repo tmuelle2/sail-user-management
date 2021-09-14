@@ -26,32 +26,6 @@
   }
 </script>
 
-<!-- Profile Picture preview from https://web.dev/read-files/ -->
-<script>
-      const status = document.getElementById('status');
-      const pfpPreview = document.getElementById('pfpPreview');
-      if (window.FileList && window.File && window.FileReader) {
-        document.getElementById('profilePicture').addEventListener('change', event => {
-          pfpPreview.src = '';
-          status.textContent = '';
-          const file = event.target.files[0];
-          if (!file.type) {
-            status.textContent = 'Error: The File.type property does not appear to be supported on this browser.';
-            return;
-          }
-          if (!file.type.match('image.*')) {
-            status.textContent = 'Error: The selected file does not appear to be an image.'
-            return;
-          }
-          const reader = new FileReader();
-          reader.addEventListener('load', event => {
-            pfpPreview.src = event.target.result;
-          });
-          reader.readAsDataURL(file);
-        }); 
-      }
-</script>
-
 <form accept-charset="UTF-8" action="<?php esc_url(admin_url('admin-post.php')); ?>" id="fc_registration" autocomplete="on" enctype="multipart/form-data" method="post">
   <input type="hidden" name="action" value="fc_registration">
   <!--<p>To see an example of what a filled out Friendship Connect Profile looks like click here:&nbsp;<a target="_blank" href="https://sailhousingsolutions.org/friendship-connect-example-profile">Example Friendship Connect Profile</a></p>-->
@@ -143,3 +117,29 @@
   <div style="display: none" id="initials">{{initials}}</div>
 </form>
 <button type="submit" form="fc_registration" value="Submit">Submit</button>
+
+<!-- Profile Picture preview from https://web.dev/read-files/ -->
+<script>
+      const status = document.getElementById('status');
+      const pfpPreview = document.getElementById('pfpPreview');
+      if (window.FileList && window.File && window.FileReader) {
+        document.getElementById('profilePicture').addEventListener('change', event => {
+          pfpPreview.src = '';
+          status.textContent = '';
+          const file = event.target.files[0];
+          if (!file.type) {
+            status.textContent = 'Error: The File.type property does not appear to be supported on this browser.';
+            return;
+          }
+          if (!file.type.match('image.*')) {
+            status.textContent = 'Error: The selected file does not appear to be an image.'
+            return;
+          }
+          const reader = new FileReader();
+          reader.addEventListener('load', event => {
+            pfpPreview.src = event.target.result;
+          });
+          reader.readAsDataURL(file);
+        }); 
+      }
+</script>
