@@ -144,7 +144,7 @@ function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
     else {
       $sail_user = get_sail_user();
 
-      $firstNameAndLastInitial = $sail_user->firstName . " " . $sail_user->lastName[0];
+      $firstNameAndLastInitial = $sail_user->firstName . " " . $sail_user->lastName[0] . ".";
       $initials = strtoupper($sail_user->firstName[0]) . "." . strtoupper($sail_user->lastName[0]) . ".";
       $profilePicture = "http://sailhousingsolutions.org/wp-admin/identicon.php?size=200&hash=" . $sail_user->email;
 
