@@ -1,20 +1,28 @@
 <?php
 
+ini_set('error_reporting', E_ALL); // or error_reporting(E_ALL);
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+
 // In lieu of coomposer, load the PayPal library manually
 $HOME_DIR = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
-print_r('Including from directory: ' . $HOME_DIR);
+print 'Including from directory: ' . $HOME_DIR;
+foreach (glob($HOME_DIR . "paypalhttp_php-1.0.0/lib/PayPalHttp/Serializer/*.php") as $filename) {
+    print 'Including file: ' . $filename;
+    include $filename;
+}
+foreach (glob($HOME_DIR . "paypalhttp_php-1.0.0/lib/PayPalHttp/*.php") as $filename) {
+    print 'Including file: ' . $filename;
+    include $filename;
+}
 foreach (glob($HOME_DIR . "Checkout-PHP-SDK-1.0.1/lib/PayPalCheckoutSdk/*/*.php") as $filename) {
-    print_r('Including file: ' . $filename, true);
+    print 'Including file: ' . $filename;
     include $filename;
 }
 
 use PayPalCheckoutSdk\Orders\OrdersCaptureRequest;
 use PayPalCheckoutSdk\Core\PayPalHttpClient;
 use PayPalCheckoutSdk\Core\SandboxEnvironment;
-
-ini_set('error_reporting', E_ALL); // or error_reporting(E_ALL);
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
 
 class PayPalClient
 {
