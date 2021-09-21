@@ -1,3 +1,30 @@
+<script>
+  function onNamePrefChange(selectObj) {
+    var value = selectObj.value;
+    if (value === "First Name Only") {
+      document.getElementById("displayName").innerHTML = document.getElementById("firstName").innerHTML;
+    }
+    else if (value === "First Name and Last Initial") {
+      document.getElementById("displayName").innerHTML = document.getElementById("firstNameAndLastInitial").innerHTML;
+    }
+    //else if (value === "Initials Only") {
+      //document.getElementById("displayName").innerHTML = document.getElementById("initials").innerHTML;
+    //}
+    else if (value === "Nickname") {
+      document.getElementById("displayName").innerHTML = document.getElementById("nickname").value;
+    }
+  }
+
+  function onTextFieldChange(value, field) {
+    document.getElementById(field).innerHTML = value;
+  }
+
+  function onNickNameChange(value) {
+    if (document.getElementById("namePreference").value === "Nickname") {
+      document.getElementById("displayName").innerHTML = value;
+    }
+  }
+</script>
 <details>
 	<summary>Update Your Friendship Connect Profile</summary>
 		<form accept-charset="UTF-8" action="<?php esc_url(admin_url('admin-post.php')); ?>" id="fc_profile_update" autocomplete="off" method="post">
@@ -92,3 +119,29 @@
 		</form>
 		<button type="submit" form="fc_profile_update" value="Submit">Submit</button>
 </details>
+
+<!-- Profile Picture preview from https://web.dev/read-files/ -->
+<script>
+      const status = document.getElementById('status');
+      const pfpPreview = document.getElementById('pfpPreview');
+      if (window.FileList && window.File && window.FileReader) {
+        document.getElementById('profilePicture').addEventListener('change', event => {
+          pfpPreview.src = '';
+          status.textContent = '';
+          const file = event.target.files[0];
+          if (!file.type) {
+            status.textContent = 'Error: The File.type property does not appear to be supported on this browser.';
+            return;
+          }
+          if (!file.type.match('image.*')) {
+            status.textContent = 'Error: The selected file does not appear to be an image.'
+            return;
+          }
+          const reader = new FileReader();
+          reader.addEventListener('load', event => {
+            pfpPreview.src = event.target.result;
+          });
+          reader.readAsDataURL(file);
+        }); 
+      }
+</script>
