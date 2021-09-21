@@ -37,7 +37,8 @@ if (is_user_logged_in()) {
             $data['profilePicture'] = $upload['url'];
         }
         else {
-
+            error_log("[fc-profile-update] profilePicture upload failed: ");
+            error_log(print_r($upload['error'], true));
         }
     } else {
         $data['profilePicture'] = $cur_member->profilePicture;
