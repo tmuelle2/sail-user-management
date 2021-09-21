@@ -148,7 +148,7 @@ function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
 
         $firstNameAndLastInitial = $sail_user->firstName . " " . $sail_user->lastName[0] . ".";
         $initials = strtoupper($sail_user->firstName[0]) . "." . strtoupper($sail_user->lastName[0]) . ".";
-        $profilePicture = "http://sailhousingsolutions.org/wp-admin/identicon.php?size=200&hash=" . $sail_user->email;
+        $profilePicture = "http://sailhousingsolutions.org/wp-admin/identicon.php?size=200&hash=" . md5($sail_user->email);
 
         $html = get_sail_page($PAGES_DIR . 'fc-registration.html');
 
@@ -163,6 +163,22 @@ function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
     } else {
       return esc_html("You need to be a paying member to create a Friendship Connect Profile. To pay dues, go to the 'My Profile' page.");
     } 
+  } else {
+    nocache_headers();
+    wp_safe_redirect('https://sailhousingsolutions.org/login');
+    exit;
+  }    
+}
+
+function fc_update_shortcode($atts = [], $content = null, $tag = '' ) {
+  if (is_user_logged_in()) {
+    global $PAGES_DIR;
+    global $USER_DB_FIELDS;
+
+    $fc_member = get_fc_member();
+    $html = parse_html(get_sail_page($PAGES_DIR . 'fc-profile-update.html'));
+    populate_form_elements($html, $USER_DB_FIELDS, $fc_member);
+    return $html->saveHTML();
   } else {
     nocache_headers();
     wp_safe_redirect('https://sailhousingsolutions.org/login');
@@ -318,12 +334,14 @@ function is_due_paying_member($sail_user) {
 }
 
 // Returns the fc member info of the currently logged in user if it exists
-function get_fc_member() {
+function get_fc_member($format = null) {
     global $wpdb;
     $user = wp_get_current_user();
     $query = "SELECT * FROM `fc_members` WHERE userId = ";
     $query .= $user->ID;
-    $result = $wpdb->get_row($query);
+
+    if ($format == 'ARRAY_A') return $result = $wpdb->get_row($query, 'ARRAY_A');
+    else return $result = $wpdb->get_row($query);
 
     return $result;
 }
@@ -475,6 +493,7 @@ function sail_plugin_init() {
     add_shortcode( 'userUpdatePort', 'user_update_port_shortcode');
     add_shortcode( 'userFCLanding', 'fc_landing_shortcode');
     add_shortcode( 'userFCRegistration', 'fc_reg_shortcode');
+    add_shortcode( 'userFCProfileUpdate', 'fc_update_shortcode');
     add_shortcode( 'userFCExampleProfile', 'fc_example_profile_shortcode');
     add_shortcode( 'userFCSearch', 'fc_search_shortcode');
 } 

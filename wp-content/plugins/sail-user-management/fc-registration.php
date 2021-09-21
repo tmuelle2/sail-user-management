@@ -38,10 +38,10 @@ if (is_user_logged_in()) {
             $data['profilePicture'] = $upload['url'];
         }
         else {
-            $data['profilePicture'] = "http://sailhousingsolutions.org/wp-admin/identicon.php?size=200&hash=" . $user->user_login;
+            $data['profilePicture'] = "http://sailhousingsolutions.org/wp-admin/identicon.php?size=200&hash=" . md5($user->user_login);
         }      
     } else {
-        $data['profilePicture'] = "http://sailhousingsolutions.org/wp-admin/identicon.php?size=200&hash=" . $user->user_login;
+        $data['profilePicture'] = "http://sailhousingsolutions.org/wp-admin/identicon.php?size=200&hash=" . md5($user->user_login);
     }
 
     // check if fc profile already exists for this user
