@@ -496,25 +496,18 @@ function sail_plugin_init() {
     add_shortcode( 'userFCProfileUpdate', 'fc_update_shortcode');
     add_shortcode( 'userFCExampleProfile', 'fc_example_profile_shortcode');
     add_shortcode( 'userFCSearch', 'fc_search_shortcode');
+    // Restrict Media Vault files to paid members
+    if ( function_exists( 'mgjp_mv_add_permission' ) ) {
+      mgjp_mv_add_permission( 'paid-subscribers', array(
+        'description'  => 'Restricts files to paid members',
+        'select'       => 'Paid Members',
+        'logged_in'    => true, // whether the user must be logged in
+        'run_in_admin' => false, // whether to run the access check in admin
+        'cb'           => 'restrict_media_vault_to_paid_members'
+      ) );
+    }
 } 
 add_action('init', 'sail_plugin_init' );
-
-/**
- * Runs on plugin activation, only run once when the plugin activates.
- */
-function sail_plugin_activate() {
-  if ( function_exists( 'mgjp_mv_add_permission' ) ) {
-    mgjp_mv_add_permission( 'paid-subscribers', array(
-      'description'  => 'Restricts files to paid members',
-      'select'       => 'Paid Members',
-      'logged_in'    => true, // whether the user must be logged in
-      'run_in_admin' => false, // whether to run the access check in admin
-      'cb'           => 'restrict_media_vault_to_paid_members'
-    ) );
-
-  }
-}
-register_activation_hook( __FILE__, 'sail_plugin_activate' );
 
 function restrict_media_vault_to_paid_members() {
   if (is_user_logged_in()) {
@@ -525,6 +518,13 @@ function restrict_media_vault_to_paid_members() {
   }
   return false;
 }
+
+/**
+ * Runs on plugin activation, only run once when the plugin activates.
+ */
+function sail_plugin_activate() {
+}
+register_activation_hook( __FILE__, 'sail_plugin_activate' );
 
 /**
  * Initialize REST APIs
