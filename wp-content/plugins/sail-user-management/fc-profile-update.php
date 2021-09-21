@@ -6,7 +6,7 @@ global $wpdb;
 
 if (is_user_logged_in()) {
     
-    $cur_member_array = get_fc_member('ARRAY_A');
+    $cur_member_array = get_fc_member_array();
 
     // TODO: Refactor with user-registration
     // Extract form and format data
