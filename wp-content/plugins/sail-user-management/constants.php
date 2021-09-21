@@ -32,7 +32,6 @@ $USER_DB_FIELDS = array(
 // Mapping of form element to database format
 $FC_DB_FIELDS = array(
     'authorized' => '%s',
-    //'consent' => '%s', 
     'profilePicture' => '%s',
     'gender' => '%s',
     'namePreference' => '%s',
