@@ -447,7 +447,7 @@ function populate_input($dom_input, $value) {
     }
   } elseif ($count > 1 && $dom_input[0]->attributes->getNamedItem('type')->nodeValue == 'checkbox') {
     //$dom_input[0]->setAttribute('value', $value);
-    if (endsWidth($dom_input[0]->attributes->getNamedItem('name'), "[]")) {
+    //if (endsWidth($dom_input[0]->attributes->getNamedItem('name'), "[]")) {
       error_log("[populate_input] checkbox array var dump: ");
       error_log(print_r($node));
 
@@ -457,7 +457,7 @@ function populate_input($dom_input, $value) {
           $dom_input[$i]->setAttribute('checked', '');
         }
       }
-    }
+    //}
   } 
     elseif ($count > 1 && $dom_input[0]->attributes->getNamedItem('type')->nodeValue == 'hidden') {
     // do nothing for now
