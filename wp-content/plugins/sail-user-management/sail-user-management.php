@@ -182,7 +182,7 @@ function fc_update_shortcode($atts = [], $content = null, $tag = '' ) {
       error_log(print_r($fc_member, true));
       $html = parse_html(get_sail_page($PAGES_DIR . 'fc-profile-update.html'));
       populate_form_elements($html, $FC_DB_FIELDS, $fc_member);
-      $html->saveHTML();      
+      $html = $html->saveHTML();      
     
       $firstNameAndLastInitial = $sail_user->firstName . " " . $sail_user->lastName[0] . ".";
       $initials = strtoupper($sail_user->firstName[0]) . "." . strtoupper($sail_user->lastName[0]) . ".";
