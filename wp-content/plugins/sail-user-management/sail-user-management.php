@@ -172,13 +172,36 @@ function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
 
 function fc_update_shortcode($atts = [], $content = null, $tag = '' ) {
   if (is_user_logged_in()) {
-    global $PAGES_DIR;
-    global $FC_DB_FIELDS;
+    $sail_user = get_sail_user();
+    if (is_due_paying_member($sail_user)) {
+      global $PAGES_DIR;
+      global $FC_DB_FIELDS;
 
-    $fc_member = get_fc_member();
-    $html = parse_html(get_sail_page($PAGES_DIR . 'fc-profile-update.html'));
-    populate_form_elements($html, $FC_DB_FIELDS, $fc_member);
-    return $html->saveHTML();
+      $fc_member = get_fc_member();
+      $html = parse_html(get_sail_page($PAGES_DIR . 'fc-profile-update.html'));
+      populate_form_elements($html, $FC_DB_FIELDS, $fc_member);
+      $html->saveHTML();
+    
+      $firstNameAndLastInitial = $sail_user->firstName . " " . $sail_user->lastName[0] . ".";
+      $initials = strtoupper($sail_user->firstName[0]) . "." . strtoupper($sail_user->lastName[0]) . ".";
+      $profilePicture = $fc_member->profilePicture;
+      $displayName = $sail_user->firstName;
+      if ($fc_member->namePreference == "First Name and Last Initial") { $displayName = $firstNameAndLastInitial; }
+      if ($fc_member->namePreference == "Nickname") { $displayName = $fc_member->nickname; }
+
+      $html = get_sail_page($PAGES_DIR . 'fc-registration.html');
+
+      $html = str_ireplace("{{displayName}}", esc_html($displayName), $html);
+      $html = str_ireplace("{{firstName}}", esc_html($sail_user->firstName), $html);
+      $html = str_ireplace("{{firstNameAndLastInitial}}", esc_html($firstNameAndLastInitial), $html);
+      $html = str_ireplace("{{initials}}", esc_html($initials), $html);
+      $html = str_ireplace("{{profilePicture}}", esc_html($profilePicture), $html);
+  
+      return $html;
+      
+    } else {
+      return '';
+    }
   } else {
     nocache_headers();
     wp_safe_redirect('https://sailhousingsolutions.org/login');
