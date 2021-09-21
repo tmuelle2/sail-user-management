@@ -1,7 +1,7 @@
 <?php
 
 $HOME_DIR = '/_home2/sailhou1/public_html/';
-global $USER_DB_FIELDS;
+global $FC_DB_FIELDS;
 global $wpdb;
 
 if (is_user_logged_in()) {
@@ -12,7 +12,7 @@ if (is_user_logged_in()) {
     // Extract form and format data
     $data = array();
     $formats = array();
-    foreach($USER_DB_FIELDS as $element => $format) {
+    foreach($FC_DB_FIELDS as $element => $format) {
         if (isset($_POST[$element])) {
             $data[$element] = $_POST[$element];
         }
