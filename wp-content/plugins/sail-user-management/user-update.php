@@ -14,7 +14,20 @@ if (is_user_logged_in()) {
     $formats = array();
     foreach($USER_DB_FIELDS as $element => $format) {
         if (isset($_POST[$element])) {
-            $data[$element] = $_POST[$element];
+            // Special check if the data is an array for multi-select checkbox inputs
+            if (is_array($_POST[$element])) {
+                if (!empty($_POST[$element])) {
+                    $combined = "";
+                    foreach($_POST[$element] as $check) {
+                        $combined .= $check;
+                        $combined .= "|"; // using piped seperated string since commas are used
+                    }
+                    $data[$element] = substr($combined, 0, -1);
+                }
+            }
+            else {
+                $data[$element] = $_POST[$element];
+            }
         }
         else {
             $data[$element] = $cur_user_array[$element];
