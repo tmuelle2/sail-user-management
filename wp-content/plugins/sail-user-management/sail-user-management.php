@@ -368,8 +368,8 @@ function get_fc_member() {
 
     $result = $wpdb->get_row($query);
     error_log("[get_fc_member] Now printing debug vars: ");
-    print_r($query, true));
-    print_r($result, true));
+    print_r($query, true);
+    print_r($result, true);
     return $result;
 }
 
