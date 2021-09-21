@@ -180,9 +180,8 @@ function fc_update_shortcode($atts = [], $content = null, $tag = '' ) {
       $fc_member = get_fc_member();
       error_log("[fc_update_shortcode] Now printing debug vars: ");
       error_log(print_r($fc_member, true));
-      $html = parse_html(get_sail_page($PAGES_DIR . 'fc-profile-update.html'));
-      populate_form_elements($html, $FC_DB_FIELDS, $fc_member);
-      $html = $html->saveHTML();      
+
+      $html = get_sail_page($PAGES_DIR . 'fc-profile-update.html')     
     
       $firstNameAndLastInitial = $sail_user->firstName . " " . $sail_user->lastName[0] . ".";
       $initials = strtoupper($sail_user->firstName[0]) . "." . strtoupper($sail_user->lastName[0]) . ".";
@@ -197,7 +196,9 @@ function fc_update_shortcode($atts = [], $content = null, $tag = '' ) {
       $html = str_ireplace("{{initials}}", esc_html($initials), $html);
       $html = str_ireplace("{{profilePicture}}", esc_html($fc_member->profilePicture), $html);
   
-      return $html;
+      $parsed_html = parse_html($html);
+      populate_form_elements($parsed_html, $FC_DB_FIELDS, $fc_member);
+      return $parsed_html->saveHTML();
       
     } else {
       return '';
