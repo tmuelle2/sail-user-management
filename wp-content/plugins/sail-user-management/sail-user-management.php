@@ -580,6 +580,12 @@ function fc_register() {
 }
 add_action('admin_post_fc_registration', 'fc_register');
 
+function fc_profile_update() {
+  global $HOME_DIR;
+  include_once($HOME_DIR . 'fc-profile-update.php');
+}
+add_action('admin_post_fc_profile_update', 'fc_profile_update');
+
 function join_port() {
   global $HOME_DIR;
   include_once($HOME_DIR . 'join-port.php');
