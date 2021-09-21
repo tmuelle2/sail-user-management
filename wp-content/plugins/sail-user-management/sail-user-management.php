@@ -452,6 +452,10 @@ function populate_input($dom_input, $value) {
     }
   } elseif ($count == 1) { 
     $dom_input[0]->setAttribute('value', $value);
+  } elseif ($dom_input[0]->attributes->getNamedItem('type')->nodeValue == 'checkbox') { {
+    // do nothing for now
+    //$dom_input[0]->setAttribute('value', $value);
+  } 
   } else {
     $attrs = dom_named_node_map_to_string($dom_input[0]->attributes);
     error_log("Unsupported input element(s). There are $count elements, the first element's attributes are: $attrs");
