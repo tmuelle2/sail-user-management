@@ -605,7 +605,7 @@ function register_apis() {
   register_rest_route( 'membership/v1', '/dues', array(
     'methods' => 'POST',
     'callback' => 'pay_dues',
-    'permission_callback' => 'is_user_logged_in',
+    'permission_callback' => 'pay_dues_auth',
   ) );
 }
 
@@ -616,6 +616,13 @@ function pay_dues( $request ) {
   }
   include_once($HOME_DIR . 'user-payment.php');
   PayPalOrder::recordOrder($request->get_json_params()['id'], true);
+}
+
+function pay_dues_auth() {
+  if (is_user_logged_in()) {
+    return true;
+  }
+  return false;
 }
 
 /***********************************************************************
