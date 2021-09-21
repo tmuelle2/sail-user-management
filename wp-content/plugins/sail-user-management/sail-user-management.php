@@ -178,8 +178,6 @@ function fc_update_shortcode($atts = [], $content = null, $tag = '' ) {
       global $FC_DB_FIELDS;
 
       $fc_member = get_fc_member();
-      error_log("[fc_update_shortcode] Now printing debug vars: ");
-      error_log(print_r($fc_member, true));
 
       $html = get_sail_page($PAGES_DIR . 'fc-profile-update.html');     
     
@@ -367,9 +365,7 @@ function get_fc_member() {
 
 
     $result = $wpdb->get_row($query);
-    error_log("[get_fc_member] Now printing debug vars: ");
-    error_log(print_r($query, true));
-    error_log(print_r($result, true));
+
     return $result;
 }
 
