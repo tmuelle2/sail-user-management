@@ -173,11 +173,11 @@ function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
 function fc_update_shortcode($atts = [], $content = null, $tag = '' ) {
   if (is_user_logged_in()) {
     global $PAGES_DIR;
-    global $USER_DB_FIELDS;
+    global $FC_DB_FIELDS;
 
     $fc_member = get_fc_member();
     $html = parse_html(get_sail_page($PAGES_DIR . 'fc-profile-update.html'));
-    populate_form_elements($html, $USER_DB_FIELDS, $fc_member);
+    populate_form_elements($html, $FC_DB_FIELDS, $fc_member);
     return $html->saveHTML();
   } else {
     nocache_headers();
