@@ -547,20 +547,25 @@ function sail_plugin_init() {
     add_shortcode( 'userFCRegistration', 'fc_reg_shortcode');
     add_shortcode( 'userFCProfileUpdate', 'fc_update_shortcode');
     add_shortcode( 'userFCExampleProfile', 'fc_example_profile_shortcode');
-    add_shortcode( 'userFCSearch', 'fc_search_shortcode');
-    // Restrict Media Vault files to paid members
-    if ( function_exists( 'mgjp_mv_add_permission' ) ) {
-      error_log('SAIL adding MV permissions');
-      mgjp_mv_add_permission( 'paid-subscribers', array(
-        'description'  => 'Restricts files to paid members',
-        'select'       => 'Paid Members',
-        'logged_in'    => true, // whether the user must be logged in
-        'run_in_admin' => false, // whether to run the access check in admin
-        'cb'           => 'restrict_media_vault_to_paid_members'
-      ) );
-    }
+    add_shortcode( 'userFCSearch', 'fc_search_shortcode'); 
 } 
 add_action('init', 'sail_plugin_init' );
+
+function sail_plugin_preinit() {
+  // Restrict Media Vault files to paid members
+  if ( function_exists( 'mgjp_mv_add_permission' ) ) {
+    error_log('SAIL adding MV permissions');
+    mgjp_mv_add_permission( 'paid-subscribers', array(
+      'description'  => 'Restricts files to paid members',
+      'select'       => 'Paid Members',
+      'logged_in'    => true, // whether the user must be logged in
+      'run_in_admin' => false, // whether to run the access check in admin
+      'cb'           => 'restrict_media_vault_to_paid_members'
+    ) );
+  }
+}
+// Hack this to ensure permission definition runs before media vault runs
+add_action('set_current_user', 'sail_plugin_preinit');
 
 function restrict_media_vault_to_paid_members() {
   if (is_user_logged_in()) {
