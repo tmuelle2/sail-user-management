@@ -191,8 +191,6 @@ function fc_update_shortcode($atts = [], $content = null, $tag = '' ) {
       if ($fc_member->namePreference == "First Name and Last Initial") { $displayName = $firstNameAndLastInitial; }
       if ($fc_member->namePreference == "Nickname") { $displayName = $fc_member->nickname; }
 
-      $html = get_sail_page($PAGES_DIR . 'fc-registration.html');
-
       $html = str_ireplace("{{displayName}}", esc_html($displayName), $html);
       $html = str_ireplace("{{firstName}}", esc_html($sail_user->firstName), $html);
       $html = str_ireplace("{{firstNameAndLastInitial}}", esc_html($firstNameAndLastInitial), $html);
