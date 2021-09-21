@@ -179,7 +179,7 @@ function fc_update_shortcode($atts = [], $content = null, $tag = '' ) {
 
       $fc_member = get_fc_member();
       error_log("[fc_update_shortcode] Now printing debug vars: ");
-      print_r($fc_member, true);
+      error_log(print_r($fc_member, true));
       $html = parse_html(get_sail_page($PAGES_DIR . 'fc-profile-update.html'));
       populate_form_elements($html, $FC_DB_FIELDS, $fc_member);      
     
