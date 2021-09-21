@@ -446,8 +446,13 @@ function populate_input($dom_input, $value) {
       }
     }
   } elseif ($count > 1 && $dom_input[0]->attributes->getNamedItem('type')->nodeValue == 'checkbox') {
-    // do nothing for now
     //$dom_input[0]->setAttribute('value', $value);
+    if ($node->attributes->getNamedItem('name') == "situation") {
+      error_log("[populate_input] var dump: ");
+      error_log(print_r($node));
+      $value_array = explode (",", $value);
+      $dom_input[0]->setAttribute('value', $value_array[0]);
+    }
   } 
     elseif ($count > 1 && $dom_input[0]->attributes->getNamedItem('type')->nodeValue == 'hidden') {
     // do nothing for now
