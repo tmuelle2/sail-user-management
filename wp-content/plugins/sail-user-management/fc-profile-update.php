@@ -25,8 +25,8 @@ if (is_user_logged_in()) {
     $cur_user = get_sail_user();
     $cur_member = get_fc_member();
     
-    error_log("[fc-profile-update] $_FILES var dump: ");
-    error_log(print_r($_FILES['profilePicture']['name'], true));
+    //error_log("[fc-profile-update] $_FILES var dump: ");
+    //error_log(print_r($_FILES['profilePicture']['name'], true));
 
     // TODO: Refactor with user-registration
     if (isset($_FILES['profilePicture']) && isset($_FILES['profilePicture']['name']) && isset($_FILES['profilePicture']['name'])
