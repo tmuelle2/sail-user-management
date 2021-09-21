@@ -449,11 +449,11 @@ function populate_input($dom_input, $value) {
     //$dom_input[0]->setAttribute('value', $value);
     //if (endsWidth($dom_input[0]->attributes->getNamedItem('name'), "[]")) {
       error_log("[populate_input] checkbox array var dump: ");
-      error_log(print_r($node));
+      error_log(print_r($dom_input[0]));
 
-      $value_array = explode ("|", $value);
+      $value_array = explode("|", $value);
       for($i = 0; $i < $count; $i++) {
-        if (in_array($dom_input[i]->attributes->getNamedItem('value'), $value_array)) {     
+        if (in_array($dom_input[$i]->attributes->getNamedItem('value'), $value_array)) {     
           $dom_input[$i]->setAttribute('checked', '');
         }
       }
