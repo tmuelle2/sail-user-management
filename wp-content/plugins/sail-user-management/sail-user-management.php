@@ -554,7 +554,7 @@ add_action('init', 'sail_plugin_init' );
 function restrict_media_vault_to_paid_members() {
   if (is_user_logged_in()) {
     $sail_user = get_sail_user();
-    if (is_due_paying_member()) {
+    if (is_due_paying_member($sail_user)) {
       return true;
     }
   }
@@ -577,6 +577,7 @@ function register_apis() {
   register_rest_route( 'membership/v1', '/dues', array(
     'methods' => 'POST',
     'callback' => 'pay_dues',
+    'permission_callback' => 'is_user_logged_in',
   ) );
 }
 
