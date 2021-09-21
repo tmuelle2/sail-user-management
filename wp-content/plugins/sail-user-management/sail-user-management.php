@@ -198,7 +198,7 @@ function fc_update_shortcode($atts = [], $content = null, $tag = '' ) {
       $html = str_ireplace("{{initials}}", esc_html($initials), $html);
       $html = str_ireplace("{{profilePicture}}", esc_html($profilePicture), $html);
   
-      return $html->saveHTML();;
+      return $html;
       
     } else {
       return '';
