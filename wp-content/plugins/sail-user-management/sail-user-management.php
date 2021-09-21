@@ -550,6 +550,7 @@ function sail_plugin_init() {
     add_shortcode( 'userFCSearch', 'fc_search_shortcode');
     // Restrict Media Vault files to paid members
     if ( function_exists( 'mgjp_mv_add_permission' ) ) {
+      error_log('SAIL adding MV permissions');
       mgjp_mv_add_permission( 'paid-subscribers', array(
         'description'  => 'Restricts files to paid members',
         'select'       => 'Paid Members',
