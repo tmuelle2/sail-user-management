@@ -359,13 +359,17 @@ function is_due_paying_member($sail_user) {
 
 // Returns the fc member info of the currently logged in user if it exists
 function get_fc_member() {
+
     global $wpdb;
     $user = wp_get_current_user();
     $query = "SELECT * FROM `fc_members` WHERE userId = ";
     $query .= $user->ID;
 
-    $result = $wpdb->get_row($query);
 
+    $result = $wpdb->get_row($query);
+    error_log("[get_fc_member] Now printing debug vars: ");
+    print_r($query, true));
+    print_r($result, true));
     return $result;
 }
 
