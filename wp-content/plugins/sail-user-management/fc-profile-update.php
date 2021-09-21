@@ -43,8 +43,8 @@ if (is_user_logged_in()) {
         $data['profilePicture'] = $cur_member->profilePicture;
     }
 
-    // Update SAIL users db table
-    $wpdb->update('sail_users', $data, array('userId' => $cur_user->userId), $formats);
+    // Update FC members db table
+    $wpdb->update('fc_members', $data, array('userId' => $cur_member->userId), $formats);
 
     // Success redirect
     nocache_headers();
