@@ -460,23 +460,12 @@ function populate_input($dom_input, $value) {
       }
     }
   } elseif ($count > 1 && $dom_input[0]->attributes->getNamedItem('type')->nodeValue == 'checkbox') {
-    //$dom_input[0]->setAttribute('value', $value);
-    //if (endsWidth($dom_input[0]->attributes->getNamedItem('name'), "[]")) {
-
-      $value_array = explode("|", $value);
-      error_log("[populate_input] checkbox value_array: ");
-      error_log(print_r($value_array, true));
-      for($i = 0; $i < $count; $i++) {
-        error_log("[populate_input] checkbox loop: ");
-        error_log(print_r($i, true));
-        error_log(print_r($dom_input[$i]->attributes->getNamedItem('value')->value, true));
-
-        if (in_array($dom_input[$i]->attributes->getNamedItem('value')->value, $value_array)) {     
-          error_log("IN ARRAY TRUE");
-          $dom_input[$i]->setAttribute('checked', '');
-        }
+    $value_array = explode("|", $value);     
+    for($i = 0; $i < $count; $i++) {
+      if (in_array($dom_input[$i]->attributes->getNamedItem('value')->value, $value_array)) {           
+        $dom_input[$i]->setAttribute('checked', '');
       }
-    //}
+    }
   } elseif ($count > 1 && $dom_input[0]->attributes->getNamedItem('type')->nodeValue == 'hidden') {
     // do nothing for now
     //$dom_input[0]->setAttribute('value', $value);

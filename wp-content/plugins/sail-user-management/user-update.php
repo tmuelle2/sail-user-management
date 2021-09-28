@@ -55,9 +55,6 @@ if (is_user_logged_in()) {
         $data['profilePicture'] = $cur_user->profilePicture;
     }
 
-    // HACK: band-aid hack to avoid losing user data, will remove once checkbox arrays values are properply set in form
-    $data['situation'] = $cur_user->situation;
-
     // Update SAIL users db table
     $wpdb->update('sail_users', $data, array('userId' => $cur_user->userId), $formats);
 
