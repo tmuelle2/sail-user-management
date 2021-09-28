@@ -121,7 +121,7 @@ function user_add_family_member($atts = [], $content = null, $tag = '' ) {
     global $PAGES_DIR;
 
     $sail_user = get_sail_user();
-    $html = parse_html(get_sail_page($PAGES_DIR . 'add-family-member.html'));
+    $html = get_sail_page($PAGES_DIR . 'add-family-member.html');
     $html = str_ireplace("{{linkedAccounts}}", esc_html("None"), $html);
     return $html;
   } else {
