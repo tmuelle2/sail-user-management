@@ -436,12 +436,12 @@ function name_to_node_map($nodes) {
   $arr = array();
   foreach($nodes as $node) {
     $node_name = $node->attributes->getNamedItem('name');
-    $node_name = str_ireplace("[]", "", $node_name);
+    $clean_name = str_ireplace("[]", "", $node_name->nodeValue);
     if ($node_name != null) {
-      if (isset($arr[$node_name->nodeValue])) {
-        array_push($arr[$node_name->nodeValue], $node);
+      if (isset($arr[$clean_name])) {
+        array_push($arr[$clean_name], $node);
       } else {
-        $arr[$node_name->nodeValue] = array($node);
+        $arr[$clean_name] = array($node);
       }
     }
   }
