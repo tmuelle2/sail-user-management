@@ -26,7 +26,9 @@ $USER_DB_FIELDS = array(
     'emailVerified' => '%s',
     'emailVerificationKey' => '%s',
     'isPaidMember' => '%s',
-    'lastDuePaymentDate' => '%s'
+    'lastDuePaymentDate' => '%s',
+    'familyLinkingKey' => '%s',
+    'familyId' => '%s'
 );
 
 // Mapping of form element to database format

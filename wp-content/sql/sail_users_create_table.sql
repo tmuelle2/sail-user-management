@@ -26,6 +26,8 @@ CREATE TABLE `sailhou1_wpral`.`sail_users`
      `createdon`            TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
      `readtermsofservice`   BOOLEAN NOT NULL,
      `isPaidMember`         BOOLEAN NOT NULL,
-     `lastDuePaymentDate`   DATE
+     `lastDuePaymentDate`   DATE,
+     `familyLinkingKey`     TEXT NULL,
+     `familyId`             BIGINT NULL
   )
 engine = innodb; 
