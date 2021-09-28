@@ -244,6 +244,10 @@ function fc_search_shortcode($atts = [], $content = null, $tag = '' ) {
         $initials = strtoupper($sail_profile->firstName[0]) . "." . strtoupper($sail_profile->lastName[0]) . ".";
         $age = floor((time() - strtotime($sail_profile->dob)) / 31556926);
         $location = $sail_profile->city . ", " . $sail_profile->state;
+        $contact = "";
+        if ($fc_profile->primaryContactType == "Phone (Text Message)") { $contact = "Via Text Message at " . $sail_profile->phoneNumber; }
+        else if ($fc_profile->primaryContactType == "Phone (Voice Call)") { $contact = "Via Voice Call at " . $sail_profile->phoneNumber; }
+        else { $contact = "Via Email at " . $sail_profile->email; }
 
         // Start building result summary
         $summary = file_get_contents($PAGES_DIR . 'fc-result-summary.html', true);
@@ -258,6 +262,12 @@ function fc_search_shortcode($atts = [], $content = null, $tag = '' ) {
         $summary = str_ireplace("{{location}}", esc_html($location), $summary);
         $summary = str_ireplace("{{activities}}", esc_html($fc_profile->activities), $summary);
         $summary = str_ireplace("{{hobbies}}", esc_html($fc_profile->hobbies), $summary);
+        $summary = str_ireplace("{{typicalDay}}", esc_html($fc_profile->typicalDay), $summary);
+        $summary = str_ireplace("{{strengths}}", esc_html($fc_profile->strengths), $summary);
+        $summary = str_ireplace("{{makesYouHappy}}", esc_html($fc_profile->makesYouHappy), $summary);
+        $summary = str_ireplace("{{lifesVision}}", esc_html($fc_profile->lifesVision), $summary);
+        $summary = str_ireplace("{{supportRequirements}}", esc_html($fc_profile->supportRequirements), $summary);
+        $summary = str_ireplace("{{contact}}", esc_html($contact), $summary);
 
         $html .= $summary;
       }
