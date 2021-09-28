@@ -469,9 +469,9 @@ function populate_input($dom_input, $value) {
       for($i = 0; $i < $count; $i++) {
         error_log("[populate_input] checkbox loop: ");
         error_log(print_r($i, true));
-        error_log(print_r($dom_input[$i]->attributes->getNamedItem('value'), true));
+        error_log(print_r($dom_input[$i]->attributes->getNamedItem('value')->value, true));
 
-        if (in_array($dom_input[$i]->attributes->getNamedItem('value'), $value_array, true)) {     
+        if (in_array($dom_input[$i]->attributes->getNamedItem('value')->value, $value_array)) {     
           error_log("IN ARRAY TRUE");
           $dom_input[$i]->setAttribute('checked', '');
         }
