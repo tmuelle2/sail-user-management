@@ -113,6 +113,25 @@ function user_update_profile_shortcode($atts = [], $content = null, $tag = '' ) 
 }
 
 /**
+ * Returns html to link accounts for the logged in user 
+ * otherwise redirects to login page.
+ */
+function user_add_family_member($atts = [], $content = null, $tag = '' ) {
+  if (is_user_logged_in()) {
+    global $PAGES_DIR;
+
+    $sail_user = get_sail_user();
+    $html = parse_html(get_sail_page($PAGES_DIR . 'add-family-member.html'));
+    $html = str_ireplace("{{linkedAccounts}}", esc_html("None"), $html);
+    return $html;
+  } else {
+    nocache_headers();
+    wp_safe_redirect('https://sailhousingsolutions.org/login');
+    exit;
+  }    
+}
+
+/**
  * Returns html for friendship connect landing page
  */
 function fc_landing_shortcode($atts = [], $content = null, $tag = '' ) {
@@ -548,6 +567,7 @@ function sail_plugin_init() {
     add_shortcode( 'userChangePassword', 'user_change_password_shortcode');
     add_shortcode( 'userProfile', 'user_profile_shortcode' );
     add_shortcode( 'userUpdateProfile', 'user_update_profile_shortcode' );
+    add_shortcode( 'userAddFamilyMember', 'user_add_family_member');
     add_shortcode( 'userJoinPort', 'user_join_port_shortcode');
     add_shortcode( 'userUpdatePort', 'user_update_port_shortcode');
     add_shortcode( 'userFCLanding', 'fc_landing_shortcode');
@@ -665,6 +685,12 @@ function sail_user_update() {
   include_once($HOME_DIR . 'user-update.php');
 }
 add_action('admin_post_sail_user_update', 'sail_user_update');
+
+function sail_user_add_family_member() {
+  global $HOME_DIR;
+  include_once($HOME_DIR . 'add-family-member.php');
+}
+add_action('admin_post_sail_user_add_family_member', 'sail_user_add_family_member');
 
 function fc_register() {
   global $HOME_DIR;
