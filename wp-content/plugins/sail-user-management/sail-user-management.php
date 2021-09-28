@@ -462,13 +462,17 @@ function populate_input($dom_input, $value) {
   } elseif ($count > 1 && $dom_input[0]->attributes->getNamedItem('type')->nodeValue == 'checkbox') {
     //$dom_input[0]->setAttribute('value', $value);
     //if (endsWidth($dom_input[0]->attributes->getNamedItem('name'), "[]")) {
-      error_log("[populate_input] checkbox array var dump: ");
-      error_log(print_r($dom_input[0]));
 
       $value_array = explode("|", $value);
+      error_log("[populate_input] checkbox value_array: ");
+      error_log(print_r($value_array, true));
       for($i = 0; $i < $count; $i++) {
+        error_log("[populate_input] checkbox loop: ");
+        error_log(print_r($i, true));
+        error_log(print_r($dom_input[$i]->attributes->getNamedItem('value'), true));
+
         if (in_array($dom_input[$i]->attributes->getNamedItem('value'), $value_array)) {     
-          $dom_input[$i]->setAttribute('checked', true);
+          $dom_input[$i]->setAttribute('checked', '');
         }
       }
     //}
