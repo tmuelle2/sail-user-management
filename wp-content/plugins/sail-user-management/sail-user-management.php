@@ -405,6 +405,9 @@ function populate_form_elements($dom_doc, $db_fields, $db_obj) {
     $element_map[$tag] = name_to_node_map($element_list);
   }
 
+  error_log("[populate_form_elements] $element_map var dump: ");
+  error_log(print_r($element_map));
+
   $db_arr = get_object_vars($db_obj); 
 
   // Populate elements 
@@ -456,19 +459,6 @@ function populate_input($dom_input, $value) {
       }
     }
   } elseif ($count > 1 && $dom_input[0]->attributes->getNamedItem('type')->nodeValue == 'checkbox') {
-    //$dom_input[0]->setAttribute('value', $value);
-    //if (endsWidth($dom_input[0]->attributes->getNamedItem('name'), "[]")) {
-      error_log("[populate_input] checkbox array var dump: ");
-      error_log(print_r($dom_input[0]));
-
-      $value_array = explode("|", $value);
-      for($i = 0; $i < $count; $i++) {
-        if (in_array($dom_input[$i]->attributes->getNamedItem('value'), $value_array)) {     
-          $dom_input[$i]->setAttribute('checked', true);
-        }
-      }
-    //}
-  } elseif ($dom_input[0]->attributes->getNamedItem('type')->nodeValue == 'checkbox') {
     //$dom_input[0]->setAttribute('value', $value);
     //if (endsWidth($dom_input[0]->attributes->getNamedItem('name'), "[]")) {
       error_log("[populate_input] checkbox array var dump: ");
