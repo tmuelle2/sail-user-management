@@ -405,7 +405,7 @@ function populate_form_elements($dom_doc, $db_fields, $db_obj) {
     $element_map[$tag] = name_to_node_map($element_list);
   }
 
-  error_log("[populate_form_elements] $element_map var dump: ");
+  error_log("[populate_form_elements] element_map var dump: ");
   error_log(print_r($element_map));
 
   $db_arr = get_object_vars($db_obj); 
