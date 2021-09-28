@@ -401,8 +401,7 @@ function populate_form_elements($dom_doc, $db_fields, $db_obj) {
   foreach ($tags as $tag) {
     // Get elements 
     $element_list = $dom_doc->getElementsByTagName($tag);
-    error_log("[populate_form_elements] element_list var dump: " . $tag);
-    foreach ($element_list as $debugg) error_log(print_r($debugg->attributes->getNamedItem('name'), true));
+    
     // Build tag to name to node associative arrays
     $element_map[$tag] = name_to_node_map($element_list);
   }
@@ -437,6 +436,7 @@ function name_to_node_map($nodes) {
   $arr = array();
   foreach($nodes as $node) {
     $node_name = $node->attributes->getNamedItem('name');
+    $node_name = str_ireplace("[]", "", $node_name);
     if ($node_name != null) {
       if (isset($arr[$node_name->nodeValue])) {
         array_push($arr[$node_name->nodeValue], $node);
