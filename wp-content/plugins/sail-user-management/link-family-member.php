@@ -6,7 +6,7 @@ if (strpos($wp->request, 'link-family-member') !== false) {
     error_log('Attempting to link family member with ' . $_GET['email'] . ' with code ' . $_GET['family_linking_key']);
     // Ensure query string parameters exist 
     if (isset($_GET['verification_key']) && isset($_GET['email']) 
-        && email_exists($_GET['email']) && is_user_logged_in()) {
+        && email_exists($_GET['email'])) {
 
         $family_linking_key = $_GET['family_linking_key'];
         $email = $_GET['email'];
