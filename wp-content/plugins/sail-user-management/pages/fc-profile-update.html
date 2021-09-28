@@ -24,6 +24,17 @@
       document.getElementById("displayName").innerHTML = value;
     }
   }
+  window.addEventListener("load", function(){
+    document.getElementById("activities").innerHTML = document.getElementsByName("activities")[0].value;
+    document.getElementById("hobbies").innerHTML = document.getElementsByName("hobbies")[0].value;
+    document.getElementById("typicalDay").innerHTML = document.getElementsByName("typicalDay")[0].value;
+    document.getElementById("strengths").innerHTML = document.getElementsByName("strengths")[0].value;
+    document.getElementById("makesYouHappy").innerHTML = document.getElementsByName("makesYouHappy")[0].value;
+    document.getElementById("lifesVision").innerHTML = document.getElementsByName("lifesVision")[0].value;
+    document.getElementById("supportRequirements").innerHTML = document.getElementsByName("supportRequirements")[0].value;
+    var name = { value: document.getElementById("namePreference").value };
+    onNamePrefChange(name);
+  });
 </script>
 <details>
 	<summary>Update Your Friendship Connect Profile</summary>
