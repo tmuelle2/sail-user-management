@@ -6,7 +6,7 @@ if (strpos($wp->request, 'link-family-member') !== false) {
     error_log('Attempting to link family member with ' . $_GET['email'] . ' with code ' . $_GET['family_linking_key']);
     // Ensure query string parameters exist 
     if (isset($_GET['family_linking_key']) && isset($_GET['email']) 
-        && email_exists($_GET['email'])) {
+        && email_exists($_GET['email']) && is_user_logged_in()) {
 
         $family_linking_key = $_GET['family_linking_key'];
         $email = $_GET['email'];
@@ -23,6 +23,7 @@ if (strpos($wp->request, 'link-family-member') !== false) {
             error_log(print_r($cur_user_array, true));
 
             $formats = array();
+            global $USER_DB_FIELDS;
             foreach($USER_DB_FIELDS as $element => $format) {
                 $formats[] = $format;
             }
@@ -32,6 +33,8 @@ if (strpos($wp->request, 'link-family-member') !== false) {
                 $family_id = $cur_user_array['familyId'];
             } else if (isset($link_user['familyId'])) {
                 $family_id = $link_user['familyId'];
+            } else {
+                $family_id = $cur_user_array['userId']
             }
             $cur_user_array['familyId'] = $family_id;
             $link_user['familyId'] = $family_id;
