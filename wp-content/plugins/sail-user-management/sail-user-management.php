@@ -464,7 +464,7 @@ function populate_input($dom_input, $value) {
       $value_array = explode("|", $value);
       for($i = 0; $i < $count; $i++) {
         if (in_array($dom_input[$i]->attributes->getNamedItem('value'), $value_array)) {     
-          $dom_input[$i]->setAttribute('checked', '');
+          $dom_input[$i]->setAttribute('checked', true);
         }
       }
     //}
