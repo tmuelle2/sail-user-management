@@ -468,8 +468,20 @@ function populate_input($dom_input, $value) {
         }
       }
     //}
-  } 
-    elseif ($count > 1 && $dom_input[0]->attributes->getNamedItem('type')->nodeValue == 'hidden') {
+  } elseif ($dom_input[0]->attributes->getNamedItem('type')->nodeValue == 'checkbox') {
+    //$dom_input[0]->setAttribute('value', $value);
+    //if (endsWidth($dom_input[0]->attributes->getNamedItem('name'), "[]")) {
+      error_log("[populate_input] checkbox array var dump: ");
+      error_log(print_r($dom_input[0]));
+
+      $value_array = explode("|", $value);
+      for($i = 0; $i < $count; $i++) {
+        if (in_array($dom_input[$i]->attributes->getNamedItem('value'), $value_array)) {     
+          $dom_input[$i]->setAttribute('checked', true);
+        }
+      }
+    //}
+  } elseif ($count > 1 && $dom_input[0]->attributes->getNamedItem('type')->nodeValue == 'hidden') {
     // do nothing for now
     //$dom_input[0]->setAttribute('value', $value);
   } elseif ($count == 1) { 
