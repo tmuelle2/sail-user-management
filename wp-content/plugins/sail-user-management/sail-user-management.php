@@ -406,7 +406,7 @@ function populate_form_elements($dom_doc, $db_fields, $db_obj) {
   }
 
   error_log("[populate_form_elements] element_map var dump: ");
-  error_log(print_r($element_map['input']));
+  //error_log(print_r($element_map['input']));
 
   $db_arr = get_object_vars($db_obj); 
 
