@@ -472,6 +472,7 @@ function populate_input($dom_input, $value) {
         error_log(print_r($dom_input[$i]->attributes->getNamedItem('value'), true));
 
         if (in_array($dom_input[$i]->attributes->getNamedItem('value'), $value_array)) {     
+          error_log("IN ARRAY TRUE");
           $dom_input[$i]->setAttribute('checked', '');
         }
       }
