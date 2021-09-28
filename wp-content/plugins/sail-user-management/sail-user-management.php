@@ -722,3 +722,10 @@ function sail_user_verify_email() {
 }
 // This runs on every request! Cannot error out unnecessarily!!
 add_action('wp', 'sail_user_verify_email');
+
+function sail_user_link_family_member() {
+  global $HOME_DIR;
+  include_once($HOME_DIR . 'link-family-member.php');
+}
+// This runs on every request! Cannot error out unnecessarily!!
+add_action('wp', 'sail_user_link_family_member');
