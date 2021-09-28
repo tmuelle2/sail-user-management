@@ -401,12 +401,13 @@ function populate_form_elements($dom_doc, $db_fields, $db_obj) {
   foreach ($tags as $tag) {
     // Get elements 
     $element_list = $dom_doc->getElementsByTagName($tag);
+    error_log("[populate_form_elements] element_list var dump: " . $tag);
+    error_log(print_r($element_list));
     // Build tag to name to node associative arrays
     $element_map[$tag] = name_to_node_map($element_list);
   }
 
-  error_log("[populate_form_elements] element_map var dump: ");
-  //error_log(print_r($element_map['input']));
+  
 
   $db_arr = get_object_vars($db_obj); 
 
