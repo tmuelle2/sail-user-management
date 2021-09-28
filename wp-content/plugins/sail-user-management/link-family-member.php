@@ -34,7 +34,7 @@ if (strpos($wp->request, 'link-family-member') !== false) {
             } else if (isset($link_user['familyId'])) {
                 $family_id = $link_user['familyId'];
             } else {
-                $family_id = $cur_user_array['userId']
+                $family_id = $cur_user_array['userId'];
             }
             $cur_user_array['familyId'] = $family_id;
             $link_user['familyId'] = $family_id;
