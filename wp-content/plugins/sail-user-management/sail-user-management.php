@@ -402,7 +402,7 @@ function populate_form_elements($dom_doc, $db_fields, $db_obj) {
     // Get elements 
     $element_list = $dom_doc->getElementsByTagName($tag);
     error_log("[populate_form_elements] element_list var dump: " . $tag);
-    foreach ($element_list as $debugg) error_log(print_r($debugg));
+    foreach ($element_list as $debugg) error_log(print_r($debugg, true));
     // Build tag to name to node associative arrays
     $element_map[$tag] = name_to_node_map($element_list);
   }
