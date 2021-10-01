@@ -15,7 +15,13 @@ include($HOME_DIR . 'constants.php');
  */
 function user_reg_shortcode($atts = [], $content = null, $tag = '' ) {
  global $PAGES_DIR;
- return get_sail_page($PAGES_DIR . 'registration.html');
+ if (is_user_logged_in()) {
+  return esc_html("You need to log out before attempting to register for an account.");
+ }
+ else {
+  return get_sail_page($PAGES_DIR . 'registration.html');
+ }
+ 
 } 
 
 /**
