@@ -121,8 +121,20 @@ function user_add_family_member($atts = [], $content = null, $tag = '' ) {
     global $PAGES_DIR;
 
     $sail_user = get_sail_user();
+    $family_members = get_family_members();
     $html = get_sail_page($PAGES_DIR . 'add-family-member.html');
-    $html = str_ireplace("{{linkedAccounts}}", esc_html("None"), $html);
+
+    if (count($family_members) > 0) {
+      $linkedAccounts = "";
+      foreach($family_members as $fm) {
+        $linkedAccounts .= $fm->firstName . " " . $fm->lastName . " (" . $fm->email . ")<br/>";
+      }
+      $html = str_ireplace("{{linkedAccounts}}", esc_html($linkedAccounts), $html);
+    }
+    else {
+      $html = str_ireplace("{{linkedAccounts}}", esc_html("None"), $html);
+    }
+    
     return $html;
   } else {
     nocache_headers();
@@ -367,6 +379,18 @@ function get_sail_user() {
   return $result;
 }
 
+// Returns the SAIL DB user row corresponding to the userId
+function get_sail_user_by_id($userId) {
+  global $wpdb;
+  $query = "SELECT * FROM `sail_users` WHERE userId = ";
+  $query .= $userId;
+
+  // fetch sail_user
+  $result = $wpdb->get_row($query);
+
+  return $result;
+}
+
 // Returns the SAIL DB user row for the currently logged in user
 function get_sail_user_array() {
   global $wpdb;
@@ -408,6 +432,34 @@ function get_fc_member_array() {
     $result = $wpdb->get_row($query, 'ARRAY_A');
 
     return $result;
+}
+
+// Returns the family members of the currently logged in user if they exist
+function get_family_members() {
+
+    global $wpdb;
+    $family_members = [];
+    $user = wp_get_current_user();
+
+    if ($user->familyId == null) { return $family_members; }
+    
+    $query = "SELECT * FROM `sail_family` WHERE familyId = ";
+    $query .= $user->familyId;
+
+    $results = $wpdb->get_results($query);
+    
+    foreach($results as $relation) {
+      if ($relation->userId1 != $user->ID) {
+        $fm = get_sail_user_by_id($relation->userId1);
+        array_push($family_members, $fm);
+      }
+      else {
+        $fm = get_sail_user_by_id($relation->userId2);
+        array_push($family_members, $fm);
+      }
+    }
+
+    return $family_members;
 }
 
 /**
