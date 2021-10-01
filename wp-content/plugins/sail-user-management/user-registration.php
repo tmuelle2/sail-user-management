@@ -70,7 +70,7 @@ if ( !username_exists($email) && !email_exists($email)) {
 
     // Insert into SAIL users db table
     error_log("[user-registration.php]: Attempting to create sail_user with this data: ");
-    print_r($data, true);
+    error_log(print_r($data, true));
     $wpdb->insert('sail_users', $data, $formats);
     error_log("[user-registration.php]: Sail_user created");
 
