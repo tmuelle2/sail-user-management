@@ -127,7 +127,7 @@ function user_add_family_member($atts = [], $content = null, $tag = '' ) {
     if (count($family_members) > 0) {
       $linkedAccounts = "";
       foreach($family_members as $fm) {
-        $linkedAccounts .= $fm->firstName . " " . $fm->lastName . " (" . $fm->email . ")\r\n";
+        $linkedAccounts .= $fm->firstName . " " . $fm->lastName . " (" . $fm->email . ") \r\n";
       }
       $html = str_ireplace("{{linkedAccounts}}", esc_html($linkedAccounts), $html);
     }
@@ -449,7 +449,7 @@ function get_family_members() {
     $results = $wpdb->get_results($query);
     
     foreach($results as $relation) {
-      if ($relation->userId1 != $user->ID) {
+      if ($relation->userId1 != $user->userId) {
         $fm = get_sail_user_by_id($relation->userId1);
         array_push($family_members, $fm);
       }
