@@ -47,21 +47,32 @@ if ( !username_exists($email) && !email_exists($email)) {
     $message .= $url;
     $message .= "\r\n\r\nIf you didn't sign-up for SAIL, please ignore this email.";
 
+    error_log("[user-registration.php]: Sending email verification...");
+
     wp_mail( $email, "SAIL Email Verification", $message );
+
+    error_log("[user-registration.php]: Email verification sent: ");
+    error_log(print_r($email_verification_key, true));
+
     $data['emailVerificationKey'] = $email_verification_key;
     $data['emailVerified'] = false;
 
     // Create Wordpress user
+    error_log("[user-registration.php]: Creating wp user...");
     $user_id = wp_create_user(
         $email,
         $password,
         $email
     );
+    error_log("[user-registration.php]: Wp user created: ");
+    error_log(print_r($user_id, true));
     $data['userId'] = $user_id;
 
     // Insert into SAIL users db table
+    error_log("[user-registration.php]: Attempting to create sail_user with this data: ");
     print_r($data, true);
     $wpdb->insert('sail_users', $data, $formats);
+    error_log("[user-registration.php]: Sail_user created");
 
     // Signon user
     $creds = array('user_login' => $email, 'user_password' => $password);
