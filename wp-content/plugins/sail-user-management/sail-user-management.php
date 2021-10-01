@@ -439,7 +439,7 @@ function get_family_members() {
 
     global $wpdb;
     $family_members = [];
-    $user = wp_get_current_user();
+    $user = get_sail_user();
     error_log("[get_family_members1]");
     error_log(print_r($user, true));
     if ($user->familyId == null) { return $family_members; }
