@@ -127,7 +127,7 @@ function user_add_family_member($atts = [], $content = null, $tag = '' ) {
     if (count($family_members) > 0) {
       $linkedAccounts = "";
       foreach($family_members as $fm) {
-        $linkedAccounts .= $fm->firstName . " " . $fm->lastName . " (" . $fm->email . ")<br/>";
+        $linkedAccounts .= $fm->firstName . " " . $fm->lastName . " (" . $fm->email . ")\r\n";
       }
       $html = str_ireplace("{{linkedAccounts}}", esc_html($linkedAccounts), $html);
     }
@@ -440,16 +440,13 @@ function get_family_members() {
     global $wpdb;
     $family_members = [];
     $user = get_sail_user();
-    error_log("[get_family_members1]");
-    error_log(print_r($user, true));
+
     if ($user->familyId == null) { return $family_members; }
 
     $query = "SELECT * FROM `sail_family` WHERE familyId = ";
     $query .= $user->familyId;
 
     $results = $wpdb->get_results($query);
-    error_log("[get_family_members2]");
-    error_log(print_r($results, true));
     
     foreach($results as $relation) {
       if ($relation->userId1 != $user->ID) {
@@ -462,8 +459,6 @@ function get_family_members() {
       }
     }
 
-    error_log("[get_family_members3]");
-    error_log(print_r($family_members, true));
     return $family_members;
 }
 
