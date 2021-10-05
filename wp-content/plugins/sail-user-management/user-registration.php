@@ -37,22 +37,7 @@ $password = $_POST['password'];
 if ( !username_exists($email) && !email_exists($email)) {
     
     // Send verification email
-    $email_verification_key = uniqid('sail-email-verification-', true);
-    $url = esc_url_raw( "https://sailhousingsolutions.org/verify-email" . "?verification_key=$email_verification_key&email=$email" );
-    
-    $message = "Hello ";
-    $message .= $_POST['firstName'];
-    $message .= "!\r\n\r\n";
-    $message .= "Thanks for joining SAIL! In order to ensure that your email is configured correctly, please verify it by clicking this link:\r\n\r\n";
-    $message .= $url;
-    $message .= "\r\n\r\nIf you didn't sign-up for SAIL, please ignore this email.";
-
-    error_log("[user-registration.php]: Sending email verification...");
-
-    wp_mail( $email, "SAIL Email Verification", $message );
-
-    error_log("[user-registration.php]: Email verification sent: ");
-    error_log(print_r($email_verification_key, true));
+    $email_verification_key = send_verification_email($data);
 
     $data['emailVerificationKey'] = $email_verification_key;
     $data['emailVerified'] = false;
