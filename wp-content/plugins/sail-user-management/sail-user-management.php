@@ -364,6 +364,7 @@ function user_join_port_shortcode($atts = [], $content = null, $tag = '' ) {
 }
 
 function display_message_shortcode($atts = [], $content = null, $tag = '') {
+  global $PAGES_DIR;
   return get_sail_page($PAGES_DIR . 'display-message.html');
 }
 
@@ -803,6 +804,8 @@ function sail_user_reverify_email() {
   $user_arr['emailVerificationKey'] = $email_verification_key;
   $user_arr['emailVerified'] = false;
   $wpdb->update('sail_users', $user_arr, array('userId' => $user_arr['userId']), $USER_DB_FIELDS);
+  wp_safe_redirect('https://sailhousingsolutions.org/success-message?title=Verification Email Sent&message=<a href="https://sailhousingsolutions.org/user">Click here to go to your profile page.</a>');
+  exit;
 }
 add_action('admin_post_sail_user_reverify_email', 'sail_user_reverify_email');
 
