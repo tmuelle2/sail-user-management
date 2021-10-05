@@ -756,6 +756,7 @@ function sail_user_register() {
   include_once($HOME_DIR . 'user-registration.php');
 }
 add_action('admin_post_nopriv_sail_user_registration', 'sail_user_register');
+add_action('admin_post_sail_user_registration', 'sail_user_register');
 
 function sail_user_signon() {
   global $HOME_DIR;
