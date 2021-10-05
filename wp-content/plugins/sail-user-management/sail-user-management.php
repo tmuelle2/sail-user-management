@@ -109,7 +109,7 @@ function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
     $paymentHtml = str_ireplace("{{wordpressNonce}}", wp_create_nonce( 'wp_rest' ), $paymentHtml);
 
     $verifyEmailHtml = '';
-    if (!$sail_user->emailVerified) {
+    if ($sail_user->emailVerified == 0) {
       $verifyEmailHtml = get_sail_page_no_common_css($PAGES_DIR . 'verify-email.html');
     }
 
