@@ -411,7 +411,26 @@ function get_sail_user_array() {
 }
 
 function is_due_paying_member($sail_user) {
-  return $sail_user->isPaidMember;
+  global $wpdb;
+  if ($sail_user->isPaidMember) {
+    return true;
+  }
+  else if ($sail_user->familyId != null) {
+    $query = "SELECT * FROM `sail_users` WHERE familyId = ";
+    $query .= $sail_user->familyId;
+    $results = $wpdb->get_results($query);
+
+    foreach($results as $fm) {
+      if ($fm->userId != $sail_user->userId && $fm->isPaidMember) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+  else {
+    return false;
+  }
 }
 
 // Returns the fc member info of the currently logged in user if it exists
@@ -453,15 +472,15 @@ function get_family_members() {
     $query .= $user->familyId;
 
     $results = $wpdb->get_results($query);
+
+    $query2 = "SELECT * FROM `sail_users` WHERE familyId = ";
+    $query2 .= $user->familyId;
+
+    $results2 = $wpdb->get_results($query2);
     
-    foreach($results as $relation) {
-      if ($relation->userId1 != $user->userId) {
-        $fm = get_sail_user_by_id($relation->userId1);
-        array_push($family_members, $fm);
-      }
-      else {
-        $fm = get_sail_user_by_id($relation->userId2);
-        array_push($family_members, $fm);
+    foreach($results2 as $su) {
+      if ($su->userId != $user->userId) {
+        array_push($family_members, $su);
       }
     }
 
