@@ -4,6 +4,11 @@ $HOME_DIR = '/_home2/sailhou1/public_html/';
 global $USER_DB_FIELDS;
 global $wpdb;
 
+if (is_user_logged_in()) {
+    wp_safe_redirect('https://sailhousingsolutions.org/error-message?title=You are attempting to create an account while logged in. Please sign out of this account to create a new one.');
+    exit;
+}
+
 // Extract form and format data
 $data = array();
 $formats = array();
