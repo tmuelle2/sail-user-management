@@ -9,6 +9,24 @@
 $HOME_DIR = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
 include($HOME_DIR . 'constants.php');
 
+function send_verification_email($sail_user_array) {
+    // Send verification email
+    $email = $sail_user_array['email'];
+    $email_verification_key = uniqid('sail-email-verification-', true);
+    $url = esc_url_raw( "https://sailhousingsolutions.org/verify-email" . "?verification_key=$email_verification_key&email=$email" );
+    
+    $message = "Hello ";
+    $message .= $sail_user_array['firstName'];
+    $message .= "!\r\n\r\n";
+    $message .= "Thanks for joining SAIL! In order to ensure that your email is configured correctly, please verify it by clicking this link:\r\n\r\n";
+    $message .= $url;
+    $message .= "\r\n\r\nIf you didn't sign-up for SAIL, please ignore this email.";
+
+    wp_mail( $email, "SAIL Email Verification", $message );
+    
+    return $email_verification_key;
+}
+
 /**
  * Adds the html form required to capture all user account info.
  * If the user is already logged in redirect to profile page.
@@ -773,6 +791,19 @@ function sail_user_add_family_member() {
   include_once($HOME_DIR . 'add-family-member.php');
 }
 add_action('admin_post_sail_user_add_family_member', 'sail_user_add_family_member');
+
+function sail_user_reverify_email() {
+  global $HOME_DIR;
+  global $USER_DB_FIELDS;
+  global $wpdb;
+  // Send verification email
+  $user_arr = get_sail_user_array();
+  $email_verification_key = send_verification_email($user_arr);
+  $user_arr['emailVerificationKey'] = $email_verification_key;
+  $user_arr['emailVerified'] = false;
+  $wpdb->update('sail_users', $user_arr, array('userId' => $user_arr['userId']), $USER_DB_FIELDS);
+}
+add_action('admin_post_sail_user_reverify_email', 'sail_user_reverify_email');
 
 function fc_register() {
   global $HOME_DIR;
