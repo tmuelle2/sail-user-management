@@ -34,7 +34,7 @@ if (strpos($wp->request, 'verify-email') !== false) {
             error_log($updated === false);
             error_log($updated === 0);
             error_log($updated >= 0);
-            wp_redirect('https://sailhousingsolutions.org/success-message?title=Thank you, your email has been verified.&message=<a href="https://sailhousingsolutions.org/user">Click here to go to your profile page.</a>');
+            wp_redirect('https://sailhousingsolutions.org/success-message?title=Thank you, your email has been verified.&message=');
             exit;
         } else {
             // Redirect to error page
