@@ -1,6 +1,6 @@
 <?php
 
-// No-op if not the verify email page
+// No-op if not the link account page
 global $wp;
 if (strpos($wp->request, 'link-family-member') !== false) {
     error_log('Attempting to link family member with ' . $_GET['email'] . ' with code ' . $_GET['family_linking_key']);
