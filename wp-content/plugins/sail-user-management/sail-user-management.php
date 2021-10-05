@@ -344,6 +344,10 @@ function user_join_port_shortcode($atts = [], $content = null, $tag = '' ) {
   } 
 }
 
+function display_message_shortcode($atts = [], $content = null, $tag = '') {
+  return get_sail_page($PAGES_DIR . 'display-message.html');
+}
+
 /**
  * Returns html to update the user's port info for the logged in user, if they do not have port info returns an empty strings
  * otherwise redirects to register page.
@@ -652,8 +656,8 @@ function sail_plugin_init() {
     add_shortcode( 'userFCProfileUpdate', 'fc_update_shortcode');
     add_shortcode( 'userFCExampleProfile', 'fc_example_profile_shortcode');
     add_shortcode( 'userFCSearch', 'fc_search_shortcode'); 
+    add_shortcode( 'displayMessage', 'display_message_shortcode' );
 } 
-add_action('init', 'sail_plugin_init' );
 
 function sail_plugin_preinit() {
   // Restrict Media Vault files to paid members
