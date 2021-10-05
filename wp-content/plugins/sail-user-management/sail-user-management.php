@@ -215,6 +215,7 @@ function fc_update_shortcode($atts = [], $content = null, $tag = '' ) {
       global $FC_DB_FIELDS;
 
       $fc_member = get_fc_member();
+      if (!isset($fc_member) || !isset($fc_member->userId) || $fc_member->userId < 1) return '';
 
       $html = get_sail_page($PAGES_DIR . 'fc-profile-update.html');     
     

@@ -22,6 +22,13 @@ if (strpos($wp->request, 'link-family-member') !== false) {
             error_log('Got user performing link:');
             error_log(print_r($cur_user_array, true));
 
+            if ($cur_user_array['userId'] == $link_user['userId']) {
+                error_log('Account Linking ERROR: this userId tried to link an account to itself: ');
+                error_log(print_r($cur_user_array['userId'], true));
+                wp_safe_redirect('https://sailhousingsolutions.org/error');
+                exit;
+            }
+
             $formats = array();
             global $USER_DB_FIELDS;
             foreach($USER_DB_FIELDS as $element => $format) {
