@@ -108,6 +108,11 @@ function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
     $paymentHtml = str_ireplace("{{isPaidMember}}", $sail_user->isPaidMember == true ? 'true' : 'false', $paymentHtml);
     $paymentHtml = str_ireplace("{{wordpressNonce}}", wp_create_nonce( 'wp_rest' ), $paymentHtml);
 
+    $verifyEmailHtml = '';
+    if (!$sail_user->emailVerified) {
+      $verifyEmailHtml = get_sail_page_no_common_css($PAGES_DIR . 'verify-email.html');
+    }
+
     return $html . $paymentHtml;
   } else {
     nocache_headers();
