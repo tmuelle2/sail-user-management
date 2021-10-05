@@ -658,6 +658,7 @@ function sail_plugin_init() {
     add_shortcode( 'userFCSearch', 'fc_search_shortcode'); 
     add_shortcode( 'displayMessage', 'display_message_shortcode' );
 } 
+add_action('init', 'sail_plugin_init' );
 
 function sail_plugin_preinit() {
   // Restrict Media Vault files to paid members
