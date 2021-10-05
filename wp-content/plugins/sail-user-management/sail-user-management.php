@@ -804,7 +804,7 @@ function sail_user_reverify_email() {
   $user_arr['emailVerificationKey'] = $email_verification_key;
   $user_arr['emailVerified'] = false;
   $wpdb->update('sail_users', $user_arr, array('userId' => $user_arr['userId']), $USER_DB_FIELDS);
-  wp_safe_redirect('https://sailhousingsolutions.org/success-message?title=Verification Email Sent&message=<a href="https://sailhousingsolutions.org/user">Click here to go to your profile page.</a>');
+  wp_safe_redirect('https://sailhousingsolutions.org/success-message?title=Verification Email Sent&message=%3Ca%20href%3D%22https%3A%2F%2Fsailhousingsolutions.org%2Fuser%22%3EClick%20here%20to%20go%20to%20your%20profile%20page.%3C%2Fa%3E');
   exit;
 }
 add_action('admin_post_sail_user_reverify_email', 'sail_user_reverify_email');

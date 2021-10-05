@@ -3,7 +3,7 @@
 <script>
     function setElement(id, value) {
         const urlSearchParams = new URLSearchParams(window.location.search);
-        document.getElementById(id).innerHTML = urlSearchParams.get(value);
+        document.getElementById(id).innerHTML = decodeURIComponent(urlSearchParams.get(value));
     }
 
     window.onload = function() {
