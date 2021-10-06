@@ -22,7 +22,7 @@ spl_autoload_register(function ($class_name) {
 
 use PayPalCheckoutSdk\Orders\OrdersGetRequest;
 use PayPalCheckoutSdk\Core\PayPalHttpClient;
-use PayPalCheckoutSdk\Core\LiveEnvironment;
+use PayPalCheckoutSdk\Core\ProductionEnvironment;
 
 class PayPalClient
 {
@@ -45,7 +45,7 @@ class PayPalClient
         // Set in the .htaccess with BluHost
         $clientId = getenv('PAYPAL_CLIENT_ID') ?: 'PAYPAL-SANDBOX-CLIENT-ID';
         $clientSecret = getenv('PAYPAL_CLIENT_SECRET') ?: 'PAYPAL-SANDBOX-CLIENT-SECRET';
-        return new LiveEnvironment($clientId, $clientSecret);
+        return new ProductionEnvironment($clientId, $clientSecret);
     }
 }
 
