@@ -22,7 +22,7 @@ spl_autoload_register(function ($class_name) {
 
 use PayPalCheckoutSdk\Orders\OrdersGetRequest;
 use PayPalCheckoutSdk\Core\PayPalHttpClient;
-use PayPalCheckoutSdk\Core\SandboxEnvironment;
+use PayPalCheckoutSdk\Core\LiveEnvironment;
 
 class PayPalClient
 {
@@ -45,7 +45,7 @@ class PayPalClient
         // Set in the .htaccess with BluHost
         $clientId = getenv('PAYPAL_CLIENT_ID') ?: 'PAYPAL-SANDBOX-CLIENT-ID';
         $clientSecret = getenv('PAYPAL_CLIENT_SECRET') ?: 'PAYPAL-SANDBOX-CLIENT-SECRET';
-        return new SandboxEnvironment($clientId, $clientSecret);
+        return new LiveEnvironment($clientId, $clientSecret);
     }
 }
 
@@ -68,8 +68,8 @@ class PayPalOrder
     global $wpdb;
 
     // TODO: Record order transaction in DB after table is created
-    // $orderRecord = array('orderId' => $orderId, 'orderJson' => json_encode($response));
-    // $wpbd->insert(`sail_payments`, $orderRecord, array('orderId' => '%s', 'orderJson' => '%s'));
+    $orderRecord = array('orderId' => $orderId, 'orderJson' => json_encode($response));
+    $wpbd->insert(`sail_payments`, $orderRecord, array('orderId' => '%s', 'orderJson' => '%s'));
     if ($response->result->status == 'COMPLETED') {
         $cur_user_array = get_sail_user_array();
         $cur_user_array['isPaidMember'] = 1;
