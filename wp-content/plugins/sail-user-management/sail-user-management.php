@@ -196,7 +196,7 @@ function fc_landing_shortcode($atts = [], $content = null, $tag = '' ) {
 function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
   if (is_user_logged_in()) {
     $sail_user = get_sail_user();
-    if (is_due_paying_member($sail_user)) {
+    if (is_due_paying_user($sail_user)) {
       global $PAGES_DIR;
       global $USER_DB_FIELDS;
 
@@ -234,7 +234,7 @@ function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
 function fc_update_shortcode($atts = [], $content = null, $tag = '' ) {
   if (is_user_logged_in()) {
     $sail_user = get_sail_user();
-    if (is_due_paying_member($sail_user)) {
+    if (is_due_paying_user($sail_user)) {
       global $PAGES_DIR;
       global $FC_DB_FIELDS;
 
@@ -440,7 +440,7 @@ function get_sail_user_array() {
   return $result;
 }
 
-function is_due_paying_member($sail_user) {
+function is_due_paying_user($sail_user) {
   global $wpdb;
   if ($sail_user->isPaidMember) {
     return true;
@@ -704,7 +704,7 @@ add_action('set_current_user', 'sail_plugin_preinit');
 function restrict_media_vault_to_paid_members() {
   if (is_user_logged_in()) {
     $sail_user = get_sail_user();
-    if (is_due_paying_member($sail_user)) {
+    if (is_due_paying_user($sail_user)) {
       return true;
     }
   }
