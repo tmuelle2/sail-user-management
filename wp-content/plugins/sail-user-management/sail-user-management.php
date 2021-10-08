@@ -729,6 +729,16 @@ function register_apis() {
     'callback' => 'pay_dues',
     'permission_callback' => 'pay_dues_auth',
   ) );
+  register_rest_route( 'newsletter/v1', '/subscribe', array(
+    'methods' => 'POST',
+    'callback' => 'newsletter_subscribe',
+    'permission_callback' => 'is_user_logged_in',
+  ) );
+  register_rest_route( 'newsletter/v1', '/unsubscribe', array(
+    'methods' => 'POST',
+    'callback' => 'newsletter_unsubscribe',
+    'permission_callback' => 'is_user_logged_in',
+  ) );
 }
 
 function pay_dues( $request ) {
@@ -745,6 +755,18 @@ function pay_dues_auth() {
     return true;
   }
   return false;
+}
+
+function newsletter_subscribe( $request ) {
+  global $HOME_DIR;
+  include_once($HOME_DIR . 'mail-chimp.php');
+  (new MailChimpSailNewsletterClient)::subscribe(get_sail_user()->email);
+}
+
+function newsletter_unsubscribe( $request ) {
+  global $HOME_DIR;
+  include_once($HOME_DIR . 'mail-chimp.php');
+  (new MailChimpSailNewsletterClient)::unsubscribe(get_sail_user()->email);
 }
 
 /***********************************************************************

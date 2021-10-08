@@ -1,0 +1,36 @@
+<?php
+
+include '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/ClassAutoloader.php';
+use MailchimpMarketing\ApiClient;
+use MailchimpMarketing\ApiException;
+
+class MailChimpSailNewsletterClient {
+    private $client;
+    private static $listId = '1304042';
+    
+    public function __construct()  {
+        $client = new ApiClient();
+        $mailchimp->setConfig([
+            'apiKey' => getenv('MAIL_CHIP_API_KEY') ?: 'MAIL_CHIP_API_KEY',
+            'server' => 'us1'
+        ]);
+    }
+
+    public function subscribe($email) {
+        return update_list($email, 'subscribed');
+    }
+
+    public function unsubscribe($email) {
+        return update_list($email, 'unsubscribed');
+    }
+
+    private function update_list($email, $status) {
+        try {
+            error_log('Attempting to update ' . $email . ' newsletter subscription to ' . $status);
+            $response = $client->lists->updateListMember($listId, md5(strtolower($email)), ['status' => $status]);
+            error_log(print_r($response, true));
+        } catch (ApiException $e) {
+            error_log(print_r($e, true));
+        }
+    }
+}
