@@ -307,9 +307,9 @@ function fc_search_shortcode($atts = [], $content = null, $tag = '' ) {
         $age = floor((time() - strtotime($sail_profile->dob)) / 31556926);
         $location = $sail_profile->city . ", " . $sail_profile->state;
         $contact = "";
-        if ($fc_profile->primaryContactType == "Phone (Text Message)") { $contact = "Via Text Message at " . $sail_profile->phoneNumber; }
-        else if ($fc_profile->primaryContactType == "Phone (Voice Call)") { $contact = "Via Voice Call at " . $sail_profile->phoneNumber; }
-        else { $contact = "Via Email at " . $sail_profile->email; }
+        if ($fc_profile->primaryContactType == "Phone (Text Message)") { $contact = "Via Text Message at " . $fc_profile->primaryContact; }
+        else if ($fc_profile->primaryContactType == "Phone (Voice Call)") { $contact = "Via Voice Call at " . $fc_profile->primaryContact; }
+        else { $contact = "Via Email at " . $fc_profile->primaryContact; }
 
         // Start building result summary
         $summary = file_get_contents($PAGES_DIR . 'fc-result-summary.html', true);

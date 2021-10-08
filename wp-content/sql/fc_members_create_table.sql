@@ -18,5 +18,6 @@ CREATE TABLE `sailhou1_WPRAL`.`fc_members`(
     `profilePicture` TEXT NULL DEFAULT NULL,
     `gender` TEXT NOT NULL,
     `primaryContactType` TEXT NOT NULL,
+    `primaryContact` TEXT NOT NULL,
     UNIQUE `userId`(`userId`)
 ) ENGINE = InnoDB;
