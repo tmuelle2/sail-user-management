@@ -1,0 +1,51 @@
+<div class="wp-block-button">
+    <button id="newsletter-subscribe-button" hidden="true" class="wp-block-button__link has-vivid-cyan-blue-background-color has-background">Subscribe</a>
+</div>
+
+<script>
+    let subscribedId = 'subscribed-message';
+    function onClick() {
+        fetch('/wp-json/newsletter/v1/subscribe', { 
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': '{{wordpressNonce}}'
+            },
+            body: {}
+        }).then(response => {
+            if (response.json().status == 'subscribed') {
+                showSubscribedMessage();
+            } else {
+                console.log(response);
+            }
+        }).catch(err => console.error(err));
+    }
+
+    function showSubscribedMessage() {
+        let button = document.getElementById('newsletter-subscribe-button');
+        button.hidden = true;
+        let subMessage = document.createElement('p');
+        subMessage.id =  subscribedId;
+        subMessage.innerHtml = 'You are currently subscribed to the SAIL newsletter.';
+        subMessage.hidden = false;
+        button.parentNode.appendChild(subMessage);
+    }
+
+    function showSubscribeButton() {
+        let button = document.getElementById('newsletter-subscribe-button');
+        button.hidden = false;
+        button.onclick = onClick;
+        subMessage = document.getElementById(subscribedId);
+        if (subMessage) {
+            subMessage.hidden = true;
+        }
+    }
+
+    windows.onload = function() {
+        if ({{isSubscribed}}) {
+            showSubscribedMessage();
+        } else {
+            showSubscribeButton();
+        }
+    }
+</script>
