@@ -26,8 +26,8 @@ class ClassAutoloader {
 
     public static function autoload($className) {
         self::init(); 
-        error_log('ClassAutoloader loading: ' . $class_name);
-        $split = explode('\\', $class_name);
+        error_log('ClassAutoloader loading: ' . $className);
+        $split = explode('\\', $className);
         $justClassName = end($split);
         if (!empty($justClassName) && isset($libraryPaths[$justClassName])) {
             include $libraryPaths[$justClassName];
