@@ -371,8 +371,11 @@ function user_join_port_shortcode($atts = [], $content = null, $tag = '' ) {
 
 function subscribe_newsletter_shortcode($att = [], $content = null, $tag = '') {
   global $PAGES_DIR;
+  global $HOME_DIR;
+  include($HOME_DIR . 'mail-chimp.php');
   $subStatus = (new MailChimpSailNewsletterClient)::status(get_sail_user()->email);
   $isSub = $subStatus == 'subscribed' || $subStatus == 'pending';
+
   $html = get_sail_page($PAGES_DIR . 'newsletter-subscribe-button.html');
   $html = str_ireplace("{{wordpressNonce}}", wp_create_nonce( 'wp_rest' ), $html);
   $html = str_ireplace("{{isSubscribed}}", $isSub == true ? 'true' : 'false', $html);
