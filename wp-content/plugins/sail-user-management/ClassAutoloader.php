@@ -34,6 +34,3 @@ class ClassAutoloader {
         }
     }
 }
-
-$autoloader = new ClassAutoloader();
-spl_autoload_register(array($autoloader, 'autoload'));
