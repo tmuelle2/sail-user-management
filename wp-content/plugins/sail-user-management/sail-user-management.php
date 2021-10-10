@@ -369,6 +369,17 @@ function user_join_port_shortcode($atts = [], $content = null, $tag = '' ) {
   } 
 }
 
+function subscribe_newsletter_shortcode($att = [], $content = null, $tag = '') {
+  global $PAGES_DIR;
+  $subStatus = (new MailChimpSailNewsletterClient)::status(get_sail_user()->email);
+  $isSub = $subStatus == 'subscribed' || $subStatus == 'pending';
+  $html = get_sail_page($PAGES_DIR . 'newsletter-subscribe-button.html');
+  $html = str_ireplace("{{wordpressNonce}}", wp_create_nonce( 'wp_rest' ), $html);
+  $html = str_ireplace("{{isSubscribed}}", $isSub == true ? 'true' : 'false', $html);
+  return $html;
+}
+
+
 function display_message_shortcode($atts = [], $content = null, $tag = '') {
   global $PAGES_DIR;
   return get_sail_page($PAGES_DIR . 'display-message.html');
@@ -682,6 +693,7 @@ function sail_plugin_init() {
     add_shortcode( 'userFCProfileUpdate', 'fc_update_shortcode');
     add_shortcode( 'userFCExampleProfile', 'fc_example_profile_shortcode');
     add_shortcode( 'userFCSearch', 'fc_search_shortcode'); 
+    add_shortcode( 'userSubscribeNewsletter', 'subscribe_newsletter_shortcode' );
     add_shortcode( 'displayMessage', 'display_message_shortcode' );
 } 
 add_action('init', 'sail_plugin_init' );
@@ -760,7 +772,11 @@ function pay_dues_auth() {
 function newsletter_subscribe( $request ) {
   global $HOME_DIR;
   include_once($HOME_DIR . 'mail-chimp.php');
-  (new MailChimpSailNewsletterClient)::subscribe(get_sail_user()->email);
+  $response = (new MailChimpSailNewsletterClient)::subscribe(get_sail_user()->email);
+  if (isset($response)) {
+    return array('status' => $response->status);
+  }
+  return new WP_ERROR('subscribe_error', 'Could not subscribe to newsletter', array('status' => 500));
 }
 
 function newsletter_unsubscribe( $request ) {

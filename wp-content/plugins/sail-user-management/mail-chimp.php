@@ -24,11 +24,22 @@ class MailChimpSailNewsletterClient {
         return update_list($email, 'unsubscribed');
     }
 
+    public function status($email) {
+        try {
+            $response = $client->lists->getListMember($listId, md5(strtolower($email)));
+            return $response->status;
+        } catch (ApiException $e) {
+            error_log(print_r($e, true));
+            return 'error';
+        }
+    }
+
     private function update_list($email, $status) {
         try {
             error_log('Attempting to update ' . $email . ' newsletter subscription to ' . $status);
             $response = $client->lists->updateListMember($listId, md5(strtolower($email)), ['status' => $status]);
             error_log(print_r($response, true));
+            return $response;
         } catch (ApiException $e) {
             error_log(print_r($e, true));
         }
