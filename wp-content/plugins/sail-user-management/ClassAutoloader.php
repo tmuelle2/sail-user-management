@@ -21,10 +21,12 @@ class ClassAutoloader {
             $justFileName = basename(end($split), '.php');
             $classPathMap[$justFileName] = $path;
         }
+        error_log('Class path map: ' . print_r($classPathMap, true));
     }
 
     public static function autoload($className) {
-        self::init();
+        self::init(); 
+        error_log('ClassAutoloader loading: ' . $class_name);
         $split = explode('\\', $class_name);
         $justClassName = end($split);
         if (!empty($justClassName) && isset($libraryPaths[$justClassName])) {
