@@ -1,7 +1,7 @@
 <?php
 
 include '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/ClassAutoloader.php';
-spl_autoload_register('ClassAutoloader', 'autoload');
+spl_autoload_register(array('ClassAutoloader', 'autoload'));
 use MailchimpMarketing\ApiClient;
 use MailchimpMarketing\ApiException;
 
