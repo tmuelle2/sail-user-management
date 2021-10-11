@@ -27,7 +27,8 @@ class ClassAutoloader {
         $namespaceRegex =  '/^namespace (.*);$/m';
         foreach ($libPaths as $path) {
             $split = explode('/', $path);
-            $justFileName = basename(end($split), '.php');
+            $fileNameWithExt = end($split);
+            $justFileName = basename($fileNameWithExt, '.php');
             if (preg_match($namespaceRegex, file_get_contents($path), $namespaceMatches)) {
                 self::$classPathMap[$namespaceMatches[1] . '\\' . $justFileName] = $path;
             } else {
