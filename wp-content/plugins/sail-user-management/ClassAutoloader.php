@@ -24,12 +24,13 @@ class ClassAutoloader {
         $libPaths = array_merge($libPaths, glob($HOME_DIR . 'http-client-1.0.1/src/*.php'));
         $libPaths = array_merge($libPaths, glob($HOME_DIR . 'http-message-1.0/src/*.php'));
 
-        $namespaceRegex =  '/^namepace (.*);$/';
+        $namespaceRegex =  '/^namespace (.*);$/';
         foreach ($libPaths as $path) {
             $split = explode('/', $path);
-            $justFileName = basename(end($split), '.php');
+            $justClassName = end($split);
+            $justFileName = basename($justClassName, '.php');
             if (preg_match($namespaceRegex, file_get_contents($path), $namespaceMatches)) {
-                self::$classPathMap[$namespaceMatches[1]] = $path;
+                self::$classPathMap[$namespaceMatches[1] . '\\' . $justClassName] = $path;
             } else {
                 self::$classPathMap[$justFileName] = $path;
             }
