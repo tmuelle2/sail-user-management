@@ -1,10 +1,10 @@
 <?php
 
 class ClassAutoloader {
-    private static $classPathMap;
+    private static $classPathMap = array();
 
     private static function init() {
-        if (isset(self::$classPathMap)) {
+        if (!empty(self::$classPathMap)) {
             return;
         }
 
@@ -15,7 +15,6 @@ class ClassAutoloader {
         $libPaths = array_merge($libPaths, glob($HOME_DIR . 'Checkout-PHP-SDK-1.0.1/lib/PayPalCheckoutSdk/*/*.php'));
         $libPaths = array_merge($libPaths, glob($HOME_DIR . 'mailchimp-marketing-php-3.0.69/lib/*.php'));
         $libPaths = array_merge($libPaths, glob($HOME_DIR . 'mailchimp-marketing-php-3.0.69/lib/Api/*.php'));
-        self::$classPathMap = array();
         foreach ($libPaths as $path) {
             $split = explode('/', $path);
             $justFileName = basename(end($split), '.php');
