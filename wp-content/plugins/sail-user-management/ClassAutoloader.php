@@ -4,6 +4,8 @@ class ClassAutoloader {
     private static $classPathMap;
 
     private static function init() {
+        error_log('Prev path map: ' . print_r($classPathMap, true));
+
         if (isset($classPathMap)) {
             return;
         }
