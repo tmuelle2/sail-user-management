@@ -11,6 +11,7 @@ class MailChimpSailNewsletterClient {
     public function __construct()  {
         error_log('Loading ClassAutoloader...');
         require('/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/ClassAutoloader.php');
+        spl_autoload_register('ClassAutoloader::autoload');
         $client = new ApiClient();
         $mailchimp->setConfig([
             'apiKey' => getenv('MAIL_CHIP_API_KEY') ?: 'MAIL_CHIP_API_KEY',

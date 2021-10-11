@@ -34,5 +34,3 @@ class ClassAutoloader {
         }
     }
 }
-
-spl_autoload_register('ClassAutoloader::autoload');
