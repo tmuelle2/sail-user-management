@@ -24,7 +24,7 @@ class ClassAutoloader {
         $libPaths = array_merge($libPaths, glob($HOME_DIR . 'http-client-1.0.1/src/*.php'));
         $libPaths = array_merge($libPaths, glob($HOME_DIR . 'http-message-1.0/src/*.php'));
 
-        $namespaceRegex =  '/^namepace (.*);\$/';
+        $namespaceRegex =  '/^namepace (.*);$/';
         foreach ($libPaths as $path) {
             $split = explode('/', $path);
             $justFileName = basename(end($split), '.php');
