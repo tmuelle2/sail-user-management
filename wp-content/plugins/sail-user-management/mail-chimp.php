@@ -12,8 +12,8 @@ class MailChimpSailNewsletterClient {
         error_log('Loading ClassAutoloader...');
         require('/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/ClassAutoloader.php');
         spl_autoload_register('ClassAutoloader::autoload');
-        $client = new ApiClient();
-        $client->setConfig([
+        self::$client = new ApiClient();
+        self::$client->setConfig([
             'apiKey' => getenv('MAIL_CHIP_API_KEY') ?: 'MAIL_CHIP_API_KEY',
             'server' => 'us1'
         ]);
@@ -29,7 +29,7 @@ class MailChimpSailNewsletterClient {
 
     public function status($email) {
         try {
-            $response = $client->lists->getListMember($listId, md5(strtolower($email)));
+            $response = self::$client->lists->getListMember(self::$listId, md5(strtolower($email)));
             return $response->status;
         } catch (ApiException $e) {
             error_log(print_r($e, true));
@@ -40,7 +40,7 @@ class MailChimpSailNewsletterClient {
     private function update_list($email, $status) {
         try {
             error_log('Attempting to update ' . $email . ' newsletter subscription to ' . $status);
-            $response = $client->lists->updateListMember($listId, md5(strtolower($email)), ['status' => $status]);
+            $response = self::$client->lists->updateListMember(self::$listId, md5(strtolower($email)), ['status' => $status]);
             error_log(print_r($response, true));
             return $response;
         } catch (ApiException $e) {
