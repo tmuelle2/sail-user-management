@@ -1,11 +1,11 @@
 <?php
 
-include '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/ClassAutoloader.php';
-spl_autoload_register('ClassAutoloader::autoload');
+error_log('Loading ClassAutoloader...');
+require('/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/ClassAutoloader.php');
+use MailchimpMarketing\ApiClient;
+use MailchimpMarketing\ApiException;
 
 class MailChimpSailNewsletterClient {
-    use MailchimpMarketing\ApiClient;
-    use MailchimpMarketing\ApiException;
 
     private $client;
     private static $listId = '1304042';
