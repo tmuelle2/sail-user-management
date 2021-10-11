@@ -22,10 +22,17 @@ class ClassAutoloader {
         $libPaths = array_merge($libPaths, glob($HOME_DIR . 'guzzle-7.2.0/src/Handler/*.php'));
         $libPaths = array_merge($libPaths, glob($HOME_DIR . 'psr7-2.0.0/src/*.php'));
         $libPaths = array_merge($libPaths, glob($HOME_DIR . 'http-client-1.0.1/src/*.php'));
+        $libPaths = array_merge($libPaths, glob($HOME_DIR . 'http-message-1.0/src/*.php'));
+
+        $namespaceRegex =  '/^namepace (.*);\$';
         foreach ($libPaths as $path) {
             $split = explode('/', $path);
             $justFileName = basename(end($split), '.php');
-            self::$classPathMap[$justFileName] = $path;
+            if (preg_match($namespaceRegex, file_get_contents($path), $namespaceMatches)) {
+                self::$classPathMap[$namespaceMatches[1]] = $path;
+            } else {
+                self::$classPathMap[$justFileName] = $path;
+            }
         }
         error_log('Class path map: ' . print_r(self::$classPathMap, true));
     }
@@ -33,10 +40,14 @@ class ClassAutoloader {
     public static function autoload($className) {
         self::init(); 
         error_log('ClassAutoloader loading: ' . $className);
-        $split = explode('\\', $className);
-        $justClassName = end($split);
-        if (!empty($justClassName) && isset(self::$classPathMap[$justClassName])) {
-            require_once(self::$classPathMap[$justClassName]);
+        if (isset(self::$classPathMap[$className])) {
+            require_once(self::$classPathMap[$className]);
+        } else {
+            $split = explode('\\', $className);
+            $justClassName = end($split);
+            if (!empty($justClassName) && isset(self::$classPathMap[$justClassName])) {
+                require_once(self::$classPathMap[$justClassName]);
+            }
         }
     }
 }
