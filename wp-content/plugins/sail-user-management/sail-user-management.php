@@ -373,7 +373,7 @@ function subscribe_newsletter_shortcode($att = [], $content = null, $tag = '') {
   global $PAGES_DIR;
   global $HOME_DIR;
   include($HOME_DIR . 'mail-chimp.php');
-  $subStatus = (new MailChimpSailNewsletterClient)::status(get_sail_user()->email);
+  $subStatus = (new MailChimpSailNewsletterClient)->status(get_sail_user()->email);
   $isSub = $subStatus == 'subscribed' || $subStatus == 'pending';
 
   $html = get_sail_page($PAGES_DIR . 'newsletter-subscribe-button.html');
@@ -775,7 +775,7 @@ function pay_dues_auth() {
 function newsletter_subscribe( $request ) {
   global $HOME_DIR;
   include_once($HOME_DIR . 'mail-chimp.php');
-  $response = (new MailChimpSailNewsletterClient)::subscribe(get_sail_user()->email);
+  $response = (new MailChimpSailNewsletterClient)->subscribe(get_sail_user()->email);
   if (isset($response)) {
     return array('status' => $response->status);
   }
@@ -785,7 +785,7 @@ function newsletter_subscribe( $request ) {
 function newsletter_unsubscribe( $request ) {
   global $HOME_DIR;
   include_once($HOME_DIR . 'mail-chimp.php');
-  (new MailChimpSailNewsletterClient)::unsubscribe(get_sail_user()->email);
+  (new MailChimpSailNewsletterClient)->unsubscribe(get_sail_user()->email);
 }
 
 /***********************************************************************
