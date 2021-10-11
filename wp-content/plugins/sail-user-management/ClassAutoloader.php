@@ -30,7 +30,7 @@ class ClassAutoloader {
         $split = explode('\\', $className);
         $justClassName = end($split);
         if (!empty($justClassName) && isset($libraryPaths[$justClassName])) {
-            require($libraryPaths[$justClassName]);
+            require_once($libraryPaths[$justClassName]);
         }
     }
 }
