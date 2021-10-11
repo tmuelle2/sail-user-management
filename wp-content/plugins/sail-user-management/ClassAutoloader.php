@@ -4,11 +4,10 @@ class ClassAutoloader {
     private static $classPathMap;
 
     private static function init() {
-        error_log('Prev path map: ' . print_r($classPathMap, true));
-
         if (isset($classPathMap)) {
             return;
         }
+        error_log('Prev path map: ' . print_r($classPathMap, true));
 
         error_log('Initializing library paths...');
         $HOME_DIR = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
