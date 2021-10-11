@@ -2,6 +2,7 @@
 
 use MailchimpMarketing\ApiClient;
 use MailchimpMarketing\ApiException;
+use GuzzleHttp\Exception\ClientException;
 
 class MailChimpSailNewsletterClient {
 
@@ -31,7 +32,7 @@ class MailChimpSailNewsletterClient {
         try {
             $response = $this->$client->lists->getListMember(self::$listId, md5(strtolower($email)));
             return $response->status;
-        } catch (ApiException $e) {
+        } catch (ApiException | ClientException $e) {
             error_log(print_r($e, true));
             return 'error';
         }
@@ -43,7 +44,7 @@ class MailChimpSailNewsletterClient {
             $response = $this->$client->lists->updateListMember(self::$listId, md5(strtolower($email)), ['status' => $status]);
             error_log(print_r($response, true));
             return $response;
-        } catch (ApiException $e) {
+        } catch (ApiException | ClientException $e) {
             error_log(print_r($e, true));
         }
     }
