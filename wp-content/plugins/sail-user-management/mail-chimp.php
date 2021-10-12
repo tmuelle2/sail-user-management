@@ -21,11 +21,11 @@ class MailChimpSailNewsletterClient {
     }
 
     public function subscribe($email) {
-        return update_list($email, 'subscribed');
+        return $this->update_list($email, 'subscribed');
     }
 
     public function unsubscribe($email) {
-        return update_list($email, 'unsubscribed');
+        return $this->update_list($email, 'unsubscribed');
     }
 
     public function status($email) {
