@@ -33,7 +33,7 @@ class MailChimpSailNewsletterClient {
             $response = $this->client->lists->getListMember(self::$listId, md5(strtolower($email)));
             return $response->status;
         } catch (ApiException | ClientException $e) {
-            error_log(print_r($e, true));
+            error_log($e->getMessage());
             return 'error';
         }
     }
@@ -45,7 +45,7 @@ class MailChimpSailNewsletterClient {
             error_log(print_r($response, true));
             return $response;
         } catch (ApiException | ClientException $e) {
-            error_log(print_r($e, true));
+            error_log($e->getMessage());
         }
     }
 }
