@@ -42,7 +42,7 @@ class MailChimpSailNewsletterClient {
     private function update_list($email, $status) {
         try {
             error_log('Attempting to update ' . $email . ' newsletter subscription to ' . $status);
-            $response = $this->client->lists->updateListMember($this->listId, md5(strtolower($email)), ['status' => $status]);
+            $response = $this->client->lists->setListMember($this->listId, md5(strtolower($email)), ['status' => $status]);
             error_log(print_r($response, true));
             return $response;
         } catch (ApiException | ClientException $e) {
