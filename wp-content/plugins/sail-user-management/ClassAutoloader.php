@@ -24,14 +24,25 @@ class ClassAutoloader {
         $libPaths = array_merge($libPaths, glob($HOME_DIR . 'promises-1.5.0/src/*.php'));
         $libPaths = array_merge($libPaths, glob($HOME_DIR . 'http-client-1.0.1/src/*.php'));
         $libPaths = array_merge($libPaths, glob($HOME_DIR . 'http-message-1.0/src/*.php'));
-
+        
         $namespaceRegex =  '/^namespace (.*);$/m';
+        $functionRegex =  '/^function (.*)\(.*$/m';
         foreach ($libPaths as $path) {
             $split = explode('/', $path);
             $fileNameWithExt = end($split);
             $justFileName = basename($fileNameWithExt, '.php');
-            if (preg_match($namespaceRegex, file_get_contents($path), $namespaceMatches)) {
+            $fileContents = file_get_contents($path);
+            // This loads full namespaced classes assuming file name and class name matches 
+            if (preg_match($namespaceRegex, $fileContents, $namespaceMatches)) {
                 self::$classPathMap[$namespaceMatches[1] . '\\' . $justFileName] = $path;
+            // This hack loads some GuzzleHttp functions 
+            } else if (str_ends_with($path, 'functions.php')) {
+                $preg_match($functionRegex, $fileContents, $functionMatches);
+                // Every other match will be the group with the function name
+                for ($i = 1; $i < count($functionMatches); $i += 2) {
+                    self::$classPathMap[$functionMatches[i]] = $path;
+                }
+            // This loads naked classes without namespaces assuming file name and class name matches 
             } else {
                 self::$classPathMap[$justFileName] = $path;
             }
