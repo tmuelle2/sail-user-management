@@ -36,7 +36,7 @@ class ClassAutoloader {
             if (preg_match($namespaceRegex, $fileContents, $namespaceMatches)) {
                 self::$classPathMap[$namespaceMatches[1] . '\\' . $justFileName] = $path;
             // This hack loads some GuzzleHttp functions 
-            } else if (str_ends_with($path, 'functions.php')) {
+            } else if (endsWith($path, 'functions.php')) {
                 $preg_match($functionRegex, $fileContents, $functionMatches);
                 // Every other match will be the group with the function name
                 for ($i = 1; $i < count($functionMatches); $i += 2) {
@@ -62,5 +62,15 @@ class ClassAutoloader {
                 require_once(self::$classPathMap[$justClassName]);
             }
         }
+    }
+
+    // This can be deleted if Bluhost migrates to PHP 8
+    // https://stackoverflow.com/questions/834303/startswith-and-endswith-functions-in-php
+    function endsWith( $haystack, $needle ) {
+        $length = strlen( $needle );
+        if( !$length ) {
+            return true;
+        }
+        return substr( $haystack, -$length ) === $needle;
     }
 }
