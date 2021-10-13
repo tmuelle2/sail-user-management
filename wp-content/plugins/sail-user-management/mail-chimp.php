@@ -48,6 +48,7 @@ class MailChimpSailNewsletterClient {
             return $response;
         } catch (ApiException | ClientException $e) {
             error_log($e->getMessage());
+            error_log(print_r(($e->getResponse())->getBody()->getContents(), true));
         }
     }
 }
