@@ -1,5 +1,5 @@
 <div class="wp-block-button">
-    <button id="newsletter-subscribe-button" hidden="true" class="wp-block-button__link has-vivid-cyan-blue-background-color has-background">Subscribe</a>
+    <button id="newsletter-subscribe-button" style="display: none" class="wp-block-button__link has-vivid-cyan-blue-background-color has-background">Subscribe</a>
 </div>
 
 <script>
@@ -23,21 +23,21 @@
 
     function showSubscribedMessage() {
         let button = document.getElementById('newsletter-subscribe-button');
-        button.hidden = true;
+        button.style.display = 'none';
         let subMessage = document.createElement('p');
         subMessage.id =  subscribedId;
         subMessage.innerHtml = 'You are currently subscribed to the SAIL newsletter.';
-        subMessage.hidden = false;
+        subMessage.style.display = 'block';
         button.parentNode.appendChild(subMessage);
     }
 
     function showSubscribeButton() {
         let button = document.getElementById('newsletter-subscribe-button');
-        button.hidden = false;
+        button.style.display = 'block';
         button.onclick = onClick;
         subMessage = document.getElementById(subscribedId);
         if (subMessage) {
-            subMessage.hidden = true;
+            subMessage.style.display = 'none';
         }
     }
 
