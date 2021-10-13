@@ -12,11 +12,12 @@
                 'X-WP-Nonce': '{{wordpressNonce}}'
             },
             body: '{}'
-        }).then(response => {
-            if (response.json().status == 'subscribed') {
+        }).then(response => response.json())
+        .then(data => {
+            if (data.json().status == 'subscribed') {
                 showSubscribedMessage();
             } else {
-                console.log(response);
+                console.log(data);
             }
         }).catch(err => console.error(err));
     }
