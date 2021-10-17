@@ -24,7 +24,7 @@ if ( username_exists($email) && email_exists($email)) {
         wp_set_current_user( $user->ID, $user->data->user_login );
 
         if (isset($_POST['redirect_to']) && strpos($_POST['redirect_to'], 'https://sailhousingsolutions.org') !== false) {
-            wp_safe_redirect($_POS['redirect_to']);
+            wp_safe_redirect($_POST['redirect_to']);
             exit;
         }
         else {
