@@ -894,3 +894,22 @@ function sail_user_link_family_member() {
 }
 // This runs on every request! Cannot error out unnecessarily!!
 add_action('wp', 'sail_user_link_family_member');
+
+/**
+ * Redirect user after successful login.
+ * @param string $redirect_to URL to redirect to.
+ * @param string $request URL the user is coming from.
+ * @param object $user Logged user's data.
+ * @return string
+ */
+function sail_login_redirect($redirect_to, $request, $user) {
+  if ( $user && is_object( $user ) && is_a( $user, 'WP_User' ) ) {
+      if (isset($redirect_to) && strpos($redirect_to, 'sailhousingsolutions.org') !== false) {
+          return $redirect_to;
+      } else {
+          return 'https://sailhousingsolutions.org/user/';
+      }
+  }
+  return 'https://sailhousingsolutions.org';
+}
+add_filter('login_redirect', 'sail_login_redirect', 10, 3);

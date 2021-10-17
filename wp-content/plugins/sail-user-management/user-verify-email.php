@@ -3,6 +3,10 @@
 // No-op if not the verify email page
 global $wp;
 if (strpos($wp->request, 'verify-email') !== false) {
+    if (!is_user_logged_in()) {
+        wp_safe_redirect('https://sailhousingsolutions.org/login?redirect_to=' . home_url(add_query_arg($_GET,$wp->request)));
+        exit;
+    }
     error_log('Attempting to verify email' . $_GET['email'] . ' with code ' . $_GET['verification_key']);
     // Ensure query string parameters exist 
     if (isset($_GET['verification_key']) && isset($_GET['email']) 
