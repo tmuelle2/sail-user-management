@@ -4,7 +4,7 @@
 global $wp;
 if (strpos($wp->request, 'verify-email') !== false) {
     if (!is_user_logged_in()) {
-        wp_safe_redirect('https://sailhousingsolutions.org/login?redirect_to=' . home_url(add_query_arg($_GET,$wp->request)));
+        wp_safe_redirect('https://sailhousingsolutions.org/login?redirect_to=' . urlencode(home_url(add_query_arg($_GET,$wp->request))) );
         exit;
     }
     error_log('Attempting to verify email' . $_GET['email'] . ' with code ' . $_GET['verification_key']);
