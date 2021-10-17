@@ -903,7 +903,10 @@ add_action('wp', 'sail_user_link_family_member');
  * @return string
  */
 function sail_login_redirect($redirect_to, $request, $user) {
+  error_log('redirecting login');
   if ( $user && is_object( $user ) && is_a( $user, 'WP_User' ) ) {
+    error_log('valid user logged in');
+    error_log(print_r($redirect_to, true));
       if (isset($redirect_to) && strpos($redirect_to, 'sailhousingsolutions.org') !== false) {
           return $redirect_to;
       } else {
