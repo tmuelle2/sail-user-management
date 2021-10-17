@@ -3,6 +3,10 @@
 // No-op if not the link account page
 global $wp;
 if (strpos($wp->request, 'link-family-member') !== false) {
+    if (!is_user_logged_in()) {
+        wp_safe_redirect('https://sailhousingsolutions.org/login?redirect_to=' . urlencode(home_url(add_query_arg($_GET,$wp->request))) );
+        exit;
+    }
     error_log('Attempting to link family member with ' . $_GET['email'] . ' with code ' . $_GET['family_linking_key']);
     // Ensure query string parameters exist 
     if (isset($_GET['family_linking_key']) && isset($_GET['email']) 

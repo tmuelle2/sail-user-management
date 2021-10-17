@@ -24,7 +24,9 @@ if (is_user_logged_in()) {
     $message .= "A SAIL user with the email ";
     $message .= $cur_user->email;
     $message .= " is requesting that your accounts are linked together as part of a family to share the benefits of a SAIL membership.";
-    $message .= "Please verify this account linking by clicking this url:\r\n\r\n";
+    $message .= "To finish the linking process use the link below. Before clicking the link, please make sure you are logged in using the account associated with this email: "; 
+    $message .= $email_input;
+    $message .= ". \r\n\r\n";
     $message .= $url;
     $message .= "\r\n\r\nIf you do not have an account with SAIL, please ignore this email.";
 
