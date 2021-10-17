@@ -901,7 +901,7 @@ add_action('wp', 'sail_user_link_family_member');
  * @param string $request URL the user is coming from.
  * @param object $user Logged user's data.
  * @return string
- */
+ 
 function sail_login_redirect($redirect_to, $request, $user) {
   error_log('redirecting login');
   if ( $user && is_object( $user ) && is_a( $user, 'WP_User' ) ) {
@@ -916,3 +916,4 @@ function sail_login_redirect($redirect_to, $request, $user) {
   return 'https://sailhousingsolutions.org';
 }
 add_filter('login_redirect', 'sail_login_redirect', 10, 3);
+*/
