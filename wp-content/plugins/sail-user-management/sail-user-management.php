@@ -372,7 +372,7 @@ function user_join_port_shortcode($atts = [], $content = null, $tag = '' ) {
 function subscribe_newsletter_shortcode($att = [], $content = null, $tag = '') {
   global $PAGES_DIR;
   global $HOME_DIR;
-  include($HOME_DIR . 'mail-chimp.php');
+  include_once($HOME_DIR . 'mail-chimp.php');
   $subStatus = (new MailChimpSailNewsletterClient)->status(get_sail_user()->email);
   $isSub = $subStatus == 'subscribed' || $subStatus == 'pending';
 
