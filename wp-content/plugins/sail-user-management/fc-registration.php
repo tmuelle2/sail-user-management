@@ -54,6 +54,8 @@ if (is_user_logged_in()) {
         // Insert the database row
         $wpdb->insert('fc_members', $data, $formats);
 
+        wp_mail("info@sailhousingsolutions.com", "New Friendship Connect Profile Created", "If you are a Wordpress Admin, please review the SAIL reference of the new FC Profile by going to the DATABASE ACCESS panel on https://sailhousingsolutions.org/wp-admin/");
+        
         // Success redirect
         nocache_headers();
         wp_safe_redirect('https://sailhousingsolutions.org/user');
