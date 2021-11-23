@@ -41,9 +41,6 @@ use MailchimpMarketing\Configuration;
 use MailchimpMarketing\HeaderSelector;
 use MailchimpMarketing\ObjectSerializer;
 
-// MONKEY PATCH load GuzzleHttp namespaced functions
-require_once('/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/guzzle-7.2.0/src/functions.php');
-
 class ListsApi
 {
     protected $client;
