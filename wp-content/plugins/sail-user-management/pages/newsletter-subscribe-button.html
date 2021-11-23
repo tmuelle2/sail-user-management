@@ -5,21 +5,44 @@
 <script>
     let subscribedId = 'subscribed-message';
     function onClick() {
-        fetch('/wp-json/newsletter/v1/subscribe', { 
-            method: 'POST', 
-            headers: {
-                'Content-Type': 'application/json',
-                'X-WP-Nonce': '{{wordpressNonce}}'
-            },
-            body: '{}'
-        }).then(response => response.json())
-        .then(data => {
-            if (data.status == 'subscribed') {
-                showSubscribedMessage();
-            } else {
-                console.log(data);
-            }
-        }).catch(err => console.error(err));
+        let promise;
+        let email = document.getElementById('email-text-input');
+        if (email) {
+            promise = fetch('/wp-json/newsletter/v1/subscribe', { 
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: '{"email": ' + email.innerText + '}'
+            });
+        } else {
+            promise = fetch('/wp-json/newsletter/v1/subscribe', { 
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-WP-Nonce': '{{wordpressNonce}}'
+                },
+                body: '{}'
+            });
+        }
+        promise.then(response => response.json())
+            .then(data => {
+                if (data.status == 'subscribed') {
+                    showSubscribedMessage();
+                } else {
+                    console.log(data);
+                }
+            }).catch(err => console.error(err));
+    }
+
+    function showNonMemberSubcscribe() {
+        let button = document.getElementById('newsletter-subscribe-button');
+        button.style.display = 'block';
+        let email = document.createElement('input');
+        email.type = "text";
+        email.id = "email-text-input";
+        email.style.display = 'block';
+        button.parentNode.prepend(email);
     }
 
     function showSubscribedMessage() {
@@ -43,7 +66,9 @@
     }
 
     window.onload = function() {
-        if ({{isSubscribed}}) {
+        if (document.getElementsByTagName('body')[0].classList.contains("logged-in")) {
+            showNonMemberSubcscribe();
+        } else if ({{isSubscribed}}) {
             showSubscribedMessage();
         } else {
             showSubscribeButton();
