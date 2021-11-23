@@ -16,10 +16,11 @@ class ClassAutoloader {
         $libPaths = array_merge($libPaths, glob($HOME_DIR . 'mailchimp-marketing-php-3.0.69/lib/*.php'));
         $libPaths = array_merge($libPaths, glob($HOME_DIR . 'mailchimp-marketing-php-3.0.69/lib/*.php'));
         $libPaths = array_merge($libPaths, glob($HOME_DIR . 'mailchimp-marketing-php-3.0.69/lib/Api/*.php'));
-        $libPaths = array_merge($libPaths, glob($HOME_DIR . 'guzzle-7.2.0/src/*.php'));
-        $libPaths = array_merge($libPaths, glob($HOME_DIR . 'guzzle-7.2.0/src/Cookie/*.php'));
-        $libPaths = array_merge($libPaths, glob($HOME_DIR . 'guzzle-7.2.0/src/Exception/*.php'));
-        $libPaths = array_merge($libPaths, glob($HOME_DIR . 'guzzle-7.2.0/src/Handler/*.php'));
+        // The plugin wp-data-access currently loads Guzzle transitively
+        //$libPaths = array_merge($libPaths, glob($HOME_DIR . 'guzzle-7.2.0/src/*.php'));
+        //$libPaths = array_merge($libPaths, glob($HOME_DIR . 'guzzle-7.2.0/src/Cookie/*.php'));
+        //$libPaths = array_merge($libPaths, glob($HOME_DIR . 'guzzle-7.2.0/src/Exception/*.php'));
+        //$libPaths = array_merge($libPaths, glob($HOME_DIR . 'guzzle-7.2.0/src/Handler/*.php'));
         $libPaths = array_merge($libPaths, glob($HOME_DIR . 'psr7-2.0.0/src/*.php'));
         $libPaths = array_merge($libPaths, glob($HOME_DIR . 'promises-1.5.0/src/*.php'));
         $libPaths = array_merge($libPaths, glob($HOME_DIR . 'http-client-1.0.1/src/*.php'));
