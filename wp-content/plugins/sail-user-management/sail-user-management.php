@@ -287,12 +287,6 @@ function fc_search_shortcode($atts = [], $content = null, $tag = '' ) {
     $sail_user = get_sail_user();
     $fc_member = get_fc_member();
 
-    if (!isset($fc_member)) {
-      nocache_headers();
-      wp_redirect('https://sailhousingsolutions.org/success-message?title=Thank you, your email has been verified.&message=%3Ca%20href%3D%22https%3A%2F%2Fsailhousingsolutions.org%2Fuser%22%3EClick%20here%20to%20go%20to%20your%20profile%20page.%3C%2Fa%3E');
-      exit;
-    }
-
     // user has a fc profile and is approved
     if (isset($fc_member) && $fc_member->referenceApproved) {
       $query = "SELECT * FROM `fc_members` WHERE referenceApproved = 1";
