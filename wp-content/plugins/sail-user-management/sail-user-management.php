@@ -698,6 +698,9 @@ function sail_plugin_init() {
     add_shortcode( 'userFCSearch', 'fc_search_shortcode'); 
     add_shortcode( 'userSubscribeNewsletter', 'subscribe_newsletter_shortcode' );
     add_shortcode( 'displayMessage', 'display_message_shortcode' );
+    // Register autoloader
+    require_once('/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/ClassAutoloader.php');
+    spl_autoload_register('ClassAutoloader::autoload');
 } 
 add_action('init', 'sail_plugin_init' );
 

@@ -1,25 +1,5 @@
 <?php
 
-// In lieu of composer, load the PayPal libraries with autoload
-// TODO: This is hella inefficient, this should be moved to a static class or some other mechanism to load the file paths once and only once
-spl_autoload_register(function ($class_name) {
-    $HOME_DIR = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
-    $PAYPAL_LIB_PATHS = glob($HOME_DIR . 'paypalhttp_php-1.0.0/lib/PayPalHttp/Serializer/*.php');
-    $PAYPAL_LIB_PATHS = array_merge($PAYPAL_LIB_PATHS, glob($HOME_DIR . 'paypalhttp_php-1.0.0/lib/PayPalHttp/*.php'));
-    $PAYPAL_LIB_PATHS = array_merge($PAYPAL_LIB_PATHS, glob($HOME_DIR . 'Checkout-PHP-SDK-1.0.1/lib/PayPalCheckoutSdk/*/*.php'));
-    $PAYPAL_LIB_CLASS_MAP = array();
-    foreach ($PAYPAL_LIB_PATHS as $path) {
-        $split = explode('/', $path);
-        $justFileName = basename(end($split), '.php');
-        $PAYPAL_LIB_CLASS_MAP[$justFileName] = $path;
-    }
-    $split = explode('\\', $class_name);
-    $justClassName = end($split);
-    if (!empty($justClassName) && isset($PAYPAL_LIB_CLASS_MAP[$justClassName])) {
-        include $PAYPAL_LIB_CLASS_MAP[$justClassName];
-    }
-});
-
 use PayPalCheckoutSdk\Orders\OrdersGetRequest;
 use PayPalCheckoutSdk\Core\PayPalHttpClient;
 use PayPalCheckoutSdk\Core\ProductionEnvironment;

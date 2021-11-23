@@ -10,9 +10,6 @@ class MailChimpSailNewsletterClient {
     private $listId;     
 
     public function __construct()  {
-        error_log('Loading ClassAutoloader...');
-        require_once('/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/ClassAutoloader.php');
-        spl_autoload_register('ClassAutoloader::autoload');
         $this->listId = getenv('MAIL_CHIP_LIST_ID') ?: 'MAIL_CHIP_LIST_ID';
         $this->client = new ApiClient();
         $this->client->setConfig([
