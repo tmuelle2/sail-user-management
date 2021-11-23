@@ -289,7 +289,7 @@ function fc_search_shortcode($atts = [], $content = null, $tag = '' ) {
 
     // user has a fc profile and is approved
     if (isset($fc_member) && $fc_member->referenceApproved) {
-      $query = "SELECT * FROM `fc_members`";
+      $query = "SELECT * FROM `fc_members` WHERE referenceApproved = 1";
       $results = $wpdb->get_results($query);
 
       $html = '<style>' . file_get_contents($PAGES_DIR . 'common.css', true) . '</style>';
