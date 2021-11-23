@@ -1,35 +1,29 @@
 <script type="text/javascript">
-function dobcheck()
-{
-    var birth = document.getElementById('dob')
-    if(birth != "")
-    {
+window.addEventListener("load", function(){
+  var dtToday = new Date();
 
-        var record=document.getElementById('dob').value.trim();
-        var currentdate=new Date();    
-        var day1 = currentdate.getDate();   
-        var month1 = currentdate.getMonth();
-        month1++;     
-        var year11 = currentdate.getFullYear()-17;
-        var year2= currentdate.getFullYear()-100;   
-        var record_day1=record.split("/");
-        var sum=record_day1[1]+'/'+record_day1[0]+'/'+record_day1[2];  
-        var current= month1+'/'+day1+'/'+year11;
-        var current1= month1+'/'+day1+'/'+year2;
-        var d1=new Date(current)
-        var d2=new Date(current1)
-        var record1 = new Date(sum);      
-        if(record1 > d1)
-        {
+  var month = dtToday.getMonth() + 1;
+  var day = dtToday.getDate();
+  var year = dtToday.getFullYear() - 18;
+  if(month < 10)
+    month = '0' + month.toString();
+  if(day < 10)
+    day = '0' + day.toString();
+  var minDate = year + '-' + month + '-' + day;
+  var maxDate = year + '-' + month + '-' + day;
 
-            alert("We are sorry. You are not eligible to Join SAIL. You must be 18 years or older to join.");
-            document.getElementById('dob').blur();
-            document.getElementById('dob').value="";
-            document.getElementById('dob').focus();
-            return false;
-        }
-    } 
-}
+  var dobinput = document.getElementById("dob");
+  dobinput.setAttribute("max", maxDate); 
+  dobinput.addEventListener('invalid', function (event) {
+    if (event.target.validity.rangeOverflow) {
+      event.target.setCustomValidity('We are sorry. You are not eligible to Join SAIL. You must be 18 years or older to join.');
+    }
+  })
+
+  dobinput.addEventListener('change', function (event) {
+    event.target.setCustomValidity('');
+  })
+});
 </script>
 
 <form accept-charset="UTF-8" action="<?php esc_url(admin_url('admin-post.php')); ?>" id="user_reg" autocomplete="on" enctype="multipart/form-data" method="post">
@@ -146,7 +140,7 @@ function dobcheck()
       	</div>  
 	</div>
   <h5 class="field-label required-field">Date of Birth</h5>
-  <input type="date" name="dob" id="dob" required onblur="return dobcheck()"><br />
+  <input type="date" name="dob" id="dob" required><br />
   <h5 class="field-label required-field">Which of the following best describes your situation? (Check all that apply)</h5>
   <!--<input type="hidden" name="situation[]" value="0" /> -->
   <div>
