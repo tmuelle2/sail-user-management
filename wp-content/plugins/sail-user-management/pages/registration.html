@@ -7,11 +7,11 @@ function dobcheck()
 
         var record=document.getElementById('dob').value.trim();
         var currentdate=new Date();    
-        var day1 = currentdate3.getDate();   
-        var month1 = currentdate3.getMonth();
+        var day1 = currentdate.getDate();   
+        var month1 = currentdate.getMonth();
         month1++;     
-        var year11 = currentdate3.getFullYear()-17;
-        var year2= currentdate3.getFullYear()-100;   
+        var year11 = currentdate.getFullYear()-17;
+        var year2= currentdate.getFullYear()-100;   
         var record_day1=record.split("/");
         var sum=record_day1[1]+'/'+record_day1[0]+'/'+record_day1[2];  
         var current= month1+'/'+day1+'/'+year11;
