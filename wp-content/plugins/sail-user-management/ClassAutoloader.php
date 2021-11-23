@@ -41,7 +41,7 @@ class ClassAutoloader {
 
     public static function autoload($className) {
         self::init(); 
-        //error_log('ClassAutoloader loading: ' . $className);
+        error_log('ClassAutoloader loading: ' . $className);
         if (!class_exists($className, false) && isset(self::$classPathMap[$className])) {
             require_once(self::$classPathMap[$className]);
         } else {
