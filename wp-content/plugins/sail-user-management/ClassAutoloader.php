@@ -47,7 +47,7 @@ class ClassAutoloader {
         } else {
             $split = explode('\\', $className);
             $justClassName = end($split);
-            if (!empty($justClassName) && !class_exists($justClassName, false) && !function_exists($className) && isset(self::$classPathMap[$justClassName])) {
+            if (!empty($justClassName) && !class_exists($justClassName, false) && !function_exists($justClassName) && isset(self::$classPathMap[$justClassName])) {
                 require_once(self::$classPathMap[$justClassName]);
             }
         }
