@@ -486,9 +486,12 @@ function get_fc_member() {
     $query .= $user->ID;
 
 
-    $result = $wpdb->get_row($query);
+    $results = $wpdb->get_results($query);
 
-    return $result;
+    if (count($results) == 0) {
+      return null;
+    } 
+    return $results[0];
 }
 
 // Returns the fc member info of the currently logged in user if it exists
