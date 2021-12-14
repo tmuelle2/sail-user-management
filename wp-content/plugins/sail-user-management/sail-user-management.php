@@ -823,7 +823,7 @@ function allow_all_requests() {
 function newsletter_subscribe( $request ) {
   global $HOME_DIR;
   include_once($HOME_DIR . 'mail-chimp.php');
-  if (user_is_logged_in()) {
+  if (is_user_logged_in()) {
     $response = (new MailChimpSailNewsletterClient)->subscribe(get_sail_user()->email);
   } else {
     $response = (new MailChimpSailNewsletterClient)->subscribe($request->get_json_params()['email']);
