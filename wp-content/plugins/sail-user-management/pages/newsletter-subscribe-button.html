@@ -7,15 +7,8 @@
     function onClick() {
         let promise;
         let email = document.getElementById('email-text-input');
-        if (email) {
-            promise = fetch('/wp-json/newsletter/v1/subscribe', { 
-                method: 'POST', 
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: '{"email": ' + email.innerText + '}'
-            });
-        } else {
+        let isLoggedIn = document.getElementsByTagName('body')[0].classList.contains("logged-in")
+        if (isLoggedIn) { 
             promise = fetch('/wp-json/newsletter/v1/subscribe', { 
                 method: 'POST', 
                 headers: {
@@ -24,7 +17,15 @@
                 },
                 body: '{}'
             });
-        }
+        } else if (email) {
+            promise = fetch('/wp-json/newsletter/v1/subscribe', { 
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: '{"email": ' + email.innerText + '}'
+            });
+        } 
         promise.then(response => response.json())
             .then(data => {
                 if (data.status == 'subscribed') {
@@ -42,6 +43,7 @@
         email.type = "text";
         email.id = "email-text-input";
         email.style.display = 'block';
+
         button.parentNode.prepend(email);
         let label = document.createElement('p');
         label.innerText = 'Enter your email address to subscribe to the newsletter:';
@@ -70,11 +72,11 @@
 
     window.onload = function() {
         if (document.getElementsByTagName('body')[0].classList.contains("logged-in")) {
-            showNonMemberSubscribe();
+            showSubscribeButton();
         } else if ({{isSubscribed}}) {
             showSubscribedMessage();
         } else {
-            showSubscribeButton();
+            showNonMemberSubscribe();
         }
     }
 </script>

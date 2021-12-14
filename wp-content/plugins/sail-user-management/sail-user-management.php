@@ -407,8 +407,11 @@ function subscribe_newsletter_shortcode($att = [], $content = null, $tag = '') {
   global $PAGES_DIR;
   global $HOME_DIR;
   include_once($HOME_DIR . 'mail-chimp.php');
-  $subStatus = (new MailChimpSailNewsletterClient)->status(get_sail_user()->email);
-  $isSub = $subStatus == 'subscribed' || $subStatus == 'pending';
+  $isSub = false;
+  if (is_user_logged_in()) {
+    $subStatus = (new MailChimpSailNewsletterClient)->status(get_sail_user()->email);
+    $isSub = $subStatus == 'subscribed' || $subStatus == 'pending';
+  }
 
   $html = get_sail_page($PAGES_DIR . 'newsletter-subscribe-button.html');
   $html = str_ireplace("{{wordpressNonce}}", wp_create_nonce( 'wp_rest' ), $html);
