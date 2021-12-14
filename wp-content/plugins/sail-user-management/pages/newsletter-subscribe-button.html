@@ -1,5 +1,5 @@
 <div>
-    <button id="newsletter-subscribe-button" style="display: none" class="wp-block-button__link has-vivid-cyan-blue-background-color has-background">Subscribe</a>
+    <button id="newsletter-subscribe-button" style="display: none; border: none" class="wp-block-button__link has-vivid-cyan-blue-background-color has-background">Subscribe</a>
 </div>
 
 <script>
@@ -43,11 +43,14 @@
         email.type = "text";
         email.id = "email-text-input";
         email.style.display = 'block';
-
-        button.parentNode.prepend(email);
+        email.style.marginBottom = '2px';
         let label = document.createElement('p');
         label.innerText = 'Enter your email address to subscribe to the newsletter:';
         button.parentNode.prepend(label);
+        button.onclick = onClick;
+        if (subMessage) {
+            subMessage.style.display = 'none';
+        }
     }
 
     function showSubscribedMessage() {

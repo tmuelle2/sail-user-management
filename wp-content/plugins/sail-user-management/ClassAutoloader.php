@@ -8,7 +8,7 @@ class ClassAutoloader {
             return;
         }
 
-        error_log('Initializing library paths...');
+        //error_log('Initializing library paths...');
         $HOME_DIR = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
         $libPaths = glob($HOME_DIR . 'paypalhttp_php-1.0.0/lib/PayPalHttp/Serializer/*.php');
         $libPaths = array_merge($libPaths, glob($HOME_DIR . 'paypalhttp_php-1.0.0/lib/PayPalHttp/*.php'));
