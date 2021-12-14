@@ -3,7 +3,7 @@
 <script src="https://www.paypal.com/sdk/js?client-id={{paypalClientId}}&enable-funding=venmo&currency=USD&disable-funding=credit" data-sdk-integration-source="button-factory"></script>
 <script>
 let isPaid = {{isPaidMember}};
-let isNewUser = {{isNewUser}};
+let isNewUser = {{isNewMember}};
 
 function initPayPalButton() {
     paypal.Buttons({
