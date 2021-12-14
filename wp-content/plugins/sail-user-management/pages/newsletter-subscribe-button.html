@@ -48,6 +48,7 @@
         label.innerText = 'Enter your email address to subscribe to the newsletter:';
         button.parentNode.prepend(label);
         button.onclick = onClick;
+        subMessage = document.getElementById(subscribedId);
         if (subMessage) {
             subMessage.style.display = 'none';
         }
