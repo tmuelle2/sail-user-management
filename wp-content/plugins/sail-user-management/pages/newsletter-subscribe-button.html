@@ -23,7 +23,7 @@
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: '{"email": ' + email.value + '}'
+                body: {"email": email.value }
             });
         } 
         promise.then(response => response.json())
