@@ -48,12 +48,12 @@ class ClassAutoloader {
                 self::$classPathMap[$justFileName] = $path;
             }
         }
-        error_log('Class path map: ' . print_r(self::$classPathMap, true));
+        //error_log('Class path map: ' . print_r(self::$classPathMap, true));
     }
 
     public static function autoload($className) {
         self::init(); 
-        error_log('ClassAutoloader loading: ' . $className);
+        //error_log('ClassAutoloader loading: ' . $className);
         if (!class_exists($className, false) && !function_exists($className) && isset(self::$classPathMap[$className])) {
             include_once(self::$classPathMap[$className]);
         } else {
