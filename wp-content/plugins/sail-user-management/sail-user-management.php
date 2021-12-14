@@ -41,7 +41,28 @@ function user_reg_shortcode($atts = [], $content = null, $tag = '' ) {
  else {
   return get_sail_page($PAGES_DIR . 'registration.html');
  }
- 
+} 
+
+/**
+ * Adds html page for upgrading membership post account login.
+ */
+function user_reg_upgrade_shortcode($atts = [], $content = null, $tag = '' ) {
+  if (is_user_logged_in()) {
+    $sail_user = get_sail_user();
+    global $PAGES_DIR;
+
+    $html = get_sail_page($PAGES_DIR . 'membership-upgrade.html');
+    $paymentHtml = str_ireplace("{{isPaidMember}}", $sail_user->isPaidMember == true ? 'true' : 'false', $paymentHtml);
+    $paymentHtml = str_ireplace("{{isNewMember}}", 'true');
+    $paymentHtml = str_ireplace("{{wordpressNonce}}", wp_create_nonce( 'wp_rest' ), $paymentHtml);
+    $paymentHtml = str_ireplace("{{paypalClientId}}", getenv('PAYPAL_CLIENT_ID') ?: 'PAYPAL-SANDBOX-CLIENT-ID', $paymentHtml);
+
+    return $html;
+  } else {
+    nocache_headers();
+    wp_safe_redirect('https://sailhousingsolutions.org/login');
+    exit;
+  }
 } 
 
 /**
@@ -108,6 +129,7 @@ function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
 
     $paymentHtml = get_sail_page_no_common_css($PAGES_DIR . 'membership-upgrade.html');
     $paymentHtml = str_ireplace("{{isPaidMember}}", $sail_user->isPaidMember == true ? 'true' : 'false', $paymentHtml);
+    $paymentHtml = str_ireplace("{{isNewMember}}", 'false');
     $paymentHtml = str_ireplace("{{wordpressNonce}}", wp_create_nonce( 'wp_rest' ), $paymentHtml);
     $paymentHtml = str_ireplace("{{paypalClientId}}", getenv('PAYPAL_CLIENT_ID') ?: 'PAYPAL-SANDBOX-CLIENT-ID', $paymentHtml);
 
@@ -696,6 +718,7 @@ function get_sail_page_no_common_css($path) {
  */
 function sail_plugin_init() {
     add_shortcode( 'userRegistration', 'user_reg_shortcode' );
+    add_shortcode( 'userPostRegistration', 'user_reg_upgrade_shortcode' );
     add_shortcode( 'userEmailVerification', 'user_email_verification_shortcode' );
     add_shortcode( 'userSignOn', 'user_signon_shortcode' );
     add_shortcode( 'userLogout', 'user_logout_shortcode');

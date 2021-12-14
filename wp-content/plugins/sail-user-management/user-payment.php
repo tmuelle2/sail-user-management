@@ -47,7 +47,6 @@ class PayPalOrder
     global $USER_DB_FIELDS;
     global $wpdb;
 
-    // TODO: Record order transaction in DB after table is created
     $orderRecord = array('orderId' => $orderId, 'orderJson' => json_encode($response));
     $wpdb->insert('sail_payments', $orderRecord, array('orderId' => '%s', 'orderJson' => '%s'));
     if ($response->result->status == 'COMPLETED') {
