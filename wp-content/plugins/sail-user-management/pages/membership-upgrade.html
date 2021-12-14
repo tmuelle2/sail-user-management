@@ -27,7 +27,7 @@ function initPayPalButton() {
             const element = document.getElementById('smart-button-container');
             element.innerHTML = `<p>Thank you for upgrading your membership! 
                     Your dues will help to fund SAIL events and you will now have access to Friendship Connect and the full housing roadmap.</p>`;
-            if ({{isNewUser}}) {
+            if (isNewUser) {
                 element.innerHTML += `<p><a href='https://sailhousingsolutions.org/user'>
                     Click here to go to your account profile page.
                 </p></a>`
