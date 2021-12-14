@@ -53,7 +53,7 @@ function user_reg_upgrade_shortcode($atts = [], $content = null, $tag = '' ) {
 
     $html = get_sail_page($PAGES_DIR . 'membership-upgrade.html');
     $html = str_ireplace("{{isPaidMember}}", $sail_user->isPaidMember == true ? 'true' : 'false', $html);
-    $html = str_ireplace("{{isNewMember}}", 'false', $html);
+    $html = str_ireplace("{{isNewMember}}", 'true', $html);
     $html = str_ireplace("{{wordpressNonce}}", wp_create_nonce( 'wp_rest' ), $html);
     $html = str_ireplace("{{paypalClientId}}", getenv('PAYPAL_CLIENT_ID') ?: 'PAYPAL-SANDBOX-CLIENT-ID', $html);
 
