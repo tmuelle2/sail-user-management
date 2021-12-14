@@ -34,7 +34,9 @@ function send_verification_email($sail_user_array) {
 function user_reg_shortcode($atts = [], $content = null, $tag = '' ) {
  global $PAGES_DIR;
  if (is_user_logged_in()) {
-  return esc_html("You need to log out before attempting to register for an account.");
+    nocache_headers();
+    wp_safe_redirect('https://sailhousingsolutions.org/error-message?title=You need to log out before attempting to register for an account.&message= ');
+    exit;
  }
  else {
   return get_sail_page($PAGES_DIR . 'registration.html');
@@ -197,13 +199,21 @@ function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
   if (is_user_logged_in()) {
     $sail_user = get_sail_user();
     if (is_due_paying_user($sail_user)) {
+      if (!$sail_user->emailVerified) {
+        nocache_headers();
+        wp_safe_redirect('https://sailhousingsolutions.org/error-message?title=You need to verify your email in order to create a Friendship Connect Profile.&message=To verify your email,  %3Ca%20href%3D%22https%3A%2F%2Fsailhousingsolutions.org%2Fuser%22%3Eclick%20here%20to%20go%20to%20your%20profile%20page.%3C%2Fa%3E');
+        exit;
+      }
+
       global $PAGES_DIR;
       global $USER_DB_FIELDS;
 
       $fc_member = get_fc_member();
 
       if (isset($fc_member)) {
-        return esc_html("You have already created a Friendship Connect Profile. To edit your Friendship Connect Profile information, go to the 'My Profile' page.");
+        nocache_headers();
+        wp_safe_redirect('https://sailhousingsolutions.org/error-message?title=You have already created a Friendship Connect Profile.&message=To edit your Friendship Connect Profile information,  %3Ca%20href%3D%22https%3A%2F%2Fsailhousingsolutions.org%2Fuser%22%3Eclick%20here%20to%20go%20to%20your%20profile%20page.%3C%2Fa%3E');
+        exit;
       }
       else {
 
@@ -222,8 +232,10 @@ function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
         return $html;
       }
     } else {
-      return esc_html("You need to be a paying member to create a Friendship Connect Profile. To pay dues, go to the 'My Profile' page.");
-    } 
+      nocache_headers();
+      wp_safe_redirect('https://sailhousingsolutions.org/error-message?title=You need to be a paying member to create a Friendship Connect Profile.&message=To pay dues,  %3Ca%20href%3D%22https%3A%2F%2Fsailhousingsolutions.org%2Fuser%22%3Eclick%20here%20to%20go%20to%20your%20profile%20page.%3C%2Fa%3E');
+      exit;
+    }
   } else {
     nocache_headers();
     wp_safe_redirect('https://sailhousingsolutions.org/login');
@@ -858,7 +870,8 @@ function sail_user_reverify_email() {
   $user_arr['emailVerificationKey'] = $email_verification_key;
   $user_arr['emailVerified'] = false;
   $wpdb->update('sail_users', $user_arr, array('userId' => $user_arr['userId']), $USER_DB_FIELDS);
-  wp_redirect('https://sailhousingsolutions.org/success-message?title=Verification Email Sent&message=%3Ca%20href%3D%22https%3A%2F%2Fsailhousingsolutions.org%2Fuser%22%3EClick%20here%20to%20go%20to%20your%20profile%20page.%3C%2Fa%3E');
+  nocache_headers();
+  wp_safe_redirect('https://sailhousingsolutions.org/success-message?title=Verification Email Sent&message=%3Ca%20href%3D%22https%3A%2F%2Fsailhousingsolutions.org%2Fuser%22%3EClick%20here%20to%20go%20to%20your%20profile%20page.%3C%2Fa%3E');
   exit;
 }
 add_action('admin_post_sail_user_reverify_email', 'sail_user_reverify_email');

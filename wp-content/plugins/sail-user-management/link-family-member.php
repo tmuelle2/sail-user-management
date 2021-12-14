@@ -53,7 +53,8 @@ if (strpos($wp->request, 'link-family-member') !== false) {
             $wpdb->update('sail_users', $link_user, array('userId' => $link_user['userId']), $formats);
             $relation = array('familyId' => $family_id, 'userId1' => $cur_user_array['userId'], 'userId2' => $link_user['userId']);
             $wpdb->insert('sail_family', $relation, array('%d', '%d', '%d'));
-            wp_redirect('https://sailhousingsolutions.org/success-message?title=Accounts successfully linked.&message=%3Ca%20href%3D%22https%3A%2F%2Fsailhousingsolutions.org%2Fuser%22%3EClick%20here%20to%20go%20to%20your%20profile%20page.%3C%2Fa%3E');
+            nocache_headers();
+            wp_safe_redirect('https://sailhousingsolutions.org/success-message?title=Accounts successfully linked.&message=%3Ca%20href%3D%22https%3A%2F%2Fsailhousingsolutions.org%2Fuser%22%3EClick%20here%20to%20go%20to%20your%20profile%20page.%3C%2Fa%3E');
             exit;
         }
     }

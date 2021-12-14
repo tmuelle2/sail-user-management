@@ -38,7 +38,8 @@ if (strpos($wp->request, 'verify-email') !== false) {
             error_log($updated === false);
             error_log($updated === 0);
             error_log($updated >= 0);
-            wp_redirect('https://sailhousingsolutions.org/success-message?title=Thank you, your email has been verified.&message=%3Ca%20href%3D%22https%3A%2F%2Fsailhousingsolutions.org%2Fuser%22%3EClick%20here%20to%20go%20to%20your%20profile%20page.%3C%2Fa%3E');
+            nocache_headers();
+            wp_safe_redirect('https://sailhousingsolutions.org/success-message?title=Thank you, your email has been verified.&message=%3Ca%20href%3D%22https%3A%2F%2Fsailhousingsolutions.org%2Fuser%22%3EClick%20here%20to%20go%20to%20your%20profile%20page.%3C%2Fa%3E');
             exit;
         } else {
             // Redirect to error page
