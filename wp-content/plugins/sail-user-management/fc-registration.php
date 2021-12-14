@@ -54,7 +54,7 @@ if (is_user_logged_in()) {
         // Insert the database row
         $wpdb->insert('fc_members', $data, $formats);
 
-        wp_mail("t.dan.mueller@gmail.com", "New Friendship Connect Profile Created", "If you are a Wordpress Admin, please review the SAIL reference of the new FC Profile by going to the DATABASE ACCESS panel on the admin page.");
+        wp_mail("info@sailhousingsolutions.org", "New Friendship Connect Profile Created", "If you are a Wordpress Admin, please review the SAIL reference of the new FC Profile by going to the DATABASE ACCESS panel on the admin page.");
         
         // Success redirect
         nocache_headers();
