@@ -71,7 +71,7 @@ if ( !username_exists($email) && !email_exists($email)) {
 
     // Success redirect
     nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org/user');
+    wp_safe_redirect('https://sailhousingsolutions.org/upgrade-registration');
     exit;
 } else {
     // Fail redirect 

@@ -54,7 +54,7 @@ function initPayPalButton() {
 }
 const element = document.getElementById('smart-button-container');
 if (isPaid) {
-    element.innerHTML = 'Your account has access to paid member features. Your access will expire at the end of 2022';
+    element.innerHTML = '<p>Your account has access to paid member features. Your access will expire at the end of 2022</p>';
 } else if (isNewUser) {
     element.innerHTML = `
         <h2>Upgrade Your Membership by Paying Dues</h2>
