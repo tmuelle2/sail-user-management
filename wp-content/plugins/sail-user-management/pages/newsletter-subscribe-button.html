@@ -46,6 +46,7 @@
         email.style.marginBottom = '2em';
         button.parentNode.prepend(email);
         let label = document.createElement('p');
+        label.id = "email-label";
         label.innerText = 'Enter your email address to subscribe to the newsletter:';
         button.parentNode.prepend(label);
         button.onclick = onClick;
@@ -55,9 +56,18 @@
         }
     }
 
+    // TODO refactor this nightmare
     function showSubscribedMessage() {
         let button = document.getElementById('newsletter-subscribe-button');
         button.style.display = 'none';
+        let email = document.getElementById('email-text-input');
+        if (email) {
+            email.style.display = 'none';
+        }
+        let label = document.getElementById('email-label');
+        if (label) {
+            label.style.display = 'none';
+        }
         let subMessage = document.createElement('p');
         subMessage.id =  subscribedId;
         subMessage.innerText = 'You are currently subscribed to the SAIL newsletter.';
