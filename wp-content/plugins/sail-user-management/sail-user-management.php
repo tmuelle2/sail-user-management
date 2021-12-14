@@ -52,10 +52,10 @@ function user_reg_upgrade_shortcode($atts = [], $content = null, $tag = '' ) {
     global $PAGES_DIR;
 
     $html = get_sail_page($PAGES_DIR . 'membership-upgrade.html');
-    $paymentHtml = str_ireplace("{{isPaidMember}}", $sail_user->isPaidMember == true ? 'true' : 'false', $paymentHtml);
-    $paymentHtml = str_ireplace("{{isNewMember}}", 'true');
-    $paymentHtml = str_ireplace("{{wordpressNonce}}", wp_create_nonce( 'wp_rest' ), $paymentHtml);
-    $paymentHtml = str_ireplace("{{paypalClientId}}", getenv('PAYPAL_CLIENT_ID') ?: 'PAYPAL-SANDBOX-CLIENT-ID', $paymentHtml);
+    $html = str_ireplace("{{isPaidMember}}", $sail_user->isPaidMember == true ? 'true' : 'false', $html);
+    $html = str_ireplace("{{isNewMember}}", 'false', $html);
+    $html = str_ireplace("{{wordpressNonce}}", wp_create_nonce( 'wp_rest' ), $html);
+    $html = str_ireplace("{{paypalClientId}}", getenv('PAYPAL_CLIENT_ID') ?: 'PAYPAL-SANDBOX-CLIENT-ID', $html);
 
     return $html;
   } else {
@@ -129,7 +129,7 @@ function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
 
     $paymentHtml = get_sail_page_no_common_css($PAGES_DIR . 'membership-upgrade.html');
     $paymentHtml = str_ireplace("{{isPaidMember}}", $sail_user->isPaidMember == true ? 'true' : 'false', $paymentHtml);
-    $paymentHtml = str_ireplace("{{isNewMember}}", 'false');
+    $paymentHtml = str_ireplace("{{isNewMember}}", 'false', $paymentHtml);
     $paymentHtml = str_ireplace("{{wordpressNonce}}", wp_create_nonce( 'wp_rest' ), $paymentHtml);
     $paymentHtml = str_ireplace("{{paypalClientId}}", getenv('PAYPAL_CLIENT_ID') ?: 'PAYPAL-SANDBOX-CLIENT-ID', $paymentHtml);
 
