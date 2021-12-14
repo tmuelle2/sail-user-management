@@ -35,7 +35,7 @@
             }).catch(err => console.error(err));
     }
 
-    function showNonMemberSubcscribe() {
+    function showNonMemberSubscribe() {
         let button = document.getElementById('newsletter-subscribe-button');
         button.style.display = 'block';
         let email = document.createElement('input');
@@ -67,7 +67,7 @@
 
     window.onload = function() {
         if (document.getElementsByTagName('body')[0].classList.contains("logged-in")) {
-            showNonMemberSubcscribe();
+            showNonMemberSubscribe();
         } else if ({{isSubscribed}}) {
             showSubscribedMessage();
         } else {
