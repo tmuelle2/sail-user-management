@@ -44,6 +44,7 @@
         email.id = "email-text-input";
         email.style.display = 'block';
         email.style.marginBottom = '2px';
+        button.parentNode.prepend(email);
         let label = document.createElement('p');
         label.innerText = 'Enter your email address to subscribe to the newsletter:';
         button.parentNode.prepend(label);
