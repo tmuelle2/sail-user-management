@@ -57,6 +57,18 @@ if (isPaid) {
     element.innerHTML = '<p>Your account has access to paid member features. Your access will expire at the end of 2022</p>';
 } else if (isNewUser) {
     element.innerHTML = `
+    <details>
+        <summary>Upgrade Your Membership - Pay Dues</summary>
+        <div style="text-align: center;">
+        <p>
+            Use PayPal to pay the $30 SAIL membership due.
+            <div id="paypal-button-container"></div>
+        </p>
+        </div>
+    </details>`;
+    initPayPalButton();
+} else {
+    element.innerHTML = `
         <h2>Upgrade Your Membership by Paying Dues</h2>
         <div style="text-align: center;">
             <p>
@@ -71,18 +83,6 @@ if (isPaid) {
                 Don't want to pay now? Click here to go to your account profile page.
             </p></a>
         </div>`;
-    initPayPalButton();
-} else {
-    element.innerHTML = `
-    <details>
-        <summary>Upgrade Your Membership - Pay Dues</summary>
-        <div style="text-align: center;">
-        <p>
-            Use PayPal to pay the $30 SAIL membership due.
-            <div id="paypal-button-container"></div>
-        </p>
-        </div>
-    </details>`;
     initPayPalButton();
 }
 </script>
