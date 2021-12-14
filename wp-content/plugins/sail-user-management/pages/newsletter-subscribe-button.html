@@ -43,6 +43,9 @@
         email.id = "email-text-input";
         email.style.display = 'block';
         button.parentNode.prepend(email);
+        let label = document.createElement('p');
+        label.innerText = 'Enter your email address to subscribe to the newsletter:';
+        button.parentNode.prepend(label);
     }
 
     function showSubscribedMessage() {
