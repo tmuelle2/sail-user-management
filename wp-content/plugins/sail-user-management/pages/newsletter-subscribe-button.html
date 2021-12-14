@@ -17,13 +17,13 @@
                 },
                 body: '{}'
             });
-        } else if (email) {
+        } else if (email && email.value) {
             promise = fetch('/wp-json/newsletter/v1/subscribe', { 
                 method: 'POST', 
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: '{"email": ' + email.innerText + '}'
+                body: '{"email": ' + email.value + '}'
             });
         } 
         promise.then(response => response.json())
@@ -43,7 +43,7 @@
         email.type = "text";
         email.id = "email-text-input";
         email.style.display = 'block';
-        email.style.marginBottom = '2px';
+        email.style.marginBottom = '2em';
         button.parentNode.prepend(email);
         let label = document.createElement('p');
         label.innerText = 'Enter your email address to subscribe to the newsletter:';
