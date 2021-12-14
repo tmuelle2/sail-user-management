@@ -791,7 +791,7 @@ function register_apis() {
   register_rest_route( 'newsletter/v1', '/subscribe', array(
     'methods' => 'POST',
     'callback' => 'newsletter_subscribe',
-    'permission_callback' => 'is_user_logged_in',
+    'permission_callback' => 'allow_all_requests',
   ) );
   register_rest_route( 'newsletter/v1', '/unsubscribe', array(
     'methods' => 'POST',
@@ -816,10 +816,18 @@ function pay_dues_auth() {
   return false;
 }
 
+function allow_all_requests() {
+  return true;
+}
+
 function newsletter_subscribe( $request ) {
   global $HOME_DIR;
   include_once($HOME_DIR . 'mail-chimp.php');
-  $response = (new MailChimpSailNewsletterClient)->subscribe(get_sail_user()->email);
+  if (user_is_logged_in()) {
+    $response = (new MailChimpSailNewsletterClient)->subscribe(get_sail_user()->email);
+  } else {
+    $response = (new MailChimpSailNewsletterClient)->subscribe($request->get_json_params()['email']);
+  }
   if (isset($response)) {
     return array('status' => $response->status);
   }
