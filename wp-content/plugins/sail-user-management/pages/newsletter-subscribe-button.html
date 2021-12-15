@@ -86,9 +86,9 @@
     }
 
     window.onload = function() {
-        if (document.getElementsByTagName('body')[0].classList.contains("logged-in")) {
+        if ({{isSubscribed}}) {
             showSubscribeButton();
-        } else if ({{isSubscribed}}) {
+        } else if (document.getElementsByTagName('body')[0].classList.contains("logged-in")) {
             showSubscribedMessage();
         } else {
             showNonMemberSubscribe();
