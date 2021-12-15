@@ -87,9 +87,9 @@
 
     window.onload = function() {
         if ({{isSubscribed}}) {
-            showSubscribeButton();
-        } else if (document.getElementsByTagName('body')[0].classList.contains("logged-in")) {
             showSubscribedMessage();
+        } else if (document.getElementsByTagName('body')[0].classList.contains("logged-in")) {
+            showSubscribeButton();
         } else {
             showNonMemberSubscribe();
         }
