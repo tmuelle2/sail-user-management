@@ -23,5 +23,6 @@ node_modules/
 *.sql
 *.sqlite
 
-# ignore dev snapshots
-snapshots/
+# ignore dev files 
+docker/*
+proxy/*

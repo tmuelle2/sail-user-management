@@ -1,22 +1,6 @@
-services:
-  wordpress:
-    depends_on:
-      - mysql
-    image: wordpress
-    restart: always
-    ports:
-      - 80:80
-      - 443:443
-    environment:
-      WORDPRESS_DB_HOST: mysql
-      WORDPRESS_DB_USER: dev_user 
-      WORDPRESS_DB_PASSWORD: sail_house_dev  
-      WORDPRESS_DB_NAME: sailhou1_WPRAL
-      WORDPRESS_DEBUG: 'true'
-    volumes:
-      - ./snapshots:/var/www/html/
-      - ./wp-content/plugins/sail-user-management/:/var/www/html/wp-content/plugins/sail-user-management/
+version: '3.9'
 
+services:
   mysql:
     image: mysql:5.7
     restart: always
@@ -30,5 +14,34 @@ services:
     volumes:
       - mysql:/var/lib/mysql
 
+  wordpress:
+    depends_on:
+      - mysql
+    image: wordpress
+    restart: always
+    ports:
+      - 80:80
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: dev_user 
+      WORDPRESS_DB_PASSWORD: sail_house_dev  
+      WORDPRESS_DB_NAME: sailhou1_WPRAL
+      WORDPRESS_DEBUG: 'true'
+    volumes:
+      - ./docker:/var/www/html
+      - ./wp-content/plugins/sail-user-management:/var/www/html/wp-content/plugins/sail-user-management
+      # Uncomment the below line and modify the first path to match where the theme is checked out to test theme changes
+      #- ../sailhousing-theme:/var/www/html/wp-content/themes/sailhousing-theme
+
+  proxy:
+    image: nginx
+    depends_on:
+      - wordpress
+    ports:
+      - 443:443
+    volumes:
+      - ./proxy/conf:/etc/nginx
+      - ./proxy/certs:/etc/nginx/certs
+    
 volumes:
   mysql:
