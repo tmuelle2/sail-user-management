@@ -1,13 +1,13 @@
 <?php
 
+use Sail\Utils\WebUtils;
+
 if (is_user_logged_in()) {
     wp_logout();
-    nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org');
+    WebUtils::redirect('');
     exit;
 }else {
     // Fail redirect 
-    nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org');
+    WebUtils::redirect('');
     exit;
 }

@@ -1,5 +1,6 @@
 <?php
 
+use Sail\Utils\WebUtils;
 // idk why but this was causing an error but the row was being added to the db
 //$HOME_DIR = '/_home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
 //include($HOME_DIR . 'constants.php');
@@ -30,12 +31,10 @@ if (is_user_logged_in()) {
     $wpdb->insert('port_members', $data, $formats);
 
     // Success redirect
-    nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org/user');
+    WebUtils::redirect('/user');
     exit;
 } else {
     // Fail redirect 
-    nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org/error');
+    WebUtils::redirect('/error');
     exit;
 }

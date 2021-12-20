@@ -11,6 +11,7 @@ services:
       MYSQL_USER: dev_user
       MYSQL_PASSWORD: sail_house_dev 
       MYSQL_RANDOM_ROOT_PASSWORD: 1
+      SAIL_DEV_ENV: true
     volumes:
       - mysql:/var/lib/mysql
 
@@ -21,6 +22,7 @@ services:
     restart: always
     ports:
       - 80:80
+      - 443:443
     environment:
       WORDPRESS_DB_HOST: mysql
       WORDPRESS_DB_USER: dev_user 
@@ -38,7 +40,7 @@ services:
     depends_on:
       - wordpress
     ports:
-      - 443:443
+      - 9443:9443
     volumes:
       - ./proxy/conf:/etc/nginx
       - ./proxy/certs:/etc/nginx/certs

@@ -1,12 +1,13 @@
 <?php
 
+use Sail\Utils\WebUtils;
+
 $HOME_DIR = '/_home2/sailhou1/public_html/';
 global $USER_DB_FIELDS;
 global $wpdb;
 
 if (is_user_logged_in()) {
-    nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org/error-message?title=Register Error&message=You are attempting to create an account while logged in. Please sign out of this account to create a new one.');
+    WebUtils::redirect('/error-message?title=Register Error&message=You are attempting to create an account while logged in. Please sign out of this account to create a new one.');
     exit;
 }
 
@@ -70,12 +71,10 @@ if ( !username_exists($email) && !email_exists($email)) {
     $user = wp_signon( $creds, is_ssl() );
 
     // Success redirect
-    nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org/upgrade-registration');
+    WebUtils::redirect('/upgrade-registration');
     exit;
 } else {
     // Fail redirect 
-    nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org/error');
+    WebUtils::redirect('/error');
     exit;
 }

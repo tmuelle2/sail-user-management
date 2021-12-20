@@ -1,5 +1,7 @@
 <?php
 
+use Sail\Utils\WebUtils;
+
 $HOME_DIR = '/_home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
 global $PORT_DB_FIELDS;
 
@@ -21,12 +23,10 @@ if (is_user_logged_in()) {
     
 
     // Success redirect
-    nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org/user');
+    WebUtils::redirect('/user');
     exit;
 } else {
     // Fail redirect 
-    nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org/error');
+    WebUtils::redirect('/error');
     exit;
 }

@@ -1,5 +1,7 @@
 <?php
 
+use Sail\Utils\WebUtils;
+
 $HOME_DIR = '/_home2/sailhou1/public_html/';
 global $USER_DB_FIELDS;
 global $wpdb;
@@ -39,12 +41,10 @@ if (is_user_logged_in()) {
     $wpdb->update('sail_users', $data, array('userId' => $cur_user->userId), $formats);
 
     // Success redirect
-    nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org/user');
+    WebUtils::redirect('/user');
     exit;
 } else {
     // Fail redirect 
-    nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org/error');
+    WebUtils::redirect('/error');
     exit;
 }

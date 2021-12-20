@@ -6,40 +6,24 @@
  * Version: 0.1 
  */
 
-$HOME_DIR = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
-include($HOME_DIR . 'constants.php');
+require_once(__DIR__ . '/Constants.php');
+require_once(__DIR__ . '/utils/ClassAutoloader.php');
+spl_autoload_register('Sail\Utils\ClassAutoloader::autoload');
 
-function send_verification_email($sail_user_array) {
-    // Send verification email
-    $email = $sail_user_array['email'];
-    $email_verification_key = uniqid('sail-email-verification-', true);
-    $url = esc_url_raw( "https://sailhousingsolutions.org/verify-email" . "?verification_key=$email_verification_key&email=$email" );
-    
-    $message = "Hello ";
-    $message .= $sail_user_array['firstName'];
-    $message .= "!\r\n\r\n";
-    $message .= "Thanks for joining SAIL! In order to ensure that your email is configured correctly, please verify it by clicking this link:\r\n\r\n";
-    $message .= $url;
-    $message .= "\r\n\r\nIf you didn't sign-up for SAIL, please ignore this email.";
-
-    wp_mail( $email, "SAIL Email Verification", $message );
-    
-    return $email_verification_key;
-}
+use Sail\Constants;
+use Sail\Utils\WebUtils;
 
 /**
  * Adds the html form required to capture all user account info.
  * If the user is already logged in redirect to profile page.
  */
 function user_reg_shortcode($atts = [], $content = null, $tag = '' ) {
- global $PAGES_DIR;
  if (is_user_logged_in()) {
-    nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org/error-message?title=You need to log out before attempting to register for an account.&message= ');
+    WebUtils::redirect('/error-message?title=You need to log out before attempting to register for an account.&message= ');
     exit;
  }
  else {
-  return get_sail_page($PAGES_DIR . 'registration.html');
+  return get_sail_page(Constants::PAGES_DIR . 'registration.html');
  }
 } 
 
@@ -59,8 +43,7 @@ function user_reg_upgrade_shortcode($atts = [], $content = null, $tag = '' ) {
 
     return $html;
   } else {
-    nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org/login');
+    WebUtils::redirect('/login');
     exit;
   }
 } 
@@ -69,40 +52,35 @@ function user_reg_upgrade_shortcode($atts = [], $content = null, $tag = '' ) {
  * Adds the html page for verifying email.
  */
 function user_email_verification_shortcode($atts = [], $content = null, $tag = '' ) {
- global $PAGES_DIR;
- return get_sail_page($PAGES_DIR . 'verify-email.html');
+ return get_sail_page(Constants::PAGES_DIR . 'verify-email.html');
 }
 
 /**
  * Adds the html form required to login
  */
 function user_signon_shortcode($atts = [], $content = null, $tag = '' ) {
-  global $PAGES_DIR;
-  return get_sail_page($PAGES_DIR . 'signon.html');
+  return get_sail_page(Constants::PAGES_DIR . 'signon.html');
 }
 
 /**
  * Adds the html form required to logout
  */
 function user_logout_shortcode($atts = [], $content = null, $tag = '' ) {
-  global $PAGES_DIR;
-  return get_sail_page($PAGES_DIR . 'logout.html');
+  return get_sail_page(Constants::PAGES_DIR . 'logout.html');
 }
 
 /**
  * Adds the html form required for when a user forgets their password
  */
 function user_forgot_password_shortcode($atts = [], $content = null, $tag = '' ) {
-  global $PAGES_DIR;
-  return get_sail_page($PAGES_DIR . 'forgot-password.html');
+  return get_sail_page(Constants::PAGES_DIR . 'forgot-password.html');
 }
 
 /**
  * Adds the html form required for when a user needs to change their password
  */
 function user_change_password_shortcode($atts = [], $content = null, $tag = '' ) {
-  global $PAGES_DIR;
-  return get_sail_page($PAGES_DIR . 'change-password.html');
+  return get_sail_page(Constants::PAGES_DIR . 'change-password.html');
 }
 
 /**
@@ -112,9 +90,8 @@ function user_change_password_shortcode($atts = [], $content = null, $tag = '' )
 function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
   if (is_user_logged_in()) {
     $sail_user = get_sail_user();
-    global $PAGES_DIR;
-
-    $html = get_sail_page($PAGES_DIR . 'profile.html');
+  
+    $html = get_sail_page(Constants::PAGES_DIR . 'profile.html');
 
     $html = str_ireplace("{{firstName}}", esc_html($sail_user->firstName), $html);
     $html = str_ireplace("{{lastName}}", esc_html($sail_user->lastName), $html);
@@ -127,7 +104,7 @@ function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
     $html = str_ireplace("{{zipCode}}", esc_html($sail_user->zipCode), $html);
     $html = str_ireplace("{{profilePicture}}", esc_html($sail_user->profilePicture), $html);
 
-    $paymentHtml = get_sail_page_no_common_css($PAGES_DIR . 'membership-upgrade.html');
+    $paymentHtml = get_sail_page_no_common_css(Constants::PAGES_DIR . 'membership-upgrade.html');
     $paymentHtml = str_ireplace("{{isPaidMember}}", $sail_user->isPaidMember == true ? 'true' : 'false', $paymentHtml);
     $paymentHtml = str_ireplace("{{isNewMember}}", 'false', $paymentHtml);
     $paymentHtml = str_ireplace("{{wordpressNonce}}", wp_create_nonce( 'wp_rest' ), $paymentHtml);
@@ -135,13 +112,12 @@ function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
 
     $verifyEmailHtml = '';
     if (!$sail_user->emailVerified) {
-      $verifyEmailHtml = get_sail_page_no_common_css($PAGES_DIR . 'verify-email.html');
+      $verifyEmailHtml = get_sail_page_no_common_css(Constants::PAGES_DIR . 'verify-email.html');
     }
 
     return $html . $paymentHtml . $verifyEmailHtml;
   } else {
-    nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org/login');
+    WebUtils::redirect('/login');
     exit;
   }
 } 
@@ -152,16 +128,12 @@ function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
  */
 function user_update_profile_shortcode($atts = [], $content = null, $tag = '' ) {
   if (is_user_logged_in()) {
-    global $PAGES_DIR;
-    global $USER_DB_FIELDS;
-
     $sail_user = get_sail_user();
-    $html = parse_html(get_sail_page($PAGES_DIR . 'update-profile.html'));
-    populate_form_elements($html, $USER_DB_FIELDS, $sail_user);
+    $html = parse_html(get_sail_page(Constants::PAGES_DIR . 'update-profile.html'));
+    populate_form_elements($html, Constants::USER_DB_FIELDS, $sail_user);
     return $html->saveHTML();
   } else {
-    nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org/login');
+    WebUtils::redirect('/login');
     exit;
   }    
 }
@@ -172,11 +144,10 @@ function user_update_profile_shortcode($atts = [], $content = null, $tag = '' ) 
  */
 function user_add_family_member($atts = [], $content = null, $tag = '' ) {
   if (is_user_logged_in()) {
-    global $PAGES_DIR;
-
+  
     $sail_user = get_sail_user();
     $family_members = get_family_members();
-    $html = get_sail_page($PAGES_DIR . 'add-family-member.html');
+    $html = get_sail_page(Constants::PAGES_DIR . 'add-family-member.html');
 
     if (count($family_members) > 0) {
       $linkedAccounts = "";
@@ -191,8 +162,7 @@ function user_add_family_member($atts = [], $content = null, $tag = '' ) {
     
     return $html;
   } else {
-    nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org/login');
+    WebUtils::redirect('/login');
     exit;
   }    
 }
@@ -202,15 +172,9 @@ function user_add_family_member($atts = [], $content = null, $tag = '' ) {
  */
 function fc_landing_shortcode($atts = [], $content = null, $tag = '' ) {
   if (is_user_logged_in()) {
-    global $PAGES_DIR;
-    global $USER_DB_FIELDS;
-
-    $sail_user = get_sail_user();
-    
-    return get_sail_page($PAGES_DIR . 'fc-landing-login.html');
+    return get_sail_page(Constants::PAGES_DIR . 'fc-landing-login.html');
   } else {
-    global $PAGES_DIR;
-    return get_sail_page($PAGES_DIR . 'fc-landing-nologin.html');
+      return get_sail_page(Constants::PAGES_DIR . 'fc-landing-nologin.html');
   }    
 }
 
@@ -222,8 +186,7 @@ function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
     $sail_user = get_sail_user();
     if (is_due_paying_user($sail_user)) {
       if (!$sail_user->emailVerified) {
-        nocache_headers();
-        wp_safe_redirect('https://sailhousingsolutions.org/error-message?title=You need to verify your email in order to create a Friendship Connect Profile.&message=To verify your email,  %3Ca%20href%3D%22https%3A%2F%2Fsailhousingsolutions.org%2Fuser%22%3Eclick%20here%20to%20go%20to%20your%20profile%20page.%3C%2Fa%3E');
+        WebUtils::redirect('/error-message?title=You need to verify your email in order to create a Friendship Connect Profile.&message=To verify your email,  %3Ca%20href%3D%22https%3A%2F%2Fsailhousingsolutions.org%2Fuser%22%3Eclick%20here%20to%20go%20to%20your%20profile%20page.%3C%2Fa%3E');
         exit;
       }
 
@@ -233,8 +196,7 @@ function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
       $fc_member = get_fc_member();
 
       if (isset($fc_member)) {
-        nocache_headers();
-        wp_safe_redirect('https://sailhousingsolutions.org/error-message?title=You have already created a Friendship Connect Profile.&message=To edit your Friendship Connect Profile information,  %3Ca%20href%3D%22https%3A%2F%2Fsailhousingsolutions.org%2Fuser%22%3Eclick%20here%20to%20go%20to%20your%20profile%20page.%3C%2Fa%3E');
+        WebUtils::redirect('/error-message?title=You have already created a Friendship Connect Profile.&message=To edit your Friendship Connect Profile information,  %3Ca%20href%3D%22https%3A%2F%2Fsailhousingsolutions.org%2Fuser%22%3Eclick%20here%20to%20go%20to%20your%20profile%20page.%3C%2Fa%3E');
         exit;
       }
       else {
@@ -243,7 +205,7 @@ function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
         $initials = strtoupper($sail_user->firstName[0]) . "." . strtoupper($sail_user->lastName[0]) . ".";
         $profilePicture = "http://sailhousingsolutions.org/wp-admin/identicon.php?size=200&hash=" . md5($sail_user->email);
 
-        $html = get_sail_page($PAGES_DIR . 'fc-registration.html');
+        $html = get_sail_page(Constants::PAGES_DIR . 'fc-registration.html');
 
         $html = str_ireplace("{{displayName}}", esc_html($sail_user->firstName), $html);
         $html = str_ireplace("{{firstName}}", esc_html($sail_user->firstName), $html);
@@ -254,13 +216,11 @@ function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
         return $html;
       }
     } else {
-      nocache_headers();
-      wp_safe_redirect('https://sailhousingsolutions.org/error-message?title=You need to be a paying member to create a Friendship Connect Profile.&message=To pay dues,  %3Ca%20href%3D%22https%3A%2F%2Fsailhousingsolutions.org%2Fuser%22%3Eclick%20here%20to%20go%20to%20your%20profile%20page.%3C%2Fa%3E');
+      WebUtils::redirect('/error-message?title=You need to be a paying member to create a Friendship Connect Profile.&message=To pay dues,  %3Ca%20href%3D%22https%3A%2F%2Fsailhousingsolutions.org%2Fuser%22%3Eclick%20here%20to%20go%20to%20your%20profile%20page.%3C%2Fa%3E');
       exit;
     }
   } else {
-    nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org/login');
+    WebUtils::redirect('/login');
     exit;
   }    
 }
@@ -269,13 +229,10 @@ function fc_update_shortcode($atts = [], $content = null, $tag = '' ) {
   if (is_user_logged_in()) {
     $sail_user = get_sail_user();
     if (is_due_paying_user($sail_user)) {
-      global $PAGES_DIR;
-      global $FC_DB_FIELDS;
-
       $fc_member = get_fc_member();
       if (!isset($fc_member) || !isset($fc_member->userId) || $fc_member->userId < 1) return '';
 
-      $html = get_sail_page($PAGES_DIR . 'fc-profile-update.html');     
+      $html = get_sail_page(Constants::PAGES_DIR . 'fc-profile-update.html');     
     
       $firstNameAndLastInitial = $sail_user->firstName . " " . $sail_user->lastName[0] . ".";
       $initials = strtoupper($sail_user->firstName[0]) . "." . strtoupper($sail_user->lastName[0]) . ".";
@@ -298,8 +255,7 @@ function fc_update_shortcode($atts = [], $content = null, $tag = '' ) {
       return '';
     }
   } else {
-    nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org/login');
+    WebUtils::redirect('/login');
     exit;
   }    
 }
@@ -308,14 +264,12 @@ function fc_update_shortcode($atts = [], $content = null, $tag = '' ) {
  * Returns html for friendship connect example profile
  */
 function fc_example_profile_shortcode($atts = [], $content = null, $tag = '' ) {
-    global $PAGES_DIR;
-    
-    return get_sail_page($PAGES_DIR . 'fc-example-profile.html');
+      
+    return get_sail_page(Constants::PAGES_DIR . 'fc-example-profile.html');
 }
 
 function fc_search_shortcode($atts = [], $content = null, $tag = '' ) {
   if (is_user_logged_in()) {
-    global $PAGES_DIR;
     global $wpdb;
 
     $sail_user = get_sail_user();
@@ -326,7 +280,7 @@ function fc_search_shortcode($atts = [], $content = null, $tag = '' ) {
       $query = "SELECT * FROM `fc_members` WHERE referenceApproved = 1";
       $results = $wpdb->get_results($query);
 
-      $html = '<style>' . file_get_contents($PAGES_DIR . 'common.css', true) . '</style>';
+      $html = '<style>' . file_get_contents(Constants::PAGES_DIR . 'common.css', true) . '</style>';
 
       foreach($results as $fc_profile) {
         $user_query = "SELECT * FROM `sail_users` WHERE userId = ";
@@ -346,7 +300,7 @@ function fc_search_shortcode($atts = [], $content = null, $tag = '' ) {
         else { $contact = "Via Email at " . $fc_profile->primaryContact; }
 
         // Start building result summary
-        $summary = file_get_contents($PAGES_DIR . 'fc-result-summary.html', true);
+        $summary = file_get_contents(Constants::PAGES_DIR . 'fc-result-summary.html', true);
         $summary = str_ireplace("{{profilePicture}}", esc_html($fc_profile->profilePicture), $summary);
 
         if ($fc_profile->namePreference == "First Name and Last Initial") { $summary = str_ireplace("{{displayName}}", esc_html($firstNameAndLastInitial), $summary); }
@@ -371,17 +325,15 @@ function fc_search_shortcode($atts = [], $content = null, $tag = '' ) {
       return $html;
     }
     else if (isset($fc_member) && !$fc_member->referenceApproved) {
-      return get_sail_page($PAGES_DIR . 'fc-pending-approval.html');
+      return get_sail_page(Constants::PAGES_DIR . 'fc-pending-approval.html');
     }
     else {
-      nocache_headers();
       wp_safe_redirect("https://sailhousingsolutions.org/join-friendship-connect");
       exit;
     }   
   }
   else {
-    nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org/login');
+    WebUtils::redirect('/login');
     exit;
   }
 }
@@ -394,11 +346,9 @@ function fc_search_shortcode($atts = [], $content = null, $tag = '' ) {
 // OBSOLETE
 function user_join_port_shortcode($atts = [], $content = null, $tag = '' ) {
   if (is_user_logged_in()) {
-    global $PAGES_DIR;
-    return get_sail_page($PAGES_DIR . 'join-port.html');
+      return get_sail_page(Constants::PAGES_DIR . 'join-port.html');
   } else {
-    nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org/register');
+    WebUtils::redirect('/register');
     exit;
   } 
 }
@@ -412,8 +362,7 @@ function subscribe_newsletter_shortcode($att = [], $content = null, $tag = '') {
     $subStatus = (new MailChimpSailNewsletterClient)->status(get_sail_user()->email);
     $isSub = $subStatus == 'subscribed' || $subStatus == 'pending';
   }
-
-  $html = get_sail_page($PAGES_DIR . 'newsletter-subscribe-button.html');
+  $html = get_sail_page(Constants::PAGES_DIR . 'newsletter-subscribe-button.html');
   $html = str_ireplace("{{wordpressNonce}}", wp_create_nonce( 'wp_rest' ), $html);
   $html = str_ireplace("{{isSubscribed}}", $isSub == true ? 'true' : 'false', $html);
   return $html;
@@ -421,8 +370,7 @@ function subscribe_newsletter_shortcode($att = [], $content = null, $tag = '') {
 
 
 function display_message_shortcode($atts = [], $content = null, $tag = '') {
-  global $PAGES_DIR;
-  return get_sail_page($PAGES_DIR . 'display-message.html');
+  return get_sail_page(Constants::PAGES_DIR . 'display-message.html');
 }
 
 /**
@@ -432,14 +380,11 @@ function display_message_shortcode($atts = [], $content = null, $tag = '') {
 // OBSOLETE
 function user_update_port_shortcode($atts = [], $content = null, $tag = '' ) {
   if (is_user_logged_in()) {
-    global $PAGES_DIR;
-    global $PORT_DB_FIELDS;
-
     $port_member = get_port_member();
 
     if (isset($port_member, $port_member->userId)) {
-      $html = parse_html(get_sail_page($PAGES_DIR . 'update-port.html'));
-      populate_form_elements($html, $PORT_DB_FIELDS, $port_member);
+      $html = parse_html(get_sail_page(Constants::PAGES_DIR . 'update-port.html'));
+      populate_form_elements($html, Constants::PORT_DB_FIELDS, $port_member);
       return $html->saveHTML();
     }
     else {
@@ -447,8 +392,7 @@ function user_update_port_shortcode($atts = [], $content = null, $tag = '' ) {
     }
 
   } else {
-    nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org/register');
+    WebUtils::redirect('/register');
     exit;
   }    
 }
@@ -516,7 +460,6 @@ function is_due_paying_user($sail_user) {
 
 // Returns the fc member info of the currently logged in user if it exists
 function get_fc_member() {
-
     global $wpdb;
     $user = wp_get_current_user();
     $query = "SELECT * FROM `fc_members` WHERE userId = ";
@@ -545,7 +488,6 @@ function get_fc_member_array() {
 
 // Returns the family members of the currently logged in user if they exist
 function get_family_members() {
-
     global $wpdb;
     $family_members = [];
     $user = get_sail_user();
@@ -703,8 +645,7 @@ function dom_named_node_map_to_string($map) {
   * Also, injects the ./pages/common.css file as a <style> block.
   */
 function get_sail_page($path) {
-  global $PAGES_DIR;
-  return '<style>' . file_get_contents($PAGES_DIR . 'common.css', true) . '</style>' .
+  return '<style>' . file_get_contents(Constants::PAGES_DIR . 'common.css', true) . '</style>' .
     get_sail_page_no_common_css($path); 
 }
 
@@ -739,9 +680,6 @@ function sail_plugin_init() {
     add_shortcode( 'userFCSearch', 'fc_search_shortcode'); 
     add_shortcode( 'userSubscribeNewsletter', 'subscribe_newsletter_shortcode' );
     add_shortcode( 'displayMessage', 'display_message_shortcode' );
-    // Register autoloader
-    require_once('/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/ClassAutoloader.php');
-    spl_autoload_register('ClassAutoloader::autoload');
 } 
 add_action('init', 'sail_plugin_init' );
 
@@ -801,11 +739,10 @@ function register_apis() {
 }
 
 function pay_dues( $request ) {
-  global $HOME_DIR;
   if( ! is_user_logged_in() ) {
     return new WP_Error( 'rest_unauthorized', __( 'Only authenticated users can access the dues API.', 'rest_unauthorized' ), array( 'status' => 403 ) );
   }
-  include_once($HOME_DIR . 'user-payment.php');
+  include_once(Constants::HOME_DIR . 'user-payment.php');
   PayPalOrder::recordOrder($request->get_json_params()['id'], true);
 }
 
@@ -835,8 +772,7 @@ function newsletter_subscribe( $request ) {
 }
 
 function newsletter_unsubscribe( $request ) {
-  global $HOME_DIR;
-  include_once($HOME_DIR . 'mail-chimp.php');
+  include_once(Constants::HOME_DIR . 'mail-chimp.php');
   (new MailChimpSailNewsletterClient)->unsubscribe(get_sail_user()->email);
 }
 
@@ -851,52 +787,43 @@ function newsletter_unsubscribe( $request ) {
  * be invoked when an unautheticated user posts.
  ***********************************************************************/
 function sail_user_register() {
-  global $HOME_DIR;
-  include_once($HOME_DIR . 'user-registration.php');
+  include_once(Constants::HOME_DIR . 'user-registration.php');
 }
 add_action('admin_post_nopriv_sail_user_registration', 'sail_user_register');
 add_action('admin_post_sail_user_registration', 'sail_user_register');
 
 function sail_user_signon() {
-  global $HOME_DIR;
-  include_once($HOME_DIR . 'user-signon.php');
+  include_once(Constants::HOME_DIR . 'user-signon.php');
 }
 add_action('admin_post_nopriv_sail_user_signon', 'sail_user_signon');
 
 function sail_user_logout() {
-  global $HOME_DIR;
-  include_once($HOME_DIR . 'user-logout.php');
+  include_once(Constants::HOME_DIR . 'user-logout.php');
 }
 add_action('admin_post_sail_user_logout', 'sail_user_logout');
 
 function sail_user_forgot_password() {
-  global $HOME_DIR;
-  include_once($HOME_DIR . 'user-forgot-password.php');
+  include_once(Constants::HOME_DIR . 'user-forgot-password.php');
 }
 add_action('admin_post_nopriv_sail_user_forgot_password', 'sail_user_forgot_password');
 
 function sail_user_change_password() {
-  global $HOME_DIR;
-  include_once($HOME_DIR . 'user-change-password.php');
+  include_once(Constants::HOME_DIR . 'user-change-password.php');
 }
 add_action('admin_post_nopriv_sail_user_change_password', 'sail_user_change_password');
 add_action('admin_post_sail_user_change_password', 'sail_user_change_password');
 
 function sail_user_update() {
-  global $HOME_DIR;
-  include_once($HOME_DIR . 'user-update.php');
+  include_once(Constants::HOME_DIR . 'user-update.php');
 }
 add_action('admin_post_sail_user_update', 'sail_user_update');
 
 function sail_user_add_family_member() {
-  global $HOME_DIR;
-  include_once($HOME_DIR . 'add-family-member.php');
+  include_once(Constants::HOME_DIR . 'add-family-member.php');
 }
 add_action('admin_post_sail_user_add_family_member', 'sail_user_add_family_member');
 
 function sail_user_reverify_email() {
-  global $HOME_DIR;
-  global $USER_DB_FIELDS;
   global $wpdb;
   // Send verification email
   $user_arr = get_sail_user_array();
@@ -904,46 +831,39 @@ function sail_user_reverify_email() {
   $user_arr['emailVerificationKey'] = $email_verification_key;
   $user_arr['emailVerified'] = false;
   $wpdb->update('sail_users', $user_arr, array('userId' => $user_arr['userId']), $USER_DB_FIELDS);
-  nocache_headers();
-  wp_safe_redirect('https://sailhousingsolutions.org/success-message?title=Verification Email Sent&message=%3Ca%20href%3D%22https%3A%2F%2Fsailhousingsolutions.org%2Fuser%22%3EClick%20here%20to%20go%20to%20your%20profile%20page.%3C%2Fa%3E');
+  WebUtils::redirect('/success-message?title=Verification Email Sent&message=%3Ca%20href%3D%22https%3A%2F%2Fsailhousingsolutions.org%2Fuser%22%3EClick%20here%20to%20go%20to%20your%20profile%20page.%3C%2Fa%3E');
   exit;
 }
 add_action('admin_post_sail_user_reverify_email', 'sail_user_reverify_email');
 
 function fc_register() {
-  global $HOME_DIR;
-  include_once($HOME_DIR . 'fc-registration.php');
+  include_once(Constants::HOME_DIR . 'fc-registration.php');
 }
 add_action('admin_post_fc_registration', 'fc_register');
 
 function fc_profile_update() {
-  global $HOME_DIR;
-  include_once($HOME_DIR . 'fc-profile-update.php');
+  include_once(Constants::HOME_DIR . 'fc-profile-update.php');
 }
 add_action('admin_post_fc_profile_update', 'fc_profile_update');
 
 function join_port() {
-  global $HOME_DIR;
-  include_once($HOME_DIR . 'join-port.php');
+  include_once(Constants::HOME_DIR . 'join-port.php');
 }
 add_action('admin_post_join_port', 'join_port');
 
 function update_port() {
-  global $HOME_DIR;
-  include_once($HOME_DIR . 'update-port.php');
+  include_once(Constants::HOME_DIR . 'update-port.php');
 }
 add_action('admin_post_update_port', 'update_port');
 
 function sail_user_verify_email() {
-  global $HOME_DIR;
-  include_once($HOME_DIR . 'user-verify-email.php');
+  include_once(Constants::HOME_DIR . 'user-verify-email.php');
 }
 // This runs on every request! Cannot error out unnecessarily!!
 add_action('wp', 'sail_user_verify_email');
 
 function sail_user_link_family_member() {
-  global $HOME_DIR;
-  include_once($HOME_DIR . 'link-family-member.php');
+  include_once(Constants::HOME_DIR . 'link-family-member.php');
 }
 // This runs on every request! Cannot error out unnecessarily!!
 add_action('wp', 'sail_user_link_family_member');

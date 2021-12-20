@@ -1,5 +1,7 @@
 <?php
 
+use Sail\Utils\WebUtils;
+
 // Login Wordpress user
 $email = $_POST['email'];
 $password = $_POST['password'];
@@ -16,7 +18,7 @@ if ( username_exists($email) && email_exists($email)) {
     if ( is_wp_error( $user ) ) {
         // Fail redirect
         echo $user->get_error_message();
-        wp_safe_redirect('https://sailhousingsolutions.org/error');
+        WebUtils::redirect('/error');
         exit;
     }
     else {
@@ -28,12 +30,12 @@ if ( username_exists($email) && email_exists($email)) {
             exit;
         }
         else {
-            wp_safe_redirect('https://sailhousingsolutions.org/user');
+            WebUtils::redirect('/user');
             exit;
         }
     }    
 }else {
     // Fail redirect 
-    wp_safe_redirect('https://sailhousingsolutions.org/error');
+    WebUtils::redirect('/error');
     exit;
 }
