@@ -24,6 +24,27 @@ window.addEventListener("load", function(){
     event.target.setCustomValidity('');
   })
 });
+
+function onChecked(elClass) {
+    el=document.getElementsByClassName(elClass);
+
+    var atLeastOneChecked=false;//at least one cb is checked
+    for (i=0; i<el.length; i++) {
+        if (el[i].checked === true) {
+            atLeastOneChecked=true;
+        }
+    }
+
+    if (atLeastOneChecked === true) {
+        for (i=0; i<el.length; i++) {
+            el[i].required = false;
+        }
+    } else {
+        for (i=0; i<el.length; i++) {
+            el[i].required = true;
+        }
+    }
+}
 </script>
 
 <form accept-charset="UTF-8" action="<?php esc_url(admin_url('admin-post.php')); ?>" id="user_reg" autocomplete="on" enctype="multipart/form-data" method="post">
@@ -144,35 +165,35 @@ window.addEventListener("load", function(){
   <h5 class="field-label required-field">Which of the following best describes your situation? (Check all that apply)</h5>
   <!--<input type="hidden" name="situation[]" value="0" /> -->
   <div>
-    <input type="checkbox" name="situation[]" id="sitch1" value="Need to commit to understanding steps involved in developing a housing solution.">
+    <input class="sitch" onclick="onChecked('sitch')" type="checkbox" name="situation[]" id="sitch1" value="Need to commit to understanding steps involved in developing a housing solution." required>
     <label for="sitch1">Need to commit to understanding steps involved in developing a housing solution</label>
   </div>
   <div>
-    <input type="checkbox" name="situation[]" id="sitch2" value="Need support to understand Government Benefits like SSI, SSDI, Medicaid, Bridge Card, etc.">
+    <input class="sitch" onclick="onChecked('sitch')" type="checkbox" name="situation[]" id="sitch2" value="Need support to understand Government Benefits like SSI, SSDI, Medicaid, Bridge Card, etc." required>
     <label for="sitch2">Need support to understand Government Benefits like SSI, SSDI, Medicaid, Bridge Card, etc</label>
   </div>
   <div>
-    <input type="checkbox" name="situation[]" id="sitch3" value="Need to connect with others to develop friendships/roommates">
+    <input class="sitch" onclick="onChecked('sitch')" type="checkbox" name="situation[]" id="sitch3" value="Need to connect with others to develop friendships/roommates" required>
     <label for="sitch3">Need to connect with others to develop friendships/roommates</label>
   </div>
   <div>
-    <input type="checkbox" name="situation[]" id="sitch4" value="Interested in learning about different housing models">
+    <input class="sitch" onclick="onChecked('sitch')" type="checkbox" name="situation[]" id="sitch4" value="Interested in learning about different housing models" required>
     <label for="sitch4">Interested in learning about different housing models</label>
   </div>
   <div>
-    <input type="checkbox" name="situation[]" id="sitch5" value="Interested in developing a support model and finding staff">
+    <input class="sitch" onclick="onChecked('sitch')" type="checkbox" name="situation[]" id="sitch5" value="Interested in developing a support model and finding staff" required>
     <label for="sitch5">Interested in developing a support model and finding staff</label>
   </div>
   <div>
-    <input type="checkbox" name="situation[]" id="sitch6" value="Need information on how to prepare for moving into a new place">
+    <input class="sitch" onclick="onChecked('sitch')" type="checkbox" name="situation[]" id="sitch6" value="Need information on how to prepare for moving into a new place" required>
     <label for="sitch6">Need information on how to prepare for moving into a new place</label>
   </div>
   <div>
-    <input type="checkbox" name="situation[]" id="sitch7" value="Need information and resources that can help in the transition to a new place">
+    <input class="sitch" onclick="onChecked('sitch')" type="checkbox" name="situation[]" id="sitch7" value="Need information and resources that can help in the transition to a new place" required>
     <label for="sitch7">Need information and resources that can help in the transition to a new place</label>
   </div>
   <div>
-    <input type="checkbox" name="situation[]" id="sitch8" value="Interested in supporting and maintaining an existing housing solution">
+    <input class="sitch" onclick="onChecked('sitch')" type="checkbox" name="situation[]" id="sitch8" value="Interested in supporting and maintaining an existing housing solution" required>
     <label for="sitch8">Interested in supporting and maintaining an existing housing solution</label>
   </div>
 	<h5 class="field-label required-field">Which Role best describes you?</h5>
