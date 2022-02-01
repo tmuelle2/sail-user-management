@@ -55,6 +55,16 @@ class PayPalOrder
         $cur_user_array['lastDuePaymentDate'] = date('Y-m-d');
 
         $wpdb->update('sail_users', $cur_user_array, array('userId' => $cur_user_array['userId']), $USER_DB_FIELDS);
+
+        // Check if their email is verified and send welcome email if it is
+        if ($cur_user_array['emailVerified']) {
+            $headers = array('Content-Type: text/html; charset=UTF-8');
+            ob_start();
+            include('/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/emails/welcome-email.html');
+            $body = ob_get_contents();
+            ob_end_clean();
+            wp_mail($cur_user_array['email'], "Welcome to SAIL!", $body, $headers);
+        }
     }
   }
 }

@@ -59,7 +59,7 @@ if (strpos($wp->request, 'verify-email') !== false) {
             if ($isPaid) {
                 $headers = array('Content-Type: text/html; charset=UTF-8');
                 ob_start();
-                include('/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/emails/welcome-email.html');//Template File Path
+                include('/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/emails/welcome-email.html');
                 $body = ob_get_contents();
                 ob_end_clean();
                 wp_mail($user->email, "Welcome to SAIL!", $body, $headers);

@@ -53,6 +53,22 @@ if (strpos($wp->request, 'link-family-member') !== false) {
             $wpdb->update('sail_users', $link_user, array('userId' => $link_user['userId']), $formats);
             $relation = array('familyId' => $family_id, 'userId1' => $cur_user_array['userId'], 'userId2' => $link_user['userId']);
             $wpdb->insert('sail_family', $relation, array('%d', '%d', '%d'));
+
+
+            // Do some checks and send welcome email
+            // NOTE: These checks are not airtight, some users might get the welcome email twice or not at all.
+            //       Once an account has reached the state where it has a verified email and is either paid or linked to a paid account the welcome email should be sent.
+            // TODO: We should add a bool to the sail-users table called sentWelcomeEmail so we don't send the email twice but...
+            // we should do that when we actually know the email was sent for sure, wp_mail does not do that :/
+            if ($link_user['isPaidMember'] && !$cur_user_array['isPaidMember'] && $cur_user_array['emailVerified']) {
+                $headers = array('Content-Type: text/html; charset=UTF-8');
+                ob_start();
+                include('/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/emails/welcome-email.html');
+                $body = ob_get_contents();
+                ob_end_clean();
+                wp_mail($cur_user_array['email'], "Welcome to SAIL!", $body, $headers);
+            }
+
             nocache_headers();
             wp_safe_redirect('https://sailhousingsolutions.org/success-message?title=Accounts successfully linked.&message=%3Ca%20href%3D%22https%3A%2F%2Fsailhousingsolutions.org%2Fuser%22%3EClick%20here%20to%20go%20to%20your%20profile%20page.%3C%2Fa%3E');
             exit;
