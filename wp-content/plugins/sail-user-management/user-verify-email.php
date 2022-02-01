@@ -35,6 +35,36 @@ if (strpos($wp->request, 'verify-email') !== false) {
             error_log(print_r($user, true));
             $wpdb->show_errors = true;
             $updated = $wpdb->update('sail_users', (array) $user, array('userId' => $user->userId), $formats);
+
+            // Check if they are a paid member and send them a welcome email if they are
+            $isPaid = false;
+            if ($user->isPaidMember) {
+                $isPaid = true;
+            }
+            else if ($user->familyId != null) {
+                $pquery = "SELECT * FROM `sail_users` WHERE familyId = ";
+                $pquery .= $user->familyId;
+                $results = $wpdb->get_results($pquery);
+
+                foreach($results as $fm) {
+                    if ($fm->userId != $user->userId && $fm->isPaidMember) {
+                        $isPaid = true;
+                    }
+                }
+            }
+            else {
+                // do nothing
+            }
+
+            if ($isPaid) {
+                $headers = array('Content-Type: text/html; charset=UTF-8');
+                ob_start();
+                include('/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/emails/welcome-email.html');//Template File Path
+                $body = ob_get_contents();
+                ob_end_clean();
+                $wp_mail($user->email, "Welcome to SAIL!", $body, $headers);
+            }
+
             error_log($updated === false);
             error_log($updated === 0);
             error_log($updated >= 0);
