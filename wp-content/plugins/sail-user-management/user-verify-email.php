@@ -7,13 +7,13 @@ if (strpos($wp->request, 'verify-email') !== false) {
         wp_safe_redirect('https://sailhousingsolutions.org/login?redirect_to=' . urlencode(home_url(add_query_arg($_GET,$wp->request))) );
         exit;
     }
-    error_log('Attempting to verify email' . $_GET['email'] . ' with code ' . $_GET['verification_key']);
+    error_log('Attempting to verify email ' . rawurldecode($_GET['email']) . ' with code ' . rawurldecode($_GET['verification_key']));
     // Ensure query string parameters exist 
-    if (isset($_GET['verification_key']) && isset($_GET['email']) 
-        && email_exists($_GET['email'])) {
+    if (isset($_GET['verification_key']) && isset($_GET['email'])
+        && email_exists(rawurldecode($_GET['email']))) {
 
-        $verification_key = $_GET['verification_key'];
-        $email = $_GET['email'];
+        $verification_key = rawurldecode($_GET['verification_key']);
+        $email = rawurldecode($_GET['email']);
 
         // Get sail user from DB
         global $wpdb;

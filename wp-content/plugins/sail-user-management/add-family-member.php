@@ -18,7 +18,7 @@ if (is_user_logged_in()) {
 
     // Send verification email
     $family_linking_key = uniqid('family-linking-key-', true);
-    $url = esc_url_raw( "https://sailhousingsolutions.org/link-family-member" . "?family_linking_key=$family_linking_key&email=$cur_user->email" );
+    $url = rawurlencode( "https://sailhousingsolutions.org/link-family-member" . "?family_linking_key=$family_linking_key&email=$cur_user->email" );
     
     $message = "Hello!\r\n\r\n";
     $message .= "A SAIL user with the email ";

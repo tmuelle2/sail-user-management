@@ -13,7 +13,7 @@ function send_verification_email($sail_user_array) {
     // Send verification email
     $email = $sail_user_array['email'];
     $email_verification_key = uniqid('sail-email-verification-', true);
-    $url = esc_url_raw( "https://sailhousingsolutions.org/verify-email" . "?verification_key=$email_verification_key&email=$email" );
+    $url = rawurlencode( "https://sailhousingsolutions.org/verify-email" . "?verification_key=$email_verification_key&email=$email" );
     
     $message = "Hello ";
     $message .= $sail_user_array['firstName'];
