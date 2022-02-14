@@ -7,7 +7,7 @@ if ( username_exists($email) && email_exists($email) && !is_wp_error( $user )) {
     $reset_key = get_password_reset_key($user);
     $user_login = $user->user_login;
     $encode_RK = rawurlencode($reset_key);
-    $encode_UL = rawurlencode($user_login)
+    $encode_UL = rawurlencode($user_login);
     $url = esc_url_raw( "https://sailhousingsolutions.org/change-password" . "?pw_reset_key=$encode_RK&user_email=$encode_UL" );
     
     $message = "Hello ";
