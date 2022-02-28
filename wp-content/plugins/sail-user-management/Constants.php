@@ -2,67 +2,19 @@
 
 namespace Sail;
 
-class Constants {
+define('SITE_URL', get_site_url());
 
+class Constants
+{
     public const HOME_DIR = __DIR__ . '/';
 
-    public const PAGES_DIR = self::HOME_DIR . '/pages/';
+    public const CSS_DIR = self::HOME_DIR . 'pages/css/';
+    public const HTML_DIR = self::HOME_DIR . 'pages/html/';
+    public const JS_DIR = self::HOME_DIR . 'pages/js/';
+    public const TEMPLATE_DIR = self::HOME_DIR . 'pages/templates/';
 
-    // Mapping of form element to database format
-    public const USER_DB_FIELDS = array(
-        'firstName' => '%s',
-        'lastName' => '%s', 
-        'email' => '%s', 
-        'addrLine1' => '%s', 
-        'addrLine2' => '%s', 
-        'city' => '%s', 
-        'state' => '%s', 
-        'zipCode' => '%d', 
-        'phoneNumber' => '%s',
-        'dob' => '%s', 
-        'contactViaEmail' => '%s', 
-        'contactViaText' => '%s', 
-        'role' => '%s', 
-        'situation' => '%s',
-        'reference' => '%s',
-        'timeframe' => '%s',
-        'newsletter' => '%s',
-        'additionalInfo' => '%s',
-        'readTermsOfService' => '%s',
-        'emailVerified' => '%s',
-        'emailVerificationKey' => '%s',
-        'isPaidMember' => '%s',
-        'lastDuePaymentDate' => '%s',
-        'familyLinkingKey' => '%s',
-        'familyId' => '%s'
-    );
-
-    // Mapping of form element to database format
-    public const FC_DB_FIELDS = array(
-        'authorized' => '%s',
-        'profilePicture' => '%s',
-        'gender' => '%s',
-        'namePreference' => '%s',
-        'nickname' => '%s', 
-        'primaryContactType' => '%s',
-        'activities' => '%s', 
-        'hobbies' => '%s', 
-        'typicalDay' => '%s', 
-        'strengths' => '%s', 
-        'makesYouHappy' => '%s',
-        'lifesVision' => '%s', 
-        'supportRequirements' => '%s',
-        'referenceName' => '%s',
-        'referencePhoneNumber' => '%s',
-        'referenceEmail' => '%s',
-        'primaryContact' => '%s'
-    );
-
-    // Mapping of form element to database format for ports
-    public const PORT_DB_FIELDS = array(
-        'currentSituation' => '%s',
-        'idealSituation' => '%s',
-        'typicalDay' => '%s',
-        'makesChildHappy' => '%s'
-    );
+    public const PROD_DOMAIN = 'sailhousingsolutions.org';
+    public const DEV_DOMAIN = 'localhost';
+    
+    public const FORM_REST_PREFIX = '/wp-json/forms/v1/';
 }
