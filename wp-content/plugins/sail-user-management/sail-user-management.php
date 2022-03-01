@@ -86,8 +86,8 @@ function sailPluginInit()
 add_action('wp_enqueue_scripts', 'sailPluginEnqueueScripts');
 function sailPluginEnqueueScripts()
 {
-    wp_enqueue_style('sailPluginStyle', Constants::CSS_DIR . 'common.css');
-    wp_enqueue_script('sailPluginJs', Constants::JS_DIR . 'common.js');
+    wp_enqueue_style('sailPluginStyle', Constants::CSS_ROUTE . 'common.css');
+    wp_enqueue_script('sailPluginJs', Constants::JS_ROUTE . 'common.js');
 }
 
 /**
