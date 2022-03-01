@@ -11,7 +11,7 @@ services:
       MYSQL_USER: dev_user
       MYSQL_PASSWORD: sail_house_dev 
       MYSQL_RANDOM_ROOT_PASSWORD: 1
-      SAIL_DEV_ENV: true
+      SAIL_DEV_ENV: 1
     volumes:
       - mysql:/var/lib/mysql
 
