@@ -39,6 +39,13 @@ class FriendshipConnectDao
     return $fcProfile;
   }
 
+  public function createFcProfile(FriendshipConnectProfile $fcProfile): FriendshipConnectProfile
+  {
+    global $wpdb;
+    $wpdb->insert('fc_members', $fcProfile, FriendshipConnectProfile::fieldKeys());
+    return $fcProfile;
+  }
+
   private function getFcProfileForUser(string $userId, string $outputFormat): FriendshipConnectProfile
   {
     if ($this->isCached($userId)) {

@@ -30,6 +30,7 @@ use Sail\Data\Dao\UserDao;
 use Sail\Form\Handlers\AddFamilyMemberHandler;
 use Sail\Form\Handlers\ChangePasswordHandler;
 use Sail\Form\Handlers\ForgotPasswordHandler;
+use Sail\Form\Handlers\FriendshipConnectProfileRegistrationHandler;
 use Sail\Form\Handlers\FriendshipConnectProfileUpdateHandler;
 use Sail\Form\Handlers\UserLoginHandler;
 use Sail\Form\Handlers\UserLogoutHandler;
@@ -115,6 +116,7 @@ function registerApis()
     AddFamilyMemberHandler::getInstance()->registerApi();
     ChangePasswordHandler::getInstance()->registerApi();
     ForgotPasswordHandler::getInstance()->registerApi();
+    FriendshipConnectProfileRegistrationHandler::getInstance()->registerApi();
     FriendshipConnectProfileUpdateHandler::getInstance()->registerApi();
     UserLoginHandler::getInstance()->registerApi();
     UserLogoutHandler::getInstance()->registerApi();

@@ -68,4 +68,18 @@ final class EmailSender
 
         return $emailVerificaitonKey;
     }
+
+    public final static function sendFcProfileCreatedEmail(): string
+    {
+        $email = "info@sailhousingsolutions.org";
+
+        $message = "Hello, \r\n\r\n";
+        $message .= "A new Friendship Connect Profile was created and is awaiting a reference approval.\r\n\r\n";
+        $message .= "If you are a Wordpress Admin, please review the SAIL reference of the new FC Profile by going to the DATABASE ACCESS panel on the admin page.\r\n\r\n";
+        $message .= "If you are not a Wordpess Admin, please ignore this email.";
+
+        wp_mail($email, "New Friendship Connect Profile Created", $message);
+
+        return "sent?";
+    }
 }
