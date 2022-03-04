@@ -12,7 +12,7 @@ class Constants
     public const TEMPLATE_DIR = self::HOME_DIR . 'pages/templates/';
 
     public const ROOT_CONTENT_ROUTE = '/wp-content/plugins/sail-user-management/pages/';
-    public const CSS_ROUTE = self::ROOT_CONTENT_ROUTE . 'pages/css/';
+    public const CSS_ROUTE = self::ROOT_CONTENT_ROUTE . 'css/';
     public const JS_ROUTE = self::ROOT_CONTENT_ROUTE . 'js/';
 
     public const PROD_DOMAIN = 'sailhousingsolutions.org';

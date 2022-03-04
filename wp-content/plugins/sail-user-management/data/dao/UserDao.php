@@ -19,7 +19,7 @@ class UserDao
   public function getSailUser(): User
   {
     $user = wp_get_current_user();
-    return $this->getSailUserById($user->id);
+    return $this->getSailUserById($user->ID);
   }
 
   // Returns the sail User row corresponding to the userid
@@ -83,7 +83,7 @@ class UserDao
     $query = "SELECT * FROM `sail_users` WHERE userid = ";
     $query .= $user_id;
 
-    $result = $wpdb->get_row($query, $output_format);
+    $result = $wpdb->get_results($query, $output_format);
 
     return count($result) == 0 ? null : self::cache($user_id, new User($result[0]));
   }
@@ -97,7 +97,7 @@ class UserDao
     global $wpdb;
     $query = "SELECT * FROM `sail_users` WHERE email = '" . $email . "'";
 
-    $result = $wpdb->get_row($query, $output_format);
+    $result = $wpdb->get_results($query, $output_format);
 
     return count($result) == 0 ? null : self::cache($email, new User($result[0]));
   }

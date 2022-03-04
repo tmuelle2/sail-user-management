@@ -24,7 +24,7 @@ class FriendshipConnectDao
   {
 
     $user = wp_get_current_user();
-    return $this->getFcProfileById($user->id);
+    return $this->getFcProfileById($user->ID);
   }
 
   public function getFcProfileById(string $userId): FriendshipConnectProfile

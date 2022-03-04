@@ -14,8 +14,8 @@ class FamilyDao
 
   public function getFamilyMembersForUser(User $user): Family
   {
-    if ($this->isCached($user->id)) {
-      return $this->getCachedValue($user->id);
+    if ($this->isCached($user->ID)) {
+      return $this->getCachedValue($user->ID);
     }
 
     global $wpdb;
