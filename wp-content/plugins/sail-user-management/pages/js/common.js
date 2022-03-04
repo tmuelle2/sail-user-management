@@ -23,7 +23,7 @@ function registerDobValidator(inputId) {
 
 function makeFormRestSubmit(formId, apiRoute) {
     const form = document.getElementById(formId);
-    form.onsubmit(function (event) { return formRestSubmit(form, event) });
+    form.onsubmit = (function (event) { return formRestSubmit(form, apiRoute, event) });
 }
 
 function formRestSubmit(form, apiRoute, event) {
