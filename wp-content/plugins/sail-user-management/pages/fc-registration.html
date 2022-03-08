@@ -36,10 +36,10 @@
       <input type="checkbox" name="authorized" value="1" required />
       <label class="field-label required-field" for="authorized">I am either an individual with a disability and I am my own guardian, or I am a person who is legally authorized to complete this Friendship Connect form on behalf of an individual with a disability. SAIL can publish my data and contact information on the SAIL Friendship Connect page on the SAIL website. I understand that other members of Friendship Connect may contact me directly to discuss an interest in becoming friends and/or roommates.</label>
       <!--<h5 class="field-label required-field">Are you legally authorized to complete this form (either on behalf of yourself or a dependent)?</h5>
-      <input name="authorized" type="radio" value="1" /> Yes<br /> 
+      <input name="authorized" type="radio" value="1" /> Yes<br />
       <input name="authorized" type="radio" value="0" /> No<br />
       <h5 class="field-label required-field">Do you consent to filling out this form and allowing the information to be shared with other users within Friendship Connect?</h5>
-      <input name="consent" type="radio" value="1" /> Yes<br /> 
+      <input name="consent" type="radio" value="1" /> Yes<br />
       <input name="consent" type="radio" value="0" /> No<br /> -->
       <h5 class="field-label required-field">How do you want your Name to appear to others in Friendship connect?</h5>
       <select name="namePreference" id="namePreference" class="select-field" onchange="onNamePrefChange(this)" required>
@@ -47,7 +47,7 @@
         <option value="First Name and Last Initial">First Name and Last Initial</option>
         <!--<option value="Initials Only">Initials Only</option>-->
         <option value="Nickname">Nickname</option>
-      </select> <br /> 
+      </select> <br />
       <h5 class="field-label">Nickname</h5>
       <input name="nickname" type="text" class="text-input-field" id="nickname" oninput="onNickNameChange(this.value)" /> <br />
 
@@ -67,41 +67,41 @@
         <option value="Email">Email</option>
         <option value="Phone (Text Message)">Phone (Text Message)</option>
         <option value="Phone (Voice Call)">Phone (Voice Call)</option>
-      </select> <br /> 
+      </select> <br />
 
       <h5 class="field-label required-field">Enter the Email or Phone Number you want other Friendship Connect Users to use when contacting you</h5>
       <input name="primaryContact" type="text" class="text-input-field" required /> <br />
 
       <h5 class="field-label required-field">Activities You Enjoy</h5>
-      <textarea name="activities" class="text-input-field" cols="30" rows="2" required oninput="onTextFieldChange(this.value, 'activities')"></textarea><br /> 
+      <textarea name="activities" class="text-input-field" cols="30" rows="2" required oninput="onTextFieldChange(this.value, 'activities')"></textarea><br />
       <h5 class="field-label required-field">Hobbies</h5>
-      <textarea name="hobbies" class="text-input-field" cols="30" rows="2" required oninput="onTextFieldChange(this.value, 'hobbies')"></textarea><br /> 
+      <textarea name="hobbies" class="text-input-field" cols="30" rows="2" required oninput="onTextFieldChange(this.value, 'hobbies')"></textarea><br />
       <h5 class="field-label required-field">Describe Your Typical Day</h5>
-      <textarea name="typicalDay" class="text-input-field" cols="30" rows="2" required oninput="onTextFieldChange(this.value, 'typicalDay')"></textarea><br /> 
+      <textarea name="typicalDay" class="text-input-field" cols="30" rows="2" required oninput="onTextFieldChange(this.value, 'typicalDay')"></textarea><br />
       <h5 class="field-label required-field">Strengths</h5>
-      <textarea name="strengths" class="text-input-field" cols="30" rows="2" required oninput="onTextFieldChange(this.value, 'strengths')"></textarea><br /> 
+      <textarea name="strengths" class="text-input-field" cols="30" rows="2" required oninput="onTextFieldChange(this.value, 'strengths')"></textarea><br />
       <h5 class="field-label required-field">Describe What Makes You Happy</h5>
-      <textarea name="makesYouHappy" class="text-input-field" cols="30" rows="2" required oninput="onTextFieldChange(this.value, 'makesYouHappy')"></textarea><br /> 
+      <textarea name="makesYouHappy" class="text-input-field" cols="30" rows="2" required oninput="onTextFieldChange(this.value, 'makesYouHappy')"></textarea><br />
       <h5 class="field-label required-field">Life's Vision</h5>
-      <textarea name="lifesVision" class="text-input-field" cols="30" rows="2" required oninput="onTextFieldChange(this.value, 'lifesVision')"></textarea><br /> 
+      <textarea name="lifesVision" class="text-input-field" cols="30" rows="2" required oninput="onTextFieldChange(this.value, 'lifesVision')"></textarea><br />
       <h5 class="field-label">Support Requirements or Dietary Restrictions</h5>
       <textarea name="supportRequirements" class="text-input-field" cols="30" rows="2" oninput="onTextFieldChange(this.value, 'supportRequirements')"></textarea><br />
       <p>
-        For the safety and security of thoses choosing to use Friendship Connect please supply a reference that SAIL can contact. This reference should be either a current SAIL member, your Supports Coordinator (MORC or CLS), or your current Teacher.
-      </p> 
+        For the safety and security of those choosing to use Friendship Connect please supply a reference that SAIL can contact. This reference should not be a relative or yourself.  Possible references could be a current SAIL member, your Supports Coordinator, a Manager at work, a High School or Post High School Teacher.  Please contact your reference and let them know that someone from SAIL will be in contact with them.
+      </p>
       <h5 class="field-label required-field">What is your Reference's First and Last Name?</h5>
-      <input name="referenceName" type="text" class="text-input-field" required /> <br /> 
+      <input name="referenceName" type="text" class="text-input-field" required /> <br />
       <h5 class="field-label required-field">What is your Reference's Phone Number?</h5>
       <input name="referencePhoneNumber" type="text" class="text-input-field" required /> <br />
       <h5 class="field-label required-field">What is your Reference's Email?</h5>
       <input name="referenceEmail" type="text" class="text-input-field" required /> <br />
     </div>
-  
+
     <div class="flex-child">
       <div class="sticky">
         <h5>Friendship Connect Profile Preview</h5>
         <div class="flex-start">
-          <div style="margin: 8px 8px 8px 8px;"> 
+          <div style="margin: 8px 8px 8px 8px;">
             <img class="pfp" id="pfpPreview" alt="Profile Picture" src="{{profilePicture}}" />
           </div>
           <div style="margin-left: 32px;">
@@ -146,6 +146,6 @@
             pfpPreview.src = event.target.result;
           });
           reader.readAsDataURL(file);
-        }); 
+        });
       }
 </script>
