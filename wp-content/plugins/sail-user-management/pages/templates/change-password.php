@@ -20,16 +20,14 @@ window.onload = function() {
   email.value = params.get("user_email");
   pw_reset_key.value = params.get("pw_reset_key");
 }
-
-makeFormRestSubmit('user_change_password', <? use Sail\Constants; echo Constants::FORM_REST_PREFIX . 'change-password'; ?>); \
 </script>
 
-<form accept-charset="UTF-8" id="user_change_password" autocomplete="on" method="post">
+<form accept-charset="UTF-8" id="user_change_password" autocomplete="on" method="post" action='change-password'>
     <input type="hidden" name="action" value="sail_user_change_password">
     <h5 class="field-label required-field">Password</h5>
-    <input name="password" id="password" type="password" class="text-input-field" required onkeyup='check();' /> <br /> 
+    <input name="password" id="password" type="password" class="text-input-field" required onkeyup='check();' /> <br />
     <h5 class="field-label required-field">Confirm Password</h5>
-    <input name="confirmPassword" id="confirmPassword" type="password" class="text-input-field" required onkeyup='check();'/> <br /> 
+    <input name="confirmPassword" id="confirmPassword" type="password" class="text-input-field" required onkeyup='check();'/> <br />
     <span id='message'></span><br/>
     <input type="hidden" name="user_email" id="user_email">
     <input type="hidden" name="pw_reset_key" id="pw_reset_key">

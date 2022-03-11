@@ -11,7 +11,7 @@ abstract class SailApi
   abstract protected function getRoutePrefix(): string;
   abstract protected function getApiRoute(): string;
   abstract protected function getMethod(): string;
-  abstract public function callback(WP_REST_Request $request): WP_REST_Response;
+  abstract public function callback(WP_REST_Request $request); // WP_REST_Response | WP_Error
   abstract public function permissionCallback(): bool;
 
   public function registerApi()

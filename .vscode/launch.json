@@ -9,7 +9,7 @@
             "type": "php",
             "request": "launch",
             "pathMappings": {
-                "/var/www/html/wp-content/plugins/sail-user-management": "${fileDirname}/wp-content/plugins/sail-user-management"
+                "/var/www/html/wp-content/plugins/sail-user-management": "${workspaceFolder}/wp-content/plugins/sail-user-management"
             },
             "hostname": "localhost",
             "port": 9003

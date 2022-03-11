@@ -29,7 +29,7 @@ class FriendshipConnectProfileRegistrationHandler extends SailFormHandler
                 parent::__construct(self::ACTION_NAME, true, false);
         }
 
-        public function callback(WP_REST_Request $request): WP_REST_Response
+        public function callback(WP_REST_Request $request)
         {
                 // Extract form data
                 $params = $request->get_body_params();

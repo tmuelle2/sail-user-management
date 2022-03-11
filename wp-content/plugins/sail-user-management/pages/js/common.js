@@ -61,14 +61,3 @@ var check = function () {
         document.getElementById('message').innerHTML = 'Passwords do not match!';
     }
 }
-
-window.onload = function () {
-    const params = (new URL(location)).searchParams;
-    console.log("url params: " + params);
-
-    var email = document.getElementById("user_email");
-    var pw_reset_key = document.getElementById("pw_reset_key");
-
-    email.value = params.get("user_email");
-    pw_reset_key.value = params.get("pw_reset_key");
-}

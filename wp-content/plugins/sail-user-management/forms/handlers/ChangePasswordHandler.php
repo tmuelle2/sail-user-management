@@ -24,7 +24,7 @@ class ChangePasswordHandler extends SailFormHandler
         parent::__construct(self::ACTION_NAME, true, true);
     }
 
-    public function callback(WP_REST_Request $request): WP_REST_Response
+    public function callback(WP_REST_Request $request)
     {
         $password = $request->get_param('password');
         $confirmPassword = $request->get_param('confirmPassword');

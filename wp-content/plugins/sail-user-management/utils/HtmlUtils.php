@@ -14,7 +14,21 @@ final class HtmlUtils
         extract($variables);
         ob_start();
         include(Constants::TEMPLATE_DIR . $fileName);
-        return ob_get_clean();
+        $doc = new DOMDocument();
+        $doc->loadHTML(ob_get_clean());
+        $forms = $doc->getElementsByTagName('form');
+        foreach ($forms as $form) {
+            $id = $form->attributes->getNamedItem('id');
+            $action = $form->attributes->getNamedItem('action');
+            if ($id !== null && $action !== null) {
+                $js = $doc->createElement('script');
+                $src = "window.onload = function () { makeFormRestSubmit('" . $id->value . "', '" . Constants::FORM_REST_PREFIX . $action->value . "'); };";
+                $js->appendChild($doc->createTextNode($src));
+                $js->setAttribute('type', 'text/javascript');
+                $form->parentNode->appendChild($js);
+            }
+        }
+        return $doc->saveHTML();
     }
 
     public final static function getUserFormData(array $params, ?User $currentUser = null): User

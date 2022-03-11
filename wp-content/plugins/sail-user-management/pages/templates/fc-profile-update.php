@@ -46,12 +46,10 @@ if ($fcMember->namePreference == "First Name and Last Initial") {
 		};
 		onNamePrefChange(name);
 	});
-
-	makeFormRestSubmit('fc-profile-update', <? use Sail\Constants; echo Constants::FORM_REST_PREFIX . 'fc-profile-update'; ?>);
 </script>
 <details>
 	<summary>Update Your Friendship Connect Profile</summary>
-	<form accept-charset="UTF-8" id="fc-profile-update" autocomplete="off">
+	<form accept-charset="UTF-8" id="fc-profile-update" autocomplete="off" action='fc-profile-update'>
 		<input type="hidden" name="action" value="fc-profile-update">
 
 		<div class="flex-container">

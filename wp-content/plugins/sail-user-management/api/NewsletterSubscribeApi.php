@@ -36,7 +36,7 @@ class NewsletterSubscribeApi extends SailApi
         return 'POST';
     }
 
-    public function callback(WP_REST_Request $request): WP_REST_Response
+    public function callback(WP_REST_Request $request)
     {
         if (is_user_logged_in()) {
             $response = $this->client->subscribe(UserDao::getInstance()->getSailUser()->email);

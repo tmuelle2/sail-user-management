@@ -36,11 +36,9 @@ if ($fcMember->namePreference == "First Name and Last Initial") {
       document.getElementById("displayName").innerHTML = value;
     }
   }
-
-  makeFormRestSubmit('fc-registration', <? use Sail\Constants; echo Constants::FORM_REST_PREFIX . 'fc-registration'; ?>);
 </script>
 
-<form accept-charset="UTF-8" id="fc-registration" autocomplete="on">
+<form accept-charset="UTF-8" id="fc-registration" autocomplete="on" action='fc-registration'>
   <input type="hidden" name="action" value="fc-registration">
   <!--<p>To see an example of what a filled out Friendship Connect Profile looks like click here:&nbsp;<a target="_blank" href="https://sailhousingsolutions.org/friendship-connect-example-profile">Example Friendship Connect Profile</a></p>-->
   <div class="flex-container">

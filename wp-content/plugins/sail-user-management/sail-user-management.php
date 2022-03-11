@@ -89,6 +89,10 @@ function sailPluginEnqueueScripts()
 {
     wp_enqueue_style('sailPluginStyle', Constants::CSS_ROUTE . 'common.css');
     wp_enqueue_script('sailPluginJs', Constants::JS_ROUTE . 'common.js');
+    $params = [
+        'nonce' => wp_create_nonce('wp_rest')
+    ];
+    wp_localize_script('sailPluginJs', 'SAIL', $params);
 }
 
 /**

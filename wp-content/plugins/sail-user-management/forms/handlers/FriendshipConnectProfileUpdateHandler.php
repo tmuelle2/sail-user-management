@@ -24,7 +24,7 @@ class FriendshipConnectProfileUpdateHandler extends SailFormHandler
         parent::__construct(self::ACTION_NAME, true, false);
     }
 
-    public function callback(WP_REST_Request $request): WP_REST_Response
+    public function callback(WP_REST_Request $request)
     {
         $curMember = $this->fcDao->getFcProfile();
         $memberUpdate = HtmlUtils::getFriendshipConnectProfileFormData($request->get_json_params(), $curMember);

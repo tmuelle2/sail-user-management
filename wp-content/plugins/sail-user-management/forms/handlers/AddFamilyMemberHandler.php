@@ -24,7 +24,7 @@ class AddFamilyMemberHandler extends SailFormHandler
         parent::__construct(self::ACTION_NAME, true, false);
     }
 
-    public function callback(WP_REST_Request $request): WP_REST_Response
+    public function callback(WP_REST_Request $request)
     {
         $emailInput = $request->get_param('email');
         $user = $this->dao->getSailUser();

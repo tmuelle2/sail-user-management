@@ -8,6 +8,7 @@ use WP_REST_Response;
 
 use Sail\Utils\Logger;
 use Sail\Utils\Singleton;
+use WP_Error;
 
 class UserLoginHandler extends SailFormHandler
 {
@@ -21,12 +22,7 @@ class UserLoginHandler extends SailFormHandler
         parent::__construct(self::ACTION_NAME, false, true);
     }
 
-    public function permissionCallback(): bool
-    {
-        return true;
-    }
-
-    public function callback(WP_REST_Request $request): WP_REST_Response
+    public function callback(WP_REST_Request $request)
     {
         // Login Wordpress user
         $json = $request->get_json_params();

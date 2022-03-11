@@ -27,7 +27,7 @@ class PayDuesApi extends SailApi
         return 'POST';
     }
 
-    public function callback(WP_REST_Request $request): WP_REST_Response
+    public function callback(WP_REST_Request $request)
     {
         if (!is_user_logged_in()) {
             return $this->response403();

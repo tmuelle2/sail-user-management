@@ -1,33 +1,28 @@
-<script type="text/javascript">
-  makeFormRestSubmit('user_reg', <?php use Sail\Constants; echo Constants::FORM_REST_PREFIX . 'user-registration'; ?>);
-  registerDobValidator('dob');
-</script>
-
-<form accept-charset="UTF-8" id="user_reg" autocomplete="on">
+<form accept-charset="UTF-8" id="user_reg" autocomplete="on" action='user-registration'>
 	<div class="flex-container">
       <div class="flex-child">
         <h5 class="field-label required-field">First Name</h5>
-        <input name="firstName" type="text" class="text-input-field" required /> <br /> 
+        <input name="firstName" type="text" class="text-input-field" required /> <br />
       </div>
       <div class="flex-child">
         <h5 class="field-label required-field">Last Name</h5>
-        <input name="lastName" type="text" class="text-input-field" required /> <br /> 
+        <input name="lastName" type="text" class="text-input-field" required /> <br />
       </div>
     </div>
     <div class="flex-container">
       <div class="flex-child">
         <h5 class="field-label required-field">Email</h5>
-        <input name="email" type="email" class="text-input-field" required /> <br /> 
+        <input name="email" type="email" class="text-input-field" required /> <br />
       </div>
       <div class="flex-child">
         <h5 class="field-label required-field">Phone Number</h5>
         <input name="phoneNumber" type="tel" class="text-input-field" placeholder="3215556789" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" maxlength="10"  title="Ten digit phone number" required/>
       </div>
-    </div>  
+    </div>
     <div class="flex-container">
       <div class="flex-child">
           <h5 class="field-label required-field">Password</h5>
-          <input name="password" type="password" class="text-input-field" required /> <br /> 
+          <input name="password" type="password" class="text-input-field" required /> <br />
       </div>
       <div class="flex-child">
           <!--blank-->
@@ -62,11 +57,11 @@
     	<div class="flex-child">
           <h5 class="field-label required-field">Zip Code</h5>
           <input name="zipCode" type="number" maxlength="5" required style="	min-height: 26px;
-          font-size: 16px;" /> <br />   
-      	</div>  
+          font-size: 16px;" /> <br />
+      	</div>
         <div class="flex-child">
           <!--blank-->
-      	</div>  
+      	</div>
 	</div>
   <h5 class="field-label required-field">Date of Birth</h5>
   <input type="date" name="dob" id="dob" required><br />
@@ -81,7 +76,7 @@
     ?>
 	</select><br/>
 	<h5 class="field-label">How did you hear about SAIL?</h5>
-  <input name="reference" type="text" class="text-input-field" /> <br /> 
+  <input name="reference" type="text" class="text-input-field" /> <br />
   <h5 class="field-label required-field">What is your housing solution timeframe?</h5>
 	<select name="timeframe" class="select-field" required>
     <?php

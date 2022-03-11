@@ -22,12 +22,7 @@ class UserLogoutHandler extends SailFormHandler
         parent::__construct(self::ACTION_NAME, true, false);
     }
 
-    public function permissionCallback(): bool
-    {
-        return true;
-    }
-
-    public function callback(WP_REST_Request $request): WP_REST_Response
+    public function callback(WP_REST_Request $request)
     {
         wp_logout();
         return $this->response200WithClientsideRedirect('/');

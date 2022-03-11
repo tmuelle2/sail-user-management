@@ -1,10 +1,6 @@
-<script type="text/javascript">
-  makeFormRestSubmit('user_profile_update', <? use Sail\Constants; echo Constants::FORM_REST_PREFIX . 'user-update'; ?>);
-</script>
-
 <details>
   <summary>Update Your Profile</summary>
-  <form accept-charset="UTF-8" id="user_profile_update" autocomplete="on">
+  <form accept-charset="UTF-8" id="user_profile_update" autocomplete="on" action='user-update'>
     <input type="hidden" name="action" value="sail_user_update">
     <div class="flex-container">
       <div class="flex-child">
