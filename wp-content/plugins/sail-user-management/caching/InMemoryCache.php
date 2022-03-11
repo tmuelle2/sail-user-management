@@ -9,7 +9,7 @@ use Sail\Utils\Singleton;
  * associative array.  This means that the cache life cycle is one request.  It uses the calling
  * object's class name as namespace to avoid cross-class key collisions.  Note that different
  * instances of the same class share namespaces and therefore cached values.
- * 
+ *
  * TODO: Compare this performance against Wordpress' transients https://developer.wordpress.org/reference/functions/set_transient/
  */
 trait InMemoryCache //implements SailCache // Traits can't currently (PHP<=8.x) implement interfaces

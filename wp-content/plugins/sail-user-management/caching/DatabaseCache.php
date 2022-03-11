@@ -11,6 +11,8 @@ namespace Sail\Caching;
  * Since $wpdb caches the results of queries automatically, this does not keep an internal
  * InMemoryCache of results as it would be redundant.
  * Source: https://developer.wordpress.org/reference/classes/wpdb/#select-a-variable
+ *
+ * TODO: Compare this performance against Wordpress' transients https://developer.wordpress.org/reference/functions/set_transient/
  */
 trait DatabaseCache //implements SailCache // Traits can't currently (PHP<=8.x) implement interfaces
 {

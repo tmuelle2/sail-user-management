@@ -30,8 +30,8 @@ use Sail\Data\Dao\UserDao;
 use Sail\Form\Handlers\AddFamilyMemberHandler;
 use Sail\Form\Handlers\ChangePasswordHandler;
 use Sail\Form\Handlers\ForgotPasswordHandler;
-use Sail\Form\Handlers\FriendshipConnectProfileRegistrationHandler;
 use Sail\Form\Handlers\FriendshipConnectProfileUpdateHandler;
+use Sail\Form\Handlers\FriendshipConnectProfileRegistrationHandler;
 use Sail\Form\Handlers\UserLoginHandler;
 use Sail\Form\Handlers\UserLogoutHandler;
 use Sail\Form\Handlers\UserProfileUpdateHandler;
@@ -116,8 +116,8 @@ function registerApis()
     AddFamilyMemberHandler::getInstance()->registerApi();
     ChangePasswordHandler::getInstance()->registerApi();
     ForgotPasswordHandler::getInstance()->registerApi();
-    FriendshipConnectProfileRegistrationHandler::getInstance()->registerApi();
     FriendshipConnectProfileUpdateHandler::getInstance()->registerApi();
+    FriendshipConnectProfileRegistrationHandler::getInstance()->registerApi();
     UserLoginHandler::getInstance()->registerApi();
     UserLogoutHandler::getInstance()->registerApi();
     UserProfileUpdateHandler::getInstance()->registerApi();
@@ -146,3 +146,8 @@ function sail_user_link_family_member()
 }
 // this runs on every request! cannot error out unnecessarily!!
 add_action('wp', 'sail_user_link_family_member');
+
+/**
+ * Disables plugin autoupdate emails which trigger spam filters.
+ */
+add_filter( 'auto_plugin_update_send_email', '__return_false' );

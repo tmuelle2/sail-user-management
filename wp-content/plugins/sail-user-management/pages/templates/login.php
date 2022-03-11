@@ -1,12 +1,12 @@
 <script type="text/javascript">
-    makeFormRestSubmit('user_signon', <? use Sail\Constants; echo Constants::FORM_REST_PREFIX . 'login'; ?>);
+    makeFormRestSubmit('user_signon', "<? use Sail\Constants; echo Constants::FORM_REST_PREFIX . 'login'; ?>");
 </script>
 <form accept-charset="UTF-8" id="user_signon" autocomplete="on">
     <input type="hidden" name="action" value="sail_user_signon">
     <h5 class="field-label required-field">Email</h5>
-    <input name="email" type="email" class="text-input-field" required /> <br /> 
+    <input name="email" type="email" class="text-input-field" required /> <br />
     <h5 class="field-label required-field">Password</h5>
-    <input name="password" type="password" class="text-input-field" required /> <br /> 
+    <input name="password" type="password" class="text-input-field" required /> <br />
     <input name="remember" type="checkbox" />
     <input name="remember" value="0" type="hidden">
     <input type="hidden" name="redirect_to" id="redirect_to">
