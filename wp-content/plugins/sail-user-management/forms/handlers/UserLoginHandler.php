@@ -21,6 +21,11 @@ class UserLoginHandler extends SailFormHandler
         parent::__construct(self::ACTION_NAME, false, true);
     }
 
+    public function permissionCallback(): bool
+    {
+        return true;
+    }
+
     public function callback(WP_REST_Request $request): WP_REST_Response
     {
         // Login Wordpress user

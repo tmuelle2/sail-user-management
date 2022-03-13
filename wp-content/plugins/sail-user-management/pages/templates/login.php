@@ -1,6 +1,3 @@
-<script type="text/javascript">
-    makeFormRestSubmit('user_signon', "<? use Sail\Constants; echo Constants::FORM_REST_PREFIX . 'login'; ?>");
-</script>
 <form accept-charset="UTF-8" id="user_signon" autocomplete="on">
     <input type="hidden" name="action" value="sail_user_signon">
     <h5 class="field-label required-field">Email</h5>
@@ -25,4 +22,7 @@
     window.onload = function() {
         setValue('redirect_to', 'redirect_to');
     }
+</script>
+<script type="text/javascript">
+    makeFormRestSubmit('user_signon', "<? use Sail\Constants; echo Constants::FORM_REST_PREFIX . 'login'; ?>");
 </script>

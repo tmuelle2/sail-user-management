@@ -16,11 +16,11 @@ services:
       - mysql:/var/lib/mysql
 
   wordpress:
-    build:
-      dockerfile: Dockerfile
+    #build:
+      #dockerfile: Dockerfile
     depends_on:
       - mysql
-    #image: wordpress
+    image: wordpress
     restart: always
     ports:
       - 80:80

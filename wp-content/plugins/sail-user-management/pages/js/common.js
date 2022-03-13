@@ -30,8 +30,7 @@ function formRestSubmit(form, apiRoute, event) {
     const formData = new FormData(form);
 
     const formHeaders = new Headers({
-        'Content-Type': 'application/json',
-        'X-WP-Nonce': SAIL.nonce
+        'Content-Type': 'application/json'
     });
 
     fetch(apiRoute, {
@@ -42,6 +41,9 @@ function formRestSubmit(form, apiRoute, event) {
         .then(response => {
             if (response.headers.get('Location')) {
                 location.href = response.headers.get('Location');
+            }
+            if (response.redirected) {
+                location.href = response.url;
             }
             return response.json();
         })
