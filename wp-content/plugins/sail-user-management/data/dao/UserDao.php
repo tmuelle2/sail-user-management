@@ -40,7 +40,7 @@ class UserDao
     return $user;
   }
 
-  public function createUser(User $user): User
+  public function createUser(User $user, $password): User
   {
     global $wpdb;
 
@@ -48,19 +48,20 @@ class UserDao
     $this->log("Creating wp user...");
     $user_id = wp_create_user(
       $user->email,
-      $user->password,
+      $password,
       $user->email
     );
     $this->log("Wp user created: ");
     $this->log(print_r($user_id, true));
     $data['userId'] = $user_id;
+    $userData = $user->merge($data);
 
     // Insert into SAIL users db table
     $this->log("Attempting to create sail_user with this data: ");
-    $this->log(print_r($data, true));
-    $wpdb->insert('sail_users', $data, User::fieldKeys());
+    $this->log(print_r($userData->getDatabaseData(), true));
+    $wpdb->insert('sail_users', $userData->getDatabaseData(), User::fieldKeys());
     $this->log("Sail_user created");
-    return $this->cache($user->user_id, $user);
+    return $this->cache($userData->user_id, $user);
   }
 
   public function verifyUserEmail($email, $verificationKey)

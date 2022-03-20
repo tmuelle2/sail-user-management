@@ -15,7 +15,7 @@ final class HtmlUtils
         ob_start();
         include(Constants::TEMPLATE_DIR . $fileName);
         $doc = new DOMDocument();
-        $doc->loadHTML(ob_get_clean());
+        @$doc->loadHTML(ob_get_clean());
         $forms = $doc->getElementsByTagName('form');
         foreach ($forms as $form) {
             $id = $form->attributes->getNamedItem('id');
@@ -72,7 +72,7 @@ final class HtmlUtils
     }
 
 
-    public final static function getSailPage(string $fileName): string
+    public final static function getSailPage(string $fileName, array $variables = array()): string
     {
         extract($variables);
         ob_start();

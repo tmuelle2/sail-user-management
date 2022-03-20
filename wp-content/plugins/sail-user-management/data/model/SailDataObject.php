@@ -23,7 +23,7 @@ abstract class SailDataObject implements \ArrayAccess
    */
   public function merge(array $updates): SailDataObject
   {
-    $merge = array_merge(self::fieldKeys(), $updates);
+    $merge = array_merge($this->db_data, $updates);
     $clazz = get_class($this);
     return new $clazz($merge);
   }
@@ -31,6 +31,11 @@ abstract class SailDataObject implements \ArrayAccess
   public function dataKeys(): array
   {
     return array_keys($this->db_data);
+  }
+
+  public function getDatabaseData(): array
+  {
+    return $this->db_data;
   }
 
   protected function validateData($data): bool

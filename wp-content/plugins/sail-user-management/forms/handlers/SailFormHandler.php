@@ -39,10 +39,10 @@ abstract class SailFormHandler extends SailApi
 
     public function permissionCallback(): bool
     {
-        if (!$this->handleLoggedIn && is_user_logged_in()) {
+        if (!$this->handleLoggedIn && is_user_logged_in() && $this->handleAction != 'login') {
             WebUtils::redirect('/error-message?title=Error&message=Please sign out of your account before completing this action.');
             return false;
-        } elseif (!$this->handleLoggedOut && !is_user_logged_in()) {
+        } elseif (!$this->handleLoggedOut && !is_user_logged_in() && $this->handleAction != 'logout') {
             WebUtils::redirect('/error-message?title=Error&message=Please sign into your account before completing this action.');
             return false;
         }

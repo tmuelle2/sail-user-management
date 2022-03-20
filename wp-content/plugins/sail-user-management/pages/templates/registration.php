@@ -67,7 +67,7 @@
   <input type="date" name="dob" id="dob" required><br />
   <h5 class="field-label required-field">Which of the following best describes your situation? (Check all that apply)</h5>
   <?php
-  echo implode('\n', FormUtils::SITUATION_CHECKBOXES);
+  echo implode('<br>', FormUtils::SITUATION_CHECKBOXES);
   ?>
 	<h5 class="field-label required-field">Which Role best describes you?</h5>
 	<select name="role" class="select-field" required>
@@ -84,11 +84,11 @@
     ?>
 	 </select><br/>
   <h5 class="field-label">Can we contact you via Email?</h5>
-  <?php echo implode('\n', FormUtils::CONTACT_EMAIL_RADIO) ?>
+  <?php echo implode('', FormUtils::CONTACT_EMAIL_RADIO) ?>
   <h5 class="field-label">Can we contact you via Text?</h5>
-  <?php echo implode('\n', FormUtils::CONTACT_TEXT_RADIO) ?>
+  <?php echo implode('', FormUtils::CONTACT_TEXT_RADIO) ?>
   <h5 class="field-label">Would you like to receive the SAIL Newsletter, get updates from SAIL, and hear about upcoming SAIL events?</h5>
-	<?php echo implode('\n', FormUtils::NEWSLETTER_RADIO) ?>
+	<?php echo implode('', FormUtils::NEWSLETTER_RADIO) ?>
 	<h5 class="field-label">How can SAIL assist you?</h5>
 	<textarea name="additionalInfo" class="text-input-field" cols="30" rows="2"></textarea><br /><br />
   <input type="hidden" name="readTermsOfService" value="0" />
