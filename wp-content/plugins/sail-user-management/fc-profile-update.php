@@ -5,7 +5,7 @@ global $FC_DB_FIELDS;
 global $wpdb;
 
 if (is_user_logged_in()) {
-    
+
     $cur_member_array = get_fc_member_array();
 
     // TODO: Refactor with user-registration
@@ -24,13 +24,13 @@ if (is_user_logged_in()) {
 
     $cur_user = get_sail_user();
     $cur_member = get_fc_member();
-    
+
     //error_log("[fc-profile-update] $_FILES var dump: ");
     //error_log(print_r($_FILES['profilePicture']['name'], true));
 
     // TODO: Refactor with user-registration
     if (isset($_FILES['profilePicture']) && isset($_FILES['profilePicture']['name']) && isset($_FILES['profilePicture']['name'])
-        && !empty($_FILES['profilePicture']['name']) && !empty($_FILES['profilePicture']['name']) 
+        && !empty($_FILES['profilePicture']['name']) && !empty($_FILES['profilePicture']['name'])
         ) {
         $name_file = $_FILES['profilePicture']['name'];
         $tmp_name = $_FILES['profilePicture']['tmp_name'];
@@ -48,6 +48,7 @@ if (is_user_logged_in()) {
     }
 
     // Update FC members db table
+    $data['namePreference'] = 'Nickname';
     $wpdb->update('fc_members', $data, array('userId' => $cur_member->userId), $formats);
 
     // Success redirect
@@ -56,7 +57,7 @@ if (is_user_logged_in()) {
     exit;
 }
 
-// Fail redirect 
+// Fail redirect
 nocache_headers();
 wp_safe_redirect('https://sailhousingsolutions.org/error');
 exit;
