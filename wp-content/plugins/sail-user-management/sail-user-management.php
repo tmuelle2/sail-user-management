@@ -3,7 +3,7 @@
  * Plugin Name: SAIL User Management
  * Plugin URI: https://github.com/tmuelle2/sail-user-management
  * Description: SAIL website user management plugin
- * Version: 0.1 
+ * Version: 0.1
  */
 
 $HOME_DIR = '/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/';
@@ -16,7 +16,7 @@ function send_verification_email($sail_user_array) {
     $encode_email = rawurlencode($email);
     $encode_VK = rawurlencode($email_verification_key);
     $url = esc_url_raw( "https://sailhousingsolutions.org/verify-email" . "?verification_key=$encode_VK&email=$encode_email" );
-    
+
     $message = "Hello ";
     $message .= $sail_user_array['firstName'];
     $message .= "!\r\n\r\n";
@@ -25,7 +25,7 @@ function send_verification_email($sail_user_array) {
     $message .= "\r\n\r\nIf you didn't sign-up for SAIL, please ignore this email.";
 
     wp_mail( $email, "SAIL Email Verification", $message );
-    
+
     return $email_verification_key;
 }
 
@@ -43,7 +43,7 @@ function user_reg_shortcode($atts = [], $content = null, $tag = '' ) {
  else {
   return get_sail_page($PAGES_DIR . 'registration.html');
  }
-} 
+}
 
 /**
  * Adds html page for upgrading membership post account login.
@@ -65,7 +65,7 @@ function user_reg_upgrade_shortcode($atts = [], $content = null, $tag = '' ) {
     wp_safe_redirect('https://sailhousingsolutions.org/login');
     exit;
   }
-} 
+}
 
 /**
  * Adds the html page for verifying email.
@@ -146,10 +146,10 @@ function user_profile_shortcode($atts = [], $content = null, $tag = '' ) {
     wp_safe_redirect('https://sailhousingsolutions.org/login');
     exit;
   }
-} 
+}
 
 /**
- * Returns html to update the user's profile information for the logged in user 
+ * Returns html to update the user's profile information for the logged in user
  * otherwise redirects to login page.
  */
 function user_update_profile_shortcode($atts = [], $content = null, $tag = '' ) {
@@ -165,11 +165,11 @@ function user_update_profile_shortcode($atts = [], $content = null, $tag = '' ) 
     nocache_headers();
     wp_safe_redirect('https://sailhousingsolutions.org/login');
     exit;
-  }    
+  }
 }
 
 /**
- * Returns html to link accounts for the logged in user 
+ * Returns html to link accounts for the logged in user
  * otherwise redirects to login page.
  */
 function user_add_family_member($atts = [], $content = null, $tag = '' ) {
@@ -190,13 +190,13 @@ function user_add_family_member($atts = [], $content = null, $tag = '' ) {
     else {
       $html = str_ireplace("{{linkedAccounts}}", esc_html("None"), $html);
     }
-    
+
     return $html;
   } else {
     nocache_headers();
     wp_safe_redirect('https://sailhousingsolutions.org/login');
     exit;
-  }    
+  }
 }
 
 /**
@@ -208,12 +208,12 @@ function fc_landing_shortcode($atts = [], $content = null, $tag = '' ) {
     global $USER_DB_FIELDS;
 
     $sail_user = get_sail_user();
-    
+
     return get_sail_page($PAGES_DIR . 'fc-landing-login.html');
   } else {
     global $PAGES_DIR;
     return get_sail_page($PAGES_DIR . 'fc-landing-nologin.html');
-  }    
+  }
 }
 
 /**
@@ -252,7 +252,7 @@ function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
         $html = str_ireplace("{{firstNameAndLastInitial}}", esc_html($firstNameAndLastInitial), $html);
         $html = str_ireplace("{{initials}}", esc_html($initials), $html);
         $html = str_ireplace("{{profilePicture}}", esc_html($profilePicture), $html);
-    
+
         return $html;
       }
     } else {
@@ -264,7 +264,7 @@ function fc_reg_shortcode($atts = [], $content = null, $tag = '' ) {
     nocache_headers();
     wp_safe_redirect('https://sailhousingsolutions.org/login');
     exit;
-  }    
+  }
 }
 
 function fc_update_shortcode($atts = [], $content = null, $tag = '' ) {
@@ -277,25 +277,27 @@ function fc_update_shortcode($atts = [], $content = null, $tag = '' ) {
       $fc_member = get_fc_member();
       if (!isset($fc_member) || !isset($fc_member->userId) || $fc_member->userId < 1) return '';
 
-      $html = get_sail_page($PAGES_DIR . 'fc-profile-update.html');     
-    
+      $html = get_sail_page($PAGES_DIR . 'fc-profile-update.html');
+
       $firstNameAndLastInitial = $sail_user->firstName . " " . $sail_user->lastName[0] . ".";
       $initials = strtoupper($sail_user->firstName[0]) . "." . strtoupper($sail_user->lastName[0]) . ".";
       $profilePicture = $fc_member->profilePicture;
-      $displayName = $sail_user->firstName;
-      if ($fc_member->namePreference == "First Name and Last Initial") { $displayName = $firstNameAndLastInitial; }
-      if ($fc_member->namePreference == "Nickname") { $displayName = $fc_member->nickname; }
+      //$displayName = $sail_user->firstName;
+      //if ($fc_member->namePreference == "First Name and Last Initial") { $displayName = $firstNameAndLastInitial; }
+      //if ($fc_member->namePreference == "Nickname") {
+      $displayName = $fc_member->nickname;
+      //}
 
       $html = str_ireplace("{{displayName}}", esc_html($displayName), $html);
       $html = str_ireplace("{{firstName}}", esc_html($sail_user->firstName), $html);
       $html = str_ireplace("{{firstNameAndLastInitial}}", esc_html($firstNameAndLastInitial), $html);
       $html = str_ireplace("{{initials}}", esc_html($initials), $html);
       $html = str_ireplace("{{profilePicture}}", esc_html($fc_member->profilePicture), $html);
-  
+
       $parsed_html = parse_html($html);
       populate_form_elements($parsed_html, $FC_DB_FIELDS, $fc_member);
       return $parsed_html->saveHTML();
-      
+
     } else {
       return '';
     }
@@ -303,7 +305,7 @@ function fc_update_shortcode($atts = [], $content = null, $tag = '' ) {
     nocache_headers();
     wp_safe_redirect('https://sailhousingsolutions.org/login');
     exit;
-  }    
+  }
 }
 
 /**
@@ -311,7 +313,7 @@ function fc_update_shortcode($atts = [], $content = null, $tag = '' ) {
  */
 function fc_example_profile_shortcode($atts = [], $content = null, $tag = '' ) {
     global $PAGES_DIR;
-    
+
     return get_sail_page($PAGES_DIR . 'fc-example-profile.html');
 }
 
@@ -340,7 +342,7 @@ function fc_search_shortcode($atts = [], $content = null, $tag = '' ) {
         // Random vars used below
         $firstNameAndLastInitial = $sail_profile->firstName . " " . $sail_profile->lastName[0] . ".";
         $initials = strtoupper($sail_profile->firstName[0]) . "." . strtoupper($sail_profile->lastName[0]) . ".";
-        $age = floor((time() - strtotime($sail_profile->dob)) / 31556926);
+        $age = floor((time() - strtotime($fc_profile->dob)) / 31556926);
         $location = $sail_profile->city . ", " . $sail_profile->state;
         $contact = "";
         if ($fc_profile->primaryContactType == "Phone (Text Message)") { $contact = "Via Text Message at " . $fc_profile->primaryContact; }
@@ -351,11 +353,13 @@ function fc_search_shortcode($atts = [], $content = null, $tag = '' ) {
         $summary = file_get_contents($PAGES_DIR . 'fc-result-summary.html', true);
         $summary = str_ireplace("{{profilePicture}}", esc_html($fc_profile->profilePicture), $summary);
 
-        if ($fc_profile->namePreference == "First Name and Last Initial") { $summary = str_ireplace("{{displayName}}", esc_html($firstNameAndLastInitial), $summary); }
-        else if ($fc_profile->namePreference == "Initials Only") { $summary = str_ireplace("{{displayName}}", esc_html($initials), $summary);}
-        else if ($fc_profile->namePreference == "Nickname") { $summary = str_ireplace("{{displayName}}", esc_html($fc_profile->nickname), $summary);}
-        else { $summary = str_ireplace("{{displayName}}", esc_html($sail_profile->firstName), $summary);}
-        
+        //if ($fc_profile->namePreference == "First Name and Last Initial") { $summary = str_ireplace("{{displayName}}", esc_html($firstNameAndLastInitial), $summary); }
+        //else if ($fc_profile->namePreference == "Initials Only") { $summary = str_ireplace("{{displayName}}", esc_html($initials), $summary);}
+        //else if ($fc_profile->namePreference == "Nickname") {
+          $summary = str_ireplace("{{displayName}}", esc_html($fc_profile->nickname), $summary);
+        //}
+        //else { $summary = str_ireplace("{{displayName}}", esc_html($sail_profile->firstName), $summary);}
+
         $summary = str_ireplace("{{age}}", esc_html($age), $summary);
         $summary = str_ireplace("{{location}}", esc_html($location), $summary);
         $summary = str_ireplace("{{activities}}", esc_html($fc_profile->activities), $summary);
@@ -379,7 +383,7 @@ function fc_search_shortcode($atts = [], $content = null, $tag = '' ) {
       nocache_headers();
       wp_safe_redirect("https://sailhousingsolutions.org/join-friendship-connect");
       exit;
-    }   
+    }
   }
   else {
     nocache_headers();
@@ -402,7 +406,7 @@ function user_join_port_shortcode($atts = [], $content = null, $tag = '' ) {
     nocache_headers();
     wp_safe_redirect('https://sailhousingsolutions.org/register');
     exit;
-  } 
+  }
 }
 
 function subscribe_newsletter_shortcode($att = [], $content = null, $tag = '') {
@@ -452,7 +456,7 @@ function user_update_port_shortcode($atts = [], $content = null, $tag = '' ) {
     nocache_headers();
     wp_safe_redirect('https://sailhousingsolutions.org/register');
     exit;
-  }    
+  }
 }
 
 // Returns the SAIL DB user row for the currently logged in user
@@ -529,7 +533,7 @@ function get_fc_member() {
 
     if (count($results) == 0) {
       return null;
-    } 
+    }
     return $results[0];
 }
 
@@ -563,7 +567,7 @@ function get_family_members() {
     $query2 .= $user->familyId;
 
     $results2 = $wpdb->get_results($query2);
-    
+
     foreach($results2 as $su) {
       if ($su->userId != $user->userId) {
         array_push($family_members, $su);
@@ -581,18 +585,18 @@ function populate_form_elements($dom_doc, $db_fields, $db_obj) {
   $tags = array('input', 'select', 'textarea');
   $element_map = array();
   foreach ($tags as $tag) {
-    // Get elements 
+    // Get elements
     $element_list = $dom_doc->getElementsByTagName($tag);
-    
+
     // Build tag to name to node associative arrays
     $element_map[$tag] = name_to_node_map($element_list);
   }
 
-  
 
-  $db_arr = get_object_vars($db_obj); 
 
-  // Populate elements 
+  $db_arr = get_object_vars($db_obj);
+
+  // Populate elements
   foreach($db_fields as $element => $format) {
     foreach ($tags as $tag) {
       if (isset($element_map[$tag][$element]) && isset($db_arr[$element])) {
@@ -606,7 +610,7 @@ function populate_form_elements($dom_doc, $db_fields, $db_obj) {
           default:
             populate_element($element_map[$tag][$element], $db_arr[$element]);
             break;
-        }  
+        }
         continue;
       }
     }
@@ -642,16 +646,16 @@ function populate_input($dom_input, $value) {
       }
     }
   } elseif ($count > 1 && $dom_input[0]->attributes->getNamedItem('type')->nodeValue == 'checkbox') {
-    $value_array = explode("|", $value);     
+    $value_array = explode("|", $value);
     for($i = 0; $i < $count; $i++) {
-      if (in_array($dom_input[$i]->attributes->getNamedItem('value')->value, $value_array)) {           
+      if (in_array($dom_input[$i]->attributes->getNamedItem('value')->value, $value_array)) {
         $dom_input[$i]->setAttribute('checked', '');
       }
     }
   } elseif ($count > 1 && $dom_input[0]->attributes->getNamedItem('type')->nodeValue == 'hidden') {
     // do nothing for now
     //$dom_input[0]->setAttribute('value', $value);
-  } elseif ($count == 1) { 
+  } elseif ($count == 1) {
     $dom_input[0]->setAttribute('value', $value);
   } else {
     $attrs = dom_named_node_map_to_string($dom_input[0]->attributes);
@@ -666,8 +670,8 @@ function populate_select($dom_select, $option) {
   }
   $children = $dom_select[0]->childNodes;
   for ($i = 0; $i < $children->length; ++$i) {
-    if ($children->item($i)->attributes != null 
-        && $children->item($i)->attributes->getNamedItem('value') != null 
+    if ($children->item($i)->attributes != null
+        && $children->item($i)->attributes->getNamedItem('value') != null
         && $children->item($i)->attributes->getNamedItem('value')->nodeValue == $option) {
       $children->item($i)->setAttribute('selected', '');
     }
@@ -681,7 +685,7 @@ function populate_element($dom_element, $value) {
   $dom_element[0]->nodeValue = $value;
 }
 
-// Uses PHP's DOMDocument to parse an html string 
+// Uses PHP's DOMDocument to parse an html string
 function parse_html($str) {
   $doc = new DOMDocument();
   libxml_use_internal_errors(true);
@@ -707,13 +711,13 @@ function dom_named_node_map_to_string($map) {
 function get_sail_page($path) {
   global $PAGES_DIR;
   return '<style>' . file_get_contents($PAGES_DIR . 'common.css', true) . '</style>' .
-    get_sail_page_no_common_css($path); 
+    get_sail_page_no_common_css($path);
 }
 
 function get_sail_page_no_common_css($path) {
   return str_replace(
-      '<?php esc_url(admin_url(\'admin-post.php\')); ?>', 
-      esc_url(admin_url('admin-post.php')), 
+      '<?php esc_url(admin_url(\'admin-post.php\')); ?>',
+      esc_url(admin_url('admin-post.php')),
       file_get_contents($path, true)
     );
 }
@@ -738,13 +742,13 @@ function sail_plugin_init() {
     add_shortcode( 'userFCRegistration', 'fc_reg_shortcode');
     add_shortcode( 'userFCProfileUpdate', 'fc_update_shortcode');
     add_shortcode( 'userFCExampleProfile', 'fc_example_profile_shortcode');
-    add_shortcode( 'userFCSearch', 'fc_search_shortcode'); 
+    add_shortcode( 'userFCSearch', 'fc_search_shortcode');
     add_shortcode( 'userSubscribeNewsletter', 'subscribe_newsletter_shortcode' );
     add_shortcode( 'displayMessage', 'display_message_shortcode' );
     // Register autoloader
     require_once('/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/ClassAutoloader.php');
     spl_autoload_register('ClassAutoloader::autoload');
-} 
+}
 add_action('init', 'sail_plugin_init' );
 
 function sail_plugin_preinit() {
@@ -846,9 +850,9 @@ function newsletter_unsubscribe( $request ) {
  * Below are post callbacks. To wire up a new callback
  * include a hidden input with a target value, like:
  *  <input type="hidden" name="action" value="your_target_value">
- * 
+ *
  * Then implement a function(s) to handle the post and add and action(s)
- * for it.  admin_post_your_target_value will be invoked when an 
+ * for it.  admin_post_your_target_value will be invoked when an
  * authenticated user posts and admin_post_nopriv_your_target_value will
  * be invoked when an unautheticated user posts.
  ***********************************************************************/
@@ -956,7 +960,7 @@ add_action('wp', 'sail_user_link_family_member');
  * @param string $request URL the user is coming from.
  * @param object $user Logged user's data.
  * @return string
- 
+
 function sail_login_redirect($redirect_to, $request, $user) {
   error_log('redirecting login');
   if ( $user && is_object( $user ) && is_a( $user, 'WP_User' ) ) {

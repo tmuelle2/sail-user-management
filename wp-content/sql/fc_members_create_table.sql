@@ -4,6 +4,7 @@ CREATE TABLE `sailhou1_WPRAL`.`fc_members`(
     `consent` TEXT NOT NULL,
     `namePreference` TEXT NOT NULL,
     `nickname` TEXT NOT NULL,
+    `dob` DATE NOT NULL,
     `activities` TEXT NOT NULL,
     `hobbies` TEXT NOT NULL,
     `typicalDay` TEXT NOT NULL,
