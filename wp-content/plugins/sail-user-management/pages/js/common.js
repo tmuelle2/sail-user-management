@@ -29,6 +29,12 @@ function makeFormRestSubmit(formId, apiRoute) {
 function formRestSubmit(form, apiRoute, event) {
     const formData = new FormData(form);
 
+    for(var kvPair of formData.entries()) {
+        if (Array.isArray(formData.getAll(kvPair[0])) && formData.getAll(kvPair[0]).length > 1) {
+            formData.set(kvPair[0], formData.getAll(kvPair[0]).join('|'));
+        }
+    }
+
     const formHeaders = new Headers({
         'Content-Type': 'application/json'
     });

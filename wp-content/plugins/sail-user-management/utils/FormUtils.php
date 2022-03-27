@@ -62,35 +62,35 @@ final class FormUtils
 
     public const SITUATION_CHECKBOXES = array(
         '<div>' .
-            '<input type="checkbox" name="situation[]" id="situation1" value="Need to commit to understanding steps involved in developing a housing solution.">' .
+            '<input class="sitch" onclick="onChecked(\'sitch\')" type="checkbox" name="situation" id="situation1" value="Need to commit to understanding steps involved in developing a housing solution.">' .
             '<label for="situation1">Need to commit to understanding steps involved in developing a housing solution</label>' .
         '</div>',
         '<div>' .
-            '<input type="checkbox" name="situation[]" id="situation2" value="Need support to understand Government Benefits like SSI, SSDI, Medicaid, Bridge Card, etc.">' .
+            '<input class="sitch" onclick="onChecked(\'sitch\')" type="checkbox" name="situation" id="situation2" value="Need support to understand Government Benefits like SSI, SSDI, Medicaid, Bridge Card, etc.">' .
             '<label for="situation2">Need support to understand Government Benefits like SSI, SSDI, Medicaid, Bridge Card, etc</label>' .
         '</div>',
         '<div>' .
-            '<input type="checkbox" name="situation[]" id="situation3" value="Need to connect with others to develop friendships/roommates">' .
+            '<input class="sitch" onclick="onChecked(\'sitch\')" type="checkbox" name="situation" id="situation3" value="Need to connect with others to develop friendships/roommates">' .
             '<label for="situation3">Need to connect with others to develop friendships/roommates</label>' .
         '</div>',
         '<div>' .
-            '<input type="checkbox" name="situation[]" id="situation4" value="Interested in learning about different housing models">' .
+            '<input class="sitch" onclick="onChecked(\'sitch\')" type="checkbox" name="situation" id="situation4" value="Interested in learning about different housing models">' .
             '<label for="situation4">Interested in learning about different housing models</label>' .
         '</div>',
         '<div>' .
-            '<input type="checkbox" name="situation[]" id="situation5" value="Interested in developing a support model and finding staff">' .
+            '<input class="sitch" onclick="onChecked(\'sitch\')" type="checkbox" name="situation" id="situation5" value="Interested in developing a support model and finding staff">' .
             '<label for="situation5">Interested in developing a support model and finding staff</label>' .
         '</div>',
         '<div>' .
-            '<input type="checkbox" name="situation[]" id="situation6" value="Need information on how to prepare for moving into a new place">' .
+            '<input class="sitch" onclick="onChecked(\'sitch\')" type="checkbox" name="situation" id="situation6" value="Need information on how to prepare for moving into a new place">' .
             '<label for="situation6">Need information on how to prepare for moving into a new place</label>' .
         '</div>',
         '<div>' .
-            '<input type="checkbox" name="situation[]" id="situation7" value="Need information and resources that can help in the transition to a new place">' .
+            '<input class="sitch" onclick="onChecked(\'sitch\')" type="checkbox" name="situation" id="situation7" value="Need information and resources that can help in the transition to a new place">' .
             '<label for="situation7">Need information and resources that can help in the transition to a new place</label>' .
         '</div>',
         '<div>' .
-            '<input type="checkbox" name="situation[]" id="situation8" value="Interested in supporting and maintaining an existing housing solution">' .
+            '<input class="sitch" onclick="onChecked(\'sitch\')" type="checkbox" name="situation" id="situation8" value="Interested in supporting and maintaining an existing housing solution">' .
             '<label for="situation8">Interested in supporting and maintaining an existing housing solution</label>' .
         '</div>'
     );
@@ -151,7 +151,7 @@ final class FormUtils
     public static function populateRadio(string $target, array $radio): string
     {
         $trgt = "\"$target\"";
-        $checked = 'checked="checked"'; 
+        $checked = 'checked="checked"';
         ob_start();
         foreach ($radio as $rdio) {
             if (str_contains($rdio, $trgt)) {
@@ -175,14 +175,14 @@ final class FormUtils
         $tags = array('input', 'select', 'textarea');
         $elementMap = array();
         foreach ($tags as $tag) {
-            // get elements 
+            // get elements
             $elementList = $domDoc->getelementsbytagname($tag);
 
             // build tag to name to node associative arrays
             $elementMap[$tag] = self::nameToNodeMap($elementList);
         }
 
-        // populate elements 
+        // populate elements
         foreach ($dbObj->dataKeys() as $element) {
             foreach ($tags as $tag) {
                 if (isset($elementMap[$tag][$element]) && isset($dbObj[$element])) {

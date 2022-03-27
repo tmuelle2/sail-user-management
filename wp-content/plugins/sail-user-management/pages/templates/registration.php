@@ -91,7 +91,7 @@
 	<?php echo implode('', FormUtils::NEWSLETTER_RADIO) ?>
 	<h5 class="field-label">How can SAIL assist you?</h5>
 	<textarea name="additionalInfo" class="text-input-field" cols="30" rows="2"></textarea><br /><br />
-  <input type="hidden" name="readTermsOfService" value="0" />
+  <!-- <input type="hidden" name="readTermsOfService" value="0" /> -->
   <input type="checkbox" name="readTermsOfService" value="1" required>
   <label class="field-label required-field" for="readTermsOfService">I have read and agree to the <a target="_blank" href="<? echo Sail\Utils\WebUtils::getUrl() ?>/privacy-policy/">Terms of Service</a>.</label><br/>
   <input type="hidden" name="isPaidMember" value="0" />
@@ -99,3 +99,25 @@
 <div class="wp-block-button">
   <button style="border: none;" class="wp-block-button__link has-white-color has-vivid-cyan-blue-background-color has-text-color has-background" type="submit" form="user_reg" value="Submit">Submit</button>
 </div>
+<script>
+  function onChecked(elClass) {
+    el=document.getElementsByClassName(elClass);
+
+    var atLeastOneChecked=false;//at least one cb is checked
+    for (i=0; i<el.length; i++) {
+        if (el[i].checked === true) {
+            atLeastOneChecked=true;
+        }
+    }
+
+    if (atLeastOneChecked === true) {
+        for (i=0; i<el.length; i++) {
+            el[i].required = false;
+        }
+    } else {
+        for (i=0; i<el.length; i++) {
+            el[i].required = true;
+        }
+    }
+  }
+</script>

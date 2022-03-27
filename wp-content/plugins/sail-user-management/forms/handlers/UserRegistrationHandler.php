@@ -26,9 +26,16 @@ class UserRegistrationHandler extends SailFormHandler
 
     public function callback(WP_REST_Request $request)
     {
+        //$this->log("#### REG CALLBACK #### ");
+
         // Extract form data
         $params = $request->get_json_params();
+        //$this->log("# params: ");
+        //$this->log(print_r( $params , true));
         $user = HtmlUtils::getUserFormData($params);
+        //$this->log("# user: ");
+        //$this->log(print_r($user->getDatabaseData(), true));
+
 
         // Create Wordpress user
         $email = $params['email'];
@@ -40,6 +47,7 @@ class UserRegistrationHandler extends SailFormHandler
             $emailVerificationKey = EmailSender::sendVerificationEmail($user);
             $data['emailVerificationKey'] = $emailVerificationKey;
             $data['emailVerified'] = false;
+            $data['isPaidMember'] = 0;
             UserDao::getInstance()->createUser($user->merge($data), $password);
 
             // Signon user
