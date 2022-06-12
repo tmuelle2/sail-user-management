@@ -20,14 +20,14 @@ class FriendshipConnectDao
   }
 
   // returns the fc member info of the currently logged in user if it exists
-  public function getFcProfile(): FriendshipConnectProfile
+  public function getFcProfile(): ?FriendshipConnectProfile
   {
 
     $user = wp_get_current_user();
     return $this->getFcProfileById($user->ID);
   }
 
-  public function getFcProfileById(string $userId): FriendshipConnectProfile
+  public function getFcProfileById(string $userId): ?FriendshipConnectProfile
   {
     return $this->getFcProfileForUser($userId, 'ARRAY_A');
   }
@@ -46,7 +46,7 @@ class FriendshipConnectDao
     return $fcProfile;
   }
 
-  private function getFcProfileForUser(string $userId, string $outputFormat): FriendshipConnectProfile
+  private function getFcProfileForUser(string $userId, string $outputFormat): ?FriendshipConnectProfile
   {
     if ($this->isCached($userId)) {
       return $this->getCachedValue($userId);

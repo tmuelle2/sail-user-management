@@ -34,9 +34,14 @@ function formRestSubmit(form, apiRoute, event) {
             formData.set(kvPair[0], formData.getAll(kvPair[0]).join('|'));
         }
     }
-
+    console.log("!!!!!!!!!!!!!formRestSubmit: ");
+    console.log("event: ");
+    console.log(event);
+    console.log("formData: ")
+    console.log(Object.fromEntries(formData)["__nonce"]);
     const formHeaders = new Headers({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'x-wp-nonce': Object.fromEntries(formData)["__nonce"] ? Object.fromEntries(formData)["__nonce"] : undefined
     });
 
     fetch(apiRoute, {

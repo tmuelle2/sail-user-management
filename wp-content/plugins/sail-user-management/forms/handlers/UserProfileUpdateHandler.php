@@ -9,6 +9,7 @@ use Sail\Data\Dao\UserDao;
 use Sail\Utils\HtmlUtils;
 use Sail\Utils\Logger;
 use Sail\Utils\Singleton;
+use Sail\Form\Handlers\SailFormHandler;
 
 class UserProfileUpdateHandler extends SailFormHandler
 {
@@ -26,8 +27,12 @@ class UserProfileUpdateHandler extends SailFormHandler
 
     public function callback(WP_REST_Request $request)
     {
-        $params = $request->get_body_params();
+        $this->log("$$$$$$$$$ USser Update$$$$$$$$$$ ");
+        $params = $request->get_json_params();
+        $this->log("$$$$$$$$$ params3: ");
+        $this->log(print_r($params, true));
         $curUser = $this->dao->getSailUser();
+        $this->log(print_r($curUser, true));
         $userUpdate = HtmlUtils::getUserFormData($params, $curUser);
 
         // Update SAIL users db table

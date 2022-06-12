@@ -44,7 +44,12 @@ class UserLoginHandler extends SailFormHandler
                 return $this->response400();
             } else {
                 // Success redirect
-                wp_set_current_user($user->ID, $user->data->user_login);
+                $this->log("$$$$$$$$$ Login Success $$$$$$$$$$ ");
+                $set_user_result = wp_set_current_user($user->ID, $user->data->user_login);
+                $this->log(print_r($set_user_result, true));
+                $is_logged_in_result = is_user_logged_in();
+                $this->log("$$$$$$$$$ Check if logged in $$$$$$$$$$ ");
+                $this->log(print_r($is_logged_in_result, true));
                 $redirect = $json['redirect_to'];
 
                 if (isset($redirect) && (strpos($redirect, Constants::PROD_DOMAIN) !== false || strpos($redirect, Constants::DEV_DOMAIN) !== false)) {

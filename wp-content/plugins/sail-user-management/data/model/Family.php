@@ -8,7 +8,7 @@ class Family
 
   public function __construct(array $data)
   {
-    $this->members = array_map($this->createUser, $data);
+    $this->members = array_map(array($this, 'createUser'), $data);
   }
 
   public function getMembers(): array
@@ -28,8 +28,10 @@ class Family
     return $str;
   }
 
-  private function createUser(array $userData): User
+  private function createUser(array $userData): ?User
   {
+    if (!isset($userData) || count($userData) < 1)
+      return null;
     return new User($userData);
   }
 }

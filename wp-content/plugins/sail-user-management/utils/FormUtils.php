@@ -139,27 +139,39 @@ final class FormUtils
 
     public static function populateMultiSelectChecbox(array $checkedVals, array $checkboxes): string
     {
-        $mapFn = fn(string $str): string => "/(\"$str\")/";
+        $mapFn = fn(string $str): string => "~(\"$str\")~";
         $situations = array_map($mapFn,  $checkedVals);
         ob_start();
         foreach($checkboxes as $checkbox) {
-          echo preg_replace($situations, '${1} selected', $checkbox);
+          echo preg_replace($situations, '${1} checked="checked"', $checkbox);
         }
         return ob_get_clean();
     }
 
-    public static function populateRadio(string $target, array $radio): string
+    public static function populateRadio(string $target, bool $value, array $radio): string
     {
         $trgt = "\"$target\"";
         $checked = 'checked="checked"';
+        $value1Text = 'value="1"';
         ob_start();
         foreach ($radio as $rdio) {
             if (str_contains($rdio, $trgt)) {
-                if (!str_contains($rdio, $checked)) {
-                    echo str_replace('input ', "input $checked", $rdio);
+                if ($value) {
+                    if (str_contains($rdio, $value1Text) && !str_contains($rdio, $checked)) {
+                        echo str_replace('input ', "input $checked", $rdio);
+                    }
+                    else {
+                        echo $rdio;
+                    }
                 }
-            } else {
-                echo str_replace($checked, '', $rdio);
+                else {
+                    if (!str_contains($rdio, $value1Text)) {
+                        echo str_replace('input ', "input $checked", $rdio);
+                    }
+                    else {
+                        echo str_replace('$checked', "", $rdio);
+                    }
+                }
             }
         }
         return ob_get_clean();

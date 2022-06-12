@@ -2,24 +2,25 @@
   <summary>Update Your Profile</summary>
   <form accept-charset="UTF-8" id="user_profile_update" autocomplete="on" action='user-update'>
     <input type="hidden" name="action" value="sail_user_update">
+    <?php wp_nonce_field( 'wp_rest', '__nonce' ); ?>
     <div class="flex-container">
       <div class="flex-child">
         <h5 class="field-label required-field">First Name</h5>
-        <input name="firstName" type="text" value="<?php $sailUser->firstName ?>" class="text-input-field" required /> <br />
+        <input name="firstName" type="text" value="<?php echo $sailUser->firstName ?>" class="text-input-field" required /> <br />
       </div>
       <div class="flex-child">
         <h5 class="field-label required-field">Last Name</h5>
-        <input name="lastName" type="text" value="<?php $sailUser->lastName ?>" class="text-input-field" required /> <br />
+        <input name="lastName" type="text" value="<?php echo $sailUser->lastName ?>" class="text-input-field" required /> <br />
       </div>
     </div>
     <div class="flex-container">
       <div class="flex-child">
         <h5 class="field-label required-field">Email</h5>
-        <input name="email" type="email" value="<?php $sailUser->email ?>" class="text-input-field" required /> <br />
+        <input name="email" type="email" value="<?php echo $sailUser->email ?>" class="text-input-field" required /> <br />
       </div>
       <div class="flex-child">
         <h5 class="field-label required-field">Phone Number</h5>
-        <input name="phoneNumber" type="tel" value="<?php $sailUser->phoneNumber ?>" class="text-input-field" placeholder="3215556789" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" maxlength="10" title="Ten digit phone number" required />
+        <input name="phoneNumber" type="tel" value="<?php echo $sailUser->phoneNumber ?>" class="text-input-field" placeholder="3215556789" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" maxlength="10" title="Ten digit phone number" required />
       </div>
     </div>
     <div class="flex-container">
@@ -67,17 +68,17 @@
     </select>
     <br />
     <h5 class="field-label">How did you hear about SAIL?</h5>
-    <input name="reference" type="text" value="<?php echo $sailUser->reference ?>"> class="text-input-field" /> <br />
+    <input name="reference" type="text" value="<?php echo $sailUser->reference ?>" class="text-input-field" /> <br />
     <h5 class="field-label required-field">What is your housing solution timeframe?</h5>
     <select name="timeframe" class="select-field" required>
     <?php echo FormUtils::populateSelectOption($sailUser->timeframe, FormUtils::TIMEFRAME_OPTIONS) ?>
     </select><br />
     <h5 class="field-label">Can we contact you via Email?</h5>
-    <?php echo FormUtils::populateRadio($sailUser->contactViaEmail, FormUtils::CONTACT_EMAIL_RADIO) ?>
+    <?php echo FormUtils::populateRadio("contactViaEmail", $sailUser->contactViaEmail, FormUtils::CONTACT_EMAIL_RADIO) ?>
     <h5 class="field-label">Can we contact you via Text?</h5>
-    <?php echo FormUtils::populateRadio($sailUser->contactViaText, FormUtils::CONTACT_TEXT_RADIO) ?>
+    <?php echo FormUtils::populateRadio("contactViaText", $sailUser->contactViaText, FormUtils::CONTACT_TEXT_RADIO) ?>
     <h5 class="field-label">Would you like to receive the SAIL Newsletter, get updates from SAIL, and hear about upcoming SAIL events?</h5>
-    <?php echo FormUtils::populateRadio($sailUser->newsletter, FormUtils::NEWSLETTER_RADIO) ?>
+    <?php echo FormUtils::populateRadio("newsletter", $sailUser->newsletter, FormUtils::NEWSLETTER_RADIO) ?>
     <h5 class="field-label">How can SAIL assist you?</h5>
     <textarea name="additionalInfo" value="<?php echo $sailUser->additionalInfo ?>" class="text-input-field" cols="30" rows="2"></textarea><br />
   </form>

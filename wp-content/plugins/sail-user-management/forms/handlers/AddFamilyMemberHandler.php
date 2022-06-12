@@ -26,13 +26,14 @@ class AddFamilyMemberHandler extends SailFormHandler
 
     public function callback(WP_REST_Request $request)
     {
+        $this->log("####################### ADD FAMILY ##########################");
         $emailInput = $request->get_param('email');
         $user = $this->dao->getSailUser();
 
         // Send verification email
         $familyLinkingKey = EmailSender::sendAccountLinkingEmail($user, $emailInput);
 
-        $this->log("Sent link-family-member email from {$user->email} to {$emailInput}a");
+        $this->log("Sent link-family-member email from {$user->email} to {$emailInput}");
 
         // Update SAIL users db table
         $this->dao->updateUser($user, ['familyLinkingKey' => $familyLinkingKey]);

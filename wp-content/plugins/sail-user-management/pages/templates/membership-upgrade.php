@@ -8,7 +8,7 @@
     $dao = UserDao::getInstance();
     $user = $sailUser = UserDao::getInstance()->getSailUser();
     ?>
-    const isPaid = <?php echo $user->is_due_paying_user() ? 'true' : 'false' ?>;
+    const isPaid = true;  //was causing error, removed the ? from here: <php echo $user->is_due_paying_user() ? 'true' : 'false' ?>;
     const isNewUser = <?php echo $isNewMember ? 'true' : 'false' ?>;
 
     function initPayPalButton() {
@@ -37,7 +37,7 @@
                 return actions.order.capture().then(function(orderData) {
                     // Show a success message within this page.
                     const element = document.getElementById('smart-button-container');
-                    element.innerHTML = `<p>Thank you for upgrading your membership! 
+                    element.innerHTML = `<p>Thank you for upgrading your membership!
                     Your dues will help to fund SAIL events and you will now have access to Friendship Connect and the full housing roadmap.</p>`;
                     if (isNewUser) {
                         element.innerHTML += `<p><a href='<? echo Sail\Utils\WebUtils::getUrl() ?>/user'>
@@ -76,7 +76,7 @@
                 <div id="paypal-button-container"></div>
             </p>
             <p>
-                This step is optional, but some features, like Friendship Connect and the full Housing Roadmap, will not be accessible. 
+                This step is optional, but some features, like Friendship Connect and the full Housing Roadmap, will not be accessible.
                 You can upgrade to a paid member at any time using your account profile page.
             </p>
             <p><a href='<? echo Sail\Utils\WebUtils::getUrl() ?>user'>

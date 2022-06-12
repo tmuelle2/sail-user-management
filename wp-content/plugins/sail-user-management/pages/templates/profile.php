@@ -16,3 +16,12 @@ $sailUser = UserDao::getInstance()->getSailUser();
 		<span style="padding-left: 90px;"><?php echo "{$sailUser->city}, {$sailUser->state}, {$sailUser->zipCode}" ?></span>
 	</div>
 </div>
+<br>
+
+
+
+<br>
+<!--TEMP CODE: USING TO TEST SHORTCODES
+<php echo do_shortcode('[userAddFamilyMember]'); ?>
+<php echo do_shortcode('[userUpdateProfile]'); ?>
+<php echo do_shortcode('[userFCProfileUpdate]'); ?>-->

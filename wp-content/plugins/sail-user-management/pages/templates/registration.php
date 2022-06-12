@@ -1,4 +1,5 @@
 <form accept-charset="UTF-8" id="user_reg" autocomplete="on" action='user-registration'>
+  <?php wp_nonce_field( 'wp_rest', '__nonce' ); ?>
 	<div class="flex-container">
       <div class="flex-child">
         <h5 class="field-label required-field">First Name</h5>

@@ -13,6 +13,7 @@ class User extends SailDataObject
 
   // Mapping of fields to database format
   private const USER_DB_FIELDS = array(
+    'userId' => '%s',
     'firstName' => '%s',
     'lastName' => '%s',
     'email' => '%s',
