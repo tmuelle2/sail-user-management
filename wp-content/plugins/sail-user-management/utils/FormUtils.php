@@ -7,6 +7,7 @@ use Sail\Data\Model\SailDataObject;
 
 final class FormUtils
 {
+    // User options
     public const STATE_OPTIONS = array(
         '<option value="AL">Alabama</option>',
         '<option value="AK">Alaska</option>',
@@ -125,6 +126,20 @@ final class FormUtils
     public const NEWSLETTER_RADIO = array(
         '<input checked="checked" name="newsletter" type="radio" value="1" /> Yes<br />',
         '<input name="newsletter" type="radio" value="0" /> No<br />'
+    );
+
+    // FC Profile options
+    public const GENDER_OPTIONS = array(
+        '<option value="Male">Male</option>',
+        '<option value="Female">Female</option>',
+        '<option value="Other">Other</option>',
+        '<option value="Prefer not to say">Prefer not to say</option>'
+    );
+
+    public const PRIMARY_CONTACT_OPTIONS = array(
+        '<option value="Email">Email</option>',
+        '<option value="Phone (Text Message)">Phone (Text Message)</option>',
+		'<option value="Phone (Voice Call)">Phone (Voice Call)</option>'
     );
 
     public static function populateSelectOption(string $target, array $options): string

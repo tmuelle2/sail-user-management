@@ -80,7 +80,7 @@
     <h5 class="field-label">Would you like to receive the SAIL Newsletter, get updates from SAIL, and hear about upcoming SAIL events?</h5>
     <?php echo FormUtils::populateRadio("newsletter", $sailUser->newsletter, FormUtils::NEWSLETTER_RADIO) ?>
     <h5 class="field-label">How can SAIL assist you?</h5>
-    <textarea name="additionalInfo" value="<?php echo $sailUser->additionalInfo ?>" class="text-input-field" cols="30" rows="2"></textarea><br />
+    <textarea name="additionalInfo" class="text-input-field" cols="30" rows="2"><?php echo $sailUser->additionalInfo ?></textarea><br />
   </form>
   <button type="submit" form="user_profile_update" value="Submit">Submit</button>
 </details>

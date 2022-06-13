@@ -35,14 +35,14 @@ class FriendshipConnectDao
   public function updateFcProfileWithUpdatesAlreadySet(FriendshipConnectProfile $fcProfile): FriendshipConnectProfile
   {
     global $wpdb;
-    $wpdb->update('fc_members', $fcProfile, array('userId' => $fcProfile->userId), FriendshipConnectProfile::fieldKeys());
+    $wpdb->update('fc_members', $fcProfile->getDatabaseData(), array('userId' => $fcProfile->userId), FriendshipConnectProfile::fieldKeys());
     return $fcProfile;
   }
 
   public function createFcProfile(FriendshipConnectProfile $fcProfile): FriendshipConnectProfile
   {
     global $wpdb;
-    $wpdb->insert('fc_members', $fcProfile, FriendshipConnectProfile::fieldKeys());
+    $wpdb->insert('fc_members', $fcProfile->getDatabaseData(), FriendshipConnectProfile::fieldKeys());
     return $fcProfile;
   }
 

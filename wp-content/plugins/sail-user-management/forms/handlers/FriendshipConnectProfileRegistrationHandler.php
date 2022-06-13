@@ -32,11 +32,21 @@ class FriendshipConnectProfileRegistrationHandler extends SailFormHandler
         public function callback(WP_REST_Request $request)
         {
                 // Extract form data
-                $params = $request->get_body_params();
+                $this->log("%%%%%% FC Reg %%%%%% ");
+                $user = $this->userDao->getSailUser();
+                $params = $request->get_json_params();
+                $params["namePreference"] = "Nickname";
+                $params["userId"] = $user->getDatabaseData()["userId"];
+                if (str_contains($params["authorized"], "1")) {
+                        $params["authorized"] = "1";
+                }
+                $this->log("%%%%%% params: ");
+                $this->log(print_r($params, true));
                 $files = $request->get_file_params();
                 $fcProfile = HtmlUtils::getFriendshipConnectProfileFormData($params);
 
-                $user = $this->userDao->getSailUser();
+                $this->log("%%%%%% fcprofile: ");
+                $this->log(print_r($fcProfile, true));
 
 
                 // Throw a 40x if they are not a paid member or a fc profile already exists

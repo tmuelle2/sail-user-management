@@ -20,12 +20,6 @@ class UserDao
   {
 
     $user = wp_get_current_user();
-    $this->log("{{#}} getSailUser() called! ");
-    $this->log("{{#}} wp_get_current_user() result: ");
-    $this->log(print_r($user, true));
-    $this->log("{{#}} getSailUserById() result: ");
-    $this->log(print_r($this->getSailUserById($user->ID), true));
-
     return $this->getSailUserById($user->ID);
   }
 
@@ -46,21 +40,20 @@ class UserDao
     $wpdb->show_errors = true;
     $wpdb->suppress_errors = false;
     $wpdb->show_errors();
-    $this->log("$$$$$$$$$ User Update DB CHANGE $$$$$$$$$$ ");
     $num_updated_rows = $wpdb->update('sail_users', $user->getDatabaseData(), array('userId' => $user->getDatabaseData()["userId"]), User::fieldKeys());
 
     if ($num_updated_rows === false) {
-      $this->log("ERROR IN UPDATING6: ");
+      $this->log("ERROR IN UPDATING: ");
       $this->log(print_r($wpdb->error, true));
       $this->log(print_r($wpdb->last_query, true));
       $this->log(print_r(User::fieldKeys(), true));
       $this->log("ERROR Done. ");
     }
     else {
-      $this->log("Updated this many rows: ");
+      $this->log("Updated this many rows in sail_users: ");
       $this->log(print_r($num_updated_rows, true));
     }
-    $this->log(print_r($user, true));
+    //$this->log(print_r($user, true));
     return $user;
   }
 

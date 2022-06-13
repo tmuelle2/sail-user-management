@@ -4,41 +4,19 @@ use Sail\Data\Dao\UserDao;
 
 $sailUser = UserDao::getInstance()->getSailUser();
 $fcMember = FriendshipConnectDao::getInstance()->getFcProfile();
-$displayName = $sailUser->firstName;
-if ($fcMember->namePreference == "First Name and Last Initial") {
-	$displayName = "{$sailUser->firstName} {$sailUser->lastName[0]}.";
-} else if ($fcMember->namePreference == "Nickname") {
-	$displayName = $fcMember->nickname;
-}
 ?>
 <script>
-  function onNamePrefChange(selectObj) {
-    var value = selectObj.value;
-    if (value === "First Name Only") {
-      document.getElementById("displayName").innerHTML = document.getElementById("firstName").innerHTML;
-    } else if (value === "First Name and Last Initial") {
-      document.getElementById("displayName").innerHTML = document.getElementById("firstNameAndLastInitial").innerHTML;
-    }
-    //else if (value === "Initials Only") {
-    //document.getElementById("displayName").innerHTML = document.getElementById("initials").innerHTML;
-    //}
-    else if (value === "Nickname") {
-      document.getElementById("displayName").innerHTML = document.getElementById("nickname").value;
-    }
-  }
-
   function onTextFieldChange(value, field) {
     document.getElementById(field).innerHTML = value;
   }
 
   function onNickNameChange(value) {
-    if (document.getElementById("namePreference").value === "Nickname") {
-      document.getElementById("displayName").innerHTML = value;
-    }
+    document.getElementById("displayName").innerHTML = value;
   }
 </script>
 
 <form accept-charset="UTF-8" id="fc-registration" autocomplete="on" action='fc-registration'>
+  <?php wp_nonce_field( 'wp_rest', '__nonce' ); ?>
   <input type="hidden" name="action" value="fc-registration">
   <!--<p>To see an example of what a filled out Friendship Connect Profile looks like click here:&nbsp;<a target="_blank" href="https://sailhousingsolutions.org/friendship-connect-example-profile">Example Friendship Connect Profile</a></p>-->
   <div class="flex-container">
@@ -47,22 +25,10 @@ if ($fcMember->namePreference == "First Name and Last Initial") {
       <input type="hidden" name="authorized" value="0" />
       <input type="checkbox" name="authorized" value="1" required />
       <label class="field-label required-field" for="authorized">I am either an individual with a disability and I am my own guardian, or I am a person who is legally authorized to complete this Friendship Connect form on behalf of an individual with a disability. SAIL can publish my data and contact information on the SAIL Friendship Connect page on the SAIL website. I understand that other members of Friendship Connect may contact me directly to discuss an interest in becoming friends and/or roommates.</label>
-      <!--<h5 class="field-label required-field">Are you legally authorized to complete this form (either on behalf of yourself or a dependent)?</h5>
-      <input name="authorized" type="radio" value="1" /> Yes<br />
-      <input name="authorized" type="radio" value="0" /> No<br />
-      <h5 class="field-label required-field">Do you consent to filling out this form and allowing the information to be shared with other users within Friendship Connect?</h5>
-      <input name="consent" type="radio" value="1" /> Yes<br />
-      <input name="consent" type="radio" value="0" /> No<br /> -->
-      <h5 class="field-label required-field">How do you want your Name to appear to others in Friendship connect?</h5>
-      <select name="namePreference" id="namePreference" class="select-field" onchange="onNamePrefChange(this)" required>
-        <option value="First Name Only">First Name Only</option>
-        <option value="First Name and Last Initial">First Name and Last Initial</option>
-        <!--<option value="Initials Only">Initials Only</option>-->
-        <option value="Nickname">Nickname</option>
-      </select> <br />
-      <h5 class="field-label">Nickname</h5>
+      <h5 class="field-label">Profile Name (For privacy, we recommend not using last names. Ex: use Jane D. not Jane Doe)</h5>
       <input name="nickname" type="text" class="text-input-field" id="nickname" oninput="onNickNameChange(this.value)" /> <br />
-
+      <h5 class="field-label required-field">Profile Date of Birth</h5>
+      <input type="date" name="dob" id="dob" required><br />
       <h5 class="field-label">Profile Picture</h5>
       <input type="file" id="profilePicture" name="profilePicture" multiple="false" />
       <p id="status"></p>
@@ -99,7 +65,7 @@ if ($fcMember->namePreference == "First Name and Last Initial") {
       <h5 class="field-label">Support Requirements or Dietary Restrictions</h5>
       <textarea name="supportRequirements" class="text-input-field" cols="30" rows="2" oninput="onTextFieldChange(this.value, 'supportRequirements')"></textarea><br />
       <p>
-        For the safety and security of thoses choosing to use Friendship Connect please supply a reference that SAIL can contact. This reference should be either a current SAIL member, your Supports Coordinator (MORC or CLS), or your current Teacher.
+      For the safety and security of those choosing to use Friendship Connect please supply a reference that SAIL can contact. This reference should not be a relative or yourself. Possible references could be a current SAIL member, your Supports Coordinator, a Manager at work, a High School or Post High School Teacher. Please contact your reference and let them know that someone from SAIL will be in contact with them.
       </p>
       <h5 class="field-label required-field">What is your Reference's First and Last Name?</h5>
       <input name="referenceName" type="text" class="text-input-field" required /> <br />
@@ -114,11 +80,11 @@ if ($fcMember->namePreference == "First Name and Last Initial") {
         <h5>Friendship Connect Profile Preview</h5>
         <div class="flex-start">
           <div style="margin: 8px 8px 8px 8px;">
-            <img class="pfp" id="pfpPreview" alt="Profile Picture" src="<?php echo "/wp-admin/identicon.php?size=200&hash={$md5($sailUser->email)}" ?> "/>
+            <img class="pfp" id="pfpPreview" alt="Profile Picture" src="/wp-admin/identicon.php?size=200&hash=<?php echo md5($sailUser->email) ?>"/>
           </div>
           <div style="margin-left: 32px;">
             <div class="flex-container">
-              <h2 id="displayName"><?php echo $sailUser->firstName ?></h2>
+              <h2 id="displayName"><?php echo "(Your Profile Name)" ?></h2>
             </div>
             <div class="flex-container"><strong>Activities:&nbsp;</strong><span id="activities"></span></div>
             <div class="flex-container"><strong>Hobbies:&nbsp;</strong><span id="hobbies"></span></div>
@@ -132,9 +98,6 @@ if ($fcMember->namePreference == "First Name and Last Initial") {
       </div>
     </div>
   </div>
-  <div style="display: none" id="firstName"><?php echo $sailUser->firstName ?></div>
-  <div style="display: none" id="firstNameAndLastInitial"><?php echo "{$sailUser->firstName} {$sailUser->lastName[0]}." ?></div>
-  <div style="display: none" id="initials"><?php echo strtoupper("{$sailUser->firstName[0]}.{$sailUser->lastName[0]}.") ?><</div>
 </form>
 <button type="submit" form="fc-registration" value="Submit">Submit</button>
 

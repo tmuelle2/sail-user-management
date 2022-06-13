@@ -11,6 +11,7 @@ class FriendshipConnectProfile extends SailDataObject
 
   // Mapping of field to database format
   private const FC_DB_FIELDS = array(
+    'userId' => '%s',
     'authorized' => '%s',
     'profilePicture' => '%s',
     'gender' => '%s',

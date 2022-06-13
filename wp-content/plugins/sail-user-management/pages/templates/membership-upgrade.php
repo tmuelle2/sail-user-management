@@ -8,7 +8,7 @@
     $dao = UserDao::getInstance();
     $user = $sailUser = UserDao::getInstance()->getSailUser();
     ?>
-    const isPaid = true;  //was causing error, removed the ? from here: <php echo $user->is_due_paying_user() ? 'true' : 'false' ?>;
+    const isPaid = <?php echo $user->isDuePayingUser() ? 'true' : 'false' ?>;
     const isNewUser = <?php echo $isNewMember ? 'true' : 'false' ?>;
 
     function initPayPalButton() {

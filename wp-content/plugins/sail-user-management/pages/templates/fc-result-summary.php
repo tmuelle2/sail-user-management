@@ -2,6 +2,9 @@
 use Sail\Data\Dao\FriendshipConnectDao;
 use Sail\Data\Dao\UserDao;
 
+
+$fcMember = FriendshipConnectDao::getInstance()->getFcProfile();
+if (isset($fcMember) && $fcMember->referenceApproved) {
 $activeProfiles = FriendshipConnectDao::getInstance()->getActiveFcProfiles();
 foreach ($activeProfiles as $fcProfile) {
 	$sailUser = UserDao::getInstance()->getSailUserById($fcProfile->userId);
@@ -46,5 +49,6 @@ foreach ($activeProfiles as $fcProfile) {
 		</div>
 	</div>
 END;
+}
 }
 ?>
