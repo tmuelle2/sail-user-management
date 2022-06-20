@@ -15,19 +15,13 @@ abstract class ShortCodeRegistrator
 
     abstract public function getShortcodes(): array;
 
-    public function registerPreprocessing(): void
-    {
-        foreach ($this->getShortcodes() as $shortcode) {
-            if ($shortcode->hasPreprocessingRedirect()) {
-                add_action('template_redirect', [$shortcode, 'preprocessingCallback']);
-            }
-        }
-    }
-
     public function registerShortcodes(): void
     {
         foreach ($this->getShortcodes() as $shortcode) {
             add_shortcode($shortcode->getName(), [$shortcode, 'getShortcodeContent']);
+            if ($shortcode->hasPreprocessingRedirect()) {
+                add_action('template_redirect', [$shortcode, 'preprocessingCallback']);
+            }
         }
     }
 }
