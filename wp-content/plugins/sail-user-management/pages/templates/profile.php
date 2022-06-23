@@ -21,7 +21,3 @@ $sailUser = UserDao::getInstance()->getSailUser();
 
 
 <br>
-<!--TEMP CODE: USING TO TEST SHORTCODES
-<php echo do_shortcode('[userAddFamilyMember]'); ?>
-<php echo do_shortcode('[userUpdateProfile]'); ?>
-<php echo do_shortcode('[userFCProfileUpdate]'); ?>-->

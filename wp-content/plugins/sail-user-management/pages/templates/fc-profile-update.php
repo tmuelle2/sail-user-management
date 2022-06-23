@@ -11,7 +11,6 @@
 	<summary>Update Your Friendship Connect Profile</summary>
 	<form accept-charset="UTF-8" id="fc-profile-update" autocomplete="off" action='fc-profile-update'>
 		<input type="hidden" name="action" value="fc-profile-update">
-		<?php wp_nonce_field( 'wp_rest', '__nonce' ); ?>
 		<div class="flex-container">
 			<div class="flex-child">
 				<p>Please acknowledge the following by checking the box.</p>

@@ -16,7 +16,6 @@ $fcMember = FriendshipConnectDao::getInstance()->getFcProfile();
 </script>
 
 <form accept-charset="UTF-8" id="fc-registration" autocomplete="on" action='fc-registration'>
-  <?php wp_nonce_field( 'wp_rest', '__nonce' ); ?>
   <input type="hidden" name="action" value="fc-registration">
   <!--<p>To see an example of what a filled out Friendship Connect Profile looks like click here:&nbsp;<a target="_blank" href="https://sailhousingsolutions.org/friendship-connect-example-profile">Example Friendship Connect Profile</a></p>-->
   <div class="flex-container">

@@ -2,7 +2,6 @@
   <summary>Update Your Profile</summary>
   <form accept-charset="UTF-8" id="user_profile_update" autocomplete="on" action='user-update'>
     <input type="hidden" name="action" value="sail_user_update">
-    <?php wp_nonce_field( 'wp_rest', '__nonce' ); ?>
     <div class="flex-container">
       <div class="flex-child">
         <h5 class="field-label required-field">First Name</h5>

@@ -14,6 +14,8 @@ class Constants
     public const ROOT_CONTENT_ROUTE = '/wp-content/plugins/sail-user-management/pages/';
     public const CSS_ROUTE = self::ROOT_CONTENT_ROUTE . 'css/';
     public const JS_ROUTE = self::ROOT_CONTENT_ROUTE . 'js/';
+    public const IMAGES_ROUTE = self::ROOT_CONTENT_ROUTE . 'images/';
+
 
     public const PROD_DOMAIN = 'sailhousingsolutions.org';
     public const DEV_DOMAIN = 'localhost';

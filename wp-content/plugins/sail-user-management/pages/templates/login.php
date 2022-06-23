@@ -1,5 +1,4 @@
 <form accept-charset="UTF-8" id="user_signon" autocomplete="on" action='login'>
-    <?php wp_nonce_field( 'wp_rest', '__nonce' ); ?>
     <input type="hidden" name="action" value="sail_user_signon">
     <h5 class="field-label required-field">Email</h5>
     <input name="email" type="email" class="text-input-field" required /> <br />
