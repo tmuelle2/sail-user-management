@@ -56,7 +56,7 @@ class FriendshipConnectProfileRegistrationHandler extends SailFormHandler
                         return $this->response400();
 
                 // Upload the profile pic
-                $fcProfile = $fcProfile->merge(['profilePicture' => ("http://sailhousingsolutions.org/wp-admin/identicon.php?size=200&hash=" . md5($user->user_login))]);
+                $fcProfile = $fcProfile->merge(['profilePicture' => ("http://sailhousingsolutions.org/wp-admin/identicon.php?size=200&hash=" . md5($user->email))]);
                 if (
                         isset($files['profilePicture']) && isset($files['profilePicture']['name']) && isset($files['profilePicture']['name'])
                         && !empty($files['profilePicture']['name']) && !empty($files['profilePicture']['name'])

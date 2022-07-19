@@ -106,7 +106,7 @@ class UserDao
     return count($result) == 0 ? null : self::cache($user_id, new User($result[0]));
   }
 
-  private function getUserByEmail(string $email, string $output_format): User
+  public function getUserByEmail(string $email, string $output_format): User
   {
     if ($this->isCached($email)) {
       return $this->getCachedValue($email);

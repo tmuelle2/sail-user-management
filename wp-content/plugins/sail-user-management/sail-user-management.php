@@ -29,6 +29,7 @@ use Sail\Constants;
 use Sail\Data\Dao\UserDao;
 use Sail\Form\Handlers\AddFamilyMemberHandler;
 use Sail\Form\Handlers\ChangePasswordHandler;
+use Sail\Form\Handlers\ConfirmFamilyLinkHandler;
 use Sail\Form\Handlers\ForgotPasswordHandler;
 use Sail\Form\Handlers\FriendshipConnectProfileUpdateHandler;
 use Sail\Form\Handlers\FriendshipConnectProfileRegistrationHandler;
@@ -146,7 +147,7 @@ add_action('admin_post_sail_user_reverify_email', 'sail_user_reverify_email');
 // TODO refactor
 function sail_user_link_family_member()
 {
-    include_once Constants::HOME_DIR . 'link-family-member.php';
+    //include_once Constants::HOME_DIR . 'link-family-member.php';
 }
 // this runs on every request! cannot error out unnecessarily!!
 add_action('wp', 'sail_user_link_family_member');
