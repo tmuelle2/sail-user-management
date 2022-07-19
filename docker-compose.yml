@@ -35,7 +35,7 @@ services:
       - ./docker:/var/www/html
       - ./wp-content/plugins/sail-user-management:/var/www/html/wp-content/plugins/sail-user-management
       # Uncomment the below line and modify the first path to match where the theme is checked out to test theme changes
-      #- ../sailhousing-theme:/var/www/html/wp-content/themes/sailhousing-theme
+      - ../sailhousing-theme:/var/www/html/wp-content/themes/sailhousing-theme
       # Uncomment the below line to enabled remote debugging (can attach useing VSCode plugin PHP Debug).
       # You will have to add a config similar to your .vscode/launch.json:
       #  {

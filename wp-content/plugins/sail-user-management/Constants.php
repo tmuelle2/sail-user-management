@@ -16,6 +16,7 @@ class Constants
     public const JS_ROUTE = self::ROOT_CONTENT_ROUTE . 'js/';
     public const IMAGES_ROUTE = self::ROOT_CONTENT_ROUTE . 'images/';
 
+    public const JS_COMMON_SCRIPT_HANDLE = 'sailCommonJs';
 
     public const PROD_DOMAIN = 'sailhousingsolutions.org';
     public const DEV_DOMAIN = 'localhost';

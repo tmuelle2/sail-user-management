@@ -10,6 +10,15 @@ use Sail\Data\Model\User;
 final class HtmlUtils
 {
 
+    // NOTE REQUEST GLOBAL MUTABLE FLAG!
+    // This flag gets sets when the common form handling logic has already been added to the page for the request.
+    // This is used to avoid adding it twice
+    private static $globalFormBaseAdded = false;
+
+    // NOTE REQUEST GLOBAL MUTABLE LIST
+    // This collects the form actions on the page to add them into the common variable injection script
+    private static $globalFormActions = [];
+
     public final static function getSailTemplate(string $fileName, array $variables = array()): string
     {
         extract($variables);
@@ -27,15 +36,18 @@ final class HtmlUtils
             }
         }
         if (!empty($formActions)) {
-            extract(["formActions" => $formActions]);
-            ob_start();
-            include(Constants::TEMPLATE_DIR . 'form-base.php');
-            $js = new DOMDocument();
-            $js->loadHTML(ob_get_clean());
-            $import = $doc->importNode($js->getElementById('form-base'), true);
-            $doc->getElementsByTagName('body')[0]->appendChild($import);
+            if (!self::$globalFormBaseAdded) {
+                ob_start();
+                include(Constants::TEMPLATE_DIR . 'form-base.php');
+                $js = new DOMDocument();
+                $js->loadHTML(ob_get_clean());
+                $import = $doc->importNode($js->getElementById('form-base'), true);
+                $doc->getElementsByTagName('body')[0]->appendChild($import);
+                self::$globalFormBaseAdded = true;
+            }
+            self::$globalFormActions = array_merge(self::$globalFormActions, $formActions);
         }
-        return $doc->saveHTML();
+        return $doc->saveHTML($doc->getElementsByTagName('body')[0]);
     }
 
     public final static function getUserFormData(array $params, ?User $currentUser = null): User
@@ -85,5 +97,14 @@ final class HtmlUtils
         ob_start();
         include(Constants::HTML_DIR . $fileName);
         return ob_get_clean();
+    }
+
+    public final static function addCommonJs(): void {
+        $params = [
+            'nonce' => wp_create_nonce('wp_rest'),
+            'formRestPrefix' => Constants::FORM_REST_PREFIX,
+            'formActions' => self::$globalFormActions
+        ];
+        wp_add_inline_script(Constants::JS_COMMON_SCRIPT_HANDLE, 'const SAIL = ' . json_encode($params));
     }
 }

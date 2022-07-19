@@ -1,24 +1,16 @@
 <?php use Sail\Constants; ?>
 <html>
 <script id='form-base'>
-    window.onload = function () {
-        <?php
-        foreach ($formActions as $action) {
-            echo "makeFormRestSubmit('" . $action['id'] . "', '" . Constants::FORM_REST_PREFIX . $action['action'] . "');";
-        }
-        ?>
-    };
-
     const BASE64_PREFIX = "data:*/*;base64,";
-    const buttons = [...document.getElementsByTagName('button')];
     const loadingSpinner = document.createElement('img');
+    let buttons = [];
     loadingSpinner.setAttribute('src', <?php echo '"' . Constants::IMAGES_ROUTE . 'loading-spinner.gif"' ?>);
     loadingSpinner.setAttribute('alt', 'Loading');
 
     function makeFormRestSubmit(formId, apiRoute) {
         const form = document.getElementById(formId);
-        const button = buttons.filter(b => b.getAttribute('form') == formId)[0];
         form.onsubmit = (function(event) {
+            const button = buttons.filter(b => b.getAttribute('form') == formId)[0];
             buttonDisable(button);
             return formRestSubmit(form, button, apiRoute, event)
         });
@@ -97,5 +89,10 @@
             });
         return false;
     }
+
+    window.addEventListener('load', (event) => {
+        SAIL.formActions.forEach(action => makeFormRestSubmit(action['id'],  "<?php echo Constants::FORM_REST_PREFIX ?>" + action['action']));
+        buttons = [...document.getElementsByTagName('button')];
+    });
 </script>
 </html>
