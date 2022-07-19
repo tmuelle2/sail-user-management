@@ -120,6 +120,7 @@ function registerApis()
     // Form submission APIs
     AddFamilyMemberHandler::getInstance()->registerApi();
     ChangePasswordHandler::getInstance()->registerApi();
+    ConfirmFamilyLinkHandler::getInstance()->registerApi();
     ForgotPasswordHandler::getInstance()->registerApi();
     FriendshipConnectProfileUpdateHandler::getInstance()->registerApi();
     FriendshipConnectProfileRegistrationHandler::getInstance()->registerApi();

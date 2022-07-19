@@ -15,11 +15,13 @@
             use Sail\Data\Dao\FamilyDao;
             $sail_user = UserDao::getInstance()->getSailUser();
             $family_needs_confirm = FamilyDao::getInstance()->getNeedsConfirmationsForUser($sail_user);
-            if ($family_needs_confirm->__toString() != "None") { ?>
+            if (count($family_needs_confirm) > 0) { ?>
                 <h5 class="field-label">Needs Confirmation</h5>
                 <p>These accounts have started a family link to your account, please review and submit.</p>
             <?php
-                echo $family_needs_confirm->__toConfirmationString();
+                foreach ($family_needs_confirm as $relation) {
+                    echo $relation->__toConfirmationString();
+                }
             }
             ?>
         </div>

@@ -62,6 +62,7 @@ final class FriendshipConnectShortCodes extends ShortCodeRegistrator
              */
             new class extends SailShortcode
             {
+                use Logger;
                 public function getName(): string
                 {
                     return 'userFCProfileUpdate';
@@ -69,6 +70,8 @@ final class FriendshipConnectShortCodes extends ShortCodeRegistrator
                 public function getShortcodeContent(): string
                 {
                     $fcMember = FriendshipConnectDao::getInstance()->getFcProfile();
+                    $this->log("@@@ fcProfileUpdateShortcode injection");
+                    $this->log(print_r($fcMember, true));
                     if (!isset($fcMember) || !isset($fcMember->userId) || $fcMember->userId < 1) return '';
                     return HtmlUtils::getSailTemplate('fc-profile-update.php', ['fcProfile' => $fcMember]);
                 }

@@ -15,7 +15,7 @@ final class HtmlUtils
         ob_start();
         include(Constants::TEMPLATE_DIR . $fileName);
         $doc = new DOMDocument();
-        $doc->loadHTML(ob_get_clean());
+        @$doc->loadHTML(ob_get_clean());
         $forms = $doc->getElementsByTagName('form');
         $formActions = [];
         foreach ($forms as $form) {

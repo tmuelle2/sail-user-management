@@ -29,7 +29,10 @@ class FamilyDao
 
   public function updateFamilyRelation(Family $relation, array $updates): Family
   {
-    return $this->updateFamilyRelationWithUpdatesAlreadySet($relation->merge($updates));
+    // TODO: Can't use merge here because family takes 2 arrays in contruct
+    //return $this->updateFamilyRelationWithUpdatesAlreadySet($relation->merge($updates));
+    $newFam = new Family($relation->getMembers(), array_merge( $relation->getDatabaseData(), $updates));
+    return $this->updateFamilyRelationWithUpdatesAlreadySet($newFam);
   }
 
   public function updateFamilyRelationWithUpdatesAlreadySet(Family $relation): Family
@@ -155,23 +158,25 @@ class FamilyDao
     return new Family($family_members, []);
   }
 
-  public function getNeedsConfirmationsForUser(User $user): Family
+  public function getNeedsConfirmationsForUser(User $user): array
   {
     global $wpdb;
-    $family_members = [];
+    $return_array = [];
 
     $query = "SELECT * FROM `sail_family` WHERE confirmingUserId = ";
     $query .= $user->getDatabaseData()['userId'];
     $query .= " AND isConfirmed = 0";
 
-    $results = $wpdb->get_results($query);
+    $results = $wpdb->get_results($query, ARRAY_A);
 
     foreach ($results as $fm) {
-      $userIdThatStartedTheLink = ($fm->userId1 != $user->getDatabaseData()['userId']) ? $fm->userId1 : $fm->userId2;
+      $family_members = [];
+      $userIdThatStartedTheLink = ($fm['userId1'] != $user->getDatabaseData()['userId']) ? $fm['userId1'] : $fm['userId2'];
       $su = UserDao::getInstance()->getSailUserById($userIdThatStartedTheLink);
       array_push($family_members, $su->getDatabaseData());
+      array_push($return_array, new Family($family_members, $fm));
     }
 
-    return new Family($family_members, []);
+    return $return_array;
   }
 }

@@ -10,6 +10,7 @@ use Sail\Data\Dao\FamilyDao;
 use Sail\Utils\EmailSender;
 use Sail\Utils\Logger;
 use Sail\Utils\Singleton;
+use Sail\Form\Handlers\SailFormHandler;
 
 class ConfirmFamilyLinkHandler extends SailFormHandler
 {
