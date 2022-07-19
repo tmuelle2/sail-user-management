@@ -4,7 +4,6 @@
         <p>By linking your account to your family members' accounts, you can share the benefits of SAIL membership, like Friendship Connect and full access to Housing Roadmap resources.</p>
         <form accept-charset="UTF-8" id="add_family_member" autocomplete="on" action='add-family-member'>
             <input type="hidden" name="action" value="fam_add">
-            <?php wp_nonce_field( 'wp_rest', '__nonce' ); ?>
             <h5 class="field-label required-field">Email of Family Member</h5>
         	<input name="email" type="email" class="text-input-field" required /> <br />
         </form>
