@@ -9,13 +9,14 @@ use Sail\Data\Model\User;
 
 final class HtmlUtils
 {
+
     public final static function getSailTemplate(string $fileName, array $variables = array()): string
     {
         extract($variables);
         ob_start();
         include(Constants::TEMPLATE_DIR . $fileName);
         $doc = new DOMDocument();
-        $doc->loadHTML(ob_get_clean());
+        @$doc->loadHTML(ob_get_clean());
         $forms = $doc->getElementsByTagName('form');
         $formActions = [];
         foreach ($forms as $form) {

@@ -236,25 +236,25 @@ final class UserShortCodes extends ShortCodeRegistrator
             /**
              * userUpdateProfile shortcode
              */
-            // new class extends PreprocessingSailShortcode
-            // {
-            //     public function getName(): string
-            //     {
-            //         return 'userUpdateProfile';
-            //     }
-            //     public function preprocessingCallback()
-            //     {
-            //         // TODO: figure out how to make preprocess independent of knowing the page slug/id
-            //         if (is_page('user') && !is_user_logged_in()) {
-            //             WebUtils::redirect('/login');
-            //         }
-            //     }
-            //     public function getShortcodeContent(): string
-            //     {
-            //         $sailUser = UserDao::getInstance()->getSailUser();
-            //         return HtmlUtils::getSailTemplate('update-profile.php', ['sailUser' => $sailUser]);
-            //     }
-            // }
+            new class extends PreprocessingSailShortcode
+            {
+                public function getName(): string
+                {
+                    return 'userUpdateProfile';
+                }
+                public function preprocessingCallback()
+                {
+                    // TODO: figure out how to make preprocess independent of knowing the page slug/id
+                     if (is_page('user') && !is_user_logged_in()) {
+                         WebUtils::redirect('/login');
+                     }
+                }
+                public function getShortcodeContent(): string
+                {
+                    $sailUser = UserDao::getInstance()->getSailUser();
+                    return HtmlUtils::getSailTemplate('update-profile.php', ['sailUser' => $sailUser]);
+                }
+            }
         ];
     }
 }

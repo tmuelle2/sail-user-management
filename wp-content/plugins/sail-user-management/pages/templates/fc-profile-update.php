@@ -1,12 +1,3 @@
-<script>
-	function onTextFieldChange(value, field) {
-		document.getElementById(field).innerHTML = value;
-	}
-
-	function onNickNameChange(value) {
-		document.getElementById("displayName").innerHTML = value;
-	}
-</script>
 <details>
 	<summary>Update Your Friendship Connect Profile</summary>
 	<form accept-charset="UTF-8" id="fc-profile-update" autocomplete="off" action='fc-profile-update'>
@@ -93,6 +84,13 @@
 
 <!-- Profile Picture preview from https://web.dev/read-files/ -->
 <script>
+	function onTextFieldChange(value, field) {
+		document.getElementById(field).innerHTML = value;
+	}
+
+	function onNickNameChange(value) {
+		document.getElementById("displayName").innerHTML = value;
+	}
 	const status = document.getElementById('status');
 	const pfpPreview = document.getElementById('pfpPreview');
 	if (window.FileList && window.File && window.FileReader) {
