@@ -130,6 +130,7 @@ function registerApis()
 }
 
 // TODO refactor
+/*
 function sail_user_reverify_email()
 {
     global $wpdb;
@@ -151,7 +152,7 @@ function sail_user_link_family_member()
 }
 // this runs on every request! cannot error out unnecessarily!!
 add_action('wp', 'sail_user_link_family_member');
-
+*/
 /**
  * Disables plugin autoupdate emails which trigger spam filters.
  */

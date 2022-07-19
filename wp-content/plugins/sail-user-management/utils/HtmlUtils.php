@@ -15,18 +15,24 @@ final class HtmlUtils
         ob_start();
         include(Constants::TEMPLATE_DIR . $fileName);
         $doc = new DOMDocument();
-        @$doc->loadHTML(ob_get_clean());
+        $doc->loadHTML(ob_get_clean());
         $forms = $doc->getElementsByTagName('form');
+        $formActions = [];
         foreach ($forms as $form) {
             $id = $form->attributes->getNamedItem('id');
             $action = $form->attributes->getNamedItem('action');
             if ($id !== null && $action !== null) {
-                $js = $doc->createElement('script');
-                $src = "window.onload = function () { makeFormRestSubmit('" . $id->value . "', '" . Constants::FORM_REST_PREFIX . $action->value . "'); };";
-                $js->appendChild($doc->createTextNode($src));
-                $js->setAttribute('type', 'text/javascript');
-                $form->parentNode->appendChild($js);
+                $formActions[] = ['id' => $id->value, 'action' => $action->value];
             }
+        }
+        if (!empty($formActions)) {
+            extract(["formActions" => $formActions]);
+            ob_start();
+            include(Constants::TEMPLATE_DIR . 'form-base.php');
+            $js = new DOMDocument();
+            $js->loadHTML(ob_get_clean());
+            $import = $doc->importNode($js->getElementById('form-base'), true);
+            $doc->getElementsByTagName('body')[0]->appendChild($import);
         }
         return $doc->saveHTML();
     }
