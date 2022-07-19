@@ -245,9 +245,9 @@ final class UserShortCodes extends ShortCodeRegistrator
                 public function preprocessingCallback()
                 {
                     // TODO: figure out how to make preprocess independent of knowing the page slug/id
-                    if (is_page('user') && !is_user_logged_in()) {
-                        WebUtils::redirect('/login');
-                    }
+                     if (is_page('user') && !is_user_logged_in()) {
+                         WebUtils::redirect('/login');
+                     }
                 }
                 public function getShortcodeContent(): string
                 {

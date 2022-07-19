@@ -9,6 +9,7 @@ use Sail\Data\Model\User;
 
 final class HtmlUtils
 {
+
     public final static function getSailTemplate(string $fileName, array $variables = array()): string
     {
         extract($variables);
