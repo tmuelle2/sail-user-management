@@ -5,18 +5,21 @@ namespace Sail\Data\Dao;
 use Sail\Caching\InMemoryCache;
 use Sail\Data\Model\FriendshipConnectProfile;
 use Sail\Utils\Singleton;
+use Sail\Utils\Logger;
 
 class FriendshipConnectDao
 {
   use InMemoryCache;
   use Singleton;
+  use Logger;
 
   public function getActiveFcProfiles(): array
   {
     global $wpdb;
     $query = "SELECT * FROM `fc_members` WHERE referenceApproved = 1";
-    $results = $wpdb->get_results($query);
-    return array_map(fn($row) => new FriendshipConnectProfile($row), $results);
+    $results = $wpdb->get_results($query, ARRAY_A);
+    $map = array_map(fn($row) => new FriendshipConnectProfile($row), $results);
+    return $map;
   }
 
   // returns the fc member info of the currently logged in user if it exists

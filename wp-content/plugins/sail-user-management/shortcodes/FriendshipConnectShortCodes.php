@@ -120,6 +120,7 @@ final class FriendshipConnectShortCodes extends ShortCodeRegistrator
              */
             new class extends PreprocessingSailShortcode
             {
+                use Logger;
                 public function getName(): string
                 {
                     return 'userFCSearch';
