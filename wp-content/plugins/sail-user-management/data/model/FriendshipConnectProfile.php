@@ -41,9 +41,13 @@ class FriendshipConnectProfile extends SailDataObject
     return self::FC_DB_FIELDS;
   }
 
-  public function updateProfilePic(WP_REST_Request $request): FriendshipConnectProfile
+  public function updateProfilePic(WP_REST_Request $request, string $oldProfilePicture): FriendshipConnectProfile
   {
     $files = $request->get_file_params();
+
+    // TODO: check if $this->profilePicture is a base64 string and if so create the $file object that wp_upload_bits is expecting
+    // see here: https://stackoverflow.com/questions/63860300/getting-error-specified-file-failed-upload-test-when-adding-file-from-base64-d
+    // and here: https://developer.wordpress.org/reference/functions/wp_upload_bits/
     if (
       isset($files['profilePicture']) && isset($files['profilePicture']['name']) && isset($files['profilePicture']['name'])
       && !empty($files['profilePicture']['name']) && !empty($files['profilePicture']['name'])
@@ -57,6 +61,9 @@ class FriendshipConnectProfile extends SailDataObject
       } else {
         $this->log('Error occurred saving profile picture: ' . $upload['error']);
       }
+    }
+    else {
+      return $this->merge(['profilePicture' => $oldProfilePicture]);
     }
     return $this;
   }

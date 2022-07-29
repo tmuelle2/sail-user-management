@@ -58,7 +58,10 @@
                 formData.set(fileInput.id, fileContents);
                 postData(apiRoute, formData, button);
             }, false);
-            reader.readAsDataURL(fileInput.files[0]);
+            if (fileInput.files.length !== 0)
+                reader.readAsDataURL(fileInput.files[0]);
+            else
+                postData(apiRoute, formData, button);
         } else {
             postData(apiRoute, formData, button);
         };
