@@ -26,20 +26,19 @@ class FriendshipConnectProfileUpdateHandler extends SailFormHandler
 
     public function callback(WP_REST_Request $request)
     {
-        $this->log("ENTERED FC UPDATE CALLBACK");
+        //$this->log("ENTERED FC UPDATE CALLBACK");
         $curMember = $this->fcDao->getFcProfile();
-        $this->log("curMember:");
-        $this->log(print_r($curMember, true));
+        //$this->log("curMember:");
+        //$this->log(print_r($curMember, true));
         // $this->log("get_json_params:");
         // $this->log(print_r($request->get_json_params(), true)); //prints very long base64 string
         $memberUpdate = HtmlUtils::getFriendshipConnectProfileFormData($request->get_json_params(), $curMember);
         // $this->log("memberUpdate1:");
         // $this->log(print_r($memberUpdate, true)); //prints very long base64 string
 
-        // !!!! change updateProfilePic so it actually works !!!!!
         $memberUpdate = $memberUpdate->updateProfilePic($request, $curMember->getDatabaseData()["profilePicture"]);
-        // $this->log("memberUpdate2:");
-        // $this->log(print_r($memberUpdate, true)); //prints very long base64 string
+        //$this->log("saving fc_member with this data:");
+        //$this->log(print_r($memberUpdate, true));
 
         // Update FC members db table
         $this->fcDao->updateFcProfileWithUpdatesAlreadySet($memberUpdate);

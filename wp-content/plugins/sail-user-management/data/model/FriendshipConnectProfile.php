@@ -43,26 +43,36 @@ class FriendshipConnectProfile extends SailDataObject
 
   public function updateProfilePic(WP_REST_Request $request, string $oldProfilePicture): FriendshipConnectProfile
   {
-    $files = $request->get_file_params();
+    $params = $request->get_json_params();
 
-    // TODO: check if $this->profilePicture is a base64 string and if so create the $file object that wp_upload_bits is expecting
-    // see here: https://stackoverflow.com/questions/63860300/getting-error-specified-file-failed-upload-test-when-adding-file-from-base64-d
-    // and here: https://developer.wordpress.org/reference/functions/wp_upload_bits/
-    if (
-      isset($files['profilePicture']) && isset($files['profilePicture']['name']) && isset($files['profilePicture']['name'])
-      && !empty($files['profilePicture']['name']) && !empty($files['profilePicture']['name'])
-    ) {
-      $nameFile = $files['profilePicture']['name'];
-      $tmpName = $files['profilePicture']['tmp_name'];
-      $upload = wp_upload_bits($nameFile, null, file_get_contents($tmpName));
+    if ( isset($params['profilePicture']) && !empty($params['profilePicture']) && strlen($params['profilePicture']) > 21)
+    {
+      $getType1 = explode(',', $params['profilePicture']);
+      $getType2 = explode(';', $getType1[0]);
+      $getType3 = explode('/', $getType2[0]);
+      $fileExt = "";
+      if (count($getType3) > 1) {
+        $fileExt = "." . $getType3[1];
+      }
+      else {
+        $fileExt = ".jpeg";
+      }
 
-      if (!$upload['error']) {
-        return $this->merge(['profilePicture' => $upload['url']]);
+      $filename = uniqid() . $fileExt;
+      $filepath = wp_upload_dir()['basedir'] . "/profilePictures" .  "/";
+      $outputPath = $filepath . $filename ;
+
+      $result = file_put_contents($outputPath, file_get_contents($params['profilePicture']));
+
+      if ($result > 0) {
+        return $this->merge(['profilePicture' => wp_upload_dir()['baseurl'] . "/profilePictures/" . $filename ]);
       } else {
-        $this->log('Error occurred saving profile picture: ' . $upload['error']);
+        $this->log('Error occurred saving profile picture: ' . $filename);
+        return $this->merge(['profilePicture' => $oldProfilePicture]);
       }
     }
     else {
+      //$this->log("No pfp provided, using old value.");
       return $this->merge(['profilePicture' => $oldProfilePicture]);
     }
     return $this;
