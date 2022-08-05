@@ -10,6 +10,10 @@
     ?>
     const isPaid = <?php echo $user->isDuePayingUser() ? 'true' : 'false' ?>;
     const isNewUser = <?php echo $isNewMember ? 'true' : 'false' ?>;
+    const willBePastDueSoon = <?php echo $user->willBePastDueSoon() ? 'true' : 'false' ?>;
+    const isPastDue = <?php echo $user->isPastDue() ? 'true' : 'false' ?>;
+    const lastPaymentDate = "<?php echo $sailUser->getDatabaseData()["lastDuePaymentDate"] ?>";
+    const expYear = "<?php echo $user->calculateExpirationYear() ?>";
 
     function initPayPalButton() {
         paypal.Buttons({
@@ -24,7 +28,7 @@
             createOrder: function(data, actions) {
                 return actions.order.create({
                     purchase_units: [{
-                        "description": "2021-2022 SAIL Membership",
+                        "description": "2022-2023 SAIL Membership",
                         "amount": {
                             "currency_code": "USD",
                             "value": 30
@@ -65,9 +69,34 @@
         }).render('#paypal-button-container');
     }
     const element = document.getElementById('smart-button-container');
-    if (isPaid) {
-        element.innerHTML = '<p>Your account has access to paid member features. Your access will expire at the end of 2022</p>';
-    } else if (isNewUser) {
+    if (isPaid && !isPastDue && !willBePastDueSoon) {
+        element.innerHTML = '<p>Your account has access to paid member features. You last paid your dues on ' + lastPaymentDate
+        + '. Your access will expire at the end of ' + expYear + '.</p>';
+    } else if (isPaid && !isPastDue && willBePastDueSoon) {
+        element.innerHTML = `
+        <details>
+            <summary>Membership Expires Soon! - Pay Annual Dues</summary>
+            <div style="text-align: center;">
+            <p>
+                Use PayPal to pay the $30 SAIL membership due.
+                <div id="paypal-button-container"></div>
+            </p>
+            </div>
+        </details>`;
+        initPayPalButton();
+    } else if (isPastDue) {
+        element.innerHTML = `
+        <details>
+            <summary>Membership Expired - Pay Annual Dues</summary>
+            <div style="text-align: center;">
+            <p>
+                Use PayPal to pay the $30 SAIL membership due.
+                <div id="paypal-button-container"></div>
+            </p>
+            </div>
+        </details>`;
+        initPayPalButton();
+    }  else if (isNewUser) {
         element.innerHTML = `
         <h2>Upgrade Your Membership by Paying Dues</h2>
         <div style="text-align: center;">
@@ -86,15 +115,15 @@
         initPayPalButton();
     } else {
         element.innerHTML = `
-    <details>
-        <summary>Upgrade Your Membership - Pay Dues</summary>
-        <div style="text-align: center;">
-        <p>
-            Use PayPal to pay the $30 SAIL membership due.
-            <div id="paypal-button-container"></div>
-        </p>
-        </div>
-    </details>`;
+        <details>
+            <summary>Upgrade Your Membership - Pay Dues</summary>
+            <div style="text-align: center;">
+            <p>
+                Use PayPal to pay the $30 SAIL membership due.
+                <div id="paypal-button-container"></div>
+            </p>
+            </div>
+        </details>`;
         initPayPalButton();
     }
 </script>
