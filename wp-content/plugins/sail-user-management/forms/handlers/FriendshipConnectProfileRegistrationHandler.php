@@ -42,7 +42,6 @@ class FriendshipConnectProfileRegistrationHandler extends SailFormHandler
                 }
 
                 // Override the pfp to the default for now, we'll update it after the fcprofile is created
-                $base64pfp = $params["profilePicture"];
                 $params["profilePicture"] = "http://sailhousingsolutions.org/wp-admin/identicon.php?size=200&hash=" . md5($user->email);
 
                 $this->log("%%%%%% params: ");
