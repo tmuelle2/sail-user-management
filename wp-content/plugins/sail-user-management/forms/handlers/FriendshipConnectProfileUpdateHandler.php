@@ -43,6 +43,6 @@ class FriendshipConnectProfileUpdateHandler extends SailFormHandler
         // Update FC members db table
         $this->fcDao->updateFcProfileWithUpdatesAlreadySet($memberUpdate);
 
-        return $this->response200WithClientsideRedirect('/user');
+        return $this->response200WithClientsideRedirect('/user?alert=success');
     }
 }

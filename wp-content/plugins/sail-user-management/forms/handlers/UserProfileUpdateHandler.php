@@ -39,6 +39,6 @@ class UserProfileUpdateHandler extends SailFormHandler
         $this->dao->updateUserWithUpdatesAlreadySet($userUpdate);
 
         // Success redirect
-        return $this->response200WithClientsideRedirect('/user');
+        return $this->response200WithClientsideRedirect('/user?alert=success');
     }
 }

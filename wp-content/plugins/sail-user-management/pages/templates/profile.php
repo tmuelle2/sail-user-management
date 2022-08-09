@@ -1,3 +1,26 @@
+<script>
+// Ensures alerts auto close after 5 seconds
+window.setTimeout(function() {
+    var alerts = document.getElementsByClassName("alert");
+	for (var i = 0; i < alerts.length; i++) {
+		alerts[i].children[0].setAttribute("checked", "checked");
+	}
+}, 5000);
+
+function setElement(id, value) {
+	const urlSearchParams = new URLSearchParams(window.location.search);
+
+	if (id === urlSearchParams.get(value)) {
+		document.getElementById(id).style.opacity = "100";
+	}
+}
+
+window.addEventListener("load",function(event) {
+	setElement('success', 'alert');
+},false);
+
+</script>
+
 <?php
 
 use Sail\Data\Dao\UserDao;
@@ -5,6 +28,16 @@ use Sail\Data\Dao\UserDao;
 $dao = UserDao::getInstance();
 $sailUser = UserDao::getInstance()->getSailUser();
 ?>
+
+<div id="success" class="alert success" style="opacity: 0">
+		<input type="checkbox" id="alert2"/>
+		<label class="close" title="close" for="alert2">
+      		<span>X</span>
+    	</label>
+		<p class="inner">
+			Profile successfully updated!
+		</p>
+</div>
 <div style="margin-top: 64px;" class="flex-start">
 	<div style="margin-left: 32px;">
 		<div class="flex-container">
