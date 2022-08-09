@@ -40,14 +40,17 @@ class FriendshipConnectProfileRegistrationHandler extends SailFormHandler
                 if (str_contains($params["authorized"], "1")) {
                         $params["authorized"] = "1";
                 }
+
+                // Override the pfp to the default for now, we'll update it after the fcprofile is created
+                $base64pfp = $params["profilePicture"];
+                $params["profilePicture"] = "http://sailhousingsolutions.org/wp-admin/identicon.php?size=200&hash=" . md5($user->email);
+
                 $this->log("%%%%%% params: ");
                 $this->log(print_r($params, true));
-                $files = $request->get_file_params();
                 $fcProfile = HtmlUtils::getFriendshipConnectProfileFormData($params);
 
                 $this->log("%%%%%% fcprofile: ");
                 $this->log(print_r($fcProfile, true));
-
 
                 // Throw a 40x if they are not a paid member or a fc profile already exists
                 if (!$user->isDuePayingUser())
@@ -55,20 +58,12 @@ class FriendshipConnectProfileRegistrationHandler extends SailFormHandler
                 if ($this->fcDao->getFcProfile() != null)
                         return $this->response400();
 
-                // Upload the profile pic
-                $fcProfile = $fcProfile->merge(['profilePicture' => ("http://sailhousingsolutions.org/wp-admin/identicon.php?size=200&hash=" . md5($user->email))]);
-                if (
-                        isset($files['profilePicture']) && isset($files['profilePicture']['name']) && isset($files['profilePicture']['name'])
-                        && !empty($files['profilePicture']['name']) && !empty($files['profilePicture']['name'])
-                ) {
-                        $upload = wp_upload_bits($files['profilePicture']['name'], null, file_get_contents($files['profilePicture']['tmp_name']));
 
-                        if (!$upload['error'])
-                                $fcProfile = $fcProfile->merge(['profilePicture' => $upload['url']]);
-                }
-
-                // Create the fc profile and send an email to admins that it needs approval
+                // Create the fc profile (update the pfp) and send an email to admins that it needs approval
                 $this->fcDao->createFcProfile($fcProfile);
+                $fcProfile = $fcProfile->updateProfilePic($request, $fcProfile->getDatabaseData()["profilePicture"]);
+                $this->fcDao->updateFcProfileWithUpdatesAlreadySet($fcProfile);
+
                 EmailSender::sendFcProfileCreatedEmail();
 
                 // Success redirect

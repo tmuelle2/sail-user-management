@@ -226,7 +226,7 @@ final class UserShortCodes extends ShortCodeRegistrator
                 {
                     $isSub = false;
                     if (is_user_logged_in()) {
-                        $subStatus = (new MailChimpSailNewsletterClient)->status(UserDao::getInstance()->getSailUser()()->email);
+                        $subStatus = (new MailChimpSailNewsletterClient)->status(UserDao::getInstance()->getSailUser()->email);
                         $isSub = $subStatus == 'subscribed' || $subStatus == 'pending';
                     }
                     return HtmlUtils::getSailTemplate('newsletter-subscribe-button.php', ['isSubscribed' => $isSub]);
