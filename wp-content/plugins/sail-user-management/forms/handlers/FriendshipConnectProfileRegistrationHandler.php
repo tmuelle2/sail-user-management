@@ -32,7 +32,7 @@ class FriendshipConnectProfileRegistrationHandler extends SailFormHandler
         public function callback(WP_REST_Request $request)
         {
                 // Extract form data
-                $this->log("%%%%%% FC Reg %%%%%% ");
+                //$this->log("%%%%%% FC Reg %%%%%% ");
                 $user = $this->userDao->getSailUser();
                 $params = $request->get_json_params();
                 $params["namePreference"] = "Nickname";
@@ -44,12 +44,12 @@ class FriendshipConnectProfileRegistrationHandler extends SailFormHandler
                 // Override the pfp to the default for now, we'll update it after the fcprofile is created
                 $params["profilePicture"] = "http://sailhousingsolutions.org/wp-admin/identicon.php?size=200&hash=" . md5($user->email);
 
-                $this->log("%%%%%% params: ");
-                $this->log(print_r($params, true));
+                //$this->log("%%%%%% params: ");
+                //$this->log(print_r($params, true));
                 $fcProfile = HtmlUtils::getFriendshipConnectProfileFormData($params);
 
-                $this->log("%%%%%% fcprofile: ");
-                $this->log(print_r($fcProfile, true));
+                //$this->log("%%%%%% fcprofile: ");
+                //$this->log(print_r($fcProfile, true));
 
                 // Throw a 40x if they are not a paid member or a fc profile already exists
                 if (!$user->isDuePayingUser())
