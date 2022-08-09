@@ -22,7 +22,7 @@ final class MessageShortCodes extends ShortCodeRegistrator
                 }
                 public function getShortcodeContent(): string
                 {
-                    return HtmlUtils::getSailPage('display-message.html');;
+                    return HtmlUtils::getSailPage('display-message.html');
                 }
             }
         ];

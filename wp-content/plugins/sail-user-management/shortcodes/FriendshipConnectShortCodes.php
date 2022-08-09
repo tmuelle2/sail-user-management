@@ -99,13 +99,13 @@ final class FriendshipConnectShortCodes extends ShortCodeRegistrator
                             WebUtils::redirect('/login');
                         } else if (!$sailUser->isDuePayingUser()) {
                             $this->log("@@@@ not paid.");
-                            WebUtils::redirect(urlencode('/error-message?title=You need to be a paying member to create a Friendship Connect Profile.&message=To pay dues, <a href="/user">click here to go to your profile page.</a>'));
+                            WebUtils::redirect('/error-message?title=' . urlencode('You need to be a paying member to create a Friendship Connect Profile.') . '&message=' . urlencode('To pay dues, <a href="/user">click here to go to your profile page.</a>'));
                         } else if (!$sailUser->emailVerified) {
                             $this->log("@@@@ not verified.");
-                            WebUtils::redirect(urlencode('/error-message?title=You need to verify your email in order to create a Friendship Connect Profile.&message=To verify your email, <a href="/user">click here to go to your profile page.</a>'));
+                            WebUtils::redirect('/error-message?title='. urlencode('You need to verify your email in order to create a Friendship Connect Profile.') . '&message=' . urlencode('To verify your email, <a href="/user">click here to go to your profile page.</a>'));
                         } else if (null !== FriendshipConnectDao::getInstance()->getFcProfile()) {
                             $this->log("@@@@ already exists.");
-                            WebUtils::redirect(urlencode('/error-message?title=You have already created a Friendship Connect Profile.&message=To edit your Friendship Connect Profile information, <a href="/user">click here to go to your profile page.</a>'));
+                            WebUtils::redirect('/error-message?title=' . urlencode('You have already created a Friendship Connect Profile.') . '&message=' . urlencode('To edit your Friendship Connect Profile information, <a href="/user">click here to go to your profile page.</a>'));
                         }
                     }
                 }
@@ -134,7 +134,7 @@ final class FriendshipConnectShortCodes extends ShortCodeRegistrator
                         if (!is_user_logged_in()) {
                             WebUtils::redirect('/login');
                         } else if (isset($fcMember) && !$fcMember->referenceApproved) {
-                            return HtmlUtils::getSailPage('fc-pending-approval.html');
+                            WebUtils::redirect('/fc-pending-approval');
                         } else if ($fcMember == null) {
                             WebUtils::redirect("/join-friendship-connect");
                         }
