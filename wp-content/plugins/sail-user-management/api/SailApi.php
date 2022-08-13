@@ -25,7 +25,7 @@ abstract class SailApi
 
   protected function response403(): WP_Error
   {
-    return new WP_Error('rest_unauthorized', __('Only authenticated users can access the dues api.', 'rest_unauthorized'), array('status' => 403));
+    return new WP_Error('rest_unauthorized', __('Only authenticated users can access this api.', 'rest_unauthorized'), array('status' => 403));
   }
 
   protected function response400(): WP_Error
@@ -41,6 +41,6 @@ abstract class SailApi
 
   protected function response200WithClientsideRedirect(string $redirectLocation): WP_REST_Response
   {
-    return new WP_REST_Response(null, 302, array('Location' => $redirectLocation));
+    return new WP_REST_Response(null, 200, array('Location' => $redirectLocation));
   }
 }

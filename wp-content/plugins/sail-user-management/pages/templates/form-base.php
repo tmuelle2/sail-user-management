@@ -18,7 +18,7 @@
 
     function buttonDisable(button) {
         button.disabled = true;
-        button.append(loadingSpinner);
+        //button.append(loadingSpinner);
     }
 
     function buttonEnable(button) {
