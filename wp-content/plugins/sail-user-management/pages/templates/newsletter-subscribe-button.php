@@ -13,7 +13,7 @@
         const email = document.getElementById('email-text-input');
         const isLoggedIn = document.getElementsByTagName('body')[0].classList.contains("logged-in")
         if (isLoggedIn) {
-            promise = fetch(<?php echo Constants::API_PREFIX ?> + 'newsletter/v1/subscribe', {
+            promise = fetch('<?php echo Constants::API_PREFIX ?>' + 'newsletter/v1/subscribe', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -22,7 +22,7 @@
                 body: '{}'
             });
         } else if (email && email.value) {
-            promise = fetch(<?php echo Constants::API_PREFIX ?> + 'newsletter/v1/subscribe', {
+            promise = fetch('<?php echo Constants::API_PREFIX ?>' + 'newsletter/v1/subscribe', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
