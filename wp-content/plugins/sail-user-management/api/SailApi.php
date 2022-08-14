@@ -46,6 +46,6 @@ abstract class SailApi
   protected function response200WithClientsideRedirect(string $redirectLocation): WP_REST_Response
   {
     $this->log("returning 200 with redirect to: " . $redirectLocation);
-    return new WP_REST_Response("test body response", 200, array('Location' => $redirectLocation));
+    return new WP_REST_Response(null, 200, array('Location' => $redirectLocation));
   }
 }
