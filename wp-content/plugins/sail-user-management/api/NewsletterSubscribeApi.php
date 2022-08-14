@@ -41,7 +41,7 @@ class NewsletterSubscribeApi extends SailApi
         if (is_user_logged_in()) {
             $response = $this->client->subscribe(UserDao::getInstance()->getSailUser()->email);
         } else {
-            if (!isset($json['email'])) {
+            if (!isset($request->get_json_params()['email'])) {
                 return $this->response400();
             }
             $response = $this->client->subscribe($request->get_json_params()['email']);
