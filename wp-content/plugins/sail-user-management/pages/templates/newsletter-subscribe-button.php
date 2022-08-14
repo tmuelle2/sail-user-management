@@ -33,7 +33,12 @@
         promise.then(response => response.json())
             .then(data => {
                 if (data.status == 'subscribed') {
-                    showSubscribedMessage();
+                    if (isLoggedIn) {
+                        location.reload();
+                    }
+                    else {
+                        showSubscribedMessage();
+                    }
                 } else {
                     console.log(data);
                 }
