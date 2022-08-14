@@ -67,6 +67,11 @@ abstract class SailDataObject implements \ArrayAccess
     return $this->__isset($name) ? $this->db_data[$name] : false;
   }
 
+  public function __toString(): string
+  {
+    return print_r($this->db_data, true);
+  }
+
   public function offsetSet($offset, $value): void
   {
     throw new \InvalidArgumentException("Cannot set property {$offset}. The object is immutable.");
