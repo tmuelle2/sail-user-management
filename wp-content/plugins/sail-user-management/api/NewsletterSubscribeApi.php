@@ -18,7 +18,7 @@ class NewsletterSubscribeApi extends SailApi
 
     private function __construct()
     {
-        $this->client = new MailChimpSailNewsletterClient();
+        $this->client = MailChimpSailNewsletterClient::getInstance();
     }
 
     protected function getRoutePrefix(): string

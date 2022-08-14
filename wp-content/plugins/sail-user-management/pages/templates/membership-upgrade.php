@@ -109,7 +109,7 @@
                 This step is optional, but some features, like Friendship Connect and the full Housing Roadmap, will not be accessible.
                 You can upgrade to a paid member at any time using your account profile page.
             </p>
-            <p><a href='<? echo Sail\Utils\WebUtils::getUrl() ?>user'>
+            <p><a href='/user'>
                 Don't want to pay now? Click here to go to your account profile page where you can upgrade your membership at any time.
             </p></a>
         </div>`;
