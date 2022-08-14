@@ -27,13 +27,10 @@ class UserProfileUpdateHandler extends SailFormHandler
 
     public function callback(WP_REST_Request $request)
     {
-        $this->log("$$$$$$$$$ USser Update$$$$$$$$$$ ");
         $params = $request->get_json_params();
-        $this->log("$$$$$$$$$ params3: ");
-        $this->log(print_r($params, true));
         $curUser = $this->dao->getSailUser();
-        $this->log(print_r($curUser, true));
         $userUpdate = HtmlUtils::getUserFormData($params, $curUser);
+        $this->log('UserProfileUpdateHandler updating user from: ' . print_r($curUser, true) . ' to: ' . $userUpdate);
 
         // Update SAIL users db table
         $this->dao->updateUserWithUpdatesAlreadySet($userUpdate);

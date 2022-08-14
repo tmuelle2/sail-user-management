@@ -2,6 +2,7 @@
 
 namespace Sail\Api;
 
+use Sail\Utils\Logger;
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -29,23 +30,33 @@ abstract class SailApi
 
   protected function response403(): WP_Error
   {
-    return new WP_Error('rest_unauthorized', __('Only authenticated users can access this api.', 'rest_unauthorized'), array('status' => 403));
+    $response = new WP_Error('rest_unauthorized', __('Only authenticated users can access this api.', 'rest_unauthorized'), array('status' => 403));
+    $this->log_response($response);
+    return $response;
   }
 
   protected function response400(): WP_Error
   {
-    return new WP_Error('bad_request', __('Missing required field', 'bad_request'), array('status' => 400));
-    exit;
+    $response = new WP_Error('bad_request', __('Missing required field', 'bad_request'), array('status' => 400));
+    $this->log_response($response);
+    return $response;
   }
 
   protected function response302WithClientsideRedirect(string $redirectLocation): WP_REST_Response
   {
-    return new WP_REST_Response(null, 302, array('Location' => $redirectLocation));
+    $response = new WP_REST_Response(null, 302, array('Location' => $redirectLocation));
+    $this->log_response($response);
+    return $response;
   }
 
   protected function response200WithClientsideRedirect(string $redirectLocation): WP_REST_Response
   {
-    //$this->log("returning 200 with redirect to: " . $redirectLocation);
-    return new WP_REST_Response(null, 200, array('Location' => $redirectLocation));
+    $response = new WP_REST_Response(null, 200, array('Location' => $redirectLocation));
+    $this->log_response($response);
+    return $response;
+  }
+
+  private function log_response($response) {
+    $this->log("SailAPI " . get_class($this) . " responding with " . print_r($response, true));
   }
 }
