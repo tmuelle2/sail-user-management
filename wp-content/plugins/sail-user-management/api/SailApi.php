@@ -22,7 +22,7 @@ abstract class SailApi
     register_rest_route($this->getRoutePrefix(), $this->getApiRoute(), array(
       'methods' => $this->getMethod(),
       'callback' => array($this, 'callback'),
-      'args' => array(),
+      //'args' => array(),
       'permission_callback' => array($this, 'permissionCallback'),
     ));
   }
@@ -45,7 +45,7 @@ abstract class SailApi
 
   protected function response200WithClientsideRedirect(string $redirectLocation): WP_REST_Response
   {
-    $this->log("returning 200 with redirect to: " . $redirectLocation);
+    //$this->log("returning 200 with redirect to: " . $redirectLocation);
     return new WP_REST_Response(null, 200, array('Location' => $redirectLocation));
   }
 }

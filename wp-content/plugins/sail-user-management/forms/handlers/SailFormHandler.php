@@ -35,7 +35,7 @@ abstract class SailFormHandler extends SailApi
 
     protected function getMethod(): string
     {
-        return WP_REST_SERVER::CREATABLE;
+        return 'POST';
     }
 
     public function permissionCallback(): bool
