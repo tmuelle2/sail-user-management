@@ -19,7 +19,7 @@ abstract class SailFormHandler extends SailApi
         $this->handleLoggedIn = $handleLoggedIn;
         $this->handleLoggedOut = $handleLoggedOut;
         $this->handleAction = $handleAction;
-        $this->registerApi();
+        //$this->registerApi();
     }
 
     protected function getRoutePrefix(): string
