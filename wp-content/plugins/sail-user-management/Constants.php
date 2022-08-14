@@ -21,5 +21,5 @@ class Constants
     public const PROD_DOMAIN = 'sailhousingsolutions.org';
     public const DEV_DOMAIN = 'localhost';
 
-    public const FORM_REST_PREFIX = 'index.php/wp-json/forms/v1/';
+    public const FORM_REST_PREFIX = '/index.php/wp-json/forms/v1/';
 }
