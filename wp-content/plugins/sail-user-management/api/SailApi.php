@@ -5,9 +5,12 @@ namespace Sail\Api;
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
+use Sail\Utils\Logger;
 
 abstract class SailApi
 {
+  use Logger;
+
   abstract protected function getRoutePrefix(): string;
   abstract protected function getApiRoute(): string;
   abstract protected function getMethod(): string;
@@ -41,6 +44,7 @@ abstract class SailApi
 
   protected function response200WithClientsideRedirect(string $redirectLocation): WP_REST_Response
   {
+    $this->log("returning 200 with redirect to: " . $redirectLocation);
     return new WP_REST_Response(null, 200, array('Location' => $redirectLocation));
   }
 }
