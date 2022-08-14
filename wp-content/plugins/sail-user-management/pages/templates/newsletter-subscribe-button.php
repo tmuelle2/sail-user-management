@@ -3,14 +3,18 @@
 </div>
 
 <script>
+    <?php
+    use Sail\Constants;
+    ?>
+
     const subscribedId = 'subscribed-message';
     function onClick() {
         let promise;
         const email = document.getElementById('email-text-input');
         const isLoggedIn = document.getElementsByTagName('body')[0].classList.contains("logged-in")
-        if (isLoggedIn) { 
-            promise = fetch('/wp-json/newsletter/v1/subscribe', { 
-                method: 'POST', 
+        if (isLoggedIn) {
+            promise = fetch(<?php echo Constants::API_PREFIX ?> + 'newsletter/v1/subscribe', {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-WP-Nonce': '<?php echo wp_create_nonce('wp_rest') ?>'
@@ -18,14 +22,14 @@
                 body: '{}'
             });
         } else if (email && email.value) {
-            promise = fetch('/wp-json/newsletter/v1/subscribe', { 
-                method: 'POST', 
+            promise = fetch(<?php echo Constants::API_PREFIX ?> + 'newsletter/v1/subscribe', {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: '{"email": "' + email.value + '"}'
             });
-        } 
+        }
         promise.then(response => response.json())
             .then(data => {
                 if (data.status == 'subscribed') {

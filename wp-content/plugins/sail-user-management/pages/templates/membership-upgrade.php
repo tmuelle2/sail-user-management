@@ -4,6 +4,7 @@
 <script>
     <?php
     use Sail\Data\Dao\UserDao;
+    use Sail\Constants;
 
     $dao = UserDao::getInstance();
     $user = $sailUser = UserDao::getInstance()->getSailUser();
@@ -52,7 +53,7 @@
                     // Post membership update request
                     // Need nonce for auth on top of cookie for Wordpress REST API
                     // https://developer.wordpress.org/rest-api/using-the-rest-api/authentication/
-                    fetch('/wp-json/membership/v1/dues', {
+                    fetch(<?php echo Constants::API_PREFIX ?> + 'membership/v1/dues', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
