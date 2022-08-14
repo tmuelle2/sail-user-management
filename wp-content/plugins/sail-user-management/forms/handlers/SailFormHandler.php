@@ -4,6 +4,7 @@ namespace Sail\Form\Handlers;
 
 use Sail\Api\SailApi;
 use Sail\Utils\WebUtils;
+use WP_REST_SERVER;
 
 abstract class SailFormHandler extends SailApi
 {
@@ -34,7 +35,7 @@ abstract class SailFormHandler extends SailApi
 
     protected function getMethod(): string
     {
-        return 'POST';
+        return WP_REST_SERVER::CREATABLE;
     }
 
     public function permissionCallback(): bool
