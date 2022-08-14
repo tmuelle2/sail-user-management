@@ -125,16 +125,16 @@ function registerApis()
     VerifyEmailApi::getInstance()->registerApi();
 
     // Form submission APIs
-    AddFamilyMemberHandler::getInstance()->registerApi();
-    ChangePasswordHandler::getInstance()->registerApi();
-    ConfirmFamilyLinkHandler::getInstance()->registerApi();
-    ForgotPasswordHandler::getInstance()->registerApi();
-    FriendshipConnectProfileUpdateHandler::getInstance()->registerApi();
-    FriendshipConnectProfileRegistrationHandler::getInstance()->registerApi();
-    UserLoginHandler::getInstance()->registerApi();
-    UserLogoutHandler::getInstance()->registerApi();
-    UserProfileUpdateHandler::getInstance()->registerApi();
-    UserRegistrationHandler::getInstance()->registerApi();
+    // AddFamilyMemberHandler::getInstance()->registerApi();
+    // ChangePasswordHandler::getInstance()->registerApi();
+    // ConfirmFamilyLinkHandler::getInstance()->registerApi();
+    // ForgotPasswordHandler::getInstance()->registerApi();
+    // FriendshipConnectProfileUpdateHandler::getInstance()->registerApi();
+    // FriendshipConnectProfileRegistrationHandler::getInstance()->registerApi();
+    // UserLoginHandler::getInstance()->registerApi();
+    // UserLogoutHandler::getInstance()->registerApi();
+    // UserProfileUpdateHandler::getInstance()->registerApi();
+    // UserRegistrationHandler::getInstance()->registerApi();
 }
 
 // TODO refactor
