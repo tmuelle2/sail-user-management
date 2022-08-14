@@ -1,0 +1,13 @@
+<h2 style="margin-top: 64px;" id="title"></h2>
+<h4 style="margin-bottom: 300px;" id="message"></h4>
+<script>
+    function setElement(id, value) {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        document.getElementById(id).innerHTML = decodeURIComponent(urlSearchParams.get(value));
+    }
+
+    window.onload = function() {
+        setElement('title', 'title');
+        setElement('message', 'message');
+    }
+</script>

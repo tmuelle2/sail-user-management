@@ -9,39 +9,59 @@ services:
     environment:
       MYSQL_DATABASE: sailhou1_WPRAL
       MYSQL_USER: dev_user
-      MYSQL_PASSWORD: sail_house_dev 
+      MYSQL_PASSWORD: sail_house_dev
       MYSQL_RANDOM_ROOT_PASSWORD: 1
+      SAIL_DEV_ENV: 1
     volumes:
       - mysql:/var/lib/mysql
 
   wordpress:
+    #build:
+      #dockerfile: Dockerfile
     depends_on:
       - mysql
     image: wordpress
     restart: always
     ports:
       - 80:80
+      - 443:443
     environment:
       WORDPRESS_DB_HOST: mysql
-      WORDPRESS_DB_USER: dev_user 
-      WORDPRESS_DB_PASSWORD: sail_house_dev  
+      WORDPRESS_DB_USER: dev_user
+      WORDPRESS_DB_PASSWORD: sail_house_dev
       WORDPRESS_DB_NAME: sailhou1_WPRAL
       WORDPRESS_DEBUG: 'true'
     volumes:
       - ./docker:/var/www/html
       - ./wp-content/plugins/sail-user-management:/var/www/html/wp-content/plugins/sail-user-management
       # Uncomment the below line and modify the first path to match where the theme is checked out to test theme changes
-      #- ../sailhousing-theme:/var/www/html/wp-content/themes/sailhousing-theme
+      - ../sailhousing-theme:/var/www/html/wp-content/themes/sailhousing-theme
+      # Uncomment the below line to enabled remote debugging (can attach useing VSCode plugin PHP Debug).
+      # You will have to add a config similar to your .vscode/launch.json:
+      #  {
+      #      "name": "Listen for Xdebug",
+      #      "type": "php",
+      #      "request": "launch",
+      #      "pathMappings": {
+      #          "/var/www/html/wp-content/plugins/sail-user-management": "${fileDirname}/wp-content/plugins/sail-user-management"
+      #      },
+      #      "hostname": "localhost",
+      #      "port": 9003
+      #  },
+      # It will also generate traces that can be used for performance tuning using a FlameGraph tool like:
+      # http://olemartinorg.github.io/Xdebug-Trace-Visualizer/
+      # https://github.com/brendangregg/FlameGraph
+      - ./xdebug_dev.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
   proxy:
     image: nginx
     depends_on:
       - wordpress
     ports:
-      - 443:443
+      - 9443:9443
     volumes:
       - ./proxy/conf:/etc/nginx
       - ./proxy/certs:/etc/nginx/certs
-    
+
 volumes:
   mysql:

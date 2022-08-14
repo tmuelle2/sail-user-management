@@ -1,5 +1,7 @@
 <?php
 
+use Sail\Utils\WebUtils;
+
 $HOME_DIR = '/_home2/sailhou1/public_html/';
 global $FC_DB_FIELDS;
 global $wpdb;
@@ -57,11 +59,11 @@ if (is_user_logged_in()) {
         wp_mail("info@sailhousingsolutions.org", "New Friendship Connect Profile Created", "If you are a Wordpress Admin, please review the SAIL reference of the new FC Profile by going to the DATABASE ACCESS panel on the admin page.");
 
         // Success redirect
-        nocache_headers();
-        wp_safe_redirect('https://sailhousingsolutions.org/user');
+        WebUtils::redirect('/user');
         exit;
     }
     else {
+<<<<<<< HEAD
         // Fail redirect
         nocache_headers();
         wp_safe_redirect('https://sailhousingsolutions.org/error');
@@ -71,5 +73,14 @@ if (is_user_logged_in()) {
     // Fail redirect
     nocache_headers();
     wp_safe_redirect('https://sailhousingsolutions.org/error');
+=======
+        // Fail redirect 
+        WebUtils::redirect('/error');
+        exit;
+    }
+} else {
+    // Fail redirect 
+    WebUtils::redirect('/error');
+>>>>>>> refactor
     exit;
 }

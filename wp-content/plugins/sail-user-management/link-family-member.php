@@ -1,15 +1,17 @@
 <?php
 
+use Sail\Utils\WebUtils;
+
 // No-op if not the link account page
 global $wp;
 if (strpos($wp->request, 'link-family-member') !== false) {
     if (!is_user_logged_in()) {
-        wp_safe_redirect('https://sailhousingsolutions.org/login?redirect_to=' . urlencode(home_url(add_query_arg($_GET,$wp->request))) );
+        WebUtils::redirect('/login?redirect_to=' . urlencode(home_url(add_query_arg($_GET,$wp->request))) );
         exit;
     }
     error_log('Attempting to link family member with ' . $_GET['email'] . ' with code ' . $_GET['family_linking_key']);
-    // Ensure query string parameters exist 
-    if (isset($_GET['family_linking_key']) && isset($_GET['email']) 
+    // Ensure query string parameters exist
+    if (isset($_GET['family_linking_key']) && isset($_GET['email'])
         && email_exists(rawurldecode($_GET['email'])) && is_user_logged_in()) {
 
         $family_linking_key = rawurldecode($_GET['family_linking_key']);
@@ -29,7 +31,7 @@ if (strpos($wp->request, 'link-family-member') !== false) {
             if ($cur_user_array['userId'] == $link_user['userId']) {
                 error_log('Account Linking ERROR: this userId tried to link an account to itself: ');
                 error_log(print_r($cur_user_array['userId'], true));
-                wp_safe_redirect('https://sailhousingsolutions.org/error');
+                WebUtils::redirect('/error');
                 exit;
             }
 
@@ -69,8 +71,7 @@ if (strpos($wp->request, 'link-family-member') !== false) {
                 wp_mail($cur_user_array['email'], "Welcome to SAIL!", $body, $headers);
             }
 
-            nocache_headers();
-            wp_safe_redirect('https://sailhousingsolutions.org/success-message?title=Accounts successfully linked.&message=%3Ca%20href%3D%22https%3A%2F%2Fsailhousingsolutions.org%2Fuser%22%3EClick%20here%20to%20go%20to%20your%20profile%20page.%3C%2Fa%3E');
+            WebUtils::redirect('/success-message?title=Accounts successfully linked.&message=%3Ca%20href%3D%22https%3A%2F%2Fsailhousingsolutions.org%2Fuser%22%3EClick%20here%20to%20go%20to%20your%20profile%20page.%3C%2Fa%3E');
             exit;
         }
     }
