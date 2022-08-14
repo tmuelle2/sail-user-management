@@ -20,7 +20,7 @@ trait Singleton
     {
     }
 
-    public function __unserialize(string $data)
+    public function __unserialize(array $data)
     {
     }
 
