@@ -23,7 +23,7 @@
 
     function buttonEnable(button) {
         button.disabled = false;
-        if (button.lastElementChild.tagName == 'img') {
+        if (button.lastElementChild && button.lastElementChild.tagName == 'img') {
             button.lastElementChild.remove();
         }
     }
