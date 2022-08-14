@@ -18,8 +18,8 @@ abstract class SailApi
   {
     register_rest_route($this->getRoutePrefix(), $this->getApiRoute(), array(
       'methods' => $this->getMethod(),
-      'callback' => array($this, 'callback'),
-      'permission_callback' => array($this, 'permissionCallback'),
+      'callback' => 'callback',
+      'permission_callback' => 'permissionCallback',
     ));
   }
 
