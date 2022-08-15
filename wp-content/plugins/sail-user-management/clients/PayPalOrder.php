@@ -29,7 +29,7 @@ class PayPalOrder
 
         $payment = new Payment(array('orderId' => $orderId, 'orderJson' => json_encode($response)));
         PaymentDao::getInstance()->recordPayment($payment);
-        if ($response->result['status'] == 'COMPLETED') {
+        if ($response['result']['status'] == 'COMPLETED') {
             $user = UserDao::getInstance()->getSailUser();
             UserDao::getInstance()->updateUser($user, array('isPaidMember' => 1, 'lastDuePaymentDate' => date('Y-m-d')));
         }
