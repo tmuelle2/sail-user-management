@@ -27,9 +27,12 @@ class PayPalOrder
     {
         $response = self::getOrder($orderId);
 
-        $payment = new Payment(array('orderId' => $orderId, 'orderJson' => json_encode($response)));
+        $encodedResponse = json_encode($response);
+        $payment = new Payment(array('orderId' => $orderId, 'orderJson' => $encodedResponse));
+
+        $objectresponse = json_decode($encodedResponse, false);
         PaymentDao::getInstance()->recordPayment($payment);
-        if ($response['result']['status'] == 'COMPLETED') {
+        if ($objectresponse->result->status == 'COMPLETED') {
             $user = UserDao::getInstance()->getSailUser();
             UserDao::getInstance()->updateUser($user, array('isPaidMember' => 1, 'lastDuePaymentDate' => date('Y-m-d')));
         }
