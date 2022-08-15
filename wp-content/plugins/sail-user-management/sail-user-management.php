@@ -63,7 +63,7 @@ function sailPluginPreInit()
 function restrictMediaVaultToPaidMembers()
 {
     if (is_user_logged_in()) {
-        $sailUser = UserDao::getInstance()->getSailUser()();
+        $sailUser = UserDao::getInstance()->getSailUser();
         if ($sailUser->isDuePayingUser()) {
             return true;
         }
