@@ -45,7 +45,7 @@
                     element.innerHTML = `<p>Thank you for upgrading your membership!
                     Your dues will help to fund SAIL events and you will now have access to Friendship Connect and the full housing roadmap.</p>`;
                     if (isNewUser) {
-                        element.innerHTML += `<p><a href='<? echo Sail\Utils\WebUtils::getUrl() ?>/user'>
+                        element.innerHTML += `<p><a href='/user'>
                     Click here to go to your account profile page.
                 </p></a>`
                     }

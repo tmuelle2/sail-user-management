@@ -12,6 +12,6 @@ class PaymentDao
     public function recordPayment(Payment $payment): void
     {
         global $wpdb;
-        $wpdb->insert('sail_payments', $payment);
+        $wpdb->insert('sail_payments', $payment->getDatabaseData());
     }
 }
