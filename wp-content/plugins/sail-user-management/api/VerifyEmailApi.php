@@ -48,11 +48,12 @@ class VerifyEmailApi extends SailApi
 
     public function callback(WP_REST_Request $request)
     {
-        $email = $request->get_query_params('email');
-        $verificationKey = $request->get_query_params('verification_key');
+        $queryParams = $request->get_query_params();
+        $email = $queryParams['email'];
+        $verificationKey = $queryParams['verification_key'];
         $this->log("Attempting to verify email $email with code $verificationKey");
         // Ensure query string parameters exist
-        if (isset($verifyKey) && isset($email) && email_exists($_GET['email']))
+        if (isset($verificationKey) && isset($email) && email_exists($email))
         {
             return $this->response200WithClientsideRedirect('/success-message?title=Thank you, your email has been verified.&message=%3Ca%20href%3D%22https%3A%2F%2Fsailhousingsolutions.org%2Fuser%22%3EClick%20here%20to%20go%20to%20your%20profile%20page.%3C%2Fa%3E');
         } else {
