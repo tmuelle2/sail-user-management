@@ -55,7 +55,7 @@ final class EmailSender
         $siteUrl = WebUtils::getUrl();
         $email = $sailUser['email'];
         $emailVerificaitonKey = uniqid('sail-email-verification-', true);
-        $url = esc_url_raw("$siteUrl/verify-email" . "?verification_key=$emailVerificaitonKey&email=$email");
+        $url = esc_url_raw("$siteUrl/membership/v1/verify-email" . "?verification_key=$emailVerificaitonKey&email=$email");
 
         $message = "Hello ";
         $message .= $sailUser['firstName'];
