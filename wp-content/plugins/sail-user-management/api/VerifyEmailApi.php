@@ -55,7 +55,8 @@ class VerifyEmailApi extends SailApi
         // Ensure query string parameters exist
         if (isset($verificationKey) && isset($email) && email_exists($email))
         {
-            return $this->response200WithClientsideRedirect('/success-message?title=Thank you, your email has been verified.&message=%3Ca%20href%3D%22https%3A%2F%2Fsailhousingsolutions.org%2Fuser%22%3EClick%20here%20to%20go%20to%20your%20profile%20page.%3C%2Fa%3E');
+            $this->dao->verifyUserEmail($email, $verificationKey);
+            return $this->response302WithClientsideRedirect('/success-message?title=Thank you, your email has been verified.&message=%3Ca%20href%3D%22https%3A%2F%2Fsailhousingsolutions.org%2Fuser%22%3EClick%20here%20to%20go%20to%20your%20profile%20page.%3C%2Fa%3E');
         } else {
             return $this->response400();
         }
