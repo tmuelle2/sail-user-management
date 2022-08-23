@@ -22,6 +22,6 @@ final class WebUtils
     }
 
     public final static function getUrl(): string {
-        return self::isProd() ? 'https:://' . Constants::PROD_DOMAIN : 'http://'. Constants::DEV_DOMAIN;
+        return self::isProd() ? 'https://' . Constants::PROD_DOMAIN : 'http://'. Constants::DEV_DOMAIN;
     }
 }

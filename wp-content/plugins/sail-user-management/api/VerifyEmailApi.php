@@ -38,7 +38,11 @@ class VerifyEmailApi extends SailApi
     }
 
     public function permissionCallback(): bool {
-        return is_user_logged_in();
+        // I'm opening this endpoint because we can't nonce this one easily which is required to call is_user_logged_in()
+        // Plus the only people that have the unique id to verify has access to the email in question
+        return true;
+
+        //return is_user_logged_in();
         //WebUtils::redirect('/login?redirect_to=' . urlencode(home_url(add_query_arg($_GET,$wp->request))) );
     }
 
