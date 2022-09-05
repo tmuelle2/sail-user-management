@@ -2,11 +2,10 @@
 
 namespace Sail\Utils;
 
-use Automattic\Jetpack\Sync\Modules\Constants;
 use WP_User;
 
 use Sail\Data\Model\User;
-use Sail\Constants as SailConstants;
+use Sail\Constants;
 
 final class EmailSender
 {
@@ -57,7 +56,7 @@ final class EmailSender
         $siteUrl = WebUtils::getUrl();
         $email = $sailUser['email'];
         $emailVerificaitonKey = uniqid('sail-email-verification-', true);
-        $url = esc_url_raw("$siteUrl" . SailConstants::API_PREFIX  . "membership/v1/verify-email&verification_key=$emailVerificaitonKey&email=$email");
+        $url = esc_url_raw("$siteUrl" . Constants::API_PREFIX  . "membership/v1/verify-email&verification_key=$emailVerificaitonKey&email=$email");
 
         $message = "Hello ";
         $message .= $sailUser['firstName'];

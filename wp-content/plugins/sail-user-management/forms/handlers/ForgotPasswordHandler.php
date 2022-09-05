@@ -26,9 +26,9 @@ class ForgotPasswordHandler extends SailFormHandler
 
     public function callback(WP_REST_Request $request)
     {
-        $email = $request->get_json_params('email');
-        $wpUser = get_user_by('login', $email);
-        if (username_exists($email) && email_exists($email) && !is_wp_error($wpUser)) {
+        $params = $request->get_json_params();
+        $wpUser = get_user_by('login', $params["email"]);
+        if (username_exists($params["email"]) && email_exists($params["email"]) && !is_wp_error($wpUser)) {
             EmailSender::sendForgotPasswordEmail($wpUser);
 
             if (is_wp_error($wpUser)) {
