@@ -25,6 +25,6 @@ class UserLogoutHandler extends SailFormHandler
     public function callback(WP_REST_Request $request)
     {
         wp_logout();
-        return $this->response200WithClientsideRedirect('/');
+        return $this->response302WithClientsideRedirect('/');
     }
 }
