@@ -22,7 +22,7 @@ if (isset($fcMember) && $fcMember->referenceApproved) {
 		} else if ($fcProfile->primaryContactType == "Phone (Voice Call)") {
 			$contact = "Via Voice Call at " . $fcProfile->primaryContact;
 		}
-		$age = floor((time() - strtotime($sailUser->dob)) / 31556926);
+		$age = floor((time() - strtotime($fcProfile->dob)) / 31556926);
 		echo <<< END
 		<div style="margin-top: 64px;" class="flex-start">
 			<div style="margin: 8px 8px 8px 8px;">

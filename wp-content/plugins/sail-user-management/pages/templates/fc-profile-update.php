@@ -11,7 +11,7 @@
 				<h5 class="field-label">Profile Name (For privacy, we recommend not using last names. Ex: use Jane D. not Jane Doe)</h5>
 				<input name="nickname" type="text" value="<?php echo $fcProfile->nickname ?>" class="text-input-field" id="nickname" oninput="onNickNameChange(this.value)" /> <br />
 				<h5 class="field-label required-field">Profile Date of Birth</h5>
-      			<input type="date" name="dob" id="dob" required><br />
+      			<input type="date" name="dob" id="dob" value="<?php echo $fcProfile->dob ?>" required><br />
 				<h5 class="field-label">Profile Picture - Leave Empty to Keep Current Profile Picture</h5>
 				<input type="file" id="profilePicture" name="profilePicture" />
 				<p id="status"></p>
