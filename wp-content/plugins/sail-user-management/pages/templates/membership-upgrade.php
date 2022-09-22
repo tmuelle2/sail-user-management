@@ -72,7 +72,7 @@
     const element = document.getElementById('smart-button-container');
     if (isPaid && !isPastDue && !willBePastDueSoon) {
         element.innerHTML = '<p>Your support and contribution to SAIL is greatly appreciated. Your account has access to paid member features. Our records reflect that you last paid your dues on ' + lastPaymentDate
-        + '. Your SAIL member privledges will expire at the end of ' + expYear + '.</p>';
+        + '. Your SAIL member privileges will expire at the end of ' + expYear + '.</p>';
     } else if (isPaid && !isPastDue && willBePastDueSoon) {
         element.innerHTML = `
         <details>
