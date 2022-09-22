@@ -15,7 +15,6 @@
     const isPastDue = <?php echo $user->isPastDue() ? 'true' : 'false' ?>;
     const lastPaymentDate = "<?php echo $sailUser->getDatabaseData()["lastDuePaymentDate"] ?>";
     const expYear = "<?php echo $user->calculateExpirationYear() ?>";
-    const nextPaymentYear = expYear + 1;
 
     function initPayPalButton() {
         paypal.Buttons({
@@ -72,12 +71,12 @@
     }
     const element = document.getElementById('smart-button-container');
     if (isPaid && !isPastDue && !willBePastDueSoon) {
-        element.innerHTML = '<p>Your support and contribution to SAIL is greatly appreciate. Your account has access to paid member features. Our records reflect that you last paid your dues on ' + lastPaymentDate
-        + '. In order to retain your SAIL member privledges, please pay your ' + nextPaymentYear + ' dues on or before January 1, ' + nextPaymentYear + ' by using the prompt below.  Thank you.</p>';
+        element.innerHTML = '<p>Your support and contribution to SAIL is greatly appreciated. Your account has access to paid member features. Our records reflect that you last paid your dues on ' + lastPaymentDate
+        + '. Your SAIL member privledges will expire at the end of ' + expYear + '.</p>';
     } else if (isPaid && !isPastDue && willBePastDueSoon) {
         element.innerHTML = `
         <details>
-            <summary>Membership Expires Soon! - Pay Annual Dues</summary>
+            <summary>Membership Expires Soon! - Please pay your dues on or before January 1st by using the prompt below. Thank you.</summary>
             <div style="text-align: center;">
             <p>
                 Use PayPal to pay the $30 SAIL membership due.
