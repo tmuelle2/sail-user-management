@@ -98,7 +98,7 @@ $fcMember = FriendshipConnectDao::getInstance()->getFcProfile();
     </div>
   </div>
 </form>
-<button type="submit" form="fc-registration" value="Submit">Submit</button>
+<? echo Sail\Utils\HtmlUtils::getSailButton('fc-registration', 'Submit') ?>
 
 <!-- Profile Picture preview from https://web.dev/read-files/ -->
 <script>

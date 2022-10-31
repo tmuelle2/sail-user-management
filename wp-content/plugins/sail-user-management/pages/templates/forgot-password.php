@@ -3,4 +3,4 @@
     <h5 class="field-label required-field">Email</h5>
     <input name="email" type="email" class="text-input-field" required /> <br />
 </form>
-<button type="submit" form="user_forgot_password" value="Submit">Send Password Reset Email</button>
+<? echo Sail\Utils\HtmlUtils::getSailButton('user_forgot_password', 'Send Password Reset Email') ?>

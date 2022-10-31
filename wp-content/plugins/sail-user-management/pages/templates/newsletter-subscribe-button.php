@@ -1,4 +1,5 @@
 <div>
+    <!-- TODO replace with common button -->
     <button id="newsletter-subscribe-button" style="display: none; border: none" class="wp-block-button__link has-vivid-cyan-blue-background-color has-background">Subscribe</a>
 </div>
 

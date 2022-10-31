@@ -41,6 +41,12 @@ use Sail\Shortcodes\MessageShortCodes;
 use Sail\Shortcodes\UserShortCodes;
 use Sail\Utils\HtmlUtils;
 
+// TODO: Remove Bluehost vendor plugin actions?  Currently the Bluehost plugin is disabled because
+// this plugin it installs caused an issue with passwords that are in the Have I Been Pwned DB:
+// https://github.com/newfold-labs/wp-module-secure-passwords/blob/main/secure-passwords.php
+// Could use an approach like:
+// https://wordpress.stackexchange.com/questions/304859/remove-action-from-a-plugin-class
+
 /**
  * Runs on set current user hook, runs on every request.
  * Hook in early to ensure permission definition runs before Media Vault.

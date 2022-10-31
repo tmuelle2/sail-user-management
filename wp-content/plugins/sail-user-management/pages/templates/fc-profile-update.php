@@ -79,7 +79,7 @@
 			</div>
 		</div>
 	</form>
-	<button type="submit" form="fc-profile-update" value="Submit">Submit</button>
+	<? echo Sail\Utils\HtmlUtils::getSailButton('fc-profile-update', 'Submit') ?>
 </details>
 
 <!-- Profile Picture preview from https://web.dev/read-files/ -->

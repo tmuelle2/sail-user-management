@@ -2,6 +2,8 @@
 
 namespace Sail\Data\Model;
 
+use Sail\Utils\HtmlUtils;
+
 class Family extends SailDataObject
 {
   // Mapping of fields to database format
@@ -59,9 +61,9 @@ class Family extends SailDataObject
           <input type='radio' name='confirmLinkage' id='deny' value='0' />
           <label for='deny'>Decline Family Link and Remove</label><br/>
           <input type='radio' name='confirmLinkage' id='confirm' value='1' checked/>
-          <label for='confirm'>Confirm Family Link</label><br/>
-          <button type='submit' form='confirm_family_link_" . $this->getDatabaseData()['relationId'] . "' value='Submit'>Submit</button>
-          <br/><br/>
+          <label for='confirm'>Confirm Family Link</label><br/>" .
+          HtmlUtils::getSailButton('confirm_family_link_' . $this->getDatabaseData()['relationId'], 'Submit') .
+          "<br/><br/>
         </form>";
     }
     return $str;

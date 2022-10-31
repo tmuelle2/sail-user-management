@@ -40,4 +40,4 @@ window.onload = function() {
     <input type="hidden" name="user_email" id="user_email">
     <input type="hidden" name="pw_reset_key" id="pw_reset_key">
 </form>
-<button type="submit" form="user_change_password" value="Submit">Update Password</button>
+<? echo Sail\Utils\HtmlUtils::getSailButton('user_change_password', 'Update Password') ?>

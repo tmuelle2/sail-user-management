@@ -81,5 +81,5 @@
     <h5 class="field-label">How can SAIL assist you?</h5>
     <textarea name="additionalInfo" class="text-input-field" cols="30" rows="2"><?php echo $sailUser->additionalInfo ?></textarea><br />
   </form>
-  <button type="submit" form="user_profile_update" value="Submit">Submit</button>
+  <? echo Sail\Utils\HtmlUtils::getSailButton('user_profile_update', 'Submit') ?>
 </details>

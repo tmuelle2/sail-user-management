@@ -7,7 +7,7 @@
             <h5 class="field-label required-field">Email of Family Member</h5>
         	<input name="email" type="email" class="text-input-field" required /> <br />
         </form>
-        <button type="submit" form="add_family_member" value="Submit">Submit</button>
+        <? echo Sail\Utils\HtmlUtils::getSailButton('add_family_member', 'Submit') ?>
         <br/>
         <div>
             <?php

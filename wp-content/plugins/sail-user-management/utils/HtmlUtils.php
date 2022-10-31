@@ -2,52 +2,18 @@
 
 namespace Sail\Utils;
 
-use DOMDocument;
 use Sail\Constants;
 use Sail\Data\Model\FriendshipConnectProfile;
 use Sail\Data\Model\User;
 
 final class HtmlUtils
 {
-
-    // NOTE REQUEST GLOBAL MUTABLE FLAG!
-    // This flag gets sets when the common form handling logic has already been added to the page for the request.
-    // This is used to avoid adding it twice
-    private static $globalFormBaseAdded = false;
-
-    // NOTE REQUEST GLOBAL MUTABLE LIST
-    // This collects the form actions on the page to add them into the common variable injection script
-    private static $globalFormActions = [];
-
     public final static function getSailTemplate(string $fileName, array $variables = array()): string
     {
         extract($variables);
         ob_start();
         include(Constants::TEMPLATE_DIR . $fileName);
-        $doc = new DOMDocument();
-        @$doc->loadHTML(ob_get_clean());
-        $forms = $doc->getElementsByTagName('form');
-        $formActions = [];
-        foreach ($forms as $form) {
-            $id = $form->attributes->getNamedItem('id');
-            $action = $form->attributes->getNamedItem('action');
-            if ($id !== null && $action !== null) {
-                $formActions[] = ['id' => $id->value, 'action' => $action->value];
-            }
-        }
-        if (!empty($formActions)) {
-            if (!self::$globalFormBaseAdded) {
-                ob_start();
-                include(Constants::TEMPLATE_DIR . 'form-base.php');
-                $js = new DOMDocument();
-                $js->loadHTML(ob_get_clean());
-                $import = $doc->importNode($js->getElementById('form-base'), true);
-                $doc->getElementsByTagName('body')[0]->appendChild($import);
-                self::$globalFormBaseAdded = true;
-            }
-            self::$globalFormActions = array_merge(self::$globalFormActions, $formActions);
-        }
-        return $doc->saveHTML($doc->getElementsByTagName('body')[0]);
+        return ob_get_clean();
     }
 
     public final static function getUserFormData(array $params, ?User $currentUser = null): User
@@ -101,10 +67,14 @@ final class HtmlUtils
 
     public final static function addCommonJs(): void {
         $params = [
-            'nonce' => wp_create_nonce('wp_rest'),
-            'formRestPrefix' => Constants::FORM_REST_PREFIX,
-            'formActions' => self::$globalFormActions
+            'nonce' => wp_create_nonce('wp_rest'), // TODO: Replace with enqueueing or adding dependency on 'wp-api' and using the wpApiSettings object
+            'formsApiUrl' => WebUtils::getFormsApiUrl(),
         ];
         wp_add_inline_script(Constants::JS_COMMON_SCRIPT_HANDLE, 'const SAIL = ' . json_encode($params));
+    }
+
+    public final static function getSailButton(string $form, string $text): string
+    {
+        return "<button type='submit' form='$form' value='Submit' class='loadingButton wp-block-button__link has-white-color has-vivid-cyan-blue-background-color has-text-color has-background'>$text</button>";
     }
 }

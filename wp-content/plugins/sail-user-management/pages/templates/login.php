@@ -9,7 +9,7 @@
     <input type="hidden" name="redirect_to" id="redirect_to">
     <label for="remember"> Remember me</label><br>
 </form>
-<a style="font-size: 16px;" href="<? echo Sail\Utils\WebUtils::getUrl() ?>/forgot-password">Forgot your password?</a>
+<a style="font-size: 16px;" href="<? echo Sail\Utils\WebUtils::getUrl('/forgot-password') ?>">Forgot your password?</a>
 <div class="wp-block-button">
-    <button style="border: none;" class="wp-block-button__link has-white-color has-vivid-cyan-blue-background-color has-text-color has-background" type="submit" form="user_signon" value="Submit">Login</button>
+    <? echo Sail\Utils\HtmlUtils::getSailButton('user_signon', 'Login') ?>
 </div>

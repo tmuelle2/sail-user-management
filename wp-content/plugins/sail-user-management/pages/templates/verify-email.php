@@ -6,6 +6,6 @@
         <form accept-charset="UTF-8" autocomplete="on" action='verify-email'>
             <input type="hidden" name="action" value="sail_user_reverify_email">
         </form>
-        <button type="submit" form="sail_user_reverify_email" value="Submit">Send Email</button>
+        <? echo Sail\Utils\HtmlUtils::getSailButton('sail_user_reverify_email', 'Submit') ?>
     </div>
 </details>

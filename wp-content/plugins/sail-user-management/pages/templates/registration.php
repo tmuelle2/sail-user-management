@@ -97,7 +97,7 @@
   <input type="hidden" name="isPaidMember" value="0" />
 </form>
 <div class="wp-block-button">
-  <button style="border: none;" class="wp-block-button__link has-white-color has-vivid-cyan-blue-background-color has-text-color has-background" type="submit" form="user_reg" value="Submit">Submit</button>
+  <? echo Sail\Utils\HtmlUtils::getSailButton('user_reg', 'Submit') ?>
 </div>
 <script>
   function onChecked(elClass) {
