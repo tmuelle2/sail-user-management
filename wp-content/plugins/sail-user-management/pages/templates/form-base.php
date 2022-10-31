@@ -64,7 +64,7 @@
     function postData(apiRoute, formData, button) {
         const formHeaders = new Headers({
             'Content-Type': 'application/json',
-            'x-wp-nonce': SAIL.nonce
+            'x-wp-nonce': wpApiSettings.nonce
         });
 
         fetch(apiRoute, {
@@ -91,7 +91,7 @@
     }
 
     window.addEventListener('load', (event) => {
-        SAIL.formActions.forEach(action => makeFormRestSubmit(action['id'],  "<?php echo Constants::FORM_REST_PREFIX ?>" + action['action']));
+        SAIL.formActions.forEach(action => makeFormRestSubmit(action['id'],  wpApiSettings.root + 'forms/v1/' + action['action']));
         buttons = [...document.getElementsByTagName('button')];
     });
 </script>

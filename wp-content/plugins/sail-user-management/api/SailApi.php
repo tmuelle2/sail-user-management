@@ -43,14 +43,14 @@ abstract class SailApi
 
   protected function response302WithClientsideRedirect(string $redirectLocation): WP_REST_Response
   {
-    $response = new WP_REST_Response(null, 302, array('Location' => $redirectLocation));
+    $response = new WP_REST_Response(array(), 302, array('Location' => $redirectLocation));
     $this->log_response($response);
     return $response;
   }
 
   protected function response200WithClientsideRedirect(string $redirectLocation): WP_REST_Response
   {
-    $response = new WP_REST_Response(null, 200, array('Location' => $redirectLocation));
+    $response = new WP_REST_Response(array(), 200, array('Location' => $redirectLocation));
     $this->log_response($response);
     return $response;
   }

@@ -88,8 +88,8 @@ function sailPluginInit()
 add_action('wp_enqueue_scripts', 'sailPluginEnqueueScripts');
 function sailPluginEnqueueScripts()
 {
-    wp_enqueue_style('sailPluginStyle', Constants::CSS_ROUTE . 'common.css');
-    wp_enqueue_script(Constants::JS_COMMON_SCRIPT_HANDLE, Constants::JS_ROUTE . 'common.js', null, false, true);
+    wp_enqueue_style('sailPluginStyle', Constants::CSS_COMMON);
+    wp_enqueue_script(Constants::JS_COMMON_SCRIPT_HANDLE, Constants::JS_COMMON, null, false, true);
 }
 
 /**

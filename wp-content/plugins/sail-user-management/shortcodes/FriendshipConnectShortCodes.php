@@ -70,8 +70,6 @@ final class FriendshipConnectShortCodes extends ShortCodeRegistrator
                 public function getShortcodeContent(): string
                 {
                     $fcMember = FriendshipConnectDao::getInstance()->getFcProfile();
-                    //$this->log("@@@ fcProfileUpdateShortcode injection");
-                    //$this->log(print_r($fcMember, true));
                     if (!isset($fcMember) || !isset($fcMember->userId) || $fcMember->userId < 1) return '';
                     $result =  HtmlUtils::getSailTemplate('fc-profile-update.php', ['fcProfile' => $fcMember]);
                     return $result;
@@ -90,7 +88,6 @@ final class FriendshipConnectShortCodes extends ShortCodeRegistrator
                 }
                 public function preprocessingCallback()
                 {
-                    //$this->log("@@@ userFC Reg preprocess callback");
                     $sailUser = UserDao::getInstance()->getSailUser();
                     // TODO: figure out how to make preprocess independent of knowing the page slug/id
                     if (is_page('join-friendship-connect')) {
