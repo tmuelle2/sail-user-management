@@ -1,4 +1,7 @@
-<?php use Sail\Constants; ?>
+<?php use Sail\Constants;
+use Sail\Utils\WebUtils;
+
+ ?>
 <html>
 <script id='form-base'>
     const BASE64_PREFIX = "data:*/*;base64,";
@@ -64,7 +67,7 @@
     function postData(apiRoute, formData, button) {
         const formHeaders = new Headers({
             'Content-Type': 'application/json',
-            'x-wp-nonce': wpApiSettings.nonce
+            'x-wp-nonce': SAIL.nonce
         });
 
         fetch(apiRoute, {
@@ -91,7 +94,7 @@
     }
 
     window.addEventListener('load', (event) => {
-        SAIL.formActions.forEach(action => makeFormRestSubmit(action['id'],  wpApiSettings.root + 'forms/v1/' + action['action']));
+        SAIL.formActions.forEach(action => makeFormRestSubmit(action['id'],  "<?php echo WebUtils::getUrl() .  Constants::FORM_REST_PREFIX ?>" + action['action']));
         buttons = [...document.getElementsByTagName('button')];
     });
 </script>
