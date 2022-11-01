@@ -40,6 +40,7 @@ use Sail\Shortcodes\FriendshipConnectShortCodes;
 use Sail\Shortcodes\MessageShortCodes;
 use Sail\Shortcodes\UserShortCodes;
 use Sail\Utils\HtmlUtils;
+use Sail\Utils\WebUtils;
 
 // TODO: Remove Bluehost vendor plugin actions?  Currently the Bluehost plugin is disabled because
 // this plugin it installs caused an issue with passwords that are in the Have I Been Pwned DB:
@@ -141,6 +142,15 @@ function registerApis()
     UserLogoutHandler::getInstance()->registerApi();
     UserProfileUpdateHandler::getInstance()->registerApi();
     UserRegistrationHandler::getInstance()->registerApi();
+}
+
+/**
+ * Set the site login URL to the /login pretty permalink page
+ */
+add_filter('login_url', 'sail_login_url', PHP_INT_MAX );
+function sail_login_url( $login_url ) {
+	$login_url = WebUtils::getUrl('/login');	
+    return $login_url;
 }
 
 // TODO refactor
