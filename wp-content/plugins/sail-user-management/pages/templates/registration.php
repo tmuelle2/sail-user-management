@@ -48,7 +48,7 @@
           <select name="state" required class="select-field" style="width: 100%">
             <?php
             use Sail\Utils\FormUtils;
-            echo implode('\n', FormUtils::STATE_OPTIONS);
+            echo FormUtils::populateSelectOption('MI', FormUtils::STATE_OPTIONS);
             ?>
           </select> <br />
       </div>
