@@ -21,7 +21,7 @@
     </div>
     <div class="flex-container">
       <div class="flex-child">
-          <h5 class="field-label required-field">Password</h5>
+          <h5 class="field-label required-field">Create Password</h5>
           <input name="password" type="password" class="text-input-field" required /> <br />
       </div>
       <div class="flex-child">
