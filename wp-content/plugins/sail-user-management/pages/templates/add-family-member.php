@@ -4,14 +4,14 @@
         <p>By linking your account to your family members' accounts, you can share the benefits of SAIL membership, like Friendship Connect and full access to Housing Roadmap resources.</p>
         <p>To link Family accounts, please follow the process below:<br><br>
 
-        1. Create SAIL accounts for all family members. Each member needs a unique email address. There will be a primary account member who pays the SAIL dues either at sign up or on their My Profile tab.<br>
+        1. Create SAIL accounts for all family members. Each member needs a unique email address. There will be a primary account member who pays the SAIL dues either at sign up or on their <em>My Profile</em> tab.<br>
         2. To link accounts, the primary account member visits the SAIL website and logs in.<br>
-        3. Go to the My Profile page and open the Link Family Account section and type in one email address belonging to a family member's SAIL account that you would like to link.<br>
+        3. Go to the <em>My Profile</em> page and open the <em>Link Family Accounts</em> section and type in one email address belonging to a family member's SAIL account that you would like to link.<br>
         4. Click submit and then log out of the website (critical step!).<br>
         5. To finish the linking process to the primary account, the family member needs to confirm the link. The family member will visit the SAIL website and log in.<br>
-        6. Go to the My Profile page and open the Link Family Account section, check the circle next to Confirm Family Link and click on the submit button.<br><br>
+        6. Go to the <em>My Profile</em> page and open the <em>Link Family Accounts</em> section, check the circle next to Confirm Family Link and click on the submit button.<br><br>
 
-        Repeat steps 2 through 6 if multiple family member accounts need to be linked. Once the steps above have been completed, your family accounts are linked. At times, there is a delay in the primary account member's email showing up on the secondary's Link Family Account section. If this happens, please wait a day, and try again.<br>
+        Repeat steps 2 through 6 if multiple family member accounts need to be linked. Once the steps above have been completed, your family accounts are linked. At times, there is a delay in the primary account member's email showing up on the secondary's <em>Link Family Accounts</em> section. If this happens, please wait a day, and try again.<br>
         Email info@sailhousingsolutions.org with questions.</p>
 
         <form accept-charset="UTF-8" id="add_family_member" autocomplete="on" action='add-family-member'>
