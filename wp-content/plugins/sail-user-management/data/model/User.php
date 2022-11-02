@@ -55,22 +55,31 @@ class User extends SailDataObject
 
   public function isDuePayingUser(): bool
   {
-    if ($this->isPaidMember) {
-      return true;
-    } else if (!isset($this->family)) {
+    return !$this->isPastDue();
+  }
+
+  // Helper function to get the most recent payment date of the user and their family members
+  public function getMostRecentPaymentDate() {
+    if (!isset($this->family)) {
       $this->family = FamilyDao::getInstance()->getFamilyMembersForUser($this);
+    }
+    $datesToCheck = array();
+    if ($this->lastDuePaymentDate != null) {
+      array_push($datesToCheck, $this->lastDuePaymentDate);
     }
     if ($this->family != null) {
       foreach ($this->family->getMembers() as $fm) {
-        if ($fm->userid != $this->userid && $fm->isPaidMember) {
-          return true;
+        if ($fm->userid != $this->userid && $fm->lastDuePaymentDate != null) {
+          array_push($datesToCheck, $fm->lastDuePaymentDate);
         }
       }
-
-      return false;
-    } else {
-      return false;
     }
+
+    if (count($datesToCheck) == 0)
+      return "1984-1-1"; // this account/family has never paid, just return something that will be expired
+
+    // Take the array of string dates, map them to unix time stamps, find the most recent date and convert it back to an easy format to work with
+    return date("Y-m-d", strval(max(array_map('strtotime', $datesToCheck))));
   }
 
   // Based off the following statements:
@@ -78,11 +87,9 @@ class User extends SailDataObject
   // LAST PAYMENT DATE ON/AFTER SEPT 1st 2022 = "PAST DUE SOON" starts OCT 1st 2023
   public function willBePastDueSoon(): bool
   {
-    if (!$this->isPaidMember || $this->lastDuePaymentDate == null) {
-      return false;
-    }
-    else {
-      $lpDate = explode("-", $this->lastDuePaymentDate);
+      $dateToCheck = $this->getMostRecentPaymentDate();
+
+      $lpDate = explode("-", $dateToCheck);
       $curDate = explode("-", date("Y-m-d"));
 
       if ($curDate[0] > $lpDate[0] && $curDate[0] - $lpDate[0] == 1) // Payment was from last year
@@ -125,7 +132,8 @@ class User extends SailDataObject
       {
         return true;
       }
-    }
+
+
   }
 
   // Based off the following statements:
@@ -133,77 +141,72 @@ class User extends SailDataObject
   // LAST PAYMENT DATE ON/AFTER SEPT 1st 2022 = GOOD UNTIL JAN 31st 2024
   public function isPastDue(): bool
   {
-    if (!$this->isPaidMember || $this->lastDuePaymentDate == null) {
+    $dateToCheck = $this->getMostRecentPaymentDate();
+
+    $lpDate = explode("-", $dateToCheck);
+    $curDate = explode("-", date("Y-m-d"));
+
+    if ($curDate[0] > $lpDate[0]) // Payment was from last year or earlier
+    {
+      if ($curDate[0] - $lpDate[0] > 2) // Paid 3+ years ago, dues are expired!
+      {
+        return true;
+      }
+      else // Paid either last year or 2 years ago
+      {
+        if ($curDate[0] - $lpDate[0] == 2) // Payment was from 2 years ago
+        {
+          if ($curDate[1] > 1) // Paid 2 years ago and we are already past Jan this year, dues are expired!
+          {
+            return true;
+          }
+          else if ($lpDate[1] > 8) // We are still in Jan this year and they paid 2 years ago in/after Sept so they still have a few weeks before being expired
+          {
+            return false;
+          }
+          else // They paid 2 years ago and before Sept 1st, dues are expired!
+          {
+            return true;
+          }
+        }
+        else // Payment was from last year
+        {
+          if ($lpDate[1] > 8) // They paid last year in/after Sept so they are good for the whole year
+          {
+            return false;
+          }
+          else if ($curDate[1] == 1) // They paid last year but it's still Jan so they are good
+          {
+            return false;
+          }
+          else // They paid last year before Sept 1st and it's past Jan, dues are expired! (which is dumb but whatever)
+          {
+            return true;
+          }
+        }
+      }
+    }
+    else // Paid sometime this year, they have to be good
+    {
       return false;
     }
-    else {
-      $lpDate = explode("-", $this->lastDuePaymentDate);
-      $curDate = explode("-", date("Y-m-d"));
 
-      if ($curDate[0] > $lpDate[0]) // Payment was from last year or earlier
-      {
-        if ($curDate[0] - $lpDate[0] > 2) // Paid 3+ years ago, dues are expired!
-        {
-          return true;
-        }
-        else // Paid either last year or 2 years ago
-        {
-          if ($curDate[0] - $lpDate[0] == 2) // Payment was from 2 years ago
-          {
-            if ($curDate[1] > 1) // Paid 2 years ago and we are already past Jan this year, dues are expired!
-            {
-              return true;
-            }
-            else if ($lpDate[1] > 8) // We are still in Jan this year and they paid 2 years ago in/after Sept so they still have a few weeks before being expired
-            {
-              return false;
-            }
-            else // They paid 2 years ago and before Sept 1st, dues are expired!
-            {
-              return true;
-            }
-          }
-          else // Payment was from last year
-          {
-            if ($lpDate[1] > 8) // They paid last year in/after Sept so they are good for the whole year
-            {
-              return false;
-            }
-            else if ($curDate[1] == 1) // They paid last year but it's still Jan so they are good
-            {
-              return false;
-            }
-            else // They paid last year before Sept 1st and it's past Jan, dues are expired! (which is dumb but whatever)
-            {
-              return true;
-            }
-          }
-        }
-      }
-      else // Paid sometime this year, they have to be good
-      {
-        return false;
-      }
-    }
   }
 
   public function calculateExpirationYear(): string
   {
-    if (!$this->isPaidMember || $this->lastDuePaymentDate == null) {
-      return "";
-    }
-    else {
-      $lpDate = explode("-", $this->lastDuePaymentDate);
-      $curDate = explode("-", date("Y-m-d"));
+    $dateToCheck = $this->getMostRecentPaymentDate();
 
-      if ($lpDate[1] > 8) // Paid in/after Sept, expires at the "end" of the next year (technically a month after that but whatever)
-      {
-        return strval(intval($lpDate[0], 10) + 1);
-      }
-      else // Paid before Sept, expires at the "end" of the same year they paid
-      {
-        return $lpDate[0];
-      }
+    $lpDate = explode("-", $this->dateToCheck);
+    $curDate = explode("-", date("Y-m-d"));
+
+    if ($lpDate[1] > 8) // Paid in/after Sept, expires at the "end" of the next year (technically a month after that but whatever)
+    {
+      return strval(intval($lpDate[0], 10) + 1);
+    }
+    else // Paid before Sept, expires at the "end" of the same year they paid
+    {
+      return $lpDate[0];
     }
   }
 }
