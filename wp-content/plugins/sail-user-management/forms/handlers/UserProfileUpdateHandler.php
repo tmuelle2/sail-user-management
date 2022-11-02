@@ -30,7 +30,6 @@ class UserProfileUpdateHandler extends SailFormHandler
         $params = $request->get_json_params();
         $curUser = $this->dao->getSailUser();
         $userUpdate = HtmlUtils::getUserFormData($params, $curUser);
-        $this->log('UserProfileUpdateHandler updating user from: ' . print_r($curUser, true) . ' to: ' . $userUpdate);
 
         // Update SAIL users db table
         $this->dao->updateUserWithUpdatesAlreadySet($userUpdate);

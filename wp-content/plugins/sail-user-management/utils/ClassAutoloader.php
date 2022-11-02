@@ -24,7 +24,7 @@ class ClassAutoloader
             return;
         }
 
-        $this->startStopwatch();
+        //$this->startStopwatch();
         $dirIter = new RecursiveDirectoryIterator(Constants::HOME_DIR);
         $iter = new RecursiveIteratorIterator($dirIter);
         $libPaths = new RegexIterator($iter, '/^.*\.php$/m', RegexIterator::MATCH);
@@ -52,7 +52,7 @@ class ClassAutoloader
                 $this->classPathMap[$justFileName] = $path;
             }
         }
-        $this->stopStopwatchLogMillis('ClassAutoloader: Class path map initialized from source directory in:');
+        //$this->stopStopwatchLogMillis('ClassAutoloader: Class path map initialized from source directory in:');
         $this->cache(self::CACHE_KEY, $this->classPathMap);
     }
 
@@ -61,13 +61,13 @@ class ClassAutoloader
         if (!empty($this->classPathMap)) {
             return;
         }
-        #self::recreateTable();
+        //self::recreateTable();
         if (!$this->isCached(self::CACHE_KEY)) {
             $this->updateCachedClasspath();
         }
-        $this->startStopwatch();
+        //$this->startStopwatch();
         $this->classPathMap = $this->getCachedValue(self::CACHE_KEY);
-        $this->stopStopwatchLogMillis('ClassAutoloader: Class path map initialized from database in:');
+        //$this->stopStopwatchLogMillis('ClassAutoloader: Class path map initialized from database in:');
     }
 
     public function autoload($className): void
