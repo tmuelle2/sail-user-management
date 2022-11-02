@@ -2,6 +2,18 @@
     <summary>Link Family Accounts</summary>
     <div>
         <p>By linking your account to your family members' accounts, you can share the benefits of SAIL membership, like Friendship Connect and full access to Housing Roadmap resources.</p>
+        <p>To link Family accounts, please follow the process below:
+
+ 1. Create SAIL accounts for all family members. Each member needs a unique email address. There will be a primary account member who pays the SAIL dues either at sign up or on their My Profile tab.
+ 2. To link accounts, the primary account member visits the SAIL website and logs in.
+ 3. Go to the My Profile page and open the Link Family Account section and type in one email address belonging to a family member’s SAIL account that you would like to link.
+ 4  Click submit and then log out of the website (critical step!).
+ 5. To finish the linking process to the primary account, the family member needs to confirm the link. The family member will visit the SAIL website and log in.
+ 6. Go to the My Profile page and open the Link Family Account section, check the circle next to Confirm Family Link and click on the submit button.
+
+ Repeat steps 2 through 6 if multiple family member accounts need to be linked. Once the steps above have been completed, your family accounts are linked. At times, there is a delay in the primary account members' email showing up on the secondary’s Link Family Account section. If this happens, please wait a day, and try again.
+ Contact info@sailhousingsolutions.org with questions.</p>
+
         <form accept-charset="UTF-8" id="add_family_member" autocomplete="on" action='add-family-member'>
             <input type="hidden" name="action" value="fam_add">
             <h5 class="field-label required-field">Email of Family Member</h5>
