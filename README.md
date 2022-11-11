@@ -19,6 +19,7 @@ In order to setup for local development and testing do the following steps.  The
 5. Download the Duplicator archive and install script from the Wordpress admin console, **do NOT commit the archive**! If you cloned the DB, then archive has user info that should not be committed. Copy the installer.php script and the compressed archive to the package root's `docker` directory.
 6. Install `mkcert` using a linux terminal, [in depth instructions can be found in the mkcert README](https://github.com/FiloSottile/mkcert). For a quick set of commands to install mkcert try this:
 ```
+cd ~
 sudo apt update
 sudo apt install libnss3-tools
 curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64"
