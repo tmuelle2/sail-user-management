@@ -30,8 +30,8 @@ In order to setup for local development and testing do the following steps.  The
     ```
 
     2. Run `mkcert -install` to create and install a local root CA.  Then run `mkcert localhost` to create a certificate and key for localhost. Move the certificate and key pem files to the `./proxy/certs/` directory of your sail-user-management repo.
-7. Install `docker-compose` using a linux terminal, to ensure you install the latest version use the following commands:
-    1.
+7. Install `docker-compose` using a linux terminal
+    1. To ensure you install the latest version use the following commands:
 
     ```
     sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s|sed -e 's/\(.*\)/\L\1/')-$(uname -m)" -o /usr/local/bin/docker-compose
