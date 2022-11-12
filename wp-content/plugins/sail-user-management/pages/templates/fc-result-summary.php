@@ -31,7 +31,7 @@ if (isset($fcMember) && $fcMember->referenceApproved) {
 			<div style="margin-left: 32px;">
 				<div class="flex-container"><h2 id="displayName">$displayName</h2></div>
 					<div><strong>Age:&nbsp;</strong><span id="age">$age</span></div>
-					<div><strong>Location:&nbsp;</strong><span id="location">{$sailUser->city}, {$sailUser->state}</span></div>
+					<div><strong>Location:&nbsp;</strong><span id="location">{$fcProfile->city}, {$fcProfile->state}</span></div>
 					<div><strong>Activities:&nbsp;</strong><span id="activities">$fcProfile->activities</span></div>
 					<div><strong>Hobbies:&nbsp;</strong><span id="hobbies">$fcProfile->hobbies</span></div>
 					<details>

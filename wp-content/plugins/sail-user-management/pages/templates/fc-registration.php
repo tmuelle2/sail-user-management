@@ -31,6 +31,15 @@ $fcMember = FriendshipConnectDao::getInstance()->getFcProfile();
       <h5 class="field-label">Profile Picture</h5>
       <input type="file" id="profilePicture" name="profilePicture" multiple="false" />
       <p id="status"></p>
+      <h5 class="field-label required-field">City</h5>
+				<input name="city" type="text" class="text-input-field" id="city" required /> <br />
+				<h5 class="field-label required-field">State</h5>
+				<select name="state" required class="select-field" style="width: 100%">
+					<?php
+					use Sail\Utils\FormUtils;
+					echo FormUtils::populateSelectOption('MI', FormUtils::STATE_OPTIONS);
+					?>
+				</select> <br />
       <h5 class="field-label required-field">Gender</h5>
       <select name="gender" class="select-field" required>
         <option value="Male">Male</option>

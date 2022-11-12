@@ -8,17 +8,25 @@
 				<input type="hidden" name="authorized" value="0" />
 				<input type="checkbox" name="authorized" value="1" required />
 				<label class="field-label required-field" for="authorized">I am either an individual with a disability and I am my own guardian, or I am a person who is legally authorized to complete this Friendship Connect form on behalf of an individual with a disability. SAIL can publish my data and contact information on the SAIL Friendship Connect page on the SAIL website. I understand that other members of Friendship Connect may contact me directly to discuss an interest in becoming friends and/or roommates.</label>
-				<h5 class="field-label">Profile Name (For privacy, we recommend not using last names. Ex: use Jane D. not Jane Doe)</h5>
-				<input name="nickname" type="text" value="<?php echo $fcProfile->nickname ?>" class="text-input-field" id="nickname" oninput="onNickNameChange(this.value)" /> <br />
+				<h5 class="field-label required-field">Profile Name (For privacy, we recommend not using last names. Ex: use Jane D. not Jane Doe)</h5>
+				<input name="nickname" type="text" value="<?php echo $fcProfile->nickname ?>" required class="text-input-field" id="nickname" oninput="onNickNameChange(this.value)" /> <br />
 				<h5 class="field-label required-field">Profile Date of Birth</h5>
       			<input type="date" name="dob" id="dob" value="<?php echo $fcProfile->dob ?>" required><br />
 				<h5 class="field-label">Profile Picture - Leave Empty to Keep Current Profile Picture</h5>
 				<input type="file" id="profilePicture" name="profilePicture" />
 				<p id="status"></p>
+				<h5 class="field-label required-field">City</h5>
+				<input name="city" type="text" value="<?php echo $fcProfile->city ?>" class="text-input-field" id="city" required /> <br />
+				<h5 class="field-label required-field">State</h5>
+				<select name="state" required class="select-field" style="width: 100%">
+					<?php
+					use Sail\Utils\FormUtils;
+					echo FormUtils::populateSelectOption($fcProfile->state, FormUtils::STATE_OPTIONS);
+					?>
+				</select> <br />
 				<h5 class="field-label required-field">Gender</h5>
 				<select name="gender" class="select-field" required>
 					<?php
-						use Sail\Utils\FormUtils;
 						echo FormUtils::populateSelectOption($fcProfile->gender, FormUtils::GENDER_OPTIONS);
 					?>
 				</select>

@@ -29,7 +29,9 @@ class FriendshipConnectProfile extends SailDataObject
     'referencePhoneNumber' => '%s',
     'referenceEmail' => '%s',
     'primaryContact' => '%s',
-    'dob' => '%s'
+    'dob' => '%s',
+    'city' => '%s',
+    'state' => '%s'
   );
 
   public function __construct(array $data)
