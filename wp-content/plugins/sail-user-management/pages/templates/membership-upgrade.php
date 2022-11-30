@@ -85,7 +85,7 @@
             </div>
         </details>`;
         initPayPalButton();
-    } else if (isPastDue) {
+    } else if (isPaid && isPastDue) {
         element.innerHTML = `
         <details>
             <summary>Membership Expired - Pay Annual Dues</summary>
