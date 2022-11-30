@@ -197,7 +197,7 @@ class User extends SailDataObject
   {
     $dateToCheck = $this->getMostRecentPaymentDate();
 
-    $lpDate = explode("-", $this->dateToCheck);
+    $lpDate = explode("-", $dateToCheck);
     $curDate = explode("-", date("Y-m-d"));
 
     if ($lpDate[1] > 8) // Paid in/after Sept, expires at the "end" of the next year (technically a month after that but whatever)
