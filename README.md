@@ -29,7 +29,7 @@ In order to setup for local development and testing do the following steps depen
     sudo chmod +x /usr/local/bin/docker-compose
     ```
 
-    2. Run `docker-compose -v` to check the version you installed (should be >=2.12.2). Make sure Docker Desktop is open/running in Windows then run `sudo docker-compose up` from a linux terminal
+    2. Run `docker-compose -v` to check the version you installed (should be >=2.12.2). Make sure Docker Desktop is open/running in Windows then run `sudo docker-compose up` from a linux terminal. If using Mac, `docker-compose up`.
 6. In a browser, Navigate to the Duplicater installer script you copied in step 5, it should be: http://localhost/installer.php . During Step 1 of the Basic installation, change the following fields under the Setup section:
     a. Host to `mysql`
     b. User to `dev_user`
