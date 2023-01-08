@@ -210,4 +210,13 @@ class User extends SailDataObject
       return $lpDate[0];
     }
   }
+
+  public function isSecondaryLinkedAccount(): bool
+  {
+    $dateToCheck = $this->getMostRecentPaymentDate();
+    if ($dateToCheck != $this->lastDuePaymentDate)
+      return true;
+    else
+      return false;
+  }
 }

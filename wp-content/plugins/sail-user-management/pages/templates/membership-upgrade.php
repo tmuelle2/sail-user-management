@@ -15,6 +15,7 @@
     const isPastDue = <?php echo $user->isPastDue() ? 'true' : 'false' ?>;
     const lastPaymentDate = "<?php echo $sailUser->getDatabaseData()["lastDuePaymentDate"] ?>";
     const expYear = "<?php echo $user->calculateExpirationYear() ?>";
+    const isSecondaryLinkedAccount = "<?php echo $user->isSecondaryLinkedAccount() ?>";
 
     function initPayPalButton() {
         paypal.Buttons({
@@ -71,8 +72,15 @@
     }
     const element = document.getElementById('smart-button-container');
     if (isPaid && !isPastDue && !willBePastDueSoon) {
-        element.innerHTML = '<p>Your support and contribution to SAIL is greatly appreciated. Your account has access to paid member features. Our records reflect that you last paid your dues on ' + lastPaymentDate
+        if (!isSecondaryLinkedAccount) {
+            element.innerHTML = '<p>Your support and contribution to SAIL is greatly appreciated. Your account has access to paid member features. Our records reflect that you last paid your dues on ' + lastPaymentDate
         + '. Your SAIL member privileges will expire at the end of ' + expYear + '.</p>';
+        }
+        else {
+            element.innerHTML = '<p>Our records reflect that your account is linked to an account that has paid dues. Your support and contribution to SAIL is greatly appreciated. Your account has access to paid member features.'
+        + ' Your SAIL member privileges will expire at the end of ' + expYear + '.</p>';
+        }
+
     } else if (isPaid && !isPastDue && willBePastDueSoon) {
         element.innerHTML = `
         <details>
