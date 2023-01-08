@@ -43,12 +43,12 @@ class AddFamilyMemberHandler extends SailFormHandler
         }
 
         $family_id = null;
-        if (isset($link_to_user['familyId']) && $link_to_user['familyId'] > 0) {
+        if ($link_to_user['familyId'] != null && isset($link_to_user['familyId']) && $link_to_user['familyId'] > 0) {
             $family_id = $link_to_user['familyId'];
-        } else if (isset($this_user['familyId']) && isset($this_user['familyId']) > 0) {
+        } else if ($this_user['familyId'] != null && isset($this_user['familyId']) && isset($this_user['familyId']) > 0) {
             $family_id = $this_user['familyId'];
         } else {
-            $family_id = $this_user->getDatabaseData()['userId'];
+            $family_id = $this_user['userId'];
         }
 
         $relation_array = array('familyId' => $family_id,
@@ -58,7 +58,6 @@ class AddFamilyMemberHandler extends SailFormHandler
                         'isConfirmed' => 0);
 
         $relation = new Family([], $relation_array);
-
 
         $this->log("CHECK FOR EXISTING RELATION FIRST");
         $this->log(print_r($this_user['userId'], true));

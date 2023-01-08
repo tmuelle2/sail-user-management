@@ -15,7 +15,7 @@
         Email info@sailhousingsolutions.org with questions.</p>
 
         <form accept-charset="UTF-8" id="add_family_member" autocomplete="on" action='add-family-member'>
-            <input type="hidden" name="action" value="fam_add">
+            <input type="hidden" name="action" value="add-family-member">
             <h5 class="field-label required-field">Email of Family Member</h5>
         	<input name="email" type="email" class="text-input-field" required /> <br />
         </form>

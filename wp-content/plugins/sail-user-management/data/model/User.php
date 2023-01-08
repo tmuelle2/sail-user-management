@@ -60,6 +60,7 @@ class User extends SailDataObject
 
   // Helper function to get the most recent payment date of the user and their family members
   public function getMostRecentPaymentDate() {
+
     if (!isset($this->family)) {
       $this->family = FamilyDao::getInstance()->getFamilyMembersForUser($this);
     }
@@ -69,7 +70,7 @@ class User extends SailDataObject
     }
     if ($this->family != null) {
       foreach ($this->family->getMembers() as $fm) {
-        if ($fm->userid != $this->userid && $fm->lastDuePaymentDate != null) {
+        if ($fm->userId != $this->userId && $fm->lastDuePaymentDate != null) {
           array_push($datesToCheck, $fm->lastDuePaymentDate);
         }
       }
