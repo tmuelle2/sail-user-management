@@ -56,3 +56,4 @@ class UserLoginHandler extends SailFormHandler
         return $this->response400();
     }
 }
+
