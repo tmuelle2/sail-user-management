@@ -37,7 +37,7 @@ class UserRegistrationHandler extends SailFormHandler
         if (!username_exists($email) && !email_exists($email)) {
 
             // Send verification email
-            $emailVerificationKey = EmailSender::sendVerificationEmail($user);
+            $emailVerificationKey = EmailSender::getInstance()->sendVerificationEmail($user);
             $data['emailVerificationKey'] = $emailVerificationKey;
             $data['emailVerified'] = false;
             $data['isPaidMember'] = 0;

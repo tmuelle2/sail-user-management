@@ -24,6 +24,7 @@ trait DatabaseCache //implements SailCache // Traits can't currently (PHP<=8.x) 
     {
         global $wpdb;
         $value = $wpdb->get_var($this->getCacheQuery($key));
+        $wpdb->flush();
         return isset($value);
     }
 
@@ -31,10 +32,21 @@ trait DatabaseCache //implements SailCache // Traits can't currently (PHP<=8.x) 
     {
         global $wpdb;
         $serializedVal = serialize($val);
+        $wpdb->show_errors = true;
+        $result = null;
+        $this->log('Attempting to cache: ' . strlen($serializedVal));
         if ($this->isCached($key)) {
-            $wpdb->update(self::$DB_TABLE, array(self::$DB_KEY => $key, self::$DB_VALUE => $serializedVal), array(self::$DB_KEY => $key));
+            $result = $wpdb->update(self::$DB_TABLE, array(self::$DB_KEY => $key, self::$DB_VALUE => $serializedVal), array(self::$DB_KEY => $key));
         } else {
-            $wpdb->insert(self::$DB_TABLE, array(self::$DB_KEY => $key, self::$DB_VALUE => $serializedVal));
+            $result = $wpdb->insert(self::$DB_TABLE, array(self::$DB_KEY => $key, self::$DB_VALUE => $serializedVal));
+        }
+        $wpdb->flush();
+        if ($result === false) {
+            $this->log('Cache failed!');
+            $this->log('Last query: ' . $wpdb->last_query);
+            $this->log($wpdb->last_error);
+        } else {
+            $this->log('Cache succeed!');
         }
         return $val;
     }
@@ -42,7 +54,9 @@ trait DatabaseCache //implements SailCache // Traits can't currently (PHP<=8.x) 
     public function getCachedValue(string $key)
     {
         global $wpdb;
-        return unserialize($wpdb->get_var($this->getCacheQuery($key)));
+        $value = $wpdb->get_var($this->getCacheQuery($key));
+        $wpdb->flush();
+        return unserialize($value);
     }
 
     private function getCacheQuery(string $key): string

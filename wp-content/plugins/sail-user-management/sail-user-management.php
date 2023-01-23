@@ -153,31 +153,6 @@ function sail_login_url( $login_url ) {
     return $login_url;
 }
 
-// TODO refactor
-/*
-function sail_user_reverify_email()
-{
-    global $wpdb;
-    // send verification email
-    $user_arr = UserDao::getInstance()->getSailUser();
-    $email_verification_key = EmailSender::sendVerificationEmail($user_arr);
-    $user_arr['emailverificationkey'] = $email_verification_key;
-    $user_arr['emailverified'] = false;
-    $wpdb->update('sail_users', $user_arr, array('userid' => $user_arr['userid']), $user_db_fields);
-    webutils::redirect('/success-message?title=verification email sent&message=%3ca%20href%3d%22https%3a%2f%2fsailhousingsolutions.org%2fuser%22%3eclick%20here%20to%20go%20to%20your%20profile%20page.%3c%2fa%3e');
-    exit;
-}
-add_action('admin_post_sail_user_reverify_email', 'sail_user_reverify_email');
-
-// TODO refactor
-function sail_user_link_family_member()
-{
-    //include_once Constants::HOME_DIR . 'link-family-member.php';
-}
-// this runs on every request! cannot error out unnecessarily!!
-add_action('wp', 'sail_user_link_family_member');
-*/
-
 /**
  * Disables plugin autoupdate emails which trigger spam filters.
  */

@@ -1,0 +1,1 @@
+The Google API PHP Client package is normally several megabytes bigger.  Since we are aggressively building the classpath in the SAIL autoloader, I manually deleted everything not Gmail related or common dependencies already on the classpath. 

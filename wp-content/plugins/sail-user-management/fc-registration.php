@@ -1,5 +1,6 @@
 <?php
 
+use Sail\Utils\EmailSender;
 use Sail\Utils\WebUtils;
 
 $HOME_DIR = '/_home2/sailhou1/public_html/';
@@ -56,24 +57,13 @@ if (is_user_logged_in()) {
         // Insert the database row
         $wpdb->insert('fc_members', $data, $formats);
 
-        wp_mail("info@sailhousingsolutions.org", "New Friendship Connect Profile Created", "If you are a Wordpress Admin, please review the SAIL reference of the new FC Profile by going to the DATABASE ACCESS panel on the admin page.");
+        EmailSender::getInstance()->sendFcProfileCreatedEmail();
 
         // Success redirect
         WebUtils::redirect('/user');
         exit;
     }
     else {
-<<<<<<< HEAD
-        // Fail redirect
-        nocache_headers();
-        wp_safe_redirect('https://sailhousingsolutions.org/error');
-        exit;
-    }
-} else {
-    // Fail redirect
-    nocache_headers();
-    wp_safe_redirect('https://sailhousingsolutions.org/error');
-=======
         // Fail redirect 
         WebUtils::redirect('/error');
         exit;
@@ -81,6 +71,5 @@ if (is_user_logged_in()) {
 } else {
     // Fail redirect 
     WebUtils::redirect('/error');
->>>>>>> refactor
     exit;
 }

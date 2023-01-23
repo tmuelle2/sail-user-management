@@ -3,11 +3,9 @@
 namespace Sail\Form\Handlers;
 
 use WP_REST_Request;
-use WP_REST_Response;
 
 use Sail\Data\Dao\UserDao;
 use Sail\Data\Dao\FamilyDao;
-use Sail\Utils\EmailSender;
 use Sail\Utils\Logger;
 use Sail\Utils\Singleton;
 use Sail\Form\Handlers\SailFormHandler;

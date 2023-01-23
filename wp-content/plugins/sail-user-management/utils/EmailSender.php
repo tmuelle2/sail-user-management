@@ -4,12 +4,77 @@ namespace Sail\Utils;
 
 use WP_User;
 
+use Google\Client;
+use Google\Service\Gmail;
+use Google\Service\Gmail\Message;
+use Google\Service\Gmail\MessagePart;
+use Google\Service\Gmail\MessagePartBody;
+use Google\Service\Gmail\MessagePartHeader;
+
 use Sail\Data\Model\User;
 use Sail\Constants;
 
-final class EmailSender
+class EmailSender
 {
-    public final static function sendAccountLinkingEmail(User $sailUser, string $linkTargetEmail): string
+    use Singleton;
+
+    private Client $client;
+    private Gmail $gmail;
+    private string $fromEmail = 'info@sailhousingsolutions.org';
+
+    private function __construct() {
+        $this->client = new Client([
+            'application_name' => 'SAIL Housing Solutions Website',
+            'scopes' => [Gmail::GMAIL_SEND],
+            //'developer_key' => getenv('GMAIL_API_KEY') ?: 'GMAIL_API_KEY',
+            //'client_id' => getenv('GMAIL_API_CLIENT_ID') ?: 'GMAIL_API_KEY',
+            //'client_secret' => getenv('GMAIL_API_CLIENT_SECRET') ?: 'GMAIL_API_CLIENT_SECRET'
+            'subject' => $this->fromEmail,
+            'credentials' => [
+                "type" => "service_account",
+                "project_id" => getenv('GMAIL_API_PROJECT_ID') ?: 'GMAIL_API_PROJECT_ID',
+                "private_key_id" => getenv('GMAIL_API_KEY_ID') ?: 'GMAIL_API_KEY_ID',
+                "private_key" => getenv('GMAIL_API_KEY') ?: 'GMAIL_API_KEY',
+                "client_email" => getenv('GMAIL_API_EMAIL') ?: 'GMAIL_API_EMAIL',
+                "client_id" => getenv('GMAIL_API_CLIENT_ID') ?: 'GMAIL_API_CLIENT_ID',
+                "auth_uri" => "https://accounts.google.com/o/oauth2/auth",
+                "token_uri" => "https://oauth2.googleapis.com/token",
+                "auth_provider_x509_cert_url" => "https://www.googleapis.com/oauth2/v1/certs",
+                "client_x509_cert_url" => "https://www.googleapis.com/robot/v1/metadata/x509/sail-housing-solutions-website%40august-now-370901.iam.gserviceaccount.com"
+            ]
+        ]);
+        $this->gmail = new Gmail($this->client);
+    }
+
+    private function sendEmail(string $toEmail, string $subject, string $message, string $mimeType = 'text/plain') {
+        //return wp_mail($toEmail, $subject, $message);
+        $rawMessage = "From: <{$this->fromEmail}> \r\n";
+        $rawMessage .= "To: <{$toEmail}>\r\n";
+        $rawMessage .= "Subject: {$subject}\r\n";
+        $rawMessage .= "Content-Type: {$mimeType}; charset=utf-8\r\n";
+        $rawMessage .= $message;
+        return $this->gmail->users_messages->send('me', new Message(['raw' => base64_encode($rawMessage)]));
+        /*return $this->gmail->users_messages->send('me', new Message([
+            'payload' => new MessagePart([
+                'mimeType' => $mimeType,
+                'headers' => [
+                    new MessagePartHeader([
+                        'name' => 'to',
+                        'value' => $toEmail,
+                    ]),
+                    new MessagePartHeader([
+                        'name' => 'subject',
+                        'value' => $subject,
+                    ])
+                ],
+                'body' => new MessagePartBody([
+                    'data' => base64_encode($message)
+                ])
+            ])
+        ]));*/
+    }
+
+    public function sendAccountLinkingEmail(User $sailUser, string $linkTargetEmail): string
     {
         $siteUrl = WebUtils::getUrl();
         $familyLinkingKey = uniqid('family-linking-key-', true);
@@ -25,12 +90,12 @@ final class EmailSender
         $message .= $url;
         $message .= "\r\n\r\nIf you do not have an account with SAIL, please ignore this email.";
 
-        wp_mail($linkTargetEmail, "SAIL Family Account Link Request", $message);
+        $this->sendEmail($linkTargetEmail, "SAIL Family Account Link Request", $message);
 
         return $familyLinkingKey;
     }
 
-    public final static function sendForgotPasswordEmail(WP_User $wpUser): string
+    public function sendForgotPasswordEmail(WP_User $wpUser): string
     {
         $siteUrl = WebUtils::getUrl();
         $resetKey = get_password_reset_key($wpUser);
@@ -45,12 +110,12 @@ final class EmailSender
         $message .= "\r\n\r\nIf you didn't request this, please ignore this email.";
         $message .= "\r\n\r\nYour password won't change until you access the link above and create a new one.";
 
-        wp_mail($userLogin, "SAIL Password Reset Link", $message);
+        $this->sendEmail($userLogin, "SAIL Password Reset Link", $message);
 
         return $resetKey;
     }
 
-    public final static function sendVerificationEmail(User $sailUser): string
+    public function sendVerificationEmail(User $sailUser): string
     {
         // Send verification email
         $siteUrl = WebUtils::getUrl();
@@ -65,22 +130,27 @@ final class EmailSender
         $message .= $url;
         $message .= "\r\n\r\nIf you didn't sign-up for SAIL, please ignore this email.";
 
-        wp_mail($email, "SAIL Email Verification", $message);
+        $this->sendEmail($email, "SAIL Email Verification", $message);
 
         return $emailVerificaitonKey;
     }
 
-    public final static function sendFcProfileCreatedEmail(): string
+    public function sendFcProfileCreatedEmail(): string
     {
-        $email = "info@sailhousingsolutions.org";
-
         $message = "Hello, \r\n\r\n";
         $message .= "A new Friendship Connect Profile was created and is awaiting a reference approval.\r\n\r\n";
         $message .= "If you are a Wordpress Admin, please review the SAIL reference of the new FC Profile by going to the DATABASE ACCESS panel on the admin page.\r\n\r\n";
         $message .= "If you are not a Wordpess Admin, please ignore this email.";
 
-        wp_mail($email, "New Friendship Connect Profile Created", $message);
+        return (string) $this->sendEmail($this->fromEmail, "New Friendship Connect Profile Created", $message);
+    }
 
-        return "sent?";
+    public function sendWelcomeEmail(string $email): string 
+    {
+        ob_start();
+        include('/home2/sailhou1/public_html/wp-content/plugins/sail-user-management/emails/welcome-email.html');
+        $body = ob_get_contents();
+        ob_end_clean();
+        return (string) $this->sendEmail($email, "Welcome to SAIL!", $body, 'text/html');
     }
 }

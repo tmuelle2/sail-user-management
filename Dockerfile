@@ -2,7 +2,7 @@
 # Borrowed from: https://github.com/wpdiaries/wordpress-xdebug/blob/master/Dockerfile
 
 # Try to keep wordpress and php versions in sync with hosting provider
-FROM wordpress:6.0.3-php7.4-apache
+FROM wordpress:6.1.1-php8.1-apache
 
 # Install packages under Debian
 RUN apt-get update && \

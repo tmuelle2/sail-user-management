@@ -40,19 +40,20 @@ class ClassAutoloader
             // This loads full namespaced classes assuming file name and class name matches
             if (preg_match($namespaceRegex, $fileContents, $namespaceMatches)) {
                 $this->classPathMap[$namespaceMatches[1] . '\\' . $justFileName] = $path;
-                // This hack loads some GuzzleHttp functions
+            // This hack loads some GuzzleHttp functions
             } else if (PhpUtils::endsWith($path, 'functions.php')) {
                 preg_match($functionRegex, $fileContents, $functionMatches);
                 // Every other match will be the group with the function name
                 for ($i = 1; $i < count($functionMatches); $i += 2) {
                     $this->classPathMap[$functionMatches[$i]] = $path;
                 }
-                // This loads naked classes without namespaces assuming file name and class name matches
+            // This loads naked classes without namespaces assuming file name and class name matches
             } else {
                 $this->classPathMap[$justFileName] = $path;
             }
         }
         //$this->stopStopwatchLogMillis('ClassAutoloader: Class path map initialized from source directory in:');
+        //$this->log(print_r($this->classPathMap, true));
         $this->cache(self::CACHE_KEY, $this->classPathMap);
     }
 

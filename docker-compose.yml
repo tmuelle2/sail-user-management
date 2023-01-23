@@ -55,7 +55,7 @@ services:
       # Uncomment the below line and modify the first path to match where the theme is checked out to test theme changes
       - ../sailhousing-theme:/var/www/html/wp-content/themes/sailhousing-theme
       # Uncomment the below line to enabled remote debugging (can attach useing VSCode plugin PHP Debug).
-            # - ./xdebug_dev.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+      # - ./xdebug_dev.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
   proxy:
     image: nginx

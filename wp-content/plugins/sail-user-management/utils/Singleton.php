@@ -14,6 +14,9 @@ trait Singleton
 
     private function __construct()
     {
+        if (is_callable('parent::__construct')) {
+            parent::__construct();
+        }
     }
 
     private function __clone()

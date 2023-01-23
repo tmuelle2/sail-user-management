@@ -63,7 +63,7 @@ class FriendshipConnectProfileRegistrationHandler extends SailFormHandler
                 $fcProfile = $fcProfile->updateProfilePic($request, $fcProfile->getDatabaseData()["profilePicture"]);
                 $this->fcDao->updateFcProfileWithUpdatesAlreadySet($fcProfile);
 
-                EmailSender::sendFcProfileCreatedEmail();
+                EmailSender::getInstance()->sendFcProfileCreatedEmail();
 
                 // Success redirect
                 return $this->response200WithClientsideRedirect('/user');
