@@ -7,9 +7,6 @@ use WP_User;
 use Google\Client;
 use Google\Service\Gmail;
 use Google\Service\Gmail\Message;
-use Google\Service\Gmail\MessagePart;
-use Google\Service\Gmail\MessagePartBody;
-use Google\Service\Gmail\MessagePartHeader;
 
 use Sail\Data\Model\User;
 use Sail\Constants;
@@ -17,12 +14,14 @@ use Sail\Constants;
 class EmailSender
 {
     use Singleton;
+    use Logger;
 
     private Client $client;
     private Gmail $gmail;
     private string $fromEmail = 'info@sailhousingsolutions.org';
 
     private function __construct() {
+        $this->log(getenv('GMAIL_API_KEY'));
         $this->client = new Client([
             'application_name' => 'SAIL Housing Solutions Website',
             'scopes' => [Gmail::GMAIL_SEND],
