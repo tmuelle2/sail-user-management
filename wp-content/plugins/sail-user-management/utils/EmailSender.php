@@ -19,9 +19,10 @@ class EmailSender
     private Client $client;
     private Gmail $gmail;
     private string $fromEmail = 'info@sailhousingsolutions.org';
+    private string $api_key;
 
     private function __construct() {
-        $this->log(getenv('GMAIL_API_KEY'));
+        $this->api_key = getenv('GMAIL_API_KEY') ?: 'GMAIL_API_KEY';
         $this->client = new Client([
             'application_name' => 'SAIL Housing Solutions Website',
             'scopes' => [Gmail::GMAIL_SEND],
@@ -33,7 +34,7 @@ class EmailSender
                 "type" => "service_account",
                 "project_id" => getenv('GMAIL_API_PROJECT_ID') ?: 'GMAIL_API_PROJECT_ID',
                 "private_key_id" => getenv('GMAIL_API_KEY_ID') ?: 'GMAIL_API_KEY_ID',
-                "private_key" => getenv('GMAIL_API_KEY') ?: 'GMAIL_API_KEY',
+                "private_key" => $this->api_key,
                 "client_email" => getenv('GMAIL_API_EMAIL') ?: 'GMAIL_API_EMAIL',
                 "client_id" => getenv('GMAIL_API_CLIENT_ID') ?: 'GMAIL_API_CLIENT_ID',
                 "auth_uri" => "https://accounts.google.com/o/oauth2/auth",
@@ -46,6 +47,7 @@ class EmailSender
     }
 
     private function sendEmail(string $toEmail, string $subject, string $message, string $mimeType = 'text/plain') {
+        $this->log($this->api_key);
         //return wp_mail($toEmail, $subject, $message);
         $rawMessage = "From: <{$this->fromEmail}> \r\n";
         $rawMessage .= "To: <{$toEmail}>\r\n";
