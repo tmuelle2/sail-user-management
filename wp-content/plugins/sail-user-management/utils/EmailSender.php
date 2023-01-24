@@ -23,6 +23,8 @@ class EmailSender
 
     private function __construct() {
         $this->api_key = getenv('GMAIL_API_KEY') ?: 'GMAIL_API_KEY';
+        // TODO this is horrible, read the key from a pem file like a normal person
+        $this->api_key = str_replace("\\n", "\n", $this->api_key);
         $this->client = new Client([
             'application_name' => 'SAIL Housing Solutions Website',
             'scopes' => [Gmail::GMAIL_SEND],
