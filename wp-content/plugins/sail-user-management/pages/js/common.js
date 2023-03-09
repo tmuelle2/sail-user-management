@@ -85,7 +85,8 @@ function postData(apiRoute, formData, button) {
 
 window.addEventListener('load', (event) => {
     const sailForms = document.querySelectorAll('form[action]')
-    sailForms.forEach(form => makeFormRestSubmit(form.id,  SAIL.formsApiUrl + form.getAttribute('action')));
+    const filteredForms = sailForms.filter(form => form != null);
+    filteredForms.forEach(form => makeFormRestSubmit(form.id,  SAIL.formsApiUrl + form.getAttribute('action')));
     buttons = [...document.getElementsByTagName('button')];
 });
 
