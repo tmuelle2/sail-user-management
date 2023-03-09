@@ -65,7 +65,7 @@
 	</div>
   <h5 class="field-label required-field">Date of Birth</h5>
   <input type="date" name="dob" id="dob" required><br />
-  <h5 class="field-label required-field">Which of the following best describes your situation? (Check all that apply)</h5>
+  <h5 class="field-label">Which of the following best describes your situation? (Check all that apply)</h5>
   <?php
   echo implode('<br>', FormUtils::SITUATION_CHECKBOXES);
   ?>
