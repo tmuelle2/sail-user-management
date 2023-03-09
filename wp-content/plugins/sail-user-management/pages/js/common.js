@@ -4,11 +4,13 @@ let buttons = [];
 
 function makeFormRestSubmit(formId, apiRoute) {
     const form = document.getElementById(formId);
-    form.onsubmit = (function(event) {
-        const button = buttons.filter(b => b.getAttribute('form') == formId)[0];
-        buttonDisable(button);
-        return formRestSubmit(form, button, apiRoute, event)
-    });
+    if (form !=null) {
+        form.onsubmit = (function(event) {
+            const button = buttons.filter(b => b.getAttribute('form') == formId)[0];
+            buttonDisable(button);
+            return formRestSubmit(form, button, apiRoute, event)
+        }); 
+    }
 }
 
 function buttonDisable(button) {
