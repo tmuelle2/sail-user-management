@@ -11,6 +11,7 @@ use Sail\Utils\EmailSender;
 use Sail\Utils\HtmlUtils;
 use Sail\Utils\Logger;
 use Sail\Utils\Singleton;
+use Sail\Utils\WebUtils;
 
 class UserRegistrationHandler extends SailFormHandler
 {
@@ -50,6 +51,10 @@ class UserRegistrationHandler extends SailFormHandler
             // Success redirect
             return $this->response200WithClientsideRedirect('/upgrade-registration');
         }
+        else {
+            WebUtils::redirect('/error-message?title=Email Is Already Tied to Existing Account&message=The email you are trying to use to register is already tied to an existing account. Go to Login page to access account with existing email.'); 
+ 
+         }
         return $this->response400();
     }
 }
