@@ -53,6 +53,10 @@ class UserLoginHandler extends SailFormHandler
                 }
             }
         }
+        else {
+            WebUtils::redirect('/error-message?title=Email Does Not Exist&message=The email you used to login is not connected to any membership account. please try again with a different email. If you have any questions please contact info@sailhousingsolutions.org') 
+
+        }
         return $this->response400();
     }
 }
