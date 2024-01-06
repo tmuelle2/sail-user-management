@@ -49,7 +49,10 @@ class EmailSender
     }
 
     private function sendEmail(string $toEmail, string $subject, string $message, string $mimeType = 'text/plain') {
-        $this->log($this->api_key);
+        if (PhpUtils::isLocalhost()) {
+            $this->log('Running on local host, skipping email send');
+            return 'Dummy Email Return Value';
+        }
         //return wp_mail($toEmail, $subject, $message);
         $rawMessage = "From: <{$this->fromEmail}> \r\n";
         $rawMessage .= "To: <{$toEmail}>\r\n";

@@ -20,4 +20,9 @@ final class PhpUtils {
         }
         return substr($haystack, -$length) === $needle;
     }
+
+    // Returns true if on localhost
+    public static function isLocalhost($whitelist = ['localhost', '127.0.0.1', '::1']) {
+        return in_array($_SERVER['HTTP_HOST'], $whitelist);
+    }
 }
