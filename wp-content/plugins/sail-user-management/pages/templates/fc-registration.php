@@ -26,6 +26,10 @@ $fcMember = FriendshipConnectDao::getInstance()->getFcProfile();
       <label class="field-label required-field" for="authorized">I am either an individual with a disability and I am my own guardian, or I am a person who is legally authorized to complete this Friendship Connect form on behalf of an individual with a disability. SAIL can publish my data and contact information on the SAIL Friendship Connect page on the SAIL website. I understand that other members of Friendship Connect may contact me directly to discuss an interest in becoming friends and/or roommates.</label>
       <h5 class="field-label">Profile Name (For privacy, we recommend not using last names. Ex: use Jane D. not Jane Doe)</h5>
       <input name="nickname" type="text" class="text-input-field" id="nickname" oninput="onNickNameChange(this.value)" /> <br />
+      <h5 class="field-label">First Name (Not shown to other users)</h5>
+      <input name="firstName" type="text" class="text-input-field" id="firstName" /> <br />
+      <h5 class="field-label">Last Name (Not shown to other users)</h5>
+      <input name="lastName" type="text" class="text-input-field" id="lastName" /> <br />
       <h5 class="field-label required-field">Profile Date of Birth</h5>
       <input type="date" name="dob" id="dob" required><br />
       <h5 class="field-label">Profile Picture</h5>
@@ -73,10 +77,12 @@ $fcMember = FriendshipConnectDao::getInstance()->getFcProfile();
       <h5 class="field-label">Support Requirements or Dietary Restrictions</h5>
       <textarea name="supportRequirements" class="text-input-field" cols="30" rows="2" oninput="onTextFieldChange(this.value, 'supportRequirements')"></textarea><br />
       <p>
-      For the safety and security of those choosing to use Friendship Connect please supply a reference that SAIL can contact. This reference should not be a relative or yourself. Possible references could be a current SAIL member, your Supports Coordinator, a Manager at work, a High School or Post High School Teacher. Please contact your reference and let them know that someone from SAIL will be in contact with them.
+      For the safety and security of those choosing to use Friendship Connect please supply a reference that SAIL can contact. This reference <strong>should not</strong> be a relative or yourself. Possible references could be a current SAIL member, your Supports Coordinator, a Manager at work, a High School or Post High School Teacher. Please contact your reference and let them know that someone from SAIL will be in contact with them.
       </p>
       <h5 class="field-label required-field">What is your Reference's First and Last Name?</h5>
       <input name="referenceName" type="text" class="text-input-field" required /> <br />
+      <h5 class="field-label required-field">What is your relation to your Reference? (ex: Teacher, Supports Coordinator, Work Manager, etc.)</h5>
+      <input name="referenceRelation" type="text" class="text-input-field" required /> <br />
       <h5 class="field-label required-field">What is your Reference's Phone Number?</h5>
       <input name="referencePhoneNumber" type="text" class="text-input-field" required /> <br />
       <h5 class="field-label required-field">What is your Reference's Email?</h5>

@@ -10,6 +10,10 @@
 				<label class="field-label required-field" for="authorized">I am either an individual with a disability and I am my own guardian, or I am a person who is legally authorized to complete this Friendship Connect form on behalf of an individual with a disability. SAIL can publish my data and contact information on the SAIL Friendship Connect page on the SAIL website. I understand that other members of Friendship Connect may contact me directly to discuss an interest in becoming friends and/or roommates.</label>
 				<h5 class="field-label required-field">Profile Name (For privacy, we recommend not using last names. Ex: use Jane D. not Jane Doe)</h5>
 				<input name="nickname" type="text" value="<?php echo $fcProfile->nickname ?>" required class="text-input-field" id="nickname" oninput="onNickNameChange(this.value)" /> <br />
+				<h5 class="field-label required-field">First Name (Not shown to other users)</h5>
+				<input name="firstName" type="text" value="<?php echo $fcProfile->firstName ?>" required class="text-input-field" /> <br />
+				<h5 class="field-label required-field">Last Name (Not shown to other users)</h5>
+				<input name="lastName" type="text" value="<?php echo $fcProfile->lastName ?>" required class="text-input-field" /> <br />
 				<h5 class="field-label required-field">Profile Date of Birth</h5>
       			<input type="date" name="dob" id="dob" value="<?php echo $fcProfile->dob ?>" required><br />
 				<h5 class="field-label">Profile Picture - Leave Empty to Keep Current Profile Picture</h5>
@@ -57,6 +61,8 @@
 				<textarea name="supportRequirements" class="text-input-field" cols="30" rows="2" oninput="onTextFieldChange(this.value, 'supportRequirements')"><?php echo $fcProfile->supportRequirements ?></textarea><br />
 				<h5 class="field-label required-field">What is your SAIL Reference's First and Last Name?</h5>
 				<input name="referenceName" value="<?php echo $fcProfile->referenceName ?>" type="text" class="text-input-field" required /> <br />
+				<h5 class="field-label required-field">What is your relation to your Reference?</h5>
+				<input name="referenceRelation" value="<?php echo $fcProfile->referenceRelation ?>" type="text" class="text-input-field" required /> <br />
 				<h5 class="field-label required-field">What is your SAIL Reference's Phone Number?</h5>
 				<input name="referencePhoneNumber" value="<?php echo $fcProfile->referencePhoneNumber ?>" type="text" class="text-input-field" required /> <br />
 				<h5 class="field-label required-field">What is your SAIL Reference's Email?</h5>
