@@ -52,7 +52,7 @@ abstract class SailDataObject implements \ArrayAccess
     return array_key_exists($offset, $this->db_data);
   }
 
-  public function offsetGet($offset)
+  public function offsetGet($offset): mixed
   {
     return $this->offsetExists($offset) ? $this->db_data[$offset] : false;
   }
