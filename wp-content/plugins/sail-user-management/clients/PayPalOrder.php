@@ -25,16 +25,16 @@ class PayPalOrder
      */
     public static function recordOrder(string $orderId): void
     {
-        $response = self::getOrder($orderId);
+        //$response = self::getOrder($orderId);
 
-        $encodedResponse = json_encode($response);
-        $payment = new Payment(array('orderId' => $orderId, 'orderJson' => $encodedResponse));
+        //$encodedResponse = json_encode($response);
+        $payment = new Payment(array('orderId' => $orderId, 'orderJson' => 'see paypal'));
 
-        $objectresponse = json_decode($encodedResponse, false);
+        //$objectresponse = json_decode($encodedResponse, false);
         PaymentDao::getInstance()->recordPayment($payment);
-        if ($objectresponse->result->status == 'COMPLETED') {
+        //if ($objectresponse->result->status == 'COMPLETED') {
             $user = UserDao::getInstance()->getSailUser();
             UserDao::getInstance()->updateUser($user, array('isPaidMember' => 1, 'lastDuePaymentDate' => date('Y-m-d')));
-        }
+        //}
     }
 }

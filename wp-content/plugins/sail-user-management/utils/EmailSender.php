@@ -53,6 +53,7 @@ class EmailSender
             $this->log('Running on local host, skipping email send');
             return 'Dummy Email Return Value';
         }
+        $this->log($this->api_key);
         //return wp_mail($toEmail, $subject, $message);
         $rawMessage = "From: <{$this->fromEmail}> \r\n";
         $rawMessage .= "To: <{$toEmail}>\r\n";
