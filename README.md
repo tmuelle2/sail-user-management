@@ -6,7 +6,7 @@ The plugin handles most of the functionality for user sign-up and management.
 
 Pushing to mainline will automatically update the site using the [WPPusher plugin](https://wppusher.com/).
 
-Visit [sailhousingsolutions.org](https://sailhousingsolutions.org) to see the website
+Visit [sailhousingsolutions.org](https://sailhousingsolutions.org) to see the website.
 
 ## Development
 
