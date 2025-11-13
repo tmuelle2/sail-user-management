@@ -1,6 +1,6 @@
 <div id="smart-button-container">
 </div>
-<script src="https://www.paypal.com/sdk/js?client-id=<?php echo getenv('PAYPAL_CLIENT_ID') ?: 'PAYPAL-SANDBOX-CLIENT-ID' ?>&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=<?php echo getenv('PAYPAL_CLIENT_ID') ?: 'PAYPAL-SANDBOX-CLIENT-ID' ?>&vault=true&intent=subscription&disable-funding=credit" data-sdk-integration-source="button-factory"></script>
 <script>
     <?php
     use Sail\Data\Dao\UserDao;
