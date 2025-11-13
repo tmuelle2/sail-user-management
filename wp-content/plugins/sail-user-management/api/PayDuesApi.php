@@ -32,11 +32,11 @@ class PayDuesApi extends SailApi
         if (!is_user_logged_in()) {
             return $this->response403();
         }
-        $json = $request->get_json_params();
-        if (!isset($json['id'])) {
-            return $this->response400();
-        }
-        PayPalOrder::recordOrder($json['id']);
+        //$json = $request->get_json_params();
+        //if (!isset($json['id'])) {
+        //    return $this->response400();
+        //}
+        PayPalOrder::recordOrder(date('Y-m-d'));
         return new WP_REST_Response();
     }
 
