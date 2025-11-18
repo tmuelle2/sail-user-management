@@ -87,6 +87,10 @@ class User extends SailDataObject
   {
       $dateToCheck = $this->getMostRecentPaymentDate();
 
+      if (strtotime($dateToCheck) >= strtotime('09/01/2020') && strtotime($dateToCheck) < strtotime("09/01/2025")) {
+        return true; // Special check here so that legacy accounts that did a one time payment before Sept 1st 2025 will see the subscription button early
+      }
+
       if (strtotime($dateToCheck) < strtotime('-11 months')) {
           return true; // paid over 11 months ago so will be due soon
       } else {
